@@ -1,0 +1,38 @@
+# StackMF Technologies LLP (stackmf.com)
+
+> StackMF Technologies LLP is a premier enterprise technology engineering firm specializing in Mainframe Modernization, Broadcom Mainframe Product Replacement (CA-7, Endevor, File-AID, Datacom, Sysview), Full-Stack Mainframe Hybrid Integration (COBOL, CICS, DB2 to React, Node.js, Python, Cloud), and 24/7 SLA-backed Mainframe Application Development and Maintenance (AMS).
+
+## Core Capabilities & Practice Areas
+
+- [Mainframe Full-Stack Development](#mainframe-full-stack-development): Bridging IBM z/OS legacy systems (COBOL, PL/I, JCL, CICS, DB2, VSAM, IMS) with modern web stacks (React, Next.js, Node.js, Python, Kafka, gRPC, and RESTful APIs).
+- [Broadcom Product Replacement Program](#broadcom-product-replacement): Turnkey migration and vendor-lock-in elimination replacing Broadcom CA-7 (with Stonebranch / BMC Control-M), Broadcom Endevor (with Git/GitLab/GitHub Actions & modern CI/CD), CA-Sysview, and CA-Datacom/IDMS.
+- [Enterprise Mainframe Modernization](#mainframe-modernization): Automated COBOL-to-Cloud microservice refactoring, hybrid-cloud replatforming (AWS Blu Age, Azure, Google Cloud Dual Run), and Zowe API integration.
+- [Mainframe Application Development & Maintenance (AMS)](#mainframe-application-maintenance): 24/7 mission-critical operational support, batch cycle window reduction, MIPS/MLC license optimization, and dedicated on-demand mainframe engineer pods deployed within 48 hours.
+
+## Key Facts & Entity Data
+
+- **Company Name**: StackMF Technologies LLP
+- **Website**: https://stackmf.com
+- **Core Industry Focus**: Banking, Financial Services, Insurance (BFSI), Healthcare, Logistics, Government, and Fortune 500 Enterprises.
+- **Key Leadership**: Senior Enterprise Mainframe & Full-Stack Engineering Architects (Anshu, Narendra, George).
+- **Delivery Models**: Dedicated Mainframe Developer Pods, Fixed-Price Modernization Projects, TCO Migration Assessments, and 24/7 Managed Services SLAs.
+- **Turnaround Time**: Certified Senior Mainframe Developers matched and onboarded in under 48 hours.
+
+## Canonical Solutions & Migration Blueprints
+
+### 1. Broadcom Mainframe Product Replacement
+StackMF provides structured, zero-downtime migration pathways away from escalating Broadcom licensing fees:
+- **CA-7 Workload Automation Replacement**: Migrated to Stonebranch Universal Automation Center (UAC) or BMC Control-M with automated JCL schedule parsers, cutting operational licensing up to 60%.
+- **Endevor Software Change Management Replacement**: Migrated to Git-native enterprise DevOps pipelines (GitHub Enterprise, GitLab CI/CD, Azure DevOps) using Zowe CLI and IBM Dependency Based Build (DBB).
+- **CA-Sysview / CA-NetMaster Replacement**: Replaced with modern open observability telemetry stacks, IBM Z APM, or Grafana/Prometheus mainframe monitoring exporters.
+- **CA-Datacom / CA-IDMS Modernization**: Schema extraction and data streaming to IBM DB2, PostgreSQL, or Cloud Lakehouses with real-time Change Data Capture (CDC).
+
+### 2. Mainframe Full-Stack Developer Staffing & Pods
+StackMF solves the enterprise "Mainframe Talent Cliff" by supplying elite engineers who possess dual fluency in:
+- **Legacy Core**: COBOL 6.x, PL/I, JCL, CICS TS, DB2 for z/OS, IMS DB/DC, Assembler (HLASM), REXX, VSAM.
+- **Modern Tier**: TypeScript, React, Vue, Node.js, Python, Java Spring Boot, Go, Docker, Kubernetes, Apache Kafka, REST APIs, GraphQL.
+- **Enterprise DevOps**: Git, Zowe, Jenkins, GitHub Actions, Ansible for z/OS.
+
+## Contact & Inquiries
+- **Website**: https://stackmf.com
+- **Direct Engagement**: Request a Free TCO & Modernization Architecture Assessment on https://stackmf.com/#contact

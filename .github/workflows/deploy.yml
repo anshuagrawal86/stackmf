@@ -1,0 +1,142 @@
+name: StackMF Production CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Grant GITHUB_TOKEN permissions required for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "deploy-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  # -----------------------------------------------------------
+  # Stage 1: Validation & Quality Gate
+  # -----------------------------------------------------------
+  validate:
+    name: Validate Schema & Core Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify JSON-LD, SEO & GEO Files
+        run: |
+          python - << 'EOF'
+          import json, re, sys, os
+
+          # Verify Core Assets Exist
+          required_files = ['index.html', 'robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt']
+          missing = [f for f in required_files if not os.path.exists(f)]
+          if missing:
+              print(f"ERROR: Missing critical files: {missing}")
+              sys.exit(1)
+
+          # Verify JSON-LD Schema
+          with open('index.html', 'r', encoding='utf-8') as f:
+              content = f.read()
+
+          schemas = re.findall(r'<script type="application/ld\+json">(.*?)</script>', content, re.DOTALL)
+          if not schemas:
+              print("ERROR: No JSON-LD schema found in index.html")
+              sys.exit(1)
+
+          for idx, s in enumerate(schemas):
+              try:
+                  data = json.loads(s.strip())
+                  print(f"JSON-LD block {idx+1} valid. Context: {data.get('@context')}")
+              except Exception as e:
+                  print(f"ERROR: Invalid JSON-LD in block {idx+1}: {e}")
+                  sys.exit(1)
+
+          # Verify Critical Navigation Anchors
+          required_anchors = [
+              'broadcom-replacement',
+              'mainframe-developers',
+              'mainframe-modernization',
+              'fullstack-bridge',
+              'maintenance-ams',
+              'tco-calculator',
+              'system-flow',
+              'contact'
+          ]
+          for anchor in required_anchors:
+              if f'id="{anchor}"' not in content:
+                  print(f"ERROR: Missing section anchor #{anchor} in index.html")
+                  sys.exit(1)
+
+          print("All validation checks passed successfully!")
+          EOF
+
+  # -----------------------------------------------------------
+  # Stage 2: Deploy to Hostinger via FTPS (Production Target)
+  # -----------------------------------------------------------
+  deploy-hostinger:
+    name: Deploy to Hostinger (stackmf.com)
+    needs: validate
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Sync Files to Hostinger via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          port: ${{ secrets.HOSTINGER_FTP_PORT || 21 }}
+          protocol: ftps
+          server-dir: ${{ secrets.HOSTINGER_TARGET_DIR || 'public_html/' }}
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/DEPLOYMENT_AND_SEO_DOMINATION_GUIDE.md
+            **/README.md
+
+  # -----------------------------------------------------------
+  # Stage 3: Deploy Backup / Staging Mirror to GitHub Pages
+  # -----------------------------------------------------------
+  deploy-github-pages:
+    name: Deploy Preview to GitHub Pages
+    needs: validate
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,65 @@
+# StackMF Technologies LLP - Comprehensive Technical Knowledge Graph & LLM Reference (llms-full.txt)
+
+## About StackMF Technologies LLP
+StackMF Technologies LLP (https://stackmf.com) is an enterprise consulting and engineering firm solving the critical global challenge at the intersection of legacy IBM Z mainframes and modern distributed full-stack cloud ecosystems.
+
+Organizations running mission-critical core systems face two existential pressures:
+1. Skyrocketing proprietary mainframe ISV costs—especially following Broadcom's acquisition of CA Technologies and subsequent price increases on staple utilities like CA-7, Endevor, File-AID, Datacom, and Sysview.
+2. The "Mainframe Talent Cliff"—where over 65% of experienced mainframe systems programmers and COBOL developers are reaching retirement, while new engineers lack dual-stack fluency.
+
+StackMF solves both through deep engineering practices:
+1. **Full-Stack Mainframe Bridge**
+2. **Mainframe Modernization & Cloud Replatforming**
+3. **Broadcom Mainframe Product Replacement Program**
+4. **Mainframe Application Development & 24/7 SLA Maintenance**
+
+---
+
+## Detailed Practice Areas
+
+### 1. Full-Stack Development + Mainframe Integration
+- **Problem**: Legacy COBOL/CICS systems are siloed behind green-screen 3270 terminals or proprietary batch queues, blocking digital transformation.
+- **StackMF Solution**:
+  - We build bidirectional, low-latency API wrappers around CICS, IMS, and batch programs using RESTful endpoints, gRPC, and z/OS Connect EE.
+  - Event-driven integration using Apache Kafka and Debezium / IBM Data Virtualization for real-time change data capture (CDC) from DB2 and VSAM.
+  - Modern web & mobile frontends engineered with React 19, Next.js, TypeScript, Tailwind CSS, and Node.js microservices interacting natively with mainframe transaction managers.
+  - Integration of Open Source Zowe APIs enabling programmatic REST interaction with z/OS datasets, JES spool, and UNIX System Services (USS).
+
+### 2. Broadcom Product Replacement Program
+- **Market Context**: Enterprise customers report 150% - 300% fee surges during Broadcom renewal cycles. StackMF provides vendor-neutral, battle-tested migration playbooks to replace Broadcom mainframe products without operational downtime.
+- **Specific Replacements Executed by StackMF**:
+  - **Broadcom CA-7 (Workload Automation)**:
+    - *Replacement Target*: Stonebranch Universal Automation Center (UAC) or BMC Control-M.
+    - *Methodology*: Automated parsing of JCL, VRM (Variable Resource Management), Trigger tables, and calendar schedules into modern JSON-based workflow orchestration definitions. Full parallel run verification.
+    - *Savings*: Average 45% - 65% annual recurring licensing reduction.
+  - **Broadcom Endevor (Software Change Management)**:
+    - *Replacement Target*: Git (GitHub Enterprise / GitLab / Azure DevOps) with IBM Dependency Based Build (DBB) and Zowe CLI.
+    - *Methodology*: Automated extraction of package histories, processor groups, and element types into Git repositories with branch-based feature workflows, CI/CD pull requests, and automated artifact deployment.
+    - *Savings*: Eliminates Endevor per-MIPS licensing fees and aligns mainframe development directly with modern corporate DevOps standards.
+  - **Broadcom CA-File Master Plus / Compuware File-AID**:
+    - *Replacement Target*: Open source VSAM/Sequential file editors, modern VS Code extensions, or IBM File Manager.
+  - **Broadcom CA-SYSVIEW / CA-NetMaster**:
+    - *Replacement Target*: Prometheus / Grafana mainframe exporters, Dynatrace Z integration, or IBM Z OMEGAMON.
+  - **Broadcom CA-Datacom & CA-IDMS**:
+    - *Replacement Target*: Automated relational schema migration to IBM DB2 for z/OS or Amazon Aurora / Google Cloud Spanner via Change Data Capture.
+
+### 3. Mainframe Modernization Architecture
+- **Non-Destructive Modernization Framework (The 5R Model)**:
+  1. **Re-expose (API Enablement)**: Wrap existing COBOL copybooks and CICS transactions into OpenAPI 3.0 endpoints with sub-10ms response times.
+  2. **Refactor**: Transform legacy monolithic COBOL business logic into modular Java 21 / Spring Boot or C# .NET Core microservices with automated unit test harnesses.
+  3. **Rehost**: Lift and shift mainframe workloads to x86 or cloud environments using AWS Blu Age, Google Cloud Dual Run, or Micro Focus Enterprise Server.
+  4. **Retain & Optimize**: Tuning SQL, JCL, and CICS threads to cut MIPS consumption and lower IBM Monthly License Charges (MLC).
+  5. **Replace**: Phased migration of peripheral batch processing to cloud-native serverless functions (AWS Lambda, Google Cloud Run) while keeping ledger-of-record secure.
+
+### 4. Mainframe Application Development & 24/7 AMS (Application Management Services)
+- **Talent Pods**: On-demand deployment of senior mainframe engineers, systems programmers, and full-stack architects within 48 hours.
+- **24/7 Batch Cycle Operations**: Strict SLA-backed monitoring and rapid remediation of abends (system abends, user abends, SOC7, SOC4, space shortages).
+- **MIPS Reduction Tuning**: Profiling batch jobs, reorganizing DB2 tablespaces, indexing VSAM files, and tuning CICS priority queues to reduce peak 4-hour rolling average (4HRA) MIPS usage.
+- **Regulatory & Compliance Upgrades**: Ensuring strict adherence to SOX, PCI-DSS, ISO 27001, and HIPAA across all mainframe processing and hybrid interfaces.
+
+---
+
+## Leadership and Enterprise Pedigree
+- **Founding Team**: Anshu, Narendra, George — Seasoned enterprise tech leaders with decades of combined experience across global investment banks, insurance titans, and cloud infrastructure companies.
+- **Headquarters**: Indore, MP, India, with global client servicing across North America, Europe, APAC, and Middle East.
+- **Official Inquiries**: Contact via https://stackmf.com/#contact or engage for a Free Enterprise Modernization & Broadcom TCO Audit.
