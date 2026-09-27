@@ -30,9 +30,14 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install Python Dependencies
+        run: |
+          pip install --no-cache-dir pycryptodomex
+
       - name: Run Daily Blog Publisher Agent
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         run: |
           python scripts/daily_blog_publisher.py
 
@@ -43,7 +48,7 @@ jobs:
           
           if [ -n "$(git status --porcelain)" ]; then
             echo "New blog content detected. Committing and pushing to main..."
-            git add blog/ sitemap.xml llms.txt blog-config.json
+            git add blog/ sitemap.xml llms.txt llms-full.txt blog-config.json
             git commit -m "[auto-blog] New Daily Mainframe Deep-Dive Knowledge Base Post" || true
             git push origin main
             echo "Successfully pushed daily post to main branch."

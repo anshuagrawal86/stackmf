@@ -326,14 +326,19 @@ def publish_daily_blog():
             print(f"No template available for {target_topic['slug']}. Skipping.")
             sys.exit(0)
 
-    # 4. Write article HTML
-    article_html = generate_article_page(article_obj)
+    # 4. Load comprehensive article corpus to maintain internal link graphs and schema breadcrumbs
+    from blogs_data import ARTICLES
+    from blogs_data_additional import ADDITIONAL_ARTICLES
+    all_articles = [article_obj] + ARTICLES + ADDITIONAL_ARTICLES
+
+    # 5. Write article HTML
+    article_html = generate_article_page(article_obj, all_articles)
     article_path = os.path.join(BLOG_DIR, f"{article_obj['slug']}.html")
     with open(article_path, 'w', encoding='utf-8') as f:
         f.write(article_html)
     print(f"Published: blog/{article_obj['slug']}.html")
 
-    # 5. Update posts list
+    # 6. Update posts list
     new_meta = {
         "slug": article_obj['slug'],
         "title": article_obj['title'],
@@ -347,20 +352,138 @@ def publish_daily_blog():
     with open(POSTS_FILE, 'w', encoding='utf-8') as f:
         json.dump(updated_posts, f, indent=2)
 
-    # 6. Rebuild blog/index.html
-    from blogs_data import ARTICLES
-    from blogs_data_additional import ADDITIONAL_ARTICLES
-    all_articles = [article_obj] + ARTICLES + ADDITIONAL_ARTICLES
+    # 7. Rebuild blog/index.html
     index_html = generate_blog_index(all_articles)
     with open(os.path.join(BLOG_DIR, "index.html"), 'w', encoding='utf-8') as f:
         f.write(index_html)
     print("Rebuilt: blog/index.html")
 
-    # 7. Update sitemap & llms
-    update_sitemap([article_obj])
-    update_llms([article_obj])
+    # 8. Update sitemap & llms with full article library
+    update_sitemap(all_articles)
+    update_llms(all_articles)
 
-    print(f"SUCCESS: Daily blog '{article_obj['title']}' published successfully for {today_str}!")
+    # 9. Automated Search Engine Indexing Push (Google Indexing API & IndexNow / Bing / Copilot)
+    article_url = f"https://www.stackmf.com/blog/{article_obj['slug']}.html"
+    push_urls_to_search_engines([
+        article_url,
+        "https://www.stackmf.com/blog/",
+        "https://www.stackmf.com/"
+    ])
+
+    print(f"SUCCESS: Daily blog '{article_obj['title']}' published and queued for search indexing for {today_str}!")
+
+def push_urls_to_search_engines(urls):
+    """
+    Submits newly generated URLs to IndexNow (Bing/Copilot/Perplexity) and
+    Google Indexing API (if GCP credentials exist in env or local key path).
+    100% Free Tier compliant.
+    """
+    print(f"\n[SEO Automation] Pushing {len(urls)} URLs to search engine indexing APIs...")
+
+    # 1. IndexNow (Bing, Microsoft Copilot, Perplexity, Naver, Seznam) - Instant & Key-based
+    try:
+        indexnow_payload = {
+            'host': 'www.stackmf.com',
+            'key': 'stackmf2026geoindexkey',
+            'keyLocation': 'https://www.stackmf.com/stackmf2026geoindexkey.txt',
+            'urlList': urls
+        }
+        req_in = urllib.request.Request(
+            'https://api.indexnow.org/indexnow',
+            data=json.dumps(indexnow_payload).encode('utf-8'),
+            headers={'Content-Type': 'application/json; charset=utf-8'}
+        )
+        with urllib.request.urlopen(req_in, timeout=15) as resp:
+            print(f"[IndexNow] Successfully pushed {len(urls)} URLs (HTTP {resp.status})")
+    except Exception as e:
+        print(f"[IndexNow] Notice: {e}")
+
+    # 2. Google Indexing API (Direct push to Googlebot crawl queue)
+    sa_info = None
+    gcp_sa_key = os.environ.get("GCP_SA_KEY")
+    local_key_path = r"C:\Users\Anshu\Downloads\serviceapartments-8c9df8c38105.json"
+
+    if gcp_sa_key and gcp_sa_key.strip():
+        try:
+            sa_info = json.loads(gcp_sa_key.strip())
+        except Exception:
+            if os.path.exists(gcp_sa_key.strip()):
+                with open(gcp_sa_key.strip(), 'r', encoding='utf-8') as f:
+                    sa_info = json.load(f)
+    elif os.path.exists(local_key_path):
+        try:
+            with open(local_key_path, 'r', encoding='utf-8') as f:
+                sa_info = json.load(f)
+        except Exception:
+            pass
+
+    if sa_info and 'private_key' in sa_info:
+        try:
+            import time
+            import base64
+            try:
+                from Cryptodome.PublicKey import RSA
+                from Cryptodome.Signature import pkcs1_15
+                from Cryptodome.Hash import SHA256
+            except ImportError:
+                from Crypto.PublicKey import RSA
+                from Crypto.Signature import pkcs1_15
+                from Crypto.Hash import SHA256
+
+            now = int(time.time())
+            header = {'alg': 'RS256', 'typ': 'JWT'}
+            payload = {
+                'iss': sa_info['client_email'],
+                'scope': 'https://www.googleapis.com/auth/indexing',
+                'aud': 'https://oauth2.googleapis.com/token',
+                'exp': now + 3600,
+                'iat': now
+            }
+
+            def b64url(data):
+                return base64.urlsafe_b64encode(data).decode('utf-8').rstrip('=')
+
+            segments = [
+                b64url(json.dumps(header).encode('utf-8')),
+                b64url(json.dumps(payload).encode('utf-8'))
+            ]
+            signing_input = '.'.join(segments).encode('utf-8')
+            key = RSA.import_key(sa_info['private_key'])
+            h = SHA256.new(signing_input)
+            signature = pkcs1_15.new(key).sign(h)
+            jwt_token = '.'.join(segments) + '.' + b64url(signature)
+
+            data = urllib.parse.urlencode({
+                'grant_type': 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+                'assertion': jwt_token
+            }).encode('utf-8')
+
+            req_token = urllib.request.Request(
+                'https://oauth2.googleapis.com/token',
+                data=data,
+                headers={'Content-Type': 'application/x-www-form-urlencoded'}
+            )
+            with urllib.request.urlopen(req_token, timeout=15) as resp:
+                token = json.load(resp)['access_token']
+
+            for u in urls:
+                pub_body = {'url': u, 'type': 'URL_UPDATED'}
+                req_pub = urllib.request.Request(
+                    'https://indexing.googleapis.com/v3/urlNotifications:publish',
+                    data=json.dumps(pub_body).encode('utf-8'),
+                    headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'}
+                )
+                try:
+                    with urllib.request.urlopen(req_pub, timeout=10) as resp:
+                        res = json.load(resp)
+                        print(f"[Google Indexing API] Successfully queued: {u}")
+                except Exception as ex:
+                    err_msg = ex.read().decode('utf-8') if hasattr(ex, 'read') else str(ex)
+                    print(f"[Google Indexing API] Warning for {u}: {err_msg}")
+        except Exception as e:
+            print(f"[Google Indexing API] Error: {e}")
+    else:
+        print("[Google Indexing API] Notice: GCP_SA_KEY secret not detected; IndexNow queued.")
 
 if __name__ == '__main__':
     publish_daily_blog()
