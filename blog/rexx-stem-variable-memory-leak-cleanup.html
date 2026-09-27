@@ -4,27 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF Mainframe Knowledge Base</title>
-  <meta name="title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF">
-  <meta name="description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
-  <meta name="keywords" content="DB2, Plan Stability, REBIND, Access Paths, APREUSE, PLANMGMT, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <title>Preventing Memory Leaks and TSO/E Exhaustion in High-Volume Enterprise REXX Automation | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="Preventing Memory Leaks and TSO/E Exhaustion in High-Volume Enterprise REXX Automation | StackMF">
+  <meta name="description" content="REXX stem variables (e.g. RECORD.i) allocate virtual memory dynamically. In long-running automation loops processing millions of records, failing to drop stems causes virtual storage exhaustion and TSO/E ABEND S878. Learn memory management best practices in REXX.">
+  <meta name="keywords" content="REXX, Memory Leak, Stem Variables, DROP, TSO/E, Performance, mainframe modernization, cobol abend, z/os debugging, stackmf">
   <meta name="author" content="StackMF Mainframe Architecture Pod">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <link rel="canonical" href="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
+  <link rel="canonical" href="https://stackmf.com/blog/rexx-stem-variable-memory-leak-cleanup.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
-  <meta property="og:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta property="og:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta property="og:url" content="https://stackmf.com/blog/rexx-stem-variable-memory-leak-cleanup.html">
+  <meta property="og:title" content="Preventing Memory Leaks and TSO/E Exhaustion in High-Volume Enterprise REXX Automation">
+  <meta property="og:description" content="REXX stem variables (e.g. RECORD.i) allocate virtual memory dynamically. In long-running automation loops processing millions of records, failing to drop stems causes virtual storage exhaustion and TSO/E ABEND S878. Learn memory management best practices in REXX.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
-  <meta property="article:section" content="DB2 SQL & Performance">
+  <meta property="article:section" content="DevOps & Automation">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta name="twitter:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta name="twitter:title" content="Preventing Memory Leaks and TSO/E Exhaustion in High-Volume Enterprise REXX Automation">
+  <meta name="twitter:description" content="REXX stem variables (e.g. RECORD.i) allocate virtual memory dynamically. In long-running automation loops processing millions of records, failing to drop stems causes virtual storage exhaustion and TSO/E ABEND S878. Learn memory management best practices in REXX.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,9 +79,9 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND",
-  "description": "Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.",
-  "url": "https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html",
+  "headline": "Preventing Memory Leaks and TSO/E Exhaustion in High-Volume Enterprise REXX Automation",
+  "description": "REXX stem variables (e.g. RECORD.i) allocate virtual memory dynamically. In long-running automation loops processing millions of records, failing to drop stems causes virtual storage exhaustion and TSO/E ABEND S878. Learn memory management best practices in REXX.",
+  "url": "https://stackmf.com/blog/rexx-stem-variable-memory-leak-cleanup.html",
   "datePublished": "2026-09-27T08:00:00+00:00",
   "dateModified": "2026-09-27T08:00:00+00:00",
   "inLanguage": "en",
@@ -100,15 +100,15 @@
     }
   },
   "about": [
-    "DB2 SQL & Performance",
-    "DB2",
-    "Plan Stability",
-    "REBIND",
-    "Access Paths",
-    "APREUSE",
-    "PLANMGMT"
+    "DevOps & Automation",
+    "REXX",
+    "Memory Leak",
+    "Stem Variables",
+    "DROP",
+    "TSO/E",
+    "Performance"
   ],
-  "articleBody": "Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:\n```text\nDSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS\nPLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN\n```\nDatabase administrators face severe business escalation while attempting to pinpoint which packages regressed. During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression. ### 1. Bind with PLANMGMT(EXTENDED)\nConfigure DB2 Plan Management to retain current, previous, and original package copies:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       PLANMGMT(EXTENDED) -\n       APREUSE(WARN)\n```\n\n### 2. Instant Access Path Fallback via SWITCH\nIf a newly bound package exhibits poor response times, instantly revert without recompiling:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       SWITCH(PREVIOUS)\n```\nWithin 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!\n\n### 3. Verify Package Copies in Catalog\nQuery package stability history:\n```sql\nSELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS\nFROM SYSIBM.SYSPACKAGE\nWHERE NAME = 'CUST01';\n```"
+  "articleBody": "An automated REXX script parsing syslog or SMF records runs for 2 hours and crashes with:\n```text\nIRX0250E User storage capacity exceeded.\nSYSTEM COMPLETION CODE=878  REASON CODE=00000010\nError running SYSLOGP, line 142: Out of memory.\n```\nThe monitoring automation dies, blinding operations teams. REXX manages variable memory in the Language Environment / TSO heap:\n- Every stem assignment (`LINE.i = record`) creates a new symbol table entry and allocates memory buffers.\n- Setting `LINE.0 = 0` only resets the count variable; it **does NOT free** the memory buffers held by `LINE.1` through `LINE.100000`!\n- Over iterations, memory accumulates until 24-bit/31-bit storage is exhausted. ### 1. Use the REXX DROP Statement to Free Memory\nAlways explicitly drop stem variables when a processing batch finishes:\n```rexx\n/* Process chunk of records */\nDo i = 1 To line_count\n  /* Process LINE.i */\nEnd\n\n/* CORRECT: Frees all allocated memory in the stem */\nDrop LINE.\n```\n\n### 2. Process Records in Bounded Batches\nAvoid reading 2 million lines into memory at once. Process in chunks:\n```rexx\n/* Bounded chunk processing */\nDo While Lines(input_file) > 0\n  chunk_count = 0\n  Do While Lines(input_file) > 0 & chunk_count < 1000\n    chunk_count = chunk_count + 1\n    BUFFER.chunk_count = Linein(input_file)\n  End\n\n  /* Process the 1000 lines */\n  Call Process_Batch chunk_count\n\n  /* Release memory */\n  Drop BUFFER.\nEnd\n```\n\n### 3. Clear Subroutines with PROCEDURE EXPOSE\nLimit variable scope in functions:\n```rexx\nProcess_Record: Procedure Expose shared_config.\n  /* Local variables are automatically freed upon RETURN */\n  Parse Arg raw_line\n  /* ... */\n  Return 0\n```"
 }
   </script>
 </head>
@@ -153,13 +153,13 @@
       <span>/</span>
       <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
       <span>/</span>
-      <span class="text-neon-cyan">DB2 SQL & Performance</span>
+      <span class="text-neon-cyan">DevOps & Automation</span>
     </nav>
 
     <!-- Header Badges -->
     <div class="flex items-center gap-3 flex-wrap mb-4">
       <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
-        DB2 SQL & Performance
+        DevOps & Automation
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
         <i class="fa-regular fa-clock"></i> 9 min read
@@ -171,7 +171,7 @@
 
     <!-- Title -->
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
-      Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND
+      Preventing Memory Leaks and TSO/E Exhaustion in High-Volume Enterprise REXX Automation
     </h1>
 
     <!-- Author & Trust Pod -->
@@ -198,7 +198,7 @@
         <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
       </div>
       <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
-        Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.
+        REXX stem variables (e.g. RECORD.i) allocate virtual memory dynamically. In long-running automation loops processing millions of records, failing to drop stems causes virtual storage exhaustion and TSO/E ABEND S878. Learn memory management best practices in REXX.
       </p>
     </div>
 
@@ -209,7 +209,7 @@
         The Real-World Developer Incident
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">An automated REXX script parsing syslog or SMF records runs for 2 hours and crashes with:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
@@ -220,10 +220,11 @@
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS
-PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>IRX0250E User storage capacity exceeded.
+SYSTEM COMPLETION CODE=878  REASON CODE=00000010
+Error running SYSLOGP, line 142: Out of memory.</code></pre>
         </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Database administrators face severe business escalation while attempting to pinpoint which packages regressed.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The monitoring automation dies, blinding operations teams.</p>
       </div>
     </section>
 
@@ -234,7 +235,12 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression.</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">REXX manages variable memory in the Language Environment / TSO heap:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Every stem assignment (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LINE.i = record</code>) creates a new symbol table entry and allocates memory buffers.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Setting <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LINE.0 = 0</code> only resets the count variable; it <strong class="text-white font-semibold">does NOT free</strong> the memory buffers held by <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LINE.1</code> through <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LINE.100000</code>!</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Over iterations, memory accumulates until 24-bit/31-bit storage is exhausted.</span></li>
+</ul>
       </div>
     </section>
 
@@ -245,53 +251,70 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Step-by-Step Production Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Bind with PLANMGMT(EXTENDED)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Configure DB2 Plan Management to retain current, previous, and original package copies:</p>
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Use the REXX DROP Statement to Free Memory</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Always explicitly drop stem variables when a processing batch finishes:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">rexx</span>
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       PLANMGMT(EXTENDED) -
-       APREUSE(WARN)</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>/* Process chunk of records */
+Do i = 1 To line_count
+  /* Process LINE.i */
+End
+
+/* CORRECT: Frees all allocated memory in the stem */
+Drop LINE.</code></pre>
         </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Instant Access Path Fallback via SWITCH</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If a newly bound package exhibits poor response times, instantly revert without recompiling:</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Process Records in Bounded Batches</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Avoid reading 2 million lines into memory at once. Process in chunks:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">rexx</span>
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       SWITCH(PREVIOUS)</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>/* Bounded chunk processing */
+Do While Lines(input_file) &gt; 0
+  chunk_count = 0
+  Do While Lines(input_file) &gt; 0 &amp; chunk_count &lt; 1000
+    chunk_count = chunk_count + 1
+    BUFFER.chunk_count = Linein(input_file)
+  End
+
+  /* Process the 1000 lines */
+  Call Process_Batch chunk_count
+
+  /* Release memory */
+  Drop BUFFER.
+End</code></pre>
         </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Within 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Verify Package Copies in Catalog</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Query package stability history:</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Clear Subroutines with PROCEDURE EXPOSE</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Limit variable scope in functions:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">sql</span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">rexx</span>
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS
-FROM SYSIBM.SYSPACKAGE
-WHERE NAME = 'CUST01';</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>Process_Record: Procedure Expose shared_config.
+  /* Local variables are automatically freed upon RETURN */
+  Parse Arg raw_line
+  /* ... */
+  Return 0</code></pre>
         </div>
       </div>
     </section>
@@ -303,7 +326,7 @@ WHERE NAME = 'CUST01';</code></pre>
         Architectural Prevention & Performance Tuning Checklist
       </h3>
       <ul class="space-y-3">
-        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Always rebind critical production packages with PLANMGMT(EXTENDED).</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use APREUSE(ERROR) or APREUSE(WARN) to detect unexpected access path deviations before cutover.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Test rebinds in a cloned pre-production subsystem before executing across production.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use DB2 Query Capture and Comparison utilities to validate elapsed-time impact.</span></li>
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Always use `Drop STEM.` (with trailing period) to free stem memory arrays.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Scope subroutines with `PROCEDURE` to avoid polluting the global variable dictionary.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Monitor TSO region sizes in batch JCL (specify `REGION=64M` or higher for heavy scripting).</span></li>
       </ul>
     </section>
 
@@ -320,27 +343,18 @@ WHERE NAME = 'CUST01';</code></pre>
         <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS Managing Performance: Access Path Stability</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM TSO/E REXX Reference: DROP Instruction</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=performance-access-path-stability" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://www.ibm.com/docs/en/zos/latest?topic=instructions-drop" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
             </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS REBIND PACKAGE Command</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Mainframe Core Engineering Services</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=commands-rebind-package-db2" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
-                <span>Docs</span>
-                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-              </a>
-            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
-              <div class="flex items-center gap-3">
-                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Enterprise Mainframe Modernization Services</span>
-              </div>
-              <a href="https://stackmf.com/#mainframe-modernization" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://stackmf.com/#mainframe-developers" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
@@ -351,7 +365,7 @@ WHERE NAME = 'CUST01';</code></pre>
     <!-- Tags -->
     <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
       <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
-      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">DB2</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Plan Stability</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">REBIND</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Access Paths</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">APREUSE</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">PLANMGMT</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">REXX</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Memory Leak</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Stem Variables</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">DROP</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">TSO/E</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Performance</span>
     </div>
 
     <!-- Bottom Advisory Banner CTA -->

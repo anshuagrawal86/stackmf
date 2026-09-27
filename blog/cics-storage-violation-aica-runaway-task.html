@@ -108,7 +108,7 @@
     "Subpool",
     "Dump Analysis"
   ],
-  "articleBody": "High-priority CICS transactions suddenly terminate with:\n```text\nDFHPC2034 10:14:22 CICS01 TASK 04921 TRANSACTION TXOR ABENDED AICA.\n          TIME LIMIT EXCEEDED WITHOUT RETURNING CONTROL TO CICS.\n```\nIn other instances, the entire CICS region writes message `DFHSR0601 A storage violation has occurred in module DFHXMDS`, forcing emergency region cycling during peak trading hours. CICS uses cooperative multitasking:\n1. **AICA (Runaway Task)**: If an application COBOL program enters an infinite `PERFORM` loop or scans large tables without issuing a CICS command (such as `EXEC CICS DELAY`, `EXEC CICS RECEIVE`, or `EXEC CICS SUSPEND`), the CICS dispatcher timer expires (defined by `RUNAWAY` interval in the SIT or transaction definition, typically 5000ms), and CICS purges the task.\n2. **Storage Violation**: An application program writes beyond the boundary of its allocated `DFHCOMMAREA`, CICS `CONTAINER`, or `GETMAIN` storage, overwriting the Storage Accounting Area (SAA) check-bytes of an adjacent task's memory. ### 1. Locate the Infinite Loop in CICS Dump\nCheck the offset where the task was interrupted:\n```text\nPSW AT TIME OF INTERRUPT: 078D1000 84C2145A\nTASK CPU TIME USED: 5.002 SECONDS (EXCEEDED RUNAWAY 5000MS)\n```\nMap the offset `84C2145A` to the compiler listing. Typically, an un-incremented counter in an `UNTIL` loop is the culprit:\n```cobol\n      * BUGGY CODE\n       PERFORM UNTIL WS-RECORD-FOUND = 'Y'\n           READ RECORD ...\n      * Missing condition advance or exit trigger!\n       END-PERFORM.\n```\n\n### 2. Yield CPU Control in Long-Running Transactions\nIf a transaction must process a large array in memory, issue periodic yields:\n```cobol\n       ADD 1 TO WS-CHUNK-COUNT\n       IF WS-CHUNK-COUNT > 500\n           EXEC CICS SUSPEND END-EXEC\n           MOVE 0 TO WS-CHUNK-COUNT\n       END-IF.\n```\n\n### 3. Activate CICS Storage Protection & Transaction Isolation\nIn the CICS System Initialization Table (SIT):\n- Set `STGPROT=YES`\n- Set `TRANISO=YES`\nThis prevents an errant User-Key transaction from corrupting other concurrent tasks or CICS system subpools!"
+  "articleBody": "High-priority CICS transactions suddenly terminate with:\n```text\nDFHPC2034 10:14:22 CICS01 TASK 04921 TRANSACTION TXOR ABENDED AICA.\n          TIME LIMIT EXCEEDED WITHOUT RETURNING CONTROL TO CICS.\n```\nIn other instances, the entire CICS region writes message DFHSR0601 A storage violation has occurred in module DFHXMDS, forcing emergency region cycling during peak trading hours. CICS uses cooperative multitasking:\n1. **AICA (Runaway Task)**: If an application COBOL program enters an infinite PERFORM loop or scans large tables without issuing a CICS command (such as EXEC CICS DELAY, EXEC CICS RECEIVE, or EXEC CICS SUSPEND), the CICS dispatcher timer expires (defined by RUNAWAY interval in the SIT, typically 5000ms), and CICS purges the task.\n2. **Storage Violation**: An application program writes beyond the boundary of its allocated DFHCOMMAREA, CICS CONTAINER, or GETMAIN storage, overwriting the Storage Accounting Area (SAA) check-bytes of an adjacent task's memory. ### 1. Locate the Infinite Loop in CICS Dump\nCheck the offset where the task was interrupted:\n```text\nPSW AT TIME OF INTERRUPT: 078D1000 84C2145A\nTASK CPU TIME USED: 5.002 SECONDS (EXCEEDED RUNAWAY 5000MS)\n```\nMap the offset 84C2145A to the compiler listing. Typically, an un-incremented counter in an UNTIL loop is the culprit.\n\n### 2. Yield CPU Control in Long-Running Transactions\nIf a transaction must process a large array in memory, issue periodic yields:\n```cobol\n       ADD 1 TO WS-CHUNK-COUNT\n       IF WS-CHUNK-COUNT > 500\n           EXEC CICS SUSPEND END-EXEC\n           MOVE 0 TO WS-CHUNK-COUNT\n       END-IF.\n```\n\n### 3. Activate CICS Storage Protection & Transaction Isolation\nIn the CICS System Initialization Table (SIT):\n- Set STGPROT=YES\n- Set TRANISO=YES\nThis prevents an errant User-Key transaction from corrupting other concurrent tasks or CICS system subpools!"
 }
   </script>
 </head>
@@ -223,7 +223,7 @@
           <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DFHPC2034 10:14:22 CICS01 TASK 04921 TRANSACTION TXOR ABENDED AICA.
           TIME LIMIT EXCEEDED WITHOUT RETURNING CONTROL TO CICS.</code></pre>
         </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In other instances, the entire CICS region writes message <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DFHSR0601 A storage violation has occurred in module DFHXMDS</code>, forcing emergency region cycling during peak trading hours.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In other instances, the entire CICS region writes message DFHSR0601 A storage violation has occurred in module DFHXMDS, forcing emergency region cycling during peak trading hours.</p>
       </div>
     </section>
 
@@ -235,8 +235,8 @@
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
         <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">CICS uses cooperative multitasking:</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">AICA (Runaway Task)</strong>: If an application COBOL program enters an infinite <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PERFORM</code> loop or scans large tables without issuing a CICS command (such as <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXEC CICS DELAY</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXEC CICS RECEIVE</code>, or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXEC CICS SUSPEND</code>), the CICS dispatcher timer expires (defined by <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RUNAWAY</code> interval in the SIT or transaction definition, typically 5000ms), and CICS purges the task.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Storage Violation</strong>: An application program writes beyond the boundary of its allocated <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DFHCOMMAREA</code>, CICS <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CONTAINER</code>, or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">GETMAIN</code> storage, overwriting the Storage Accounting Area (SAA) check-bytes of an adjacent task's memory.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">AICA (Runaway Task)</strong>: If an application COBOL program enters an infinite PERFORM loop or scans large tables without issuing a CICS command (such as EXEC CICS DELAY, EXEC CICS RECEIVE, or EXEC CICS SUSPEND), the CICS dispatcher timer expires (defined by RUNAWAY interval in the SIT, typically 5000ms), and CICS purges the task.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Storage Violation</strong>: An application program writes beyond the boundary of its allocated DFHCOMMAREA, CICS CONTAINER, or GETMAIN storage, overwriting the Storage Accounting Area (SAA) check-bytes of an adjacent task's memory.</p>
       </div>
     </section>
 
@@ -262,23 +262,7 @@
           <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>PSW AT TIME OF INTERRUPT: 078D1000 84C2145A
 TASK CPU TIME USED: 5.002 SECONDS (EXCEEDED RUNAWAY 5000MS)</code></pre>
         </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Map the offset <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">84C2145A</code> to the compiler listing. Typically, an un-incremented counter in an <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">UNTIL</code> loop is the culprit:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>* BUGGY CODE
-       PERFORM UNTIL WS-RECORD-FOUND = 'Y'
-           READ RECORD ...
-      * Missing condition advance or exit trigger!
-       END-PERFORM.</code></pre>
-        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Map the offset 84C2145A to the compiler listing. Typically, an un-incremented counter in an UNTIL loop is the culprit.</p>
 <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Yield CPU Control in Long-Running Transactions</h3>
 <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If a transaction must process a large array in memory, issue periodic yields:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
@@ -300,8 +284,8 @@ TASK CPU TIME USED: 5.002 SECONDS (EXCEEDED RUNAWAY 5000MS)</code></pre>
 <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Activate CICS Storage Protection & Transaction Isolation</h3>
 <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In the CICS System Initialization Table (SIT):</p>
 <ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Set <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">STGPROT=YES</code></span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Set <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TRANISO=YES</code></span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Set STGPROT=YES</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Set TRANISO=YES</span></li>
 </ul>
 <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">This prevents an errant User-Key transaction from corrupting other concurrent tasks or CICS system subpools!</p>
       </div>
@@ -314,7 +298,7 @@ TASK CPU TIME USED: 5.002 SECONDS (EXCEEDED RUNAWAY 5000MS)</code></pre>
         Architectural Prevention & Performance Tuning Checklist
       </h3>
       <ul class="space-y-3">
-        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Set appropriate `RUNAWAY` transaction limits in CSD definitions (e.g., 2000-5000ms).</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Enable CICS Storage Protection (`STGPROT=YES`) across all production regions.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Verify subscript boundaries on all `MOVE` statements to avoid SAA header corruption.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Include `EXEC CICS SUSPEND` in CPU-bound batch-in-online algorithms.</span></li>
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Set appropriate RUNAWAY transaction limits in CSD definitions (e.g., 2000-5000ms).</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Enable CICS Storage Protection (STGPROT=YES) across all production regions.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Verify subscript boundaries on all MOVE statements to avoid SAA header corruption.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Include EXEC CICS SUSPEND in CPU-bound batch-in-online algorithms.</span></li>
       </ul>
     </section>
 

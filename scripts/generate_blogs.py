@@ -3,6 +3,7 @@ import re
 import json
 import datetime
 from blogs_data import ARTICLES
+from blogs_data_additional import ADDITIONAL_ARTICLES
 
 SITE_URL = "https://stackmf.com"
 BLOG_DIR = os.path.join(os.path.dirname(__file__), "..", "blog")
@@ -779,10 +780,20 @@ StackMF publishes daily production troubleshooting guides, ABEND resolution runb
         print("Updated llms.txt with Knowledge Base section.")
 
 def main():
-    print(f"Generating {len(ARTICLES)} blog articles...")
+    # Combine all article collections
+    raw_combined = ARTICLES + ADDITIONAL_ARTICLES
+    seen_slugs = set()
+    all_unique_articles = []
+
+    for a in raw_combined:
+        if a['slug'] not in seen_slugs:
+            seen_slugs.add(a['slug'])
+            all_unique_articles.append(a)
+
+    print(f"Generating {len(all_unique_articles)} comprehensive mainframe blog articles...")
 
     # Write each article HTML
-    for a in ARTICLES:
+    for a in all_unique_articles:
         filename = f"{a['slug']}.html"
         filepath = os.path.join(BLOG_DIR, filename)
         html = generate_article_page(a)
@@ -790,8 +801,8 @@ def main():
             f.write(html)
         print(f"Generated: blog/{filename}")
 
-    # Write blog/index.html
-    index_html = generate_blog_index(ARTICLES)
+    # Write blog/index.html with all articles
+    index_html = generate_blog_index(all_unique_articles)
     with open(os.path.join(BLOG_DIR, "index.html"), 'w', encoding='utf-8') as f:
         f.write(index_html)
     print("Generated: blog/index.html")
@@ -805,18 +816,18 @@ def main():
         "tags": a['tags'],
         "reading_time": a['reading_time'],
         "tldr": a['tldr']
-    } for a in ARTICLES]
+    } for a in all_unique_articles]
     with open(os.path.join(BLOG_DIR, "posts.json"), 'w', encoding='utf-8') as f:
         json.dump(posts_meta, f, indent=2)
     print("Generated: blog/posts.json")
 
     # Update sitemap
-    update_sitemap(ARTICLES)
+    update_sitemap(all_unique_articles)
 
     # Update llms.txt
-    update_llms(ARTICLES)
+    update_llms(all_unique_articles)
 
-    print("All 25 initial blogs built and cataloged successfully!")
+    print(f"SUCCESS: All {len(all_unique_articles)} mainframe blogs built and cataloged successfully!")
 
 if __name__ == '__main__':
     main()

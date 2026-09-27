@@ -4,27 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF Mainframe Knowledge Base</title>
-  <meta name="title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF">
-  <meta name="description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
-  <meta name="keywords" content="DB2, Plan Stability, REBIND, Access Paths, APREUSE, PLANMGMT, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <title>Diagnosing ABEND S806-04: Resolving Missing Load Modules in JOBLIB, STEPLIB, and LPA | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="Diagnosing ABEND S806-04: Resolving Missing Load Modules in JOBLIB, STEPLIB, and LPA | StackMF">
+  <meta name="description" content="ABEND S806 (Reason 04) indicates the MVS program fetch mechanism searched all designated libraries (STEPLIB, JOBLIB, LPA, LNKLST) but could not locate the requested program member. Discover search order hierarchy and resolution techniques.">
+  <meta name="keywords" content="JCL, ABEND S806, STEPLIB, JOBLIB, Link-Edit, Binder, mainframe modernization, cobol abend, z/os debugging, stackmf">
   <meta name="author" content="StackMF Mainframe Architecture Pod">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <link rel="canonical" href="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
+  <link rel="canonical" href="https://stackmf.com/blog/s806-load-module-not-found-steplib-debugging.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
-  <meta property="og:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta property="og:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta property="og:url" content="https://stackmf.com/blog/s806-load-module-not-found-steplib-debugging.html">
+  <meta property="og:title" content="Diagnosing ABEND S806-04: Resolving Missing Load Modules in JOBLIB, STEPLIB, and LPA">
+  <meta property="og:description" content="ABEND S806 (Reason 04) indicates the MVS program fetch mechanism searched all designated libraries (STEPLIB, JOBLIB, LPA, LNKLST) but could not locate the requested program member. Discover search order hierarchy and resolution techniques.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
-  <meta property="article:section" content="DB2 SQL & Performance">
+  <meta property="article:section" content="ABENDS & Diagnostics">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta name="twitter:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta name="twitter:title" content="Diagnosing ABEND S806-04: Resolving Missing Load Modules in JOBLIB, STEPLIB, and LPA">
+  <meta name="twitter:description" content="ABEND S806 (Reason 04) indicates the MVS program fetch mechanism searched all designated libraries (STEPLIB, JOBLIB, LPA, LNKLST) but could not locate the requested program member. Discover search order hierarchy and resolution techniques.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,9 +79,9 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND",
-  "description": "Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.",
-  "url": "https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html",
+  "headline": "Diagnosing ABEND S806-04: Resolving Missing Load Modules in JOBLIB, STEPLIB, and LPA",
+  "description": "ABEND S806 (Reason 04) indicates the MVS program fetch mechanism searched all designated libraries (STEPLIB, JOBLIB, LPA, LNKLST) but could not locate the requested program member. Discover search order hierarchy and resolution techniques.",
+  "url": "https://stackmf.com/blog/s806-load-module-not-found-steplib-debugging.html",
   "datePublished": "2026-09-27T08:00:00+00:00",
   "dateModified": "2026-09-27T08:00:00+00:00",
   "inLanguage": "en",
@@ -100,15 +100,15 @@
     }
   },
   "about": [
-    "DB2 SQL & Performance",
-    "DB2",
-    "Plan Stability",
-    "REBIND",
-    "Access Paths",
-    "APREUSE",
-    "PLANMGMT"
+    "ABENDS & Diagnostics",
+    "JCL",
+    "ABEND S806",
+    "STEPLIB",
+    "JOBLIB",
+    "Link-Edit",
+    "Binder"
   ],
-  "articleBody": "Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:\n```text\nDSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS\nPLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN\n```\nDatabase administrators face severe business escalation while attempting to pinpoint which packages regressed. During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression. ### 1. Bind with PLANMGMT(EXTENDED)\nConfigure DB2 Plan Management to retain current, previous, and original package copies:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       PLANMGMT(EXTENDED) -\n       APREUSE(WARN)\n```\n\n### 2. Instant Access Path Fallback via SWITCH\nIf a newly bound package exhibits poor response times, instantly revert without recompiling:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       SWITCH(PREVIOUS)\n```\nWithin 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!\n\n### 3. Verify Package Copies in Catalog\nQuery package stability history:\n```sql\nSELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS\nFROM SYSIBM.SYSPACKAGE\nWHERE NAME = 'CUST01';\n```"
+  "articleBody": "A newly promoted production batch job fails immediately at step initiation:\n```text\nCSV003I REQUESTED MODULE MODPAY01 NOT FOUND\nCSV028I JOBPAY01 STEP010 - ABEND=S806 U0000 REASON=00000004\nIEF450I JOBPAY01 STEP010 - ABEND=S806 U0000\n```\nNo code executed; the step terminated during job initiator program fetch. When z/OS initiates a step (`EXEC PGM=MODPAY01`):\n1. It searches private step libraries: `//STEPLIB DD`.\n2. It searches job-level libraries: `//JOBLIB DD`.\n3. It searches Link Pack Area (LPA / MLPA / FLPA).\n4. It searches system link list: `LNKLST` (`SYS1.LINKLIB`, etc.).\nIf member `MODPAY01` is absent, misspelled, un-cataloged, or the load dataset has allocation security restrictions, MVS raises S806-04. ### 1. Verify STEPLIB Concatenation in JCL\nEnsure the dataset containing the compiled load module is in the `STEPLIB`:\n```jcl\n//STEP010  EXEC PGM=MODPAY01\n//STEPLIB  DD DSN=PROD.APPLICATION.LOADLIB,DISP=SHR\n//         DD DSN=CEE.SCEERUN,DISP=SHR\n```\n\n### 2. Verify Member Presence via ISPF / TSO\nIn ISPF 3.4, browse `PROD.APPLICATION.LOADLIB`:\n- Check if member `MODPAY01` exists.\n- Check if member was saved as non-executable (`NOEXEC`) due to Binder errors during compilation.\n\n### 3. Check Dynamic LNKLST Updates\nIf the module was deployed to a system LNKLST dataset, update the catalog cache:\n```text\n/SETPROG LNKLST,UNALLOCATE\n/SETPROG LNKLST,ALLOCATE\n```"
 }
   </script>
 </head>
@@ -153,16 +153,16 @@
       <span>/</span>
       <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
       <span>/</span>
-      <span class="text-neon-cyan">DB2 SQL & Performance</span>
+      <span class="text-neon-cyan">ABENDS & Diagnostics</span>
     </nav>
 
     <!-- Header Badges -->
     <div class="flex items-center gap-3 flex-wrap mb-4">
       <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
-        DB2 SQL & Performance
+        ABENDS & Diagnostics
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
-        <i class="fa-regular fa-clock"></i> 9 min read
+        <i class="fa-regular fa-clock"></i> 8 min read
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
         <i class="fa-regular fa-calendar"></i> 2026-09-27
@@ -171,7 +171,7 @@
 
     <!-- Title -->
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
-      Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND
+      Diagnosing ABEND S806-04: Resolving Missing Load Modules in JOBLIB, STEPLIB, and LPA
     </h1>
 
     <!-- Author & Trust Pod -->
@@ -198,7 +198,7 @@
         <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
       </div>
       <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
-        Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.
+        ABEND S806 (Reason 04) indicates the MVS program fetch mechanism searched all designated libraries (STEPLIB, JOBLIB, LPA, LNKLST) but could not locate the requested program member. Discover search order hierarchy and resolution techniques.
       </p>
     </div>
 
@@ -209,7 +209,7 @@
         The Real-World Developer Incident
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A newly promoted production batch job fails immediately at step initiation:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
@@ -220,10 +220,11 @@
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS
-PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CSV003I REQUESTED MODULE MODPAY01 NOT FOUND
+CSV028I JOBPAY01 STEP010 - ABEND=S806 U0000 REASON=00000004
+IEF450I JOBPAY01 STEP010 - ABEND=S806 U0000</code></pre>
         </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Database administrators face severe business escalation while attempting to pinpoint which packages regressed.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">No code executed; the step terminated during job initiator program fetch.</p>
       </div>
     </section>
 
@@ -234,7 +235,12 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression.</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When z/OS initiates a step (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXEC PGM=MODPAY01</code>):</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. It searches private step libraries: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">//STEPLIB DD</code>.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. It searches job-level libraries: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">//JOBLIB DD</code>.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. It searches Link Pack Area (LPA / MLPA / FLPA).</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">4. It searches system link list: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LNKLST</code> (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SYS1.LINKLIB</code>, etc.).</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If member <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">MODPAY01</code> is absent, misspelled, un-cataloged, or the load dataset has allocation security restrictions, MVS raises S806-04.</p>
       </div>
     </section>
 
@@ -245,8 +251,30 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Step-by-Step Production Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Bind with PLANMGMT(EXTENDED)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Configure DB2 Plan Management to retain current, previous, and original package copies:</p>
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Verify STEPLIB Concatenation in JCL</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure the dataset containing the compiled load module is in the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">STEPLIB</code>:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//STEP010  EXEC PGM=MODPAY01
+//STEPLIB  DD DSN=PROD.APPLICATION.LOADLIB,DISP=SHR
+//         DD DSN=CEE.SCEERUN,DISP=SHR</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Verify Member Presence via ISPF / TSO</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In ISPF 3.4, browse <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PROD.APPLICATION.LOADLIB</code>:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Check if member <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">MODPAY01</code> exists.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Check if member was saved as non-executable (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">NOEXEC</code>) due to Binder errors during compilation.</span></li>
+</ul>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Check Dynamic LNKLST Updates</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If the module was deployed to a system LNKLST dataset, update the catalog cache:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
@@ -257,41 +285,8 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       PLANMGMT(EXTENDED) -
-       APREUSE(WARN)</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Instant Access Path Fallback via SWITCH</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If a newly bound package exhibits poor response times, instantly revert without recompiling:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       SWITCH(PREVIOUS)</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Within 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Verify Package Copies in Catalog</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Query package stability history:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">sql</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS
-FROM SYSIBM.SYSPACKAGE
-WHERE NAME = 'CUST01';</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>/SETPROG LNKLST,UNALLOCATE
+/SETPROG LNKLST,ALLOCATE</code></pre>
         </div>
       </div>
     </section>
@@ -303,7 +298,7 @@ WHERE NAME = 'CUST01';</code></pre>
         Architectural Prevention & Performance Tuning Checklist
       </h3>
       <ul class="space-y-3">
-        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Always rebind critical production packages with PLANMGMT(EXTENDED).</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use APREUSE(ERROR) or APREUSE(WARN) to detect unexpected access path deviations before cutover.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Test rebinds in a cloned pre-production subsystem before executing across production.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use DB2 Query Capture and Comparison utilities to validate elapsed-time impact.</span></li>
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Include `CEE.SCEERUN` and `CEE.SCEERUN2` in standard `STEPLIB` concatenations.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Verify Binder Return Code was 0 or 4 during compile/link steps in CI/CD.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Prevent naming discrepancies between Endevor element names and Binder output member names.</span></li>
       </ul>
     </section>
 
@@ -320,27 +315,18 @@ WHERE NAME = 'CUST01';</code></pre>
         <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS Managing Performance: Access Path Stability</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM z/OS MVS System Codes: Completion Code 806</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=performance-access-path-stability" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://www.ibm.com/docs/en/zos/latest?topic=codes-806" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
             </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS REBIND PACKAGE Command</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM z/OS MVS Initialization and Tuning: Search Order for Programs</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=commands-rebind-package-db2" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
-                <span>Docs</span>
-                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-              </a>
-            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
-              <div class="flex items-center gap-3">
-                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Enterprise Mainframe Modernization Services</span>
-              </div>
-              <a href="https://stackmf.com/#mainframe-modernization" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://www.ibm.com/docs/en/zos/latest?topic=libraries-program-search-order" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
@@ -351,7 +337,7 @@ WHERE NAME = 'CUST01';</code></pre>
     <!-- Tags -->
     <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
       <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
-      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">DB2</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Plan Stability</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">REBIND</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Access Paths</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">APREUSE</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">PLANMGMT</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">JCL</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">ABEND S806</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">STEPLIB</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">JOBLIB</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Link-Edit</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Binder</span>
     </div>
 
     <!-- Bottom Advisory Banner CTA -->

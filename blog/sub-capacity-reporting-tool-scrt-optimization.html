@@ -4,27 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF Mainframe Knowledge Base</title>
-  <meta name="title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF">
-  <meta name="description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
-  <meta name="keywords" content="DB2, Plan Stability, REBIND, Access Paths, APREUSE, PLANMGMT, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <title>Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF">
+  <meta name="description" content="IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.">
+  <meta name="keywords" content="SCRT, 4HRA, MLC, Cost Optimization, WLM, Capacity Planning, mainframe modernization, cobol abend, z/os debugging, stackmf">
   <meta name="author" content="StackMF Mainframe Architecture Pod">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <link rel="canonical" href="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
+  <link rel="canonical" href="https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
-  <meta property="og:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta property="og:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta property="og:url" content="https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html">
+  <meta property="og:title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies">
+  <meta property="og:description" content="IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
   <meta property="article:section" content="DB2 SQL & Performance">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta name="twitter:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta name="twitter:title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies">
+  <meta name="twitter:description" content="IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,9 +79,9 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND",
-  "description": "Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.",
-  "url": "https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html",
+  "headline": "Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies",
+  "description": "IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.",
+  "url": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html",
   "datePublished": "2026-09-27T08:00:00+00:00",
   "dateModified": "2026-09-27T08:00:00+00:00",
   "inLanguage": "en",
@@ -101,14 +101,14 @@
   },
   "about": [
     "DB2 SQL & Performance",
-    "DB2",
-    "Plan Stability",
-    "REBIND",
-    "Access Paths",
-    "APREUSE",
-    "PLANMGMT"
+    "SCRT",
+    "4HRA",
+    "MLC",
+    "Cost Optimization",
+    "WLM",
+    "Capacity Planning"
   ],
-  "articleBody": "Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:\n```text\nDSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS\nPLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN\n```\nDatabase administrators face severe business escalation while attempting to pinpoint which packages regressed. During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression. ### 1. Bind with PLANMGMT(EXTENDED)\nConfigure DB2 Plan Management to retain current, previous, and original package copies:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       PLANMGMT(EXTENDED) -\n       APREUSE(WARN)\n```\n\n### 2. Instant Access Path Fallback via SWITCH\nIf a newly bound package exhibits poor response times, instantly revert without recompiling:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       SWITCH(PREVIOUS)\n```\nWithin 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!\n\n### 3. Verify Package Copies in Catalog\nQuery package stability history:\n```sql\nSELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS\nFROM SYSIBM.SYSPACKAGE\nWHERE NAME = 'CUST01';\n```"
+  "articleBody": "The enterprise CIO receives an unexpected 20% spike on the monthly IBM software invoice. Nobody on the mainframe team can identify which job or business event caused the peak billing hour to jump. IBM bills software based on the highest simultaneous **Rolling 4-Hour Average (4HRA)** across the month:\n- The SCRT tool scans SMF Type 70 (CPU activity) and Type 89 (product usage) records across all LPARs in the sysplex.\n- It identifies the single peak hour where combined MSU consumption was highest.\n- An unconstrained batch extraction job overlapping with online transaction processing during the peak window permanently sets the monthly software bill at a higher tier! ### 1. Execute and Generate the Monthly SCRT Report\n```jcl\n//SCRTSTEP EXEC PGM=ISRSCRT\n//SYSPRINT DD SYSOUT=*\n//SMFDATA  DD DSN=PROD.SMF.MONTHLY,DISP=SHR\n//OUTPUT   DD DSN=PROD.SCRT.REPORT.CSV,DISP=(NEW,CATLG,DELETE),\n//            SPACE=(CYL,(5,1))\n```\n\n### 2. Locate the Peak 4HRA Billing Hour in the Report\nOpen the generated CSV report. Search for section:\n```text\nProduct Max / Peak Utilization:\nProduct: 5650-ZOS (z/OS V2)\nPeak MSU: 1,420\nPeak Date/Time: 2026-09-18 02:00:00 UTC\nContributing LPARs: LPAR1 (920 MSU), LPAR2 (500 MSU)\n```\nThis isolates the exact date and hour of the spike: **September 18 at 02:00 UTC**.\n\n### 3. Cross-Reference Peak Hour with SMF Type 30 Records\nQuery SMF Type 30 records between 00:00 and 04:00 UTC on September 18 to list jobs consuming the highest CPU:\n```sql\nSELECT JOBNAME, SUM(CPUTIME)\nFROM SMF_TYPE30_TABLE\nWHERE START_TIME BETWEEN '2026-09-18 00:00:00' AND '2026-09-18 04:00:00'\nGROUP BY JOBNAME\nORDER BY 2 DESC;\n```\nOffending job identified: `UNLOAD_ALL_CUSTOMERS` ran concurrently with nightly database reorgs!\n\n### 4. Implement WLM Defined Capacity and Schedule Staggering\n1. Shift `UNLOAD_ALL_CUSTOMERS` to 04:30 AM (outside the 4HRA peak window).\n2. In WLM, configure Defined Capacity on `LPAR1` to 850 MSUs, capping billing peaks automatically."
 }
   </script>
 </head>
@@ -162,7 +162,7 @@
         DB2 SQL & Performance
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
-        <i class="fa-regular fa-clock"></i> 9 min read
+        <i class="fa-regular fa-clock"></i> 11 min read
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
         <i class="fa-regular fa-calendar"></i> 2026-09-27
@@ -171,7 +171,7 @@
 
     <!-- Title -->
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
-      Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND
+      Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies
     </h1>
 
     <!-- Author & Trust Pod -->
@@ -198,7 +198,7 @@
         <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
       </div>
       <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
-        Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.
+        IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.
       </p>
     </div>
 
@@ -209,21 +209,7 @@
         The Real-World Developer Incident
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS
-PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Database administrators face severe business escalation while attempting to pinpoint which packages regressed.</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The enterprise CIO receives an unexpected 20% spike on the monthly IBM software invoice. Nobody on the mainframe team can identify which job or business event caused the peak billing hour to jump.</p>
       </div>
     </section>
 
@@ -234,7 +220,12 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression.</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">IBM bills software based on the highest simultaneous <strong class="text-white font-semibold">Rolling 4-Hour Average (4HRA)</strong> across the month:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The SCRT tool scans SMF Type 70 (CPU activity) and Type 89 (product usage) records across all LPARs in the sysplex.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>It identifies the single peak hour where combined MSU consumption was highest.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>An unconstrained batch extraction job overlapping with online transaction processing during the peak window permanently sets the monthly software bill at a higher tier!</span></li>
+</ul>
       </div>
     </section>
 
@@ -245,8 +236,25 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Step-by-Step Production Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Bind with PLANMGMT(EXTENDED)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Configure DB2 Plan Management to retain current, previous, and original package copies:</p>
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Execute and Generate the Monthly SCRT Report</h3>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//SCRTSTEP EXEC PGM=ISRSCRT
+//SYSPRINT DD SYSOUT=*
+//SMFDATA  DD DSN=PROD.SMF.MONTHLY,DISP=SHR
+//OUTPUT   DD DSN=PROD.SCRT.REPORT.CSV,DISP=(NEW,CATLG,DELETE),
+//            SPACE=(CYL,(5,1))</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Locate the Peak 4HRA Billing Hour in the Report</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Open the generated CSV report. Search for section:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
@@ -257,28 +265,15 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       PLANMGMT(EXTENDED) -
-       APREUSE(WARN)</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>Product Max / Peak Utilization:
+Product: 5650-ZOS (z/OS V2)
+Peak MSU: 1,420
+Peak Date/Time: 2026-09-18 02:00:00 UTC
+Contributing LPARs: LPAR1 (920 MSU), LPAR2 (500 MSU)</code></pre>
         </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Instant Access Path Fallback via SWITCH</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If a newly bound package exhibits poor response times, instantly revert without recompiling:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       SWITCH(PREVIOUS)</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Within 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Verify Package Copies in Catalog</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Query package stability history:</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">This isolates the exact date and hour of the spike: <strong class="text-white font-semibold">September 18 at 02:00 UTC</strong>.</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Cross-Reference Peak Hour with SMF Type 30 Records</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Query SMF Type 30 records between 00:00 and 04:00 UTC on September 18 to list jobs consuming the highest CPU:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
@@ -289,10 +284,16 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS
-FROM SYSIBM.SYSPACKAGE
-WHERE NAME = 'CUST01';</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SELECT JOBNAME, SUM(CPUTIME)
+FROM SMF_TYPE30_TABLE
+WHERE START_TIME BETWEEN '2026-09-18 00:00:00' AND '2026-09-18 04:00:00'
+GROUP BY JOBNAME
+ORDER BY 2 DESC;</code></pre>
         </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Offending job identified: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">UNLOAD_ALL_CUSTOMERS</code> ran concurrently with nightly database reorgs!</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Implement WLM Defined Capacity and Schedule Staggering</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. Shift <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">UNLOAD_ALL_CUSTOMERS</code> to 04:30 AM (outside the 4HRA peak window).</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. In WLM, configure Defined Capacity on <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LPAR1</code> to 850 MSUs, capping billing peaks automatically.</p>
       </div>
     </section>
 
@@ -303,7 +304,7 @@ WHERE NAME = 'CUST01';</code></pre>
         Architectural Prevention & Performance Tuning Checklist
       </h3>
       <ul class="space-y-3">
-        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Always rebind critical production packages with PLANMGMT(EXTENDED).</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use APREUSE(ERROR) or APREUSE(WARN) to detect unexpected access path deviations before cutover.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Test rebinds in a cloned pre-production subsystem before executing across production.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use DB2 Query Capture and Comparison utilities to validate elapsed-time impact.</span></li>
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Audit SCRT reports weekly using predictive tools rather than waiting for the end of the month.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use WLM Group Capacity Limits across Parallel Sysplex LPARs.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Recompile top CPU batch consumers with Enterprise COBOL `OPT(3)` to lower base MSU burn.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Contact StackMF for our specialized Mainframe 4HRA Optimization Assessment.</span></li>
       </ul>
     </section>
 
@@ -320,27 +321,18 @@ WHERE NAME = 'CUST01';</code></pre>
         <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS Managing Performance: Access Path Stability</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Sub-Capacity Reporting Tool User's Guide (SC23-6845)</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=performance-access-path-stability" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://www.ibm.com/docs/en/zos/latest?topic=reporting-scrt-overview" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
             </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS REBIND PACKAGE Command</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Mainframe Modernization and Cost Optimization</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=commands-rebind-package-db2" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
-                <span>Docs</span>
-                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-              </a>
-            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
-              <div class="flex items-center gap-3">
-                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Enterprise Mainframe Modernization Services</span>
-              </div>
-              <a href="https://stackmf.com/#mainframe-modernization" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://stackmf.com/#tco-calculator" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
@@ -351,7 +343,7 @@ WHERE NAME = 'CUST01';</code></pre>
     <!-- Tags -->
     <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
       <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
-      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">DB2</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Plan Stability</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">REBIND</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Access Paths</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">APREUSE</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">PLANMGMT</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">SCRT</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">4HRA</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">MLC</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Cost Optimization</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">WLM</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Capacity Planning</span>
     </div>
 
     <!-- Bottom Advisory Banner CTA -->

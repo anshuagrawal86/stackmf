@@ -4,27 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF Mainframe Knowledge Base</title>
-  <meta name="title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF">
-  <meta name="description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
-  <meta name="keywords" content="DB2, Plan Stability, REBIND, Access Paths, APREUSE, PLANMGMT, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <title>Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1) | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1) | StackMF">
+  <meta name="description" content="Eliminate expensive Broadcom Easytrieve Plus software licenses by converting legacy EZT programs into standard Enterprise COBOL using IBM Migration Utility (IMU). Learn how to set up the FSCCL1 translator step, configure EZPARAMS, and verify bit-for-bit output parity.">
+  <meta name="keywords" content="Easytrieve, IBM Migration Utility, IMU, COBOL, Broadcom Replacement, FSCCL1, mainframe modernization, cobol abend, z/os debugging, stackmf">
   <meta name="author" content="StackMF Mainframe Architecture Pod">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <link rel="canonical" href="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
+  <link rel="canonical" href="https://stackmf.com/blog/ezt-to-imu-automated-migration-guide.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
-  <meta property="og:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta property="og:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta property="og:url" content="https://stackmf.com/blog/ezt-to-imu-automated-migration-guide.html">
+  <meta property="og:title" content="Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1)">
+  <meta property="og:description" content="Eliminate expensive Broadcom Easytrieve Plus software licenses by converting legacy EZT programs into standard Enterprise COBOL using IBM Migration Utility (IMU). Learn how to set up the FSCCL1 translator step, configure EZPARAMS, and verify bit-for-bit output parity.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
-  <meta property="article:section" content="DB2 SQL & Performance">
+  <meta property="article:section" content="Modernisation & Cloud">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta name="twitter:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta name="twitter:title" content="Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1)">
+  <meta name="twitter:description" content="Eliminate expensive Broadcom Easytrieve Plus software licenses by converting legacy EZT programs into standard Enterprise COBOL using IBM Migration Utility (IMU). Learn how to set up the FSCCL1 translator step, configure EZPARAMS, and verify bit-for-bit output parity.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,9 +79,9 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND",
-  "description": "Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.",
-  "url": "https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html",
+  "headline": "Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1)",
+  "description": "Eliminate expensive Broadcom Easytrieve Plus software licenses by converting legacy EZT programs into standard Enterprise COBOL using IBM Migration Utility (IMU). Learn how to set up the FSCCL1 translator step, configure EZPARAMS, and verify bit-for-bit output parity.",
+  "url": "https://stackmf.com/blog/ezt-to-imu-automated-migration-guide.html",
   "datePublished": "2026-09-27T08:00:00+00:00",
   "dateModified": "2026-09-27T08:00:00+00:00",
   "inLanguage": "en",
@@ -100,15 +100,15 @@
     }
   },
   "about": [
-    "DB2 SQL & Performance",
-    "DB2",
-    "Plan Stability",
-    "REBIND",
-    "Access Paths",
-    "APREUSE",
-    "PLANMGMT"
+    "Modernisation & Cloud",
+    "Easytrieve",
+    "IBM Migration Utility",
+    "IMU",
+    "COBOL",
+    "Broadcom Replacement",
+    "FSCCL1"
   ],
-  "articleBody": "Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:\n```text\nDSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS\nPLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN\n```\nDatabase administrators face severe business escalation while attempting to pinpoint which packages regressed. During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression. ### 1. Bind with PLANMGMT(EXTENDED)\nConfigure DB2 Plan Management to retain current, previous, and original package copies:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       PLANMGMT(EXTENDED) -\n       APREUSE(WARN)\n```\n\n### 2. Instant Access Path Fallback via SWITCH\nIf a newly bound package exhibits poor response times, instantly revert without recompiling:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       SWITCH(PREVIOUS)\n```\nWithin 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!\n\n### 3. Verify Package Copies in Catalog\nQuery package stability history:\n```sql\nSELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS\nFROM SYSIBM.SYSPACKAGE\nWHERE NAME = 'CUST01';\n```"
+  "articleBody": "Enterprises paying millions annually in Broadcom software renewals discover hundreds of legacy CA-Easytrieve Plus programs embedded in critical nightly batch extraction pipelines. Because Easytrieve is an interpreted or proprietary-compiled language, removing the Broadcom runtime causes jobs executing PGM=EZTPA00 to fail with ABEND S806 (Module Not Found). CA-Easytrieve Plus relies on proprietary macros, file control tables, and runtime dynamic link modules (`EZTPA00`, `EZTPX01`).\nIBM Migration Utility (IMU / product 5655-MGM) provides a transparent source-to-source compiler:\n- IMU preprocessor `FSCCL1` translates Easytrieve statements (`JOB INPUT`, `PRINT`, `REPORT`) into standard Enterprise COBOL source code.\n- The emitted COBOL is compiled with `IGYCRCTL` and linked into standard z/OS executable load modules.\n- Jobs run at native machine speed, completely bypassing Easytrieve runtime licenses while slashing CPU consumption up to 25%. ### 1. Configure the IMU Translation JCL Step\nReplace the legacy `EXEC PGM=EZTPA00` with the standard IMU conversion cataloged procedure (`FSCASAP`):\n```jcl\n//STEP1    EXEC PGM=FSCCL1,\n//  PARM='LIST,SOURCE,NODECK,NOTEST,NOMAP,FLAG(I)'\n//STEPLIB  DD DSN=SYS1.IMU.SFSCLLMD,DISP=SHR\n//SYSIN    DD DSN=PROD.EZT.SRCLIB(REPORT01),DISP=SHR\n//SYSOUT   DD SYSOUT=*\n//FSCCOBOL DD DSN=&&COBSRCE,DISP=(NEW,PASS),\n//            SPACE=(CYL,(5,2)),UNIT=SYSDA,\n//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=27920)\n//FSCDMSG  DD SYSOUT=*\n//SYSERRS  DD SYSOUT=*\n```\n\n### 2. Configure EZPARAMS Translation Rules\nCustomize the IMU translation table (`EZPARAMS`) to ensure compatibility:\n```text\n* IMU EZPARAMS CONFIGURATION\nCOLLSEQ=EBCDIC\nDOWHILE=NATIVE\nEASYTRAN=YES\nSQLMODE=BIND\nPAGESIZE=060\nLINESIZE=132\nAUTOCB=YES\n```\n\n### 3. Compile and Link the Emitted COBOL\nPass `&&COBSRCE` to standard Enterprise COBOL compiler:\n```jcl\n//COBSTEP  EXEC PGM=IGYCRCTL,PARM='OPT(2),ARCH(14)'\n//SYSIN    DD DSN=&&COBSRCE,DISP=(OLD,DELETE)\n//SYSLIN   DD DSN=&&LOADSET,DISP=(MOD,PASS),SPACE=(CYL,(2,1))\n```\n\n### 4. Execute the Converted Native Load Module\nRun the compiled application without any Broadcom software active:\n```jcl\n//RUNSTEP  EXEC PGM=REPORT01\n//STEPLIB  DD DSN=PROD.CONVERTED.LOADLIB,DISP=SHR\n//SYSUT1   DD DSN=PROD.INVOICE.INPUT,DISP=SHR\n//SYSPRINT DD SYSOUT=*\n```"
 }
   </script>
 </head>
@@ -153,16 +153,16 @@
       <span>/</span>
       <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
       <span>/</span>
-      <span class="text-neon-cyan">DB2 SQL & Performance</span>
+      <span class="text-neon-cyan">Modernisation & Cloud</span>
     </nav>
 
     <!-- Header Badges -->
     <div class="flex items-center gap-3 flex-wrap mb-4">
       <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
-        DB2 SQL & Performance
+        Modernisation & Cloud
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
-        <i class="fa-regular fa-clock"></i> 9 min read
+        <i class="fa-regular fa-clock"></i> 11 min read
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
         <i class="fa-regular fa-calendar"></i> 2026-09-27
@@ -171,7 +171,7 @@
 
     <!-- Title -->
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
-      Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND
+      Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1)
     </h1>
 
     <!-- Author & Trust Pod -->
@@ -198,7 +198,7 @@
         <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
       </div>
       <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
-        Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.
+        Eliminate expensive Broadcom Easytrieve Plus software licenses by converting legacy EZT programs into standard Enterprise COBOL using IBM Migration Utility (IMU). Learn how to set up the FSCCL1 translator step, configure EZPARAMS, and verify bit-for-bit output parity.
       </p>
     </div>
 
@@ -209,21 +209,7 @@
         The Real-World Developer Incident
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS
-PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Database administrators face severe business escalation while attempting to pinpoint which packages regressed.</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Enterprises paying millions annually in Broadcom software renewals discover hundreds of legacy CA-Easytrieve Plus programs embedded in critical nightly batch extraction pipelines. Because Easytrieve is an interpreted or proprietary-compiled language, removing the Broadcom runtime causes jobs executing PGM=EZTPA00 to fail with ABEND S806 (Module Not Found).</p>
       </div>
     </section>
 
@@ -234,7 +220,13 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression.</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">CA-Easytrieve Plus relies on proprietary macros, file control tables, and runtime dynamic link modules (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EZTPA00</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EZTPX01</code>).</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">IBM Migration Utility (IMU / product 5655-MGM) provides a transparent source-to-source compiler:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>IMU preprocessor <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FSCCL1</code> translates Easytrieve statements (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">JOB INPUT</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PRINT</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">REPORT</code>) into standard Enterprise COBOL source code.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The emitted COBOL is compiled with <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">IGYCRCTL</code> and linked into standard z/OS executable load modules.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Jobs run at native machine speed, completely bypassing Easytrieve runtime licenses while slashing CPU consumption up to 25%.</span></li>
+</ul>
       </div>
     </section>
 
@@ -245,8 +237,31 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Step-by-Step Production Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Bind with PLANMGMT(EXTENDED)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Configure DB2 Plan Management to retain current, previous, and original package copies:</p>
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Configure the IMU Translation JCL Step</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Replace the legacy <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXEC PGM=EZTPA00</code> with the standard IMU conversion cataloged procedure (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FSCASAP</code>):</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//STEP1    EXEC PGM=FSCCL1,
+//  PARM='LIST,SOURCE,NODECK,NOTEST,NOMAP,FLAG(I)'
+//STEPLIB  DD DSN=SYS1.IMU.SFSCLLMD,DISP=SHR
+//SYSIN    DD DSN=PROD.EZT.SRCLIB(REPORT01),DISP=SHR
+//SYSOUT   DD SYSOUT=*
+//FSCCOBOL DD DSN=&amp;&amp;COBSRCE,DISP=(NEW,PASS),
+//            SPACE=(CYL,(5,2)),UNIT=SYSDA,
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=27920)
+//FSCDMSG  DD SYSOUT=*
+//SYSERRS  DD SYSOUT=*</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Configure EZPARAMS Translation Rules</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Customize the IMU translation table (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EZPARAMS</code>) to ensure compatibility:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
@@ -257,41 +272,47 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       PLANMGMT(EXTENDED) -
-       APREUSE(WARN)</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>* IMU EZPARAMS CONFIGURATION
+COLLSEQ=EBCDIC
+DOWHILE=NATIVE
+EASYTRAN=YES
+SQLMODE=BIND
+PAGESIZE=060
+LINESIZE=132
+AUTOCB=YES</code></pre>
         </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Instant Access Path Fallback via SWITCH</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If a newly bound package exhibits poor response times, instantly revert without recompiling:</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Compile and Link the Emitted COBOL</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Pass <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">&&COBSRCE</code> to standard Enterprise COBOL compiler:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       SWITCH(PREVIOUS)</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//COBSTEP  EXEC PGM=IGYCRCTL,PARM='OPT(2),ARCH(14)'
+//SYSIN    DD DSN=&amp;&amp;COBSRCE,DISP=(OLD,DELETE)
+//SYSLIN   DD DSN=&amp;&amp;LOADSET,DISP=(MOD,PASS),SPACE=(CYL,(2,1))</code></pre>
         </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Within 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Verify Package Copies in Catalog</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Query package stability history:</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Execute the Converted Native Load Module</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Run the compiled application without any Broadcom software active:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">sql</span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS
-FROM SYSIBM.SYSPACKAGE
-WHERE NAME = 'CUST01';</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//RUNSTEP  EXEC PGM=REPORT01
+//STEPLIB  DD DSN=PROD.CONVERTED.LOADLIB,DISP=SHR
+//SYSUT1   DD DSN=PROD.INVOICE.INPUT,DISP=SHR
+//SYSPRINT DD SYSOUT=*</code></pre>
         </div>
       </div>
     </section>
@@ -303,7 +324,7 @@ WHERE NAME = 'CUST01';</code></pre>
         Architectural Prevention & Performance Tuning Checklist
       </h3>
       <ul class="space-y-3">
-        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Always rebind critical production packages with PLANMGMT(EXTENDED).</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use APREUSE(ERROR) or APREUSE(WARN) to detect unexpected access path deviations before cutover.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Test rebinds in a cloned pre-production subsystem before executing across production.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use DB2 Query Capture and Comparison utilities to validate elapsed-time impact.</span></li>
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Run automated parallel runs for 3 cycles comparing the legacy Easytrieve output dataset with IMU-generated COBOL output byte-by-byte using SuperC (`ISRSUPC`).</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Establish automated Git/Zowe CI/CD pipelines to compile new reporting logic directly in COBOL.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Eliminate unneeded Easytrieve temporary WORK files by leveraging COBOL internal tables or memory arrays.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>De-license Broadcom Easytrieve libraries from system LNKLST once conversion passes audit.</span></li>
       </ul>
     </section>
 
@@ -320,27 +341,18 @@ WHERE NAME = 'CUST01';</code></pre>
         <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS Managing Performance: Access Path Stability</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Migration Utility for z/OS User's Guide (SC27-8777)</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=performance-access-path-stability" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://www.ibm.com/docs/en/imu/5.1.0" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
             </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS REBIND PACKAGE Command</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Broadcom Product Replacement & License Elimination</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=commands-rebind-package-db2" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
-                <span>Docs</span>
-                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-              </a>
-            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
-              <div class="flex items-center gap-3">
-                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Enterprise Mainframe Modernization Services</span>
-              </div>
-              <a href="https://stackmf.com/#mainframe-modernization" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://stackmf.com/#broadcom-replacement" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
@@ -351,7 +363,7 @@ WHERE NAME = 'CUST01';</code></pre>
     <!-- Tags -->
     <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
       <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
-      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">DB2</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Plan Stability</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">REBIND</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Access Paths</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">APREUSE</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">PLANMGMT</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Easytrieve</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">IBM Migration Utility</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">IMU</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">COBOL</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Broadcom Replacement</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">FSCCL1</span>
     </div>
 
     <!-- Bottom Advisory Banner CTA -->

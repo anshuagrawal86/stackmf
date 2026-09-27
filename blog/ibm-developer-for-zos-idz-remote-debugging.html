@@ -4,27 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF Mainframe Knowledge Base</title>
-  <meta name="title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF">
-  <meta name="description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
-  <meta name="keywords" content="DB2, Plan Stability, REBIND, Access Paths, APREUSE, PLANMGMT, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <title>Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool | StackMF">
+  <meta name="description" content="Step-by-step guide to configuring interactive source-level debugging for batch and CICS COBOL applications inside IBM Developer for z/OS (IDz). Discover how to configure TEST compiler options, establish TCP/IP daemon connections, and trigger breakpoints dynamically.">
+  <meta name="keywords" content="IDz, COBOL, Remote Debug, Debug Tool, Eclipse, z/OS Debugger, mainframe modernization, cobol abend, z/os debugging, stackmf">
   <meta name="author" content="StackMF Mainframe Architecture Pod">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <link rel="canonical" href="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
+  <link rel="canonical" href="https://stackmf.com/blog/ibm-developer-for-zos-idz-remote-debugging.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
-  <meta property="og:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta property="og:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta property="og:url" content="https://stackmf.com/blog/ibm-developer-for-zos-idz-remote-debugging.html">
+  <meta property="og:title" content="Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool">
+  <meta property="og:description" content="Step-by-step guide to configuring interactive source-level debugging for batch and CICS COBOL applications inside IBM Developer for z/OS (IDz). Discover how to configure TEST compiler options, establish TCP/IP daemon connections, and trigger breakpoints dynamically.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
-  <meta property="article:section" content="DB2 SQL & Performance">
+  <meta property="article:section" content="DevOps & Automation">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta name="twitter:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta name="twitter:title" content="Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool">
+  <meta name="twitter:description" content="Step-by-step guide to configuring interactive source-level debugging for batch and CICS COBOL applications inside IBM Developer for z/OS (IDz). Discover how to configure TEST compiler options, establish TCP/IP daemon connections, and trigger breakpoints dynamically.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,9 +79,9 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND",
-  "description": "Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.",
-  "url": "https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html",
+  "headline": "Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool",
+  "description": "Step-by-step guide to configuring interactive source-level debugging for batch and CICS COBOL applications inside IBM Developer for z/OS (IDz). Discover how to configure TEST compiler options, establish TCP/IP daemon connections, and trigger breakpoints dynamically.",
+  "url": "https://stackmf.com/blog/ibm-developer-for-zos-idz-remote-debugging.html",
   "datePublished": "2026-09-27T08:00:00+00:00",
   "dateModified": "2026-09-27T08:00:00+00:00",
   "inLanguage": "en",
@@ -100,15 +100,15 @@
     }
   },
   "about": [
-    "DB2 SQL & Performance",
-    "DB2",
-    "Plan Stability",
-    "REBIND",
-    "Access Paths",
-    "APREUSE",
-    "PLANMGMT"
+    "DevOps & Automation",
+    "IDz",
+    "COBOL",
+    "Remote Debug",
+    "Debug Tool",
+    "Eclipse",
+    "z/OS Debugger"
   ],
-  "articleBody": "Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:\n```text\nDSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS\nPLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN\n```\nDatabase administrators face severe business escalation while attempting to pinpoint which packages regressed. During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression. ### 1. Bind with PLANMGMT(EXTENDED)\nConfigure DB2 Plan Management to retain current, previous, and original package copies:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       PLANMGMT(EXTENDED) -\n       APREUSE(WARN)\n```\n\n### 2. Instant Access Path Fallback via SWITCH\nIf a newly bound package exhibits poor response times, instantly revert without recompiling:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       SWITCH(PREVIOUS)\n```\nWithin 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!\n\n### 3. Verify Package Copies in Catalog\nQuery package stability history:\n```sql\nSELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS\nFROM SYSIBM.SYSPACKAGE\nWHERE NAME = 'CUST01';\n```"
+  "articleBody": "Developers spend days inserting temporary `DISPLAY` statements into 5,000-line COBOL programs to trace elusive logic bugs. Re-compiling and promoting code just to inspect variables burns immense CPU and delays incident turnaround. IBM Developer for z/OS (IDz) pairs with the **IBM z/OS Debugger** backend.\nWhen properly configured:\n- The mainframe program executes under control of Language Environment's `TEST` runtime parameter.\n- It opens a reverse TCP/IP connection to the developer's workstation running the IDz Debug Daemon (typically on port 8001).\n- The developer steps through live COBOL code, sets breakpoints, and inspects variables in real-time within the IDz GUI. ### 1. Compile COBOL with the TEST Option\nEnsure the compile step generates DWARF debugging information:\n```jcl\n//COBSTEP EXEC PGM=IGYCRCTL,\n//  PARM='TEST(SOURCE,SEPARATE),OPT(0),ARCH(14)'\n//SYSDEBUG DD DSN=DEV.USER.SYSDEBUG(ACCNTREC),DISP=SHR\n```\nUsing `TEST(SEPARATE)` stores debug tables in a separate side-file (`SYSDEBUG`), keeping production load module sizes minimal.\n\n### 2. Start the IDz Debug Daemon on Your Workstation\nIn IDz:\n1. Open the **Debug** perspective.\n2. Ensure the daemon icon in the toolbar indicates **Debug Daemon Listening on port 8001**.\n3. Note your workstation IP address (e.g., `10.14.20.105`).\n\n### 3. Pass TEST Runtime Options in Batch JCL\nAdd the `CEEOPTS` DD statement to your execution JCL:\n```jcl\n//RUNSTEP  EXEC PGM=ACCNTREC\n//STEPLIB  DD DSN=DEV.USER.LOADLIB,DISP=SHR\n//         DD DSN=EQAW.SEQAMOD,DISP=SHR\n//CEEOPTS  DD *\n  TEST(ALL,*,PROMPT,TCPIP&10.14.20.105%8001:)\n/*\n```\n\n### 4. Interactive Debugging in IDz\nUpon launching the batch job, execution immediately suspends at statement 1:\n- IDz opens the COBOL source automatically.\n- Press **F5** to step into, **F6** to step over.\n- Hover over any variable to inspect or modify its value in memory!"
 }
   </script>
 </head>
@@ -153,16 +153,16 @@
       <span>/</span>
       <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
       <span>/</span>
-      <span class="text-neon-cyan">DB2 SQL & Performance</span>
+      <span class="text-neon-cyan">DevOps & Automation</span>
     </nav>
 
     <!-- Header Badges -->
     <div class="flex items-center gap-3 flex-wrap mb-4">
       <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
-        DB2 SQL & Performance
+        DevOps & Automation
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
-        <i class="fa-regular fa-clock"></i> 9 min read
+        <i class="fa-regular fa-clock"></i> 11 min read
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
         <i class="fa-regular fa-calendar"></i> 2026-09-27
@@ -171,7 +171,7 @@
 
     <!-- Title -->
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
-      Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND
+      Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool
     </h1>
 
     <!-- Author & Trust Pod -->
@@ -198,7 +198,7 @@
         <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
       </div>
       <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
-        Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.
+        Step-by-step guide to configuring interactive source-level debugging for batch and CICS COBOL applications inside IBM Developer for z/OS (IDz). Discover how to configure TEST compiler options, establish TCP/IP daemon connections, and trigger breakpoints dynamically.
       </p>
     </div>
 
@@ -209,21 +209,7 @@
         The Real-World Developer Incident
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS
-PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Database administrators face severe business escalation while attempting to pinpoint which packages regressed.</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Developers spend days inserting temporary <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DISPLAY</code> statements into 5,000-line COBOL programs to trace elusive logic bugs. Re-compiling and promoting code just to inspect variables burns immense CPU and delays incident turnaround.</p>
       </div>
     </section>
 
@@ -234,7 +220,13 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression.</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">IBM Developer for z/OS (IDz) pairs with the <strong class="text-white font-semibold">IBM z/OS Debugger</strong> backend.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When properly configured:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The mainframe program executes under control of Language Environment's <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TEST</code> runtime parameter.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>It opens a reverse TCP/IP connection to the developer's workstation running the IDz Debug Daemon (typically on port 8001).</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The developer steps through live COBOL code, sets breakpoints, and inspects variables in real-time within the IDz GUI.</span></li>
+</ul>
       </div>
     </section>
 
@@ -245,54 +237,54 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Step-by-Step Production Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Bind with PLANMGMT(EXTENDED)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Configure DB2 Plan Management to retain current, previous, and original package copies:</p>
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Compile COBOL with the TEST Option</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure the compile step generates DWARF debugging information:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       PLANMGMT(EXTENDED) -
-       APREUSE(WARN)</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//COBSTEP EXEC PGM=IGYCRCTL,
+//  PARM='TEST(SOURCE,SEPARATE),OPT(0),ARCH(14)'
+//SYSDEBUG DD DSN=DEV.USER.SYSDEBUG(ACCNTREC),DISP=SHR</code></pre>
         </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Instant Access Path Fallback via SWITCH</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If a newly bound package exhibits poor response times, instantly revert without recompiling:</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Using <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TEST(SEPARATE)</code> stores debug tables in a separate side-file (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SYSDEBUG</code>), keeping production load module sizes minimal.</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Start the IDz Debug Daemon on Your Workstation</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In IDz:</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. Open the <strong class="text-white font-semibold">Debug</strong> perspective.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. Ensure the daemon icon in the toolbar indicates <strong class="text-white font-semibold">Debug Daemon Listening on port 8001</strong>.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. Note your workstation IP address (e.g., <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">10.14.20.105</code>).</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Pass TEST Runtime Options in Batch JCL</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Add the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CEEOPTS</code> DD statement to your execution JCL:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       SWITCH(PREVIOUS)</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//RUNSTEP  EXEC PGM=ACCNTREC
+//STEPLIB  DD DSN=DEV.USER.LOADLIB,DISP=SHR
+//         DD DSN=EQAW.SEQAMOD,DISP=SHR
+//CEEOPTS  DD *
+  TEST(ALL,*,PROMPT,TCPIP&amp;10.14.20.105%8001:)
+/*</code></pre>
         </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Within 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Verify Package Copies in Catalog</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Query package stability history:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">sql</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS
-FROM SYSIBM.SYSPACKAGE
-WHERE NAME = 'CUST01';</code></pre>
-        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Interactive Debugging in IDz</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Upon launching the batch job, execution immediately suspends at statement 1:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>IDz opens the COBOL source automatically.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Press <strong class="text-white font-semibold">F5</strong> to step into, <strong class="text-white font-semibold">F6</strong> to step over.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Hover over any variable to inspect or modify its value in memory!</span></li>
+</ul>
       </div>
     </section>
 
@@ -303,7 +295,7 @@ WHERE NAME = 'CUST01';</code></pre>
         Architectural Prevention & Performance Tuning Checklist
       </h3>
       <ul class="space-y-3">
-        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Always rebind critical production packages with PLANMGMT(EXTENDED).</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use APREUSE(ERROR) or APREUSE(WARN) to detect unexpected access path deviations before cutover.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Test rebinds in a cloned pre-production subsystem before executing across production.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use DB2 Query Capture and Comparison utilities to validate elapsed-time impact.</span></li>
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use `TEST(NOHOOK,SEPARATE)` for production modules to enable on-demand diagnostics without performance penalties.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Verify local firewall rules permit inbound TCP traffic on port 8001 from the z/OS LPAR IP range.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Store `.dbg` / `SYSDEBUG` side-files in centralized test libraries with automated lifecycle retention.</span></li>
       </ul>
     </section>
 
@@ -320,27 +312,27 @@ WHERE NAME = 'CUST01';</code></pre>
         <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS Managing Performance: Access Path Stability</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Developer for z/OS: Debugging Applications</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=performance-access-path-stability" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://www.ibm.com/docs/en/developer-for-zos/latest?topic=debugging-applications" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
             </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS REBIND PACKAGE Command</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM z/OS Debugger User's Guide (SC27-9257)</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=commands-rebind-package-db2" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://www.ibm.com/docs/en/debug-for-zos/latest" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
             </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Enterprise Mainframe Modernization Services</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Mainframe Engineering Pods</span>
               </div>
-              <a href="https://stackmf.com/#mainframe-modernization" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://stackmf.com/#mainframe-developers" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
@@ -351,7 +343,7 @@ WHERE NAME = 'CUST01';</code></pre>
     <!-- Tags -->
     <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
       <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
-      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">DB2</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Plan Stability</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">REBIND</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Access Paths</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">APREUSE</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">PLANMGMT</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">IDz</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">COBOL</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Remote Debug</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Debug Tool</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Eclipse</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">z/OS Debugger</span>
     </div>
 
     <!-- Bottom Advisory Banner CTA -->

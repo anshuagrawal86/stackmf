@@ -348,9 +348,9 @@ def publish_daily_blog():
         json.dump(updated_posts, f, indent=2)
 
     # 6. Rebuild blog/index.html
-    # Need full article objects for index
     from blogs_data import ARTICLES
-    all_articles = [article_obj] + ARTICLES
+    from blogs_data_additional import ADDITIONAL_ARTICLES
+    all_articles = [article_obj] + ARTICLES + ADDITIONAL_ARTICLES
     index_html = generate_blog_index(all_articles)
     with open(os.path.join(BLOG_DIR, "index.html"), 'w', encoding='utf-8') as f:
         f.write(index_html)

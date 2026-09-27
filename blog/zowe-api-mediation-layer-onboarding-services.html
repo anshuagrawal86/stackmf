@@ -4,27 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF Mainframe Knowledge Base</title>
-  <meta name="title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND | StackMF">
-  <meta name="description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
-  <meta name="keywords" content="DB2, Plan Stability, REBIND, Access Paths, APREUSE, PLANMGMT, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <title>Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery | StackMF">
+  <meta name="description" content="The Zowe API Mediation Layer (APIML) provides a central enterprise gateway, SSO, and service discovery for all mainframe REST APIs. Learn how to onboard custom z/OS Connect or Java Spring Boot services using Netflix Eureka registration and Swagger/OpenAPI schemas.">
+  <meta name="keywords" content="Zowe, APIML, REST API, Eureka, API Gateway, Modernisation, mainframe modernization, cobol abend, z/os debugging, stackmf">
   <meta name="author" content="StackMF Mainframe Architecture Pod">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <link rel="canonical" href="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
+  <link rel="canonical" href="https://stackmf.com/blog/zowe-api-mediation-layer-onboarding-services.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html">
-  <meta property="og:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta property="og:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta property="og:url" content="https://stackmf.com/blog/zowe-api-mediation-layer-onboarding-services.html">
+  <meta property="og:title" content="Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery">
+  <meta property="og:description" content="The Zowe API Mediation Layer (APIML) provides a central enterprise gateway, SSO, and service discovery for all mainframe REST APIs. Learn how to onboard custom z/OS Connect or Java Spring Boot services using Netflix Eureka registration and Swagger/OpenAPI schemas.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
-  <meta property="article:section" content="DB2 SQL & Performance">
+  <meta property="article:section" content="Modernisation & Cloud">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND">
-  <meta name="twitter:description" content="Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.">
+  <meta name="twitter:title" content="Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery">
+  <meta name="twitter:description" content="The Zowe API Mediation Layer (APIML) provides a central enterprise gateway, SSO, and service discovery for all mainframe REST APIs. Learn how to onboard custom z/OS Connect or Java Spring Boot services using Netflix Eureka registration and Swagger/OpenAPI schemas.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,9 +79,9 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND",
-  "description": "Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.",
-  "url": "https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html",
+  "headline": "Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery",
+  "description": "The Zowe API Mediation Layer (APIML) provides a central enterprise gateway, SSO, and service discovery for all mainframe REST APIs. Learn how to onboard custom z/OS Connect or Java Spring Boot services using Netflix Eureka registration and Swagger/OpenAPI schemas.",
+  "url": "https://stackmf.com/blog/zowe-api-mediation-layer-onboarding-services.html",
   "datePublished": "2026-09-27T08:00:00+00:00",
   "dateModified": "2026-09-27T08:00:00+00:00",
   "inLanguage": "en",
@@ -100,15 +100,15 @@
     }
   },
   "about": [
-    "DB2 SQL & Performance",
-    "DB2",
-    "Plan Stability",
-    "REBIND",
-    "Access Paths",
-    "APREUSE",
-    "PLANMGMT"
+    "Modernisation & Cloud",
+    "Zowe",
+    "APIML",
+    "REST API",
+    "Eureka",
+    "API Gateway",
+    "Modernisation"
   ],
-  "articleBody": "Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:\n```text\nDSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS\nPLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN\n```\nDatabase administrators face severe business escalation while attempting to pinpoint which packages regressed. During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression. ### 1. Bind with PLANMGMT(EXTENDED)\nConfigure DB2 Plan Management to retain current, previous, and original package copies:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       PLANMGMT(EXTENDED) -\n       APREUSE(WARN)\n```\n\n### 2. Instant Access Path Fallback via SWITCH\nIf a newly bound package exhibits poor response times, instantly revert without recompiling:\n```text\nREBIND PACKAGE(DSN8D13A.CUST01) -\n       SWITCH(PREVIOUS)\n```\nWithin 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!\n\n### 3. Verify Package Copies in Catalog\nQuery package stability history:\n```sql\nSELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS\nFROM SYSIBM.SYSPACKAGE\nWHERE NAME = 'CUST01';\n```"
+  "articleBody": "Enterprises building dozens of microservices on z/OS find their cloud developers overwhelmed by fragmented mainframe endpoints, multiple port numbers, varying authentication methods, and lack of dynamic failover. Individual mainframe subsystems (z/OSMF, z/OS Connect, CICS, IMS Mobile) run on disparate TCP ports with differing security schemes.\nThe **Zowe API Mediation Layer (APIML)** implements an enterprise API Gateway based on Spring Cloud Gateway and Netflix Eureka:\n- Provides a single secure entry point (`https://mainframe-gateway:7554/api/v1/...`).\n- Validates enterprise tokens (JWT / RACF passTickets) once at the perimeter.\n- Auto-discovers active backend service instances dynamically. ### 1. Create the Service Onboarding Configuration (`api-defs.yml`)\nDefine your service metadata:\n```yaml\nserviceId: banking-core-service\ntitle: Enterprise Core Banking REST API\ndescription: Real-time accounts, ledger posting, and card transactions via CICS & DB2\ninstance:\n  homePageUrl: https://zsys1.stackmf.internal:10443/\n  statusPageUrl: https://zsys1.stackmf.internal:10443/status\n  healthCheckUrl: https://zsys1.stackmf.internal:10443/healthz\nroutedServices:\n  - gatewayUrl: api/v1/banking\n    serviceUrl: /api/v1\nroutes:\n  - gatewayUrl: api/v1/banking\n    serviceUrl: /api/v1\napiInfo:\n  - version: 1.0.0\n    swaggerUrl: https://zsys1.stackmf.internal:10443/swagger/v3/api-docs\nauthentication:\n  scheme: httpBasicPassTicket\n  applid: CICSPROD\n```\n\n### 2. Register Service with the Zowe Discovery Service\nPost the registration payload to APIML Discovery Service:\n```bash\ncurl -X POST https://apiml.stackmf.internal:7553/eureka/apps/BANKING-CORE-SERVICE      -H \"Content-Type: application/json\"      -d @api-defs.json\n```\n\n### 3. Invoke Service via Unified APIML Gateway\nCloud clients now invoke the API via standard HTTPS:\n```bash\ncurl -X GET https://apiml.stackmf.internal:7554/banking-core-service/api/v1/accounts/49201      -H \"Authorization: Bearer <ZOWE_JWT_TOKEN>\"\n```"
 }
   </script>
 </head>
@@ -153,16 +153,16 @@
       <span>/</span>
       <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
       <span>/</span>
-      <span class="text-neon-cyan">DB2 SQL & Performance</span>
+      <span class="text-neon-cyan">Modernisation & Cloud</span>
     </nav>
 
     <!-- Header Badges -->
     <div class="flex items-center gap-3 flex-wrap mb-4">
       <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
-        DB2 SQL & Performance
+        Modernisation & Cloud
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
-        <i class="fa-regular fa-clock"></i> 9 min read
+        <i class="fa-regular fa-clock"></i> 11 min read
       </span>
       <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
         <i class="fa-regular fa-calendar"></i> 2026-09-27
@@ -171,7 +171,7 @@
 
     <!-- Title -->
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
-      Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND
+      Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery
     </h1>
 
     <!-- Author & Trust Pod -->
@@ -198,7 +198,7 @@
         <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
       </div>
       <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
-        Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.
+        The Zowe API Mediation Layer (APIML) provides a central enterprise gateway, SSO, and service discovery for all mainframe REST APIs. Learn how to onboard custom z/OS Connect or Java Spring Boot services using Netflix Eureka registration and Swagger/OpenAPI schemas.
       </p>
     </div>
 
@@ -209,21 +209,7 @@
         The Real-World Developer Incident
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Following a quarterly DB2 maintenance migration or catalog RUNSTATS update, an automated mass REBIND job runs. The next morning, high-throughput OLTP transactions stall:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNA672I SQL QUERY RUNTIME JUMPED FROM 12MS TO 4800MS
-PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCAN</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Database administrators face severe business escalation while attempting to pinpoint which packages regressed.</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Enterprises building dozens of microservices on z/OS find their cloud developers overwhelmed by fragmented mainframe endpoints, multiple port numbers, varying authentication methods, and lack of dynamic failover.</p>
       </div>
     </section>
 
@@ -234,7 +220,13 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">During REBIND PACKAGE, DB2 re-evaluates all access paths based on current catalog statistics and optimizer algorithms. If statistics changed slightly or a different index path is estimated marginally cheaper, the optimizer selects a new path. In complex multi-table joins, the new estimate may result in disastrous access path regression.</p>
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Individual mainframe subsystems (z/OSMF, z/OS Connect, CICS, IMS Mobile) run on disparate TCP ports with differing security schemes.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The <strong class="text-white font-semibold">Zowe API Mediation Layer (APIML)</strong> implements an enterprise API Gateway based on Spring Cloud Gateway and Netflix Eureka:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Provides a single secure entry point (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">https://mainframe-gateway:7554/api/v1/...</code>).</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Validates enterprise tokens (JWT / RACF passTickets) once at the perimeter.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Auto-discovers active backend service instances dynamically.</span></li>
+</ul>
       </div>
     </section>
 
@@ -245,53 +237,65 @@ PLAN_TABLE SHOWS ACCESS PATH SWITCHED FROM MATCHING INDEX SCAN TO TABLESPACE SCA
         Step-by-Step Production Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Bind with PLANMGMT(EXTENDED)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Configure DB2 Plan Management to retain current, previous, and original package copies:</p>
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Create the Service Onboarding Configuration (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">api-defs.yml</code>)</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Define your service metadata:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">yaml</span>
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       PLANMGMT(EXTENDED) -
-       APREUSE(WARN)</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>serviceId: banking-core-service
+title: Enterprise Core Banking REST API
+description: Real-time accounts, ledger posting, and card transactions via CICS &amp; DB2
+instance:
+  homePageUrl: https://zsys1.stackmf.internal:10443/
+  statusPageUrl: https://zsys1.stackmf.internal:10443/status
+  healthCheckUrl: https://zsys1.stackmf.internal:10443/healthz
+routedServices:
+  - gatewayUrl: api/v1/banking
+    serviceUrl: /api/v1
+routes:
+  - gatewayUrl: api/v1/banking
+    serviceUrl: /api/v1
+apiInfo:
+  - version: 1.0.0
+    swaggerUrl: https://zsys1.stackmf.internal:10443/swagger/v3/api-docs
+authentication:
+  scheme: httpBasicPassTicket
+  applid: CICSPROD</code></pre>
         </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Instant Access Path Fallback via SWITCH</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If a newly bound package exhibits poor response times, instantly revert without recompiling:</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Register Service with the Zowe Discovery Service</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Post the registration payload to APIML Discovery Service:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>REBIND PACKAGE(DSN8D13A.CUST01) -
-       SWITCH(PREVIOUS)</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>curl -X POST https://apiml.stackmf.internal:7553/eureka/apps/BANKING-CORE-SERVICE      -H "Content-Type: application/json"      -d @api-defs.json</code></pre>
         </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Within 2 seconds, DB2 switches back to the previous proven access path in the catalog, restoring production immediately!</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Verify Package Copies in Catalog</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Query package stability history:</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Invoke Service via Unified APIML Gateway</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Cloud clients now invoke the API via standard HTTPS:</p>
 <div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
           <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
             <span class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
               <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">sql</span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
             </span>
             <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
           </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SELECT BIND_TIME, PLANMGMT, APREUSE_SUCCESS
-FROM SYSIBM.SYSPACKAGE
-WHERE NAME = 'CUST01';</code></pre>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>curl -X GET https://apiml.stackmf.internal:7554/banking-core-service/api/v1/accounts/49201      -H "Authorization: Bearer &lt;ZOWE_JWT_TOKEN&gt;"</code></pre>
         </div>
       </div>
     </section>
@@ -303,7 +307,7 @@ WHERE NAME = 'CUST01';</code></pre>
         Architectural Prevention & Performance Tuning Checklist
       </h3>
       <ul class="space-y-3">
-        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Always rebind critical production packages with PLANMGMT(EXTENDED).</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use APREUSE(ERROR) or APREUSE(WARN) to detect unexpected access path deviations before cutover.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Test rebinds in a cloned pre-production subsystem before executing across production.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use DB2 Query Capture and Comparison utilities to validate elapsed-time impact.</span></li>
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Always register health check endpoints (`/healthz`) so APIML routes around degraded LPARs automatically.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use PassTickets to authenticate seamlessly to backend CICS/IMS regions without exposing user passwords.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Publish OpenAPI 3.0 specifications to the Zowe API Catalog for developer self-service documentation.</span></li>
       </ul>
     </section>
 
@@ -320,27 +324,18 @@ WHERE NAME = 'CUST01';</code></pre>
         <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS Managing Performance: Access Path Stability</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">Open Mainframe Project: Zowe API Mediation Layer Overview</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=performance-access-path-stability" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://docs.zowe.org/stable/user-guide/api-mediation-layer" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
             </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS REBIND PACKAGE Command</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Modernization Architecture</span>
               </div>
-              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=commands-rebind-package-db2" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
-                <span>Docs</span>
-                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-              </a>
-            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
-              <div class="flex items-center gap-3">
-                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Enterprise Mainframe Modernization Services</span>
-              </div>
-              <a href="https://stackmf.com/#mainframe-modernization" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="https://stackmf.com/#fullstack-bridge" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
@@ -351,7 +346,7 @@ WHERE NAME = 'CUST01';</code></pre>
     <!-- Tags -->
     <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
       <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
-      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">DB2</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Plan Stability</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">REBIND</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Access Paths</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">APREUSE</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">PLANMGMT</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Zowe</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">APIML</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">REST API</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Eureka</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">API Gateway</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Modernisation</span>
     </div>
 
     <!-- Bottom Advisory Banner CTA -->

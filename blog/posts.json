@@ -1,37 +1,5 @@
 [
   {
-    "slug": "db2-rebind-stability-package-plan-switching",
-    "title": "Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND",
-    "date": "2026-09-27",
-    "category": "DB2 SQL & Performance",
-    "tags": [
-      "DB2",
-      "Plan Stability",
-      "REBIND",
-      "Access Paths",
-      "APREUSE",
-      "PLANMGMT"
-    ],
-    "reading_time": "9 min read",
-    "tldr": "Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads."
-  },
-  {
-    "slug": "cics-storage-violation-aica-runaway-task",
-    "title": "Diagnosing CICS AICA (Runaway Task) and Storage Violations (Subpool Overwrites)",
-    "date": "2026-09-27",
-    "category": "ABENDS & Diagnostics",
-    "tags": [
-      "CICS",
-      "AICA",
-      "Storage Violation",
-      "Runaway Task",
-      "Subpool",
-      "Dump Analysis"
-    ],
-    "reading_time": "10 min read",
-    "tldr": "CICS ABEND AICA halts transactions that loop without yielding CPU control to CICS task dispatcher, while storage violations corrupt transaction work areas. Discover how to inspect the CICS System Dump, identify runaway loops, and configure storage protection keys."
-  },
-  {
     "slug": "soc7-data-exception-cobol-packed-decimal",
     "title": "Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields",
     "date": "2026-09-27",
@@ -435,5 +403,841 @@
     ],
     "reading_time": "12 min read",
     "tldr": "IBM Monthly License Charges (MLC) are dictated by peak Rolling 4-Hour Average (4HRA) MSU consumption. Discover how to compress your batch processing window by 35% through Enterprise COBOL OPT(3)/ARCH(14), DFSORT memory tuning, and WLM batch cap smoothing."
+  },
+  {
+    "slug": "ezt-to-imu-automated-migration-guide",
+    "title": "Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1)",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Easytrieve",
+      "IBM Migration Utility",
+      "IMU",
+      "COBOL",
+      "Broadcom Replacement",
+      "FSCCL1"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "Eliminate expensive Broadcom Easytrieve Plus software licenses by converting legacy EZT programs into standard Enterprise COBOL using IBM Migration Utility (IMU). Learn how to set up the FSCCL1 translator step, configure EZPARAMS, and verify bit-for-bit output parity."
+  },
+  {
+    "slug": "ezt-file-status-abends-in-imu-conversion",
+    "title": "Resolving File Status and Arithmetic Truncation Mismatches in Easytrieve-to-IMU Conversions",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Easytrieve",
+      "IMU",
+      "File Status",
+      "COBOL",
+      "Truncation",
+      "FSCCL1"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "When converting Easytrieve to COBOL via IMU, differences in default arithmetic rounding, file status evaluations, and binary data alignment can cause S0C7 ABENDs or unexpected calculations. Learn how to tune IMU compiler options to ensure exact bitwise equivalence."
+  },
+  {
+    "slug": "ezt-report-layout-pagination-imu-tuning",
+    "title": "Fixing Line Overflow, Heading Wraps, and Dynamic Page Breaks in IMU-Generated COBOL Reports",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Easytrieve",
+      "IMU",
+      "Reporting",
+      "Pagination",
+      "COBOL",
+      "BMS"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Easytrieve's proprietary REPORT facility automatically calculates dynamic column spacing, header wrapping, and control breaks. Discover how IMU's FSCRPT00 module maps reporting macros to standard COBOL LINAGE clauses and page counters."
+  },
+  {
+    "slug": "ezt-macro-substitution-imu-native-migration",
+    "title": "Deconstructing Complex Easytrieve Macros and Tables into Standard COBOL Copybooks via IMU",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Easytrieve",
+      "Macros",
+      "IMU",
+      "COBOL Copybooks",
+      "Modernisation"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Legacy Easytrieve applications frequently rely on parameter-substituted %MACRO calls and internal memory tables. Learn how to map Easytrieve macro libraries to standard COBOL copybooks and replace binary SEARCH tables with clean OCCURS structures."
+  },
+  {
+    "slug": "vscode-zowe-explorer-setup-enterprise-sso",
+    "title": "Configuring VS Code Zowe Explorer with Enterprise SSO, Team Profiles, and API Mediation Layer (APIML)",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Zowe",
+      "VS Code",
+      "Zowe Explorer",
+      "APIML",
+      "SSO",
+      "DevOps"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "Elevate mainframe developer productivity by moving from 3270 green-screens to Visual Studio Code. Discover how to configure Zowe Explorer v2 with team configuration profiles (`zowe.config.json`), secure client certificates, and Single Sign-On (SSO) via the Zowe API Mediation Layer."
+  },
+  {
+    "slug": "zowe-cli-batch-jcl-submission-automation",
+    "title": "Automating z/OS JCL Submission, Spool Polling, and Output Retrieval via Zowe CLI in CI/CD",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Zowe CLI",
+      "JCL",
+      "CI/CD",
+      "GitHub Actions",
+      "Spool Parsing",
+      "Automation"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Integrate mainframe batch execution into modern DevOps pipelines. Learn how to submit JCL from local Git branches, wait for completion, check return codes, and download spool outputs (SYSUDUMP, CEEDUMP) programmatically using Zowe CLI commands."
+  },
+  {
+    "slug": "zowe-cli-vsam-dataset-management-scripts",
+    "title": "Scripting VSAM and Partitioned Dataset (PDS/PDSE) Operations using Zowe CLI and Python",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Zowe CLI",
+      "VSAM",
+      "Python",
+      "Datasets",
+      "PDS",
+      "Automation"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Manage z/OS datasets like cloud storage. Discover how to create, upload, download, and delete PDS members and VSAM clusters programmatically using the Zowe CLI and Python subprocess workflows."
+  },
+  {
+    "slug": "vscode-zowe-cobol-language-server-lsp",
+    "title": "Enabling Advanced COBOL Syntax Checking, Copybook Resolution, and Hover Peek in VS Code",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "VS Code",
+      "COBOL",
+      "LSP",
+      "Language Server",
+      "Copybooks",
+      "Developer Productivity"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Transform Visual Studio Code into a full-featured COBOL IDE. Configure the COBOL Language Support extension (Language Server Protocol / LSP), local and remote copybook caching via Zowe, and real-time syntax linting before submitting jobs to z/OS."
+  },
+  {
+    "slug": "zowe-api-mediation-layer-onboarding-services",
+    "title": "Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Zowe",
+      "APIML",
+      "REST API",
+      "Eureka",
+      "API Gateway",
+      "Modernisation"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "The Zowe API Mediation Layer (APIML) provides a central enterprise gateway, SSO, and service discovery for all mainframe REST APIs. Learn how to onboard custom z/OS Connect or Java Spring Boot services using Netflix Eureka registration and Swagger/OpenAPI schemas."
+  },
+  {
+    "slug": "zowe-cross-memory-server-zowe-aux-troubleshooting",
+    "title": "Diagnosing Zowe Cross-Memory Server (ZWESVSRV) and Aux Server Security Exceptions",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "Zowe",
+      "Cross-Memory Server",
+      "ZWESVSRV",
+      "APF",
+      "RACF",
+      "Troubleshooting"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "The Zowe Cross-Memory Server (ZWESVSRV) provides privileged z/OS services to unprivileged user tasks. Troubleshoot common startup abends (S0C4, S047) caused by missing APF authorization, PPT entries, and RACF FACILITY class permissions."
+  },
+  {
+    "slug": "ibm-developer-for-zos-idz-remote-debugging",
+    "title": "Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "IDz",
+      "COBOL",
+      "Remote Debug",
+      "Debug Tool",
+      "Eclipse",
+      "z/OS Debugger"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "Step-by-step guide to configuring interactive source-level debugging for batch and CICS COBOL applications inside IBM Developer for z/OS (IDz). Discover how to configure TEST compiler options, establish TCP/IP daemon connections, and trigger breakpoints dynamically."
+  },
+  {
+    "slug": "idz-workspace-project-synchronization-git",
+    "title": "Integrating IDz with Git and IBM Dependency Based Build (DBB) for Branch-Based Development",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "IDz",
+      "Git",
+      "IBM DBB",
+      "DevOps",
+      "Branching",
+      "Modernisation"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Connect IBM Developer for z/OS (IDz) with Git repositories and IBM DBB. Learn how to map z/OS projects to local Git clones, manage branch checkouts, and trigger automated User Builds on z/OS directly from the IDz interface."
+  },
+  {
+    "slug": "idz-code-review-ruleset-customization",
+    "title": "Customizing Software Analyzer and Code Quality Rulesets in IDz for Enterprise COBOL Standards",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "IDz",
+      "Code Quality",
+      "Software Analyzer",
+      "COBOL",
+      "Standards",
+      "Linter"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Enforce strict coding standards across your mainframe team. Configure IBM Developer for z/OS (IDz) Software Analyzer rulesets to automatically flag dangerous patterns like GOTO, hardcoded SQL credentials, and uninitialized packed decimals."
+  },
+  {
+    "slug": "zowe-explorer-ftp-vs-zftp-performance-tuning",
+    "title": "Eliminating Latency in VS Code Zowe Explorer: Tuning z/OS FTP Server and USS Buffers",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Zowe Explorer",
+      "FTP",
+      "z/OSMF",
+      "Performance",
+      "VS Code",
+      "Latency"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "When browsing thousands of PDS members in Zowe Explorer, high network latency and unoptimized z/OS FTP/z/OSMF buffer settings can cause sluggish rendering. Learn how to tune z/OSMF heap sizes, enable client caching, and switch to high-speed z/OS FTP protocol profiles."
+  },
+  {
+    "slug": "zowe-chat-mattermost-slack-ops-integration",
+    "title": "Implementing Mainframe ChatOps with Zowe Chat: Managing Sysplex Incidents from Teams and Slack",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Zowe Chat",
+      "ChatOps",
+      "Slack",
+      "Microsoft Teams",
+      "Incident Response",
+      "Automation"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Bring modern ChatOps to IBM z/OS. Discover how to configure Zowe Chat to inspect batch jobs, query MVS console messages, and recycle CICS transactions directly from Slack, Microsoft Teams, or Mattermost incident war rooms."
+  },
+  {
+    "slug": "migrating-broadcom-file-master-to-zowe-data-sets",
+    "title": "Replacing Broadcom File Master Plus with Zowe CLI and VS Code Hex Viewers",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "File Master Plus",
+      "Broadcom Replacement",
+      "Zowe",
+      "VS Code",
+      "Hex Viewer",
+      "VSAM"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Eliminate hefty Broadcom File Master Plus licensing fees. Learn how to inspect, edit, and format raw sequential, PDS, and VSAM records using Zowe CLI, VS Code Hex Editor, and copybook record mapping scripts."
+  },
+  {
+    "slug": "zowe-zosmf-rest-api-certificate-errors",
+    "title": "Resolving SSL/TLS Certificate Untrusted and Handshake Errors in Zowe z/OSMF Connections",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Zowe",
+      "z/OSMF",
+      "SSL",
+      "TLS",
+      "Certificates",
+      "RACF",
+      "Troubleshooting"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Zowe CLI and VS Code Zowe Explorer connections fail when z/OSMF presents a self-signed or enterprise internal root certificate. Learn how to export the z/OS CA certificate using RACF RACDCERT, import it into client truststores, and eliminate 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' errors."
+  },
+  {
+    "slug": "ezt-match-file-processing-imu-refactoring",
+    "title": "Translating Easytrieve Synchronous File Match (MATCH Statement) into COBOL Two-Way Merge Logic",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Easytrieve",
+      "MATCH Statement",
+      "IMU",
+      "COBOL",
+      "File Merge",
+      "Batch"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Easytrieve's native MATCH statement provides automated multi-file synchronization (matching master and transaction files). Discover how IMU converts MATCH statements into high-efficiency COBOL balanced line algorithms."
+  },
+  {
+    "slug": "vscode-debugger-for-mainframe-setup",
+    "title": "Step-by-Step Configuration of the VS Code Debugger for Mainframe with IBM z/OS Debugger",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "VS Code",
+      "Debugging",
+      "IBM z/OS Debugger",
+      "COBOL",
+      "DevOps"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Bring modern visual debugging to VS Code. Learn how to configure launch.json, connect to the IBM z/OS Debugger headless service, and execute interactive source-level breakpoint debugging inside Visual Studio Code."
+  },
+  {
+    "slug": "zowe-python-sdk-zos-automation-pipelines",
+    "title": "Building Resilient Mainframe Automation Pipelines using the Zowe Python SDK",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Zowe",
+      "Python",
+      "Automation",
+      "SDK",
+      "DevOps",
+      "z/OS"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Automate complex mainframe administrative, deployment, and testing workflows in Python. Discover how to use the official Zowe Python SDK to manipulate datasets, submit batch jobs, issue console commands, and query system health programmatically."
+  },
+  {
+    "slug": "idz-carma-repository-ram-integration",
+    "title": "Connecting IDz to Legacy SCM Repositories (CA Endevor, ChangeMan) using CARMA RAMs",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "IDz",
+      "CARMA",
+      "Endevor",
+      "ChangeMan",
+      "RAM",
+      "DevOps"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "If your organization hasn't yet completed the migration from CA Endevor or Serena ChangeMan to Git, use IBM CARMA (Common Access Repository Manager) inside IDz to check out, edit, and promote elements directly from the modern GUI without 3270 panels."
+  },
+  {
+    "slug": "ezt-printer-control-imu-asa-carriage-characters",
+    "title": "Handling ANSI/ASA Carriage Control Characters in Easytrieve to IMU Migration",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Easytrieve",
+      "IMU",
+      "Carriage Control",
+      "ASA",
+      "Reporting",
+      "COBOL"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Legacy mainframe reporting depends on Column 1 Carriage Control characters (ASA/ANSI: ' ', '0', '-', '1', '+'). Learn how to resolve page-eject discrepancies and printer alignment issues when migrating Easytrieve reports to COBOL using IBM Migration Utility."
+  },
+  {
+    "slug": "zowe-cli-secure-credential-store-plugin",
+    "title": "Securing Enterprise Mainframe Credentials in CI/CD Runners using Zowe Secure Credential Store",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Zowe CLI",
+      "Security",
+      "Credentials",
+      "Vault",
+      "CI/CD",
+      "DevOps"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Never commit plaintext mainframe passwords to configuration files. Discover how to install and configure the Zowe Secure Credential Store plugin, integrate with OS keychains, and pass temporary secrets securely in automated GitHub Actions runners."
+  },
+  {
+    "slug": "vscode-mainframe-extension-pack-productivity",
+    "title": "Maximizing Developer Velocity: Curating the Ultimate Mainframe Extension Pack for VS Code",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "VS Code",
+      "Extensions",
+      "Productivity",
+      "DevOps",
+      "Developer Tools"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Supercharge your mainframe engineering team. Explore the top essential extensions for Visual Studio Code: Zowe Explorer, COBOL Language Support, HLASM language servers, JCL formatters, and GitLens."
+  },
+  {
+    "slug": "zowe-containers-openshift-kubernetes-deployment",
+    "title": "Deploying Zowe Server Components on Red Hat OpenShift and Kubernetes for Hybrid Cloud",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Zowe",
+      "Kubernetes",
+      "OpenShift",
+      "Containers",
+      "Hybrid Cloud",
+      "Modernisation"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "Offload compute and simplify Zowe administration by running Zowe server components (APIML, Discovery, Desktop, Caching) inside containerized Red Hat OpenShift or Kubernetes clusters while maintaining secure cross-memory connections to z/OS."
+  },
+  {
+    "slug": "s0c9-fixed-point-divide-exception-cobol",
+    "title": "Troubleshooting ABEND S0C9 (Fixed-Point Divide Exception) in COBOL Financial Calculations",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "COBOL",
+      "ABEND S0C9",
+      "Divide by Zero",
+      "CEEDUMP",
+      "Financial Math"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "ABEND S0C9 occurs when an arithmetic statement attempts to divide by zero or when the quotient of a division exceeds the capacity of the target binary/packed-decimal field. Learn how to trap divide errors with ON SIZE ERROR and analyze CEEDUMP stack frames."
+  },
+  {
+    "slug": "s806-load-module-not-found-steplib-debugging",
+    "title": "Diagnosing ABEND S806-04: Resolving Missing Load Modules in JOBLIB, STEPLIB, and LPA",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "JCL",
+      "ABEND S806",
+      "STEPLIB",
+      "JOBLIB",
+      "Link-Edit",
+      "Binder"
+    ],
+    "reading_time": "8 min read",
+    "tldr": "ABEND S806 (Reason 04) indicates the MVS program fetch mechanism searched all designated libraries (STEPLIB, JOBLIB, LPA, LNKLST) but could not locate the requested program member. Discover search order hierarchy and resolution techniques."
+  },
+  {
+    "slug": "s322-s222-cpu-time-limit-batch-abends",
+    "title": "Fixing ABEND S322 (CPU Time Limit Exceeded) and S222 (Job Cancelled) in Long-Running Batch",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "JCL",
+      "ABEND S322",
+      "ABEND S222",
+      "TIME Parameter",
+      "Batch Optimization"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "ABEND S322 occurs when a batch job exceeds its allocated CPU time limit (due to an infinite loop, massive dataset scans, or inadequate JCL TIME parameters). Learn how to tune TIME parameters, optimize loops, and handle S222 operator cancellations."
+  },
+  {
+    "slug": "s878-s80a-out-of-virtual-storage-abends",
+    "title": "Resolving ABEND S878 & S80A: Virtual Storage Exhaustion in 24-bit and 31-bit z/OS Memory",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "Memory",
+      "ABEND S878",
+      "ABEND S80A",
+      "GETMAIN",
+      "REGION",
+      "Below-the-Bar"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "ABEND S878 and S80A indicate that an MVS GETMAIN or Language Environment heap allocation failed because below-the-bar virtual storage (24-bit/31-bit) was exhausted. Discover how to tune JCL REGION parameters and compile with RMODE(ANY) and LP(64)."
+  },
+  {
+    "slug": "cics-aeyh-abend-db2-connection-failure",
+    "title": "Resolving CICS AEYH ABEND: CICS-DB2 Attachment Facility Disconnects and Thread Pool Starvation",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "CICS",
+      "DB2",
+      "ABEND AEYH",
+      "Attachment Facility",
+      "Threads",
+      "DB2CONN"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "CICS ABEND AEYH occurs when an application issues an EXEC SQL statement but the CICS-DB2 attachment facility is inactive or when all pool threads are exhausted. Learn how to diagnose DB2CONN and DB2ENTRY resources and tune thread limits."
+  },
+  {
+    "slug": "db2-sqlcode-803-duplicate-key-violation",
+    "title": "Handling DB2 SQLCODE -803: Unique Index Constraint Violations in Concurrent Batch Inserts",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "SQLCODE -803",
+      "Unique Index",
+      "Constraints",
+      "Concurrency"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "DB2 SQLCODE -803 indicates an INSERT or UPDATE statement violated a unique index constraint. Discover strategies to diagnose conflicting keys, use MERGE statements, and implement SELECT FOR UPDATE patterns."
+  },
+  {
+    "slug": "db2-sqlcode-818-timestamp-consistency-token",
+    "title": "Resolving DB2 SQLCODE -818: Precompiler Timestamp Token Mismatch Between Plan and Load Module",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "SQLCODE -818",
+      "Consistency Token",
+      "Precompiler",
+      "BIND PACKAGE",
+      "DevOps"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "DB2 SQLCODE -818 occurs when the consistency token (timestamp) embedded in the compiled COBOL load module does not match the token in the bound DB2 package. Learn how to verify timestamps and ensure atomic compile/bind automation."
+  },
+  {
+    "slug": "db2-sqlcode-501-502-cursor-state-errors",
+    "title": "Fixing DB2 SQLCODE -501 (Cursor Not Open) and SQLCODE -502 (Cursor Already Open) in Nested Calls",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "SQLCODE -501",
+      "SQLCODE -502",
+      "Cursors",
+      "COBOL",
+      "Stored Procedures"
+    ],
+    "reading_time": "8 min read",
+    "tldr": "DB2 SQLCODE -501 occurs when attempting to FETCH from or CLOSE a cursor that is closed. SQLCODE -502 occurs when OPENing an already open cursor. Learn how to manage cursor states across nested subprogram calls and commit boundaries."
+  },
+  {
+    "slug": "cics-aica-excessive-loop-dispatcher-tuning",
+    "title": "Advanced CICS AICA Tuning: Calculating CPU Dispatch Loops and SIT RUNAWAY Thresholds",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "CICS",
+      "AICA",
+      "SIT",
+      "RUNAWAY",
+      "Dispatcher",
+      "Performance"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Deep architectural analysis of CICS transaction runaway timer mechanics. Learn how the CICS dispatcher calculates interval control timer ticks, how to calibrate SIT ICV and RUNAWAY thresholds, and how to analyze MVS system trace tables to isolate tight machine code loops."
+  },
+  {
+    "slug": "vsam-file-status-35-missing-dataset-jcl",
+    "title": "Troubleshooting VSAM File Status 35: Dataset Not Found during Dynamic Allocation in Batch & CICS",
+    "date": "2026-09-27",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "VSAM",
+      "File Status 35",
+      "COBOL",
+      "JCL",
+      "Dynamic Allocation",
+      "CICS"
+    ],
+    "reading_time": "8 min read",
+    "tldr": "VSAM File Status 35 indicates that an OPEN statement failed because the designated physical dataset does not exist or was not found in the master/user catalog. Learn how to verify catalog pointers, fix dynamic allocation parameters, and handle optional files."
+  },
+  {
+    "slug": "vsam-alternate-index-aix-upgrade-degradation",
+    "title": "Tuning VSAM Alternate Index (AIX) Performance: Managing UPGRADE Sets and BLDINDEX Latency",
+    "date": "2026-09-27",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "VSAM",
+      "AIX",
+      "Alternate Index",
+      "BLDINDEX",
+      "UPGRADE Set",
+      "Performance"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "VSAM Alternate Indexes (AIX) enable record access by secondary keys (such as SSN or Phone Number), but un-tuned UPGRADE sets can degrade batch insert performance by 500%. Discover how to manage UPGRADE sets and execute high-speed BLDINDEX batch rebuilds."
+  },
+  {
+    "slug": "ims-status-code-ai-open-error-troubleshooting",
+    "title": "Diagnosing IMS DL/I Status Code 'AI': Resolving Database Open Failures and Missing DD Cards",
+    "date": "2026-09-27",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "IMS DB",
+      "DL/I",
+      "Status Code AI",
+      "Database Open",
+      "PSB",
+      "DBD"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "IMS DL/I status code 'AI' signals an open error on a physical database dataset. Learn how to diagnose missing DD statements, data set authorization failures, and dynamic allocation (DFSMDA) mismatches."
+  },
+  {
+    "slug": "ims-status-code-ge-segment-not-found",
+    "title": "Handling IMS DL/I Status Code 'GE': Navigating Unmatched Key Ranges and Boolean SSAs",
+    "date": "2026-09-27",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "IMS DB",
+      "DL/I",
+      "Status Code GE",
+      "SSA",
+      "Segment Not Found",
+      "COBOL"
+    ],
+    "reading_time": "8 min read",
+    "tldr": "IMS DL/I status code 'GE' indicates the requested segment was not found (equivalent to SQLCODE +100). Learn how to handle 'GE' gracefully, optimize qualified Segment Search Arguments (SSAs), and navigate hierarchical paths."
+  },
+  {
+    "slug": "telon-batch-driver-to-cobol-modernization",
+    "title": "Migrating CA-Telon Batch Drivers and TDF Panels into Modular Enterprise COBOL 6.x",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Telon",
+      "CA-Telon",
+      "COBOL",
+      "Modernisation",
+      "Broadcom Replacement",
+      "TDF"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "Eliminate proprietary Broadcom CA-Telon batch drivers and generated spaghetti code. Discover how to extract business logic from Telon Development Facility (TDF) tables, eliminate the TLNMAIN driver, and refactor into clean, modern COBOL 6.x."
+  },
+  {
+    "slug": "ca7-dataset-trigger-missed-event-resolution",
+    "title": "Fixing CA-7 Data Set Trigger (DSN) Failures: Resolving Missed SMF Type 15 Close Events",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "CA-7",
+      "Workload Automation",
+      "Dataset Triggers",
+      "SMF",
+      "Broadcom Replacement"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "CA-7 Data Set Triggers (DSN) automatically initiate downstream batch jobs when an input file is closed. Troubleshoot why jobs fail to trigger due to disposition issues (DISP=MOD vs NEW), SMF Type 15 intercept drops, or SASSSMI0 exits."
+  },
+  {
+    "slug": "ca7-late-and-unstarted-job-troubleshooting",
+    "title": "Resolving CA-7 LATE and LJOB Delays: Diagnosing Predecessor Hold Dependencies and Resource Depth",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "CA-7",
+      "LATE",
+      "Workload Automation",
+      "Queue Management",
+      "Troubleshooting"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "When critical batch jobs are flagged as LATE in CA-7, immediate action is required to avoid breaching SLAs. Learn how to parse CA-7 Queue displays (LQ, LJOB), inspect Virtual Resource Management (VRM) locks, and release predecessor holds."
+  },
+  {
+    "slug": "endevor-signout-lock-package-cast-failure",
+    "title": "Clearing Orphaned Endevor Signout Locks and Resolving Package Cast Return Code 12",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Endevor",
+      "Broadcom",
+      "Signout Lock",
+      "Package Cast",
+      "DevOps"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Broadcom Endevor package cast failures (RC=12) occur when elements are signed out to other users or locked by concurrent change control. Learn how to inspect element master records, clear orphaned signouts, and cast packages cleanly."
+  },
+  {
+    "slug": "changeman-zmf-component-recompile-drift",
+    "title": "Preventing ChangeMan ZMF Component Desynchronization with Automated Cross-Reference (XREF)",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "ChangeMan",
+      "ChangeMan ZMF",
+      "XREF",
+      "Desynchronization",
+      "DevOps"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "In Serena / Micro Focus ChangeMan ZMF, modifying a shared copybook without recompiling all dependent COBOL programs creates silent runtime data corruption. Discover how to configure ChangeMan XREF data collection and audit triggers."
+  },
+  {
+    "slug": "rexx-stem-variable-memory-leak-cleanup",
+    "title": "Preventing Memory Leaks and TSO/E Exhaustion in High-Volume Enterprise REXX Automation",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "REXX",
+      "Memory Leak",
+      "Stem Variables",
+      "DROP",
+      "TSO/E",
+      "Performance"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "REXX stem variables (e.g. RECORD.i) allocate virtual memory dynamically. In long-running automation loops processing millions of records, failing to drop stems causes virtual storage exhaustion and TSO/E ABEND S878. Learn memory management best practices in REXX."
+  },
+  {
+    "slug": "rexx-parsing-smf-records-system-auditing",
+    "title": "Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "REXX",
+      "SMF",
+      "Telemetry",
+      "Auditing",
+      "z/OS",
+      "Automation"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "System Management Facilities (SMF) records are the black box of z/OS. Discover how to write high-speed REXX scripts that decode SMF Type 30 (CPU/Job accounting) and Type 110 (CICS transaction metrics) without purchasing expensive third-party reporting tools."
+  },
+  {
+    "slug": "cobol-json-generate-json-parse-zowe-apis",
+    "title": "Native JSON Parsing and Generation in Enterprise COBOL 6.x for Modern REST Gateways",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "COBOL 6.x",
+      "JSON PARSE",
+      "JSON GENERATE",
+      "REST API",
+      "Modernisation"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Eliminate middleware gateways. Discover how to use Enterprise COBOL 6.x native JSON GENERATE and JSON PARSE statements to consume and emit UTF-8 JSON payloads directly inside z/OS batch and CICS programs."
+  },
+  {
+    "slug": "db2-multi-row-fetch-insert-batch-tuning",
+    "title": "Accelerating Batch SQL by 400%: Implementing DB2 Multi-Row FETCH and Multi-Row INSERT in COBOL",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "Multi-Row FETCH",
+      "Multi-Row INSERT",
+      "Performance",
+      "COBOL DB2"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Single-row SQL cursors incur CPU cross-memory switching costs on every single row. Learn how to implement DB2 for z/OS Multi-Row FETCH and Multi-Row INSERT in COBOL, reducing batch elapsed times and CPU consumption by up to 70%."
+  },
+  {
+    "slug": "syncsort-dfsort-icetool-batch-reporting",
+    "title": "Replacing Custom COBOL Extract Programs with High-Performance DFSORT / ICETOOL Control Statements",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "DFSORT",
+      "ICETOOL",
+      "Batch",
+      "Performance",
+      "SyncSort",
+      "Automation"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Writing full COBOL programs just to filter, reformat, and aggregate sequential files burns developer hours and CPU cycles. Learn how to use DFSORT and ICETOOL operators (SPLICE, SELECT, STATS, DISPLAY) to execute high-speed batch data manipulations directly in JCL."
+  },
+  {
+    "slug": "cics-channels-containers-replacing-commarea",
+    "title": "Breaking the 32KB Limit: Transitioning CICS Commareas to Channels and Containers",
+    "date": "2026-09-27",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "CICS TS",
+      "Channels",
+      "Containers",
+      "Commarea",
+      "Modernisation",
+      "COBOL"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Traditional CICS communication is restricted by the rigid 32KB DFHCOMMAREA barrier. Discover how to modernize program-to-program and web interfaces using CICS Channels and Containers, supporting multi-megabyte JSON payloads and modular data structures."
+  },
+  {
+    "slug": "sub-capacity-reporting-tool-scrt-optimization",
+    "title": "Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "SCRT",
+      "4HRA",
+      "MLC",
+      "Cost Optimization",
+      "WLM",
+      "Capacity Planning"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps."
+  },
+  {
+    "slug": "cics-storage-violation-aica-runaway-task",
+    "title": "Diagnosing CICS AICA (Runaway Task) and Storage Violations (Subpool Overwrites)",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "CICS",
+      "AICA",
+      "Storage Violation",
+      "Runaway Task",
+      "Subpool",
+      "Dump Analysis"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "CICS ABEND AICA halts transactions that loop without yielding CPU control to CICS task dispatcher, while storage violations corrupt transaction work areas. Discover how to inspect the CICS System Dump, identify runaway loops, and configure storage protection keys."
+  },
+  {
+    "slug": "db2-rebind-stability-package-plan-switching",
+    "title": "Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "Plan Stability",
+      "REBIND",
+      "Access Paths",
+      "APREUSE",
+      "PLANMGMT"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads."
+  },
+  {
+    "slug": "cobol-null-indicators-db2-host-variables",
+    "title": "Handling DB2 SQLCODE -305: Null Indicator Variables in COBOL Working-Storage",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "COBOL",
+      "SQLCODE -305",
+      "Null Indicator",
+      "Host Variables"
+    ],
+    "reading_time": "8 min read",
+    "tldr": "DB2 SQLCODE -305 is raised when a query attempts to retrieve a NULL column value into a COBOL host variable without specifying an accompanying Null Indicator variable. Learn proper indicator syntax and default coalescing."
   }
 ]
