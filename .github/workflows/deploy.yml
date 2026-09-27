@@ -96,6 +96,7 @@ jobs:
     name: Deploy to Hostinger (stackmf.com)
     needs: validate
     if: (github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')) || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
