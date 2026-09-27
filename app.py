@@ -22,6 +22,11 @@ def sitemap():
     """Serves search engine sitemap."""
     return send_from_directory('.', 'sitemap.xml', mimetype='application/xml')
 
+@app.route('/google<token>.html')
+def serve_google_verification(token):
+    """Serves Google Search Console HTML verification file."""
+    return send_from_directory('.', f'google{token}.html', mimetype='text/html; charset=utf-8')
+
 @app.route('/<filename>.txt')
 def serve_txt(filename):
     """Serves root text files like llms.txt, robots.txt, IndexNow verification keys."""
