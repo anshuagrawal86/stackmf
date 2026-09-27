@@ -5,6 +5,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Autonomous Daily Mainframe Blog Publisher"]
+    types:
+      - completed
+    branches:
+      - main
 
 env:
   PROJECT_ID: serviceapartments
