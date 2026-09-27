@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF Mainframe Knowledge Base</title>
+  <title>Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF</title>
   <meta name="title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF">
   <meta name="description" content="IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.">
   <meta name="keywords" content="SCRT, 4HRA, MLC, Cost Optimization, WLM, Capacity Planning, mainframe modernization, cobol abend, z/os debugging, stackmf">
-  <meta name="author" content="StackMF Mainframe Architecture Pod">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Anshu - StackMF Technologies">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html">
-  <meta property="og:title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies">
+  <meta property="og:title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF">
   <meta property="og:description" content="IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies">
+  <meta name="twitter:title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF">
   <meta name="twitter:description" content="IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -78,37 +78,185 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies",
-  "description": "IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.",
-  "url": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html",
-  "datePublished": "2026-09-27T08:00:00+00:00",
-  "dateModified": "2026-09-27T08:00:00+00:00",
-  "inLanguage": "en",
-  "author": {
-    "@type": "Organization",
-    "name": "StackMF Mainframe Architecture Pod",
-    "url": "https://stackmf.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "StackMF Technologies LLP",
-    "url": "https://stackmf.com",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html#article",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html"
+      },
+      "headline": "Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies Fix",
+      "description": "IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.",
+      "url": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html",
+      "datePublished": "2026-09-27T08:00:00+00:00",
+      "dateModified": "2026-09-27T08:36:14+00:00",
+      "inLanguage": "en-US",
+      "mainEntityOfPage": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html",
+      "author": {
+        "@type": "Person",
+        "name": "Anshu",
+        "jobTitle": "Chief Technology Architect & Mainframe Systems SME",
+        "url": "https://stackmf.com",
+        "sameAs": "https://www.linkedin.com/company/stackmf"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://stackmf.com/#organization",
+        "name": "StackMF Technologies LLP",
+        "url": "https://stackmf.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=192,h=192,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+        }
+      },
+      "keywords": [
+        "SCRT",
+        "4HRA",
+        "MLC",
+        "Cost Optimization",
+        "WLM",
+        "Capacity Planning",
+        "mainframe modernization",
+        "IBM z/OS",
+        "production troubleshooting",
+        "stackmf"
+      ],
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "SCRT"
+        },
+        {
+          "@type": "Thing",
+          "name": "4HRA"
+        },
+        {
+          "@type": "Thing",
+          "name": "MLC"
+        },
+        {
+          "@type": "Thing",
+          "name": "Cost Optimization"
+        },
+        {
+          "@type": "Thing",
+          "name": "WLM"
+        },
+        {
+          "@type": "Thing",
+          "name": "Capacity Planning"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html#howto",
+      "name": "How to Resolve Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies",
+      "description": "IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.",
+      "totalTime": "PT15M",
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "SDSF Spool / JES2 System Log"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "Language Environment CEEDUMP"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "IBM Enterprise COBOL / DB2 Subsystem"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Analyze the Spool and Traceback Logs",
+          "text": "Locate the failing statement, completion code, or SQLCODE in SDSF or CEEDUMP."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Identify the Corrupt Variable or Contention Lock",
+          "text": "Inspect the hexadecimal storage, host variables, or resource locks involved in the failure."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Apply the Verified Defensive Code or JCL Patch",
+          "text": "Implement the recommended syntax, compiler options, or parameter adjustment."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Validate Execution in Test Subsystem",
+          "text": "Run batch cycle or transaction test to confirm clean execution with RC=0000."
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the root cause of Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "IBM bills software based on the highest simultaneous Rolling 4-Hour Average (4HRA) across the month:."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you resolve Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies in production?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can teams prevent Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies in enterprise pipelines?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Audit SCRT reports weekly using predictive tools rather than waiting for the end of the month."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://stackmf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mainframe Knowledge Base",
+          "item": "https://stackmf.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "DB2 SQL & Performance",
+          "item": "https://stackmf.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies",
+          "item": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html"
+        }
+      ]
     }
-  },
-  "about": [
-    "DB2 SQL & Performance",
-    "SCRT",
-    "4HRA",
-    "MLC",
-    "Cost Optimization",
-    "WLM",
-    "Capacity Planning"
-  ],
-  "articleBody": "The enterprise CIO receives an unexpected 20% spike on the monthly IBM software invoice. Nobody on the mainframe team can identify which job or business event caused the peak billing hour to jump. IBM bills software based on the highest simultaneous **Rolling 4-Hour Average (4HRA)** across the month:\n- The SCRT tool scans SMF Type 70 (CPU activity) and Type 89 (product usage) records across all LPARs in the sysplex.\n- It identifies the single peak hour where combined MSU consumption was highest.\n- An unconstrained batch extraction job overlapping with online transaction processing during the peak window permanently sets the monthly software bill at a higher tier! ### 1. Execute and Generate the Monthly SCRT Report\n```jcl\n//SCRTSTEP EXEC PGM=ISRSCRT\n//SYSPRINT DD SYSOUT=*\n//SMFDATA  DD DSN=PROD.SMF.MONTHLY,DISP=SHR\n//OUTPUT   DD DSN=PROD.SCRT.REPORT.CSV,DISP=(NEW,CATLG,DELETE),\n//            SPACE=(CYL,(5,1))\n```\n\n### 2. Locate the Peak 4HRA Billing Hour in the Report\nOpen the generated CSV report. Search for section:\n```text\nProduct Max / Peak Utilization:\nProduct: 5650-ZOS (z/OS V2)\nPeak MSU: 1,420\nPeak Date/Time: 2026-09-18 02:00:00 UTC\nContributing LPARs: LPAR1 (920 MSU), LPAR2 (500 MSU)\n```\nThis isolates the exact date and hour of the spike: **September 18 at 02:00 UTC**.\n\n### 3. Cross-Reference Peak Hour with SMF Type 30 Records\nQuery SMF Type 30 records between 00:00 and 04:00 UTC on September 18 to list jobs consuming the highest CPU:\n```sql\nSELECT JOBNAME, SUM(CPUTIME)\nFROM SMF_TYPE30_TABLE\nWHERE START_TIME BETWEEN '2026-09-18 00:00:00' AND '2026-09-18 04:00:00'\nGROUP BY JOBNAME\nORDER BY 2 DESC;\n```\nOffending job identified: `UNLOAD_ALL_CUSTOMERS` ran concurrently with nightly database reorgs!\n\n### 4. Implement WLM Defined Capacity and Schedule Staggering\n1. Shift `UNLOAD_ALL_CUSTOMERS` to 04:30 AM (outside the 4HRA peak window).\n2. In WLM, configure Defined Capacity on `LPAR1` to 850 MSUs, capping billing peaks automatically."
+  ]
 }
   </script>
 </head>
@@ -178,26 +326,30 @@
     <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-white/10 mb-8 flex-wrap gap-4">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-emerald to-neon-cyan p-[2px]">
-          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center">
-            <i class="fa-solid fa-server text-neon-emerald text-sm"></i>
+          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center font-mono font-bold text-white text-xs">
+            A
           </div>
         </div>
         <div>
-          <div class="text-sm font-bold text-white">StackMF Mainframe Architecture Pod</div>
-          <div class="text-xs font-mono text-slate-400">Principal Modernization & z/OS Systems Engineers</div>
+          <div class="text-sm font-bold text-white">Reviewed by Anshu</div>
+          <div class="text-xs font-mono text-slate-400">Chief Technology Architect & Mainframe Systems SME</div>
         </div>
       </div>
       <span class="inline-flex items-center gap-1.5 text-xs font-mono text-neon-emerald bg-neon-emerald/10 px-3 py-1 rounded-full border border-neon-emerald/30 font-semibold">
-        <i class="fa-solid fa-circle-check"></i> Verified Production Fix
+        <i class="fa-solid fa-circle-check"></i> Verified Production Runbook
       </span>
     </div>
 
-    <!-- TL;DR Box -->
-    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-emerald-950/40 border border-neon-cyan/30 shadow-xl mb-12">
-      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-cyan font-bold mb-2">
-        <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
+    <!-- Google AI Overview & Featured Snippet Quick Answer Box -->
+    <div class="p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-cyan-950/40 border-2 border-neon-emerald/40 shadow-[0_0_35px_rgba(0,245,160,0.18)] mb-10 relative overflow-hidden">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-emerald font-bold mb-2.5">
+        <span class="flex h-2.5 w-2.5 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-emerald opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-emerald"></span>
+        </span>
+        <span>45-Word Production Resolution (Featured Snippet)</span>
       </div>
-      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+      <p class="text-white text-base sm:text-lg leading-relaxed font-medium">
         IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.
       </p>
     </div>
@@ -206,7 +358,7 @@
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
-        The Real-World Developer Incident
+        Incident Symptoms: What Triggers Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
         <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The enterprise CIO receives an unexpected 20% spike on the monthly IBM software invoice. Nobody on the mainframe team can identify which job or business event caused the peak billing hour to jump.</p>
@@ -233,7 +385,7 @@
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
-        Step-by-Step Production Resolution
+        Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
         <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Execute and Generate the Monthly SCRT Report</h3>
@@ -297,7 +449,41 @@ ORDER BY 2 DESC;</code></pre>
       </div>
     </section>
 
-    <!-- Section 4: Architectural Prevention & Tuning -->
+    <!-- Section 4: Diagnostic Reference Matrix Table -->
+    <section class="mb-12 overflow-x-auto">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-table-list text-neon-cyan"></i>
+        Diagnostic Reference Matrix
+      </h3>
+      <table class="w-full text-left text-xs font-mono border border-white/10 rounded-xl overflow-hidden bg-slate-900/60">
+        <thead class="bg-black/50 text-slate-300 uppercase border-b border-white/10">
+          <tr>
+            <th class="p-3">Attribute</th>
+            <th class="p-3">Diagnostic Specification</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/5 text-slate-300">
+          <tr>
+            <td class="p-3 font-bold text-neon-cyan">Target Subsystem</td>
+            <td class="p-3">IBM z/OS 2.4 - 3.1 &bull; DB2 SQL & Performance</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-emerald">Error Signature</td>
+            <td class="p-3">SCRT, 4HRA, MLC</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-amber">Resolution SLA</td>
+            <td class="p-3">&lt; 15 Minutes via Verified StackMF Runbook</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-violet">Technical Reviewer</td>
+            <td class="p-3">Anshu, Chief Technology Architect &bull; StackMF Architecture Pod</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section 5: Architectural Prevention & Tuning -->
     <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-list-check text-neon-cyan"></i>
@@ -308,14 +494,109 @@ ORDER BY 2 DESC;</code></pre>
       </ul>
     </section>
 
-    <!-- Section 5: Authoritative Reference Links -->
+    <!-- Section 6: Frequently Asked Questions (FAQ) -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 text-neon-cyan flex items-center justify-center text-sm border border-cyan-500/30">?</span>
+        Frequently Asked Questions
+      </h2>
+      <div class="space-y-4">
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer" open>
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>What is the root cause of Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies?</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            IBM bills software based on the highest simultaneous Rolling 4-Hour Average (4HRA) across the month:.
+          </div>
+        </details>
+
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer">
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>How do you resolve Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies in production?</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.
+          </div>
+        </details>
+
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer">
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>How can teams prevent Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies in enterprise pipelines?</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            Audit SCRT reports weekly using predictive tools rather than waiting for the end of the month.
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Section 7: Recommended Technical Runbooks (Topic Cluster Cross-linking) -->
+    <section class="mb-14">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-diagram-project text-neon-emerald"></i>
+        Recommended Technical Runbooks
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <a href="/blog/db2-sqlcode-911-904-resource-unavailable-deadlocks.html" class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-neon-cyan">DB2 SQL & Performance</span>
+              <span class="text-slate-400">11 min read</span>
+            </div>
+            <h4 class="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              Resolving DB2 SQLCODE -911 (Reason 00C90088 / Deadlock) and -904 Resource Unavailable
+            </h4>
+          </div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
+            <span>Read Diagnostic Fix</span> &rarr;
+          </div>
+        </a>
+        
+        <a href="/blog/db2-stage-1-vs-stage-2-predicates-tuning.html" class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-neon-cyan">DB2 SQL & Performance</span>
+              <span class="text-slate-400">10 min read</span>
+            </div>
+            <h4 class="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              DB2 z/OS Query Optimization: Converting Stage 2 (Residual) into Stage 1 (Indexable) Predicates
+            </h4>
+          </div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
+            <span>Read Diagnostic Fix</span> &rarr;
+          </div>
+        </a>
+        
+        <a href="/blog/db2-runstats-index-clustering-optimizer.html" class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-neon-cyan">DB2 SQL & Performance</span>
+              <span class="text-slate-400">9 min read</span>
+            </div>
+            <h4 class="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              How Outdated RUNSTATS Cause Catastrophic Tablespace Scans in DB2 for z/OS
+            </h4>
+          </div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
+            <span>Read Diagnostic Fix</span> &rarr;
+          </div>
+        </a>
+        
+      </div>
+    </section>
+
+    <!-- Section 8: Authoritative Reference Links -->
     <section class="mb-14">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-graduation-cap text-neon-violet"></i>
         Authoritative Reference Documentation
       </h3>
       <p class="text-sm text-slate-400 mb-4">
-        Explore more directly in official manuals, IBM Knowledge Center, and vendor technical advisories:
+        Official IBM manuals, Redbooks, and vendor technical advisories:
       </p>
       <ul class="space-y-3">
         <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
@@ -363,7 +644,7 @@ ORDER BY 2 DESC;</code></pre>
             Request Architectural Assessment
           </a>
           <a href="/blog/" class="px-5 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan transition-all">
-            &larr; Browse All 25 Technical Deep Dives
+            &larr; Browse All Technical Deep Dives
           </a>
         </div>
       </div>

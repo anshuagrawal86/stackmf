@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access | StackMF Mainframe Knowledge Base</title>
+  <title>Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access | StackMF</title>
   <meta name="title" content="Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access | StackMF">
   <meta name="description" content="VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.">
   <meta name="keywords" content="VSAM, VSAM RLS, CICS, Parallel Sysplex, SMSVSAM, Coupling Facility, mainframe modernization, cobol abend, z/os debugging, stackmf">
-  <meta name="author" content="StackMF Mainframe Architecture Pod">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Anshu - StackMF Technologies">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html">
-  <meta property="og:title" content="Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access">
+  <meta property="og:title" content="Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access | StackMF">
   <meta property="og:description" content="VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access">
+  <meta name="twitter:title" content="Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access | StackMF">
   <meta name="twitter:description" content="VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -78,37 +78,185 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access",
-  "description": "VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.",
-  "url": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html",
-  "datePublished": "2026-09-27T08:00:00+00:00",
-  "dateModified": "2026-09-27T08:00:00+00:00",
-  "inLanguage": "en",
-  "author": {
-    "@type": "Organization",
-    "name": "StackMF Mainframe Architecture Pod",
-    "url": "https://stackmf.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "StackMF Technologies LLP",
-    "url": "https://stackmf.com",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html#article",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html"
+      },
+      "headline": "Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access Fix",
+      "description": "VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.",
+      "url": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html",
+      "datePublished": "2026-09-27T08:00:00+00:00",
+      "dateModified": "2026-09-27T08:36:14+00:00",
+      "inLanguage": "en-US",
+      "mainEntityOfPage": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html",
+      "author": {
+        "@type": "Person",
+        "name": "Anshu",
+        "jobTitle": "Chief Technology Architect & Mainframe Systems SME",
+        "url": "https://stackmf.com",
+        "sameAs": "https://www.linkedin.com/company/stackmf"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://stackmf.com/#organization",
+        "name": "StackMF Technologies LLP",
+        "url": "https://stackmf.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=192,h=192,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+        }
+      },
+      "keywords": [
+        "VSAM",
+        "VSAM RLS",
+        "CICS",
+        "Parallel Sysplex",
+        "SMSVSAM",
+        "Coupling Facility",
+        "mainframe modernization",
+        "IBM z/OS",
+        "production troubleshooting",
+        "stackmf"
+      ],
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "VSAM"
+        },
+        {
+          "@type": "Thing",
+          "name": "VSAM RLS"
+        },
+        {
+          "@type": "Thing",
+          "name": "CICS"
+        },
+        {
+          "@type": "Thing",
+          "name": "Parallel Sysplex"
+        },
+        {
+          "@type": "Thing",
+          "name": "SMSVSAM"
+        },
+        {
+          "@type": "Thing",
+          "name": "Coupling Facility"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html#howto",
+      "name": "How to Resolve Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access",
+      "description": "VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.",
+      "totalTime": "PT15M",
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "SDSF Spool / JES2 System Log"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "Language Environment CEEDUMP"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "IBM Enterprise COBOL / DB2 Subsystem"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Analyze the Spool and Traceback Logs",
+          "text": "Locate the failing statement, completion code, or SQLCODE in SDSF or CEEDUMP."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Identify the Corrupt Variable or Contention Lock",
+          "text": "Inspect the hexadecimal storage, host variables, or resource locks involved in the failure."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Apply the Verified Defensive Code or JCL Patch",
+          "text": "Implement the recommended syntax, compiler options, or parameter adjustment."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Validate Execution in Test Subsystem",
+          "text": "Run batch cycle or transaction test to confirm clean execution with RC=0000."
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the root cause of Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Standard VSAM uses operating system file-level enqueues (SHAREOPTIONS). When an application opens a file for output, it acquires exclusive serialization for the entire dataset."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you resolve Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access in production?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can teams prevent Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access in enterprise pipelines?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ensure the Coupling Facility `IGWLOCK00` structure is sized adequately to prevent false lock contention."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://stackmf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mainframe Knowledge Base",
+          "item": "https://stackmf.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "CICS & VSAM Architecture",
+          "item": "https://stackmf.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access",
+          "item": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html"
+        }
+      ]
     }
-  },
-  "about": [
-    "CICS & VSAM Architecture",
-    "VSAM",
-    "VSAM RLS",
-    "CICS",
-    "Parallel Sysplex",
-    "SMSVSAM",
-    "Coupling Facility"
-  ],
-  "articleBody": "An enterprise operating 24/7 banking operations cannot take CICS regions offline to allow nightly batch processing jobs to update core VSAM accounting datasets. Batch jobs attempting to run concurrently fail with File Status 93 or wait indefinitely on dataset enqueues, blocking time-critical transaction feeds. Standard VSAM uses operating system file-level enqueues (`SHAREOPTIONS`). When an application opens a file for output, it acquires exclusive serialization for the entire dataset.\n\nTo achieve continuous 24/7 operation without database conversion, IBM introduced **VSAM Record-Level Sharing (RLS)**:\n- Serialization moves from whole-file enqueues to individual records via the SMSVSAM address space and the Coupling Facility (CF).\n- Multiple CICS Application Owning Regions (AORs) and batch jobs across any LPAR in the Parallel Sysplex can update different records in the same KSDS simultaneously without locking each other out. ### 1. Verify Storage Class & SMSVSAM Prerequisites\nEnsure the Coupling Facility has allocated the lock and cache structures:\n- `IGWLOCK00`: The sysplex-wide CF lock structure.\n- Assign an SMS Storage Class with a defined cache set name:\n```jcl\n//STEP1    EXEC PGM=IDCAMS\n//SYSIN    DD *\n  ALTER PROD.KSDS.CUSTOMER -\n        LOG(NONE) -\n        BWO(TYPECICS)\n/*\n```\n- `LOG(NONE)`: Non-recoverable (or `LOG(UNDO)` / `LOG(ALL)` for CICS dynamic transaction backout via CICS System Log).\n\n### 2. Update Batch JCL for RLS Mode\nTo access the dataset in RLS mode in batch jobs, specify `RLS=NRI` (No Read Integrity) or `RLS=CR` (Consistent Read) in the JCL `AMP` parameter:\n```jcl\n//CUSTFILE DD DSN=PROD.KSDS.CUSTOMER,\n//            DISP=SHR,\n//            RLS=CR\n```\nFor update operations:\n```jcl\n//CUSTFILE DD DSN=PROD.KSDS.CUSTOMER,\n//            DISP=SHR,\n//            RLS=CRE\n```\n\n### 3. Update CICS FCT / CSD Definitions\nIn CICS, update the file definition:\n```text\nCEDA DEFINE FILE(CUSTFILE) GROUP(FINAPP)\n     DSNAME(PROD.KSDS.CUSTOMER)\n     RLSACCESS(YES)\n     RECORDFORMAT(F)\n     STRINGS(20)\n```\nInstall the definition:\n```text\nCEDA INSTALL FILE(CUSTFILE) GROUP(FINAPP)\n```\nNow, batch jobs and CICS transactions can run simultaneously with zero lock contention!"
+  ]
 }
   </script>
 </head>
@@ -178,26 +326,30 @@
     <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-white/10 mb-8 flex-wrap gap-4">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-emerald to-neon-cyan p-[2px]">
-          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center">
-            <i class="fa-solid fa-server text-neon-emerald text-sm"></i>
+          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center font-mono font-bold text-white text-xs">
+            A
           </div>
         </div>
         <div>
-          <div class="text-sm font-bold text-white">StackMF Mainframe Architecture Pod</div>
-          <div class="text-xs font-mono text-slate-400">Principal Modernization & z/OS Systems Engineers</div>
+          <div class="text-sm font-bold text-white">Reviewed by Anshu</div>
+          <div class="text-xs font-mono text-slate-400">Chief Technology Architect & Mainframe Systems SME</div>
         </div>
       </div>
       <span class="inline-flex items-center gap-1.5 text-xs font-mono text-neon-emerald bg-neon-emerald/10 px-3 py-1 rounded-full border border-neon-emerald/30 font-semibold">
-        <i class="fa-solid fa-circle-check"></i> Verified Production Fix
+        <i class="fa-solid fa-circle-check"></i> Verified Production Runbook
       </span>
     </div>
 
-    <!-- TL;DR Box -->
-    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-emerald-950/40 border border-neon-cyan/30 shadow-xl mb-12">
-      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-cyan font-bold mb-2">
-        <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
+    <!-- Google AI Overview & Featured Snippet Quick Answer Box -->
+    <div class="p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-cyan-950/40 border-2 border-neon-emerald/40 shadow-[0_0_35px_rgba(0,245,160,0.18)] mb-10 relative overflow-hidden">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-emerald font-bold mb-2.5">
+        <span class="flex h-2.5 w-2.5 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-emerald opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-emerald"></span>
+        </span>
+        <span>45-Word Production Resolution (Featured Snippet)</span>
       </div>
-      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+      <p class="text-white text-base sm:text-lg leading-relaxed font-medium">
         VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.
       </p>
     </div>
@@ -206,7 +358,7 @@
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
-        The Real-World Developer Incident
+        Incident Symptoms: What Triggers Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
         <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">An enterprise operating 24/7 banking operations cannot take CICS regions offline to allow nightly batch processing jobs to update core VSAM accounting datasets. Batch jobs attempting to run concurrently fail with File Status 93 or wait indefinitely on dataset enqueues, blocking time-critical transaction feeds.</p>
@@ -233,7 +385,7 @@
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
-        Step-by-Step Production Resolution
+        Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
         <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Verify Storage Class & SMSVSAM Prerequisites</h3>
@@ -328,7 +480,41 @@
       </div>
     </section>
 
-    <!-- Section 4: Architectural Prevention & Tuning -->
+    <!-- Section 4: Diagnostic Reference Matrix Table -->
+    <section class="mb-12 overflow-x-auto">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-table-list text-neon-cyan"></i>
+        Diagnostic Reference Matrix
+      </h3>
+      <table class="w-full text-left text-xs font-mono border border-white/10 rounded-xl overflow-hidden bg-slate-900/60">
+        <thead class="bg-black/50 text-slate-300 uppercase border-b border-white/10">
+          <tr>
+            <th class="p-3">Attribute</th>
+            <th class="p-3">Diagnostic Specification</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/5 text-slate-300">
+          <tr>
+            <td class="p-3 font-bold text-neon-cyan">Target Subsystem</td>
+            <td class="p-3">IBM z/OS 2.4 - 3.1 &bull; CICS & VSAM Architecture</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-emerald">Error Signature</td>
+            <td class="p-3">VSAM, VSAM RLS, CICS</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-amber">Resolution SLA</td>
+            <td class="p-3">&lt; 15 Minutes via Verified StackMF Runbook</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-violet">Technical Reviewer</td>
+            <td class="p-3">Anshu, Chief Technology Architect &bull; StackMF Architecture Pod</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section 5: Architectural Prevention & Tuning -->
     <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-list-check text-neon-cyan"></i>
@@ -339,14 +525,109 @@
       </ul>
     </section>
 
-    <!-- Section 5: Authoritative Reference Links -->
+    <!-- Section 6: Frequently Asked Questions (FAQ) -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 text-neon-cyan flex items-center justify-center text-sm border border-cyan-500/30">?</span>
+        Frequently Asked Questions
+      </h2>
+      <div class="space-y-4">
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer" open>
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>What is the root cause of Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access?</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            Standard VSAM uses operating system file-level enqueues (SHAREOPTIONS). When an application opens a file for output, it acquires exclusive serialization for the entire dataset.
+          </div>
+        </details>
+
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer">
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>How do you resolve Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access in production?</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.
+          </div>
+        </details>
+
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer">
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>How can teams prevent Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access in enterprise pipelines?</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            Ensure the Coupling Facility `IGWLOCK00` structure is sized adequately to prevent false lock contention.
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Section 7: Recommended Technical Runbooks (Topic Cluster Cross-linking) -->
+    <section class="mb-14">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-diagram-project text-neon-emerald"></i>
+        Recommended Technical Runbooks
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <a href="/blog/vsam-file-status-92-93-dynamic-allocation.html" class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-neon-cyan">CICS & VSAM Architecture</span>
+              <span class="text-slate-400">8 min read</span>
+            </div>
+            <h4 class="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              Diagnosing VSAM File Status 92 and 93: Enqueue Locks & Dynamic Allocation Contention
+            </h4>
+          </div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
+            <span>Read Diagnostic Fix</span> &rarr;
+          </div>
+        </a>
+        
+        <a href="/blog/vsam-ci-ca-splits-reorg-idcams.html" class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-neon-cyan">CICS & VSAM Architecture</span>
+              <span class="text-slate-400">9 min read</span>
+            </div>
+            <h4 class="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation
+            </h4>
+          </div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
+            <span>Read Diagnostic Fix</span> &rarr;
+          </div>
+        </a>
+        
+        <a href="/blog/vsam-file-status-35-missing-dataset-jcl.html" class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-neon-cyan">CICS & VSAM Architecture</span>
+              <span class="text-slate-400">8 min read</span>
+            </div>
+            <h4 class="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              Troubleshooting VSAM File Status 35: Dataset Not Found during Dynamic Allocation in Batch & CICS
+            </h4>
+          </div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
+            <span>Read Diagnostic Fix</span> &rarr;
+          </div>
+        </a>
+        
+      </div>
+    </section>
+
+    <!-- Section 8: Authoritative Reference Links -->
     <section class="mb-14">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-graduation-cap text-neon-violet"></i>
         Authoritative Reference Documentation
       </h3>
       <p class="text-sm text-slate-400 mb-4">
-        Explore more directly in official manuals, IBM Knowledge Center, and vendor technical advisories:
+        Official IBM manuals, Redbooks, and vendor technical advisories:
       </p>
       <ul class="space-y-3">
         <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
@@ -403,7 +684,7 @@
             Request Architectural Assessment
           </a>
           <a href="/blog/" class="px-5 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan transition-all">
-            &larr; Browse All 25 Technical Deep Dives
+            &larr; Browse All Technical Deep Dives
           </a>
         </div>
       </div>

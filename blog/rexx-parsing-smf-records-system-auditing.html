@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX | StackMF Mainframe Knowledge Base</title>
+  <title>Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX | StackMF</title>
   <meta name="title" content="Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX | StackMF">
   <meta name="description" content="System Management Facilities (SMF) records are the black box of z/OS. Discover how to write high-speed REXX scripts that decode SMF Type 30 (CPU/Job accounting) and Type 110 (CICS transaction metrics) without purchasing expensive third-party reporting tools.">
   <meta name="keywords" content="REXX, SMF, Telemetry, Auditing, z/OS, Automation, mainframe modernization, cobol abend, z/os debugging, stackmf">
-  <meta name="author" content="StackMF Mainframe Architecture Pod">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="author" content="Anshu - StackMF Technologies">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html">
-  <meta property="og:title" content="Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX">
+  <meta property="og:title" content="Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX | StackMF">
   <meta property="og:description" content="System Management Facilities (SMF) records are the black box of z/OS. Discover how to write high-speed REXX scripts that decode SMF Type 30 (CPU/Job accounting) and Type 110 (CICS transaction metrics) without purchasing expensive third-party reporting tools.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX">
+  <meta name="twitter:title" content="Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX | StackMF">
   <meta name="twitter:description" content="System Management Facilities (SMF) records are the black box of z/OS. Discover how to write high-speed REXX scripts that decode SMF Type 30 (CPU/Job accounting) and Type 110 (CICS transaction metrics) without purchasing expensive third-party reporting tools.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -78,37 +78,185 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX",
-  "description": "System Management Facilities (SMF) records are the black box of z/OS. Discover how to write high-speed REXX scripts that decode SMF Type 30 (CPU/Job accounting) and Type 110 (CICS transaction metrics) without purchasing expensive third-party reporting tools.",
-  "url": "https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html",
-  "datePublished": "2026-09-27T08:00:00+00:00",
-  "dateModified": "2026-09-27T08:00:00+00:00",
-  "inLanguage": "en",
-  "author": {
-    "@type": "Organization",
-    "name": "StackMF Mainframe Architecture Pod",
-    "url": "https://stackmf.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "StackMF Technologies LLP",
-    "url": "https://stackmf.com",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html#article",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html"
+      },
+      "headline": "Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX Fix",
+      "description": "System Management Facilities (SMF) records are the black box of z/OS. Discover how to write high-speed REXX scripts that decode SMF Type 30 (CPU/Job accounting) and Type 110 (CICS transaction metrics) without purchasing expensive third-party reporting tools.",
+      "url": "https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html",
+      "datePublished": "2026-09-27T08:00:00+00:00",
+      "dateModified": "2026-09-27T08:36:14+00:00",
+      "inLanguage": "en-US",
+      "mainEntityOfPage": "https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html",
+      "author": {
+        "@type": "Person",
+        "name": "Anshu",
+        "jobTitle": "Chief Technology Architect & Mainframe Systems SME",
+        "url": "https://stackmf.com",
+        "sameAs": "https://www.linkedin.com/company/stackmf"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://stackmf.com/#organization",
+        "name": "StackMF Technologies LLP",
+        "url": "https://stackmf.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=192,h=192,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+        }
+      },
+      "keywords": [
+        "REXX",
+        "SMF",
+        "Telemetry",
+        "Auditing",
+        "z/OS",
+        "Automation",
+        "mainframe modernization",
+        "IBM z/OS",
+        "production troubleshooting",
+        "stackmf"
+      ],
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "REXX"
+        },
+        {
+          "@type": "Thing",
+          "name": "SMF"
+        },
+        {
+          "@type": "Thing",
+          "name": "Telemetry"
+        },
+        {
+          "@type": "Thing",
+          "name": "Auditing"
+        },
+        {
+          "@type": "Thing",
+          "name": "z/OS"
+        },
+        {
+          "@type": "Thing",
+          "name": "Automation"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html#howto",
+      "name": "How to Resolve Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX",
+      "description": "System Management Facilities (SMF) records are the black box of z/OS. Discover how to write high-speed REXX scripts that decode SMF Type 30 (CPU/Job accounting) and Type 110 (CICS transaction metrics) without purchasing expensive third-party reporting tools.",
+      "totalTime": "PT15M",
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "SDSF Spool / JES2 System Log"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "Language Environment CEEDUMP"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "IBM Enterprise COBOL / DB2 Subsystem"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Analyze the Spool and Traceback Logs",
+          "text": "Locate the failing statement, completion code, or SQLCODE in SDSF or CEEDUMP."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Identify the Corrupt Variable or Contention Lock",
+          "text": "Inspect the hexadecimal storage, host variables, or resource locks involved in the failure."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Apply the Verified Defensive Code or JCL Patch",
+          "text": "Implement the recommended syntax, compiler options, or parameter adjustment."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Validate Execution in Test Subsystem",
+          "text": "Run batch cycle or transaction test to confirm clean execution with RC=0000."
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the root cause of Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "z/OS writes all execution metrics into raw binary SMF datasets:."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you resolve Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX in production?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "System Management Facilities (SMF) records are the black box of z/OS. Discover how to write high-speed REXX scripts that decode SMF Type 30 (CPU/Job accounting) and Type 110 (CICS transaction metrics) without purchasing expensive third-party reporting tools."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can teams prevent Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX in enterprise pipelines?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Verify SMF triplet offsets dynamically rather than hardcoding record positions."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://stackmf.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mainframe Knowledge Base",
+          "item": "https://stackmf.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "DevOps & Automation",
+          "item": "https://stackmf.com/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX",
+          "item": "https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html"
+        }
+      ]
     }
-  },
-  "about": [
-    "DevOps & Automation",
-    "REXX",
-    "SMF",
-    "Telemetry",
-    "Auditing",
-    "z/OS",
-    "Automation"
-  ],
-  "articleBody": "IT leadership demands daily reports showing top CPU-consuming batch jobs and CICS transaction counts, but licensing costs for third-party reporting tools (SAS, MICS, MXG) are prohibitive. z/OS writes all execution metrics into raw binary SMF datasets:\n- SMF records contain standard headers followed by self-defining sections (triplets: Offset, Length, Number of sections).\n- Using REXX functions like `C2D` (Character to Decimal) and `C2X` (Character to Hex), binary SMF records can be decoded directly into human-readable CSV or JSON files. ### 1. Extract SMF Records via IFASMFDP\nDump Type 30 records to a sequential dataset:\n```jcl\n//SMFDUMP  EXEC PGM=IFASMFDP\n//SYSPRINT DD SYSOUT=*\n//DUMPIN   DD DSN=SYS1.MAN1,DISP=SHR\n//DUMPOUT  DD DSN=&&SMF30,DISP=(NEW,PASS),SPACE=(CYL,(50,10))\n//SYSIN    DD *\n  INDD(DUMPIN,OPTIONS(DUMP))\n  OUTDD(DUMPOUT,TYPE(30))\n/*\n```\n\n### 2. Decode Binary Headers in REXX\n```rexx\n/* REXX - DECODE SMF TYPE 30 RECORD */\n\"EXECIO * DISKR SMFFILE (STEM REC. FINIS\"\n\nDo i = 1 To REC.0\n  record = REC.i\n  smf_len = C2D(Substr(record, 1, 2))\n  smf_type = C2D(Substr(record, 6, 1))\n\n  If smf_type = 30 Then Do\n    /* Extract Job Name from Identification Section */\n    job_name = Strip(Substr(record, 19, 8))\n    user_id  = Strip(Substr(record, 27, 8))\n\n    /* Extract CPU Time (Hundredths of a second) */\n    cpu_offset = C2D(Substr(record, 41, 4))\n    cpu_raw = Substr(record, cpu_offset + 1, 4)\n    cpu_seconds = C2D(cpu_raw) / 100\n\n    Say \"Job: \" job_name \" User: \" user_id \" CPU: \" cpu_seconds \"s\"\n  End\nEnd\nExit 0\n```"
+  ]
 }
   </script>
 </head>
@@ -178,26 +326,30 @@
     <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-white/10 mb-8 flex-wrap gap-4">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-emerald to-neon-cyan p-[2px]">
-          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center">
-            <i class="fa-solid fa-server text-neon-emerald text-sm"></i>
+          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center font-mono font-bold text-white text-xs">
+            A
           </div>
         </div>
         <div>
-          <div class="text-sm font-bold text-white">StackMF Mainframe Architecture Pod</div>
-          <div class="text-xs font-mono text-slate-400">Principal Modernization & z/OS Systems Engineers</div>
+          <div class="text-sm font-bold text-white">Reviewed by Anshu</div>
+          <div class="text-xs font-mono text-slate-400">Chief Technology Architect & Mainframe Systems SME</div>
         </div>
       </div>
       <span class="inline-flex items-center gap-1.5 text-xs font-mono text-neon-emerald bg-neon-emerald/10 px-3 py-1 rounded-full border border-neon-emerald/30 font-semibold">
-        <i class="fa-solid fa-circle-check"></i> Verified Production Fix
+        <i class="fa-solid fa-circle-check"></i> Verified Production Runbook
       </span>
     </div>
 
-    <!-- TL;DR Box -->
-    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-emerald-950/40 border border-neon-cyan/30 shadow-xl mb-12">
-      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-cyan font-bold mb-2">
-        <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
+    <!-- Google AI Overview & Featured Snippet Quick Answer Box -->
+    <div class="p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-cyan-950/40 border-2 border-neon-emerald/40 shadow-[0_0_35px_rgba(0,245,160,0.18)] mb-10 relative overflow-hidden">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-emerald font-bold mb-2.5">
+        <span class="flex h-2.5 w-2.5 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-emerald opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-emerald"></span>
+        </span>
+        <span>45-Word Production Resolution (Featured Snippet)</span>
       </div>
-      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+      <p class="text-white text-base sm:text-lg leading-relaxed font-medium">
         System Management Facilities (SMF) records are the black box of z/OS. Discover how to write high-speed REXX scripts that decode SMF Type 30 (CPU/Job accounting) and Type 110 (CICS transaction metrics) without purchasing expensive third-party reporting tools.
       </p>
     </div>
@@ -206,7 +358,7 @@
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
-        The Real-World Developer Incident
+        Incident Symptoms: What Triggers Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
         <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">IT leadership demands daily reports showing top CPU-consuming batch jobs and CICS transaction counts, but licensing costs for third-party reporting tools (SAS, MICS, MXG) are prohibitive.</p>
@@ -232,7 +384,7 @@
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
-        Step-by-Step Production Resolution
+        Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
         <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Extract SMF Records via IFASMFDP</h3>
@@ -293,7 +445,41 @@ Exit 0</code></pre>
       </div>
     </section>
 
-    <!-- Section 4: Architectural Prevention & Tuning -->
+    <!-- Section 4: Diagnostic Reference Matrix Table -->
+    <section class="mb-12 overflow-x-auto">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-table-list text-neon-cyan"></i>
+        Diagnostic Reference Matrix
+      </h3>
+      <table class="w-full text-left text-xs font-mono border border-white/10 rounded-xl overflow-hidden bg-slate-900/60">
+        <thead class="bg-black/50 text-slate-300 uppercase border-b border-white/10">
+          <tr>
+            <th class="p-3">Attribute</th>
+            <th class="p-3">Diagnostic Specification</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/5 text-slate-300">
+          <tr>
+            <td class="p-3 font-bold text-neon-cyan">Target Subsystem</td>
+            <td class="p-3">IBM z/OS 2.4 - 3.1 &bull; DevOps & Automation</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-emerald">Error Signature</td>
+            <td class="p-3">REXX, SMF, Telemetry</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-amber">Resolution SLA</td>
+            <td class="p-3">&lt; 15 Minutes via Verified StackMF Runbook</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-violet">Technical Reviewer</td>
+            <td class="p-3">Anshu, Chief Technology Architect &bull; StackMF Architecture Pod</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section 5: Architectural Prevention & Tuning -->
     <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-list-check text-neon-cyan"></i>
@@ -304,14 +490,109 @@ Exit 0</code></pre>
       </ul>
     </section>
 
-    <!-- Section 5: Authoritative Reference Links -->
+    <!-- Section 6: Frequently Asked Questions (FAQ) -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 text-neon-cyan flex items-center justify-center text-sm border border-cyan-500/30">?</span>
+        Frequently Asked Questions
+      </h2>
+      <div class="space-y-4">
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer" open>
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>What is the root cause of Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX?</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            z/OS writes all execution metrics into raw binary SMF datasets:.
+          </div>
+        </details>
+
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer">
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>How do you resolve Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX in production?</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            System Management Facilities (SMF) records are the black box of z/OS. Discover how to write high-speed REXX scripts that decode SMF Type 30 (CPU/Job accounting) and Type 110 (CICS transaction metrics) without purchasing expensive third-party reporting tools.
+          </div>
+        </details>
+
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer">
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>How can teams prevent Parsing z/OS SMF Type 30 (Job Accounting) and Type 110 (CICS Telemetry) Records with REXX in enterprise pipelines?</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            Verify SMF triplet offsets dynamically rather than hardcoding record positions.
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Section 7: Recommended Technical Runbooks (Topic Cluster Cross-linking) -->
+    <section class="mb-14">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-diagram-project text-neon-emerald"></i>
+        Recommended Technical Runbooks
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <a href="/blog/replacing-broadcom-endevor-with-git-zowe.html" class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-neon-cyan">DevOps & Automation</span>
+              <span class="text-slate-400">12 min read</span>
+            </div>
+            <h4 class="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              Migrating from Broadcom Endevor to Git & Modern CI/CD using Zowe CLI and IBM DBB
+            </h4>
+          </div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
+            <span>Read Diagnostic Fix</span> &rarr;
+          </div>
+        </a>
+        
+        <a href="/blog/automating-ca7-migration-to-stonebranch-controlm.html" class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-neon-cyan">DevOps & Automation</span>
+              <span class="text-slate-400">12 min read</span>
+            </div>
+            <h4 class="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              Broadcom CA-7 / CA-11 Decoupling: Migrating 20,000+ JCL Batch Schedules to Stonebranch or Control-M
+            </h4>
+          </div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
+            <span>Read Diagnostic Fix</span> &rarr;
+          </div>
+        </a>
+        
+        <a href="/blog/rexx-automation-ispf-tso-utilities.html" class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-neon-cyan">DevOps & Automation</span>
+              <span class="text-slate-400">9 min read</span>
+            </div>
+            <h4 class="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              Building Enterprise REXX Automation: Scripting TSO/E, ISPF Panels, and SDSF Job Parsing
+            </h4>
+          </div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
+            <span>Read Diagnostic Fix</span> &rarr;
+          </div>
+        </a>
+        
+      </div>
+    </section>
+
+    <!-- Section 8: Authoritative Reference Links -->
     <section class="mb-14">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-graduation-cap text-neon-violet"></i>
         Authoritative Reference Documentation
       </h3>
       <p class="text-sm text-slate-400 mb-4">
-        Explore more directly in official manuals, IBM Knowledge Center, and vendor technical advisories:
+        Official IBM manuals, Redbooks, and vendor technical advisories:
       </p>
       <ul class="space-y-3">
         <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
@@ -359,7 +640,7 @@ Exit 0</code></pre>
             Request Architectural Assessment
           </a>
           <a href="/blog/" class="px-5 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan transition-all">
-            &larr; Browse All 25 Technical Deep Dives
+            &larr; Browse All Technical Deep Dives
           </a>
         </div>
       </div>

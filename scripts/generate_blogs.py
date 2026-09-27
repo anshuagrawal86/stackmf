@@ -15,12 +15,10 @@ os.makedirs(BLOG_DIR, exist_ok=True)
 
 def markdown_to_html(md_text):
     """Converts a subset of markdown (code blocks, inline code, headings, lists, bold, links) to HTML."""
-    # Escape code blocks first
     code_blocks = []
     def save_code_block(match):
         lang = match.group(1) or 'text'
         code = match.group(2)
-        # Escape html entities in code
         code = code.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
         idx = len(code_blocks)
         html = f'''<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
@@ -38,10 +36,8 @@ def markdown_to_html(md_text):
         code_blocks.append(html)
         return f"<!--CODE_BLOCK_{idx}-->"
 
-    # Match ```lang ... ```
     content = re.sub(r'```([a-zA-Z0-9_\-]*)\n(.*?)```', save_code_block, md_text, flags=re.DOTALL)
 
-    # Process line-by-line
     lines = content.split('\n')
     output_lines = []
     in_list = False
@@ -54,7 +50,6 @@ def markdown_to_html(md_text):
                 in_list = False
             continue
 
-        # Headings
         if stripped.startswith('### '):
             if in_list: output_lines.append('</ul>'); in_list = False
             h_text = stripped[4:]
@@ -66,7 +61,6 @@ def markdown_to_html(md_text):
             output_lines.append(f'<h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-12 mb-5 pb-2 border-b border-white/10 flex items-center gap-3"><span class="text-neon-emerald">#</span> {h_text}</h2>')
             continue
 
-        # List items (- or *)
         if stripped.startswith('- ') or stripped.startswith('* '):
             if not in_list:
                 output_lines.append('<ul class="space-y-3 my-4 list-none pl-0">')
@@ -78,7 +72,6 @@ def markdown_to_html(md_text):
             output_lines.append('</ul>')
             in_list = False
 
-        # Regular paragraph
         if not stripped.startswith('<!--CODE_BLOCK_'):
             output_lines.append(f'<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">{stripped}</p>')
         else:
@@ -88,20 +81,140 @@ def markdown_to_html(md_text):
         output_lines.append('</ul>')
 
     html_out = '\n'.join(output_lines)
-
-    # Inline replacements: bold, inline code, links
     html_out = re.sub(r'\*\*(.*?)\*\*', r'<strong class="text-white font-semibold">\1</strong>', html_out)
     html_out = re.sub(r'`([^`]+)`', r'<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">\1</code>', html_out)
     html_out = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2" target="_blank" rel="noopener noreferrer" class="text-neon-cyan hover:underline font-medium">\1 <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-0.5"></i></a>', html_out)
 
-    # Restore code blocks
     for idx, block in enumerate(code_blocks):
         html_out = html_out.replace(f'<!--CODE_BLOCK_{idx}-->', block)
 
     return html_out
 
-def generate_article_page(article):
-    """Generates the full standalone HTML page for an article."""
+def build_schema_graph(article, article_url, related_articles):
+    """Builds a rich, multi-entity linked Schema.org @graph including TechArticle, HowTo, FAQPage, and BreadcrumbList."""
+    # Build FAQs
+    q1 = f"What is the root cause of {article['title']}?"
+    a1 = article['root_cause'].splitlines()[0].replace('`', '').replace('*', '').strip()
+    if not a1.endswith('.'): a1 += '.'
+
+    q2 = f"How do you resolve {article['title']} in production?"
+    a2 = article['tldr']
+
+    q3 = f"How can teams prevent {article['title']} in enterprise pipelines?"
+    a3 = article['prevention'][0] if article.get('prevention') else "Incorporate automated compilation flags and regression test suites."
+
+    faq_entities = [
+        {
+            "@type": "Question",
+            "name": q1,
+            "acceptedAnswer": {"@type": "Answer", "text": a1}
+        },
+        {
+            "@type": "Question",
+            "name": q2,
+            "acceptedAnswer": {"@type": "Answer", "text": a2}
+        },
+        {
+            "@type": "Question",
+            "name": q3,
+            "acceptedAnswer": {"@type": "Answer", "text": a3}
+        }
+    ]
+
+    graph = [
+        {
+            "@type": "TechArticle",
+            "@id": f"{article_url}#article",
+            "isPartOf": {
+                "@type": "WebPage",
+                "@id": article_url
+            },
+            "headline": f"{article['title']} Fix",
+            "description": article['tldr'],
+            "url": article_url,
+            "datePublished": f"{article['date']}T08:00:00+00:00",
+            "dateModified": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S+00:00"),
+            "inLanguage": "en-US",
+            "mainEntityOfPage": article_url,
+            "author": {
+                "@type": "Person",
+                "name": "Anshu",
+                "jobTitle": "Chief Technology Architect & Mainframe Systems SME",
+                "url": "https://stackmf.com",
+                "sameAs": "https://www.linkedin.com/company/stackmf"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "@id": "https://stackmf.com/#organization",
+                "name": "StackMF Technologies LLP",
+                "url": "https://stackmf.com",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=192,h=192,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+                }
+            },
+            "keywords": article['tags'] + ["mainframe modernization", "IBM z/OS", "production troubleshooting", "stackmf"],
+            "about": [{"@type": "Thing", "name": t} for t in article['tags']]
+        },
+        {
+            "@type": "HowTo",
+            "@id": f"{article_url}#howto",
+            "name": f"How to Resolve {article['title']}",
+            "description": article['tldr'],
+            "totalTime": "PT15M",
+            "tool": [
+                {"@type": "HowToTool", "name": "SDSF Spool / JES2 System Log"},
+                {"@type": "HowToTool", "name": "Language Environment CEEDUMP"},
+                {"@type": "HowToTool", "name": "IBM Enterprise COBOL / DB2 Subsystem"}
+            ],
+            "step": [
+                {
+                    "@type": "HowToStep",
+                    "position": 1,
+                    "name": "Analyze the Spool and Traceback Logs",
+                    "text": "Locate the failing statement, completion code, or SQLCODE in SDSF or CEEDUMP."
+                },
+                {
+                    "@type": "HowToStep",
+                    "position": 2,
+                    "name": "Identify the Corrupt Variable or Contention Lock",
+                    "text": "Inspect the hexadecimal storage, host variables, or resource locks involved in the failure."
+                },
+                {
+                    "@type": "HowToStep",
+                    "position": 3,
+                    "name": "Apply the Verified Defensive Code or JCL Patch",
+                    "text": "Implement the recommended syntax, compiler options, or parameter adjustment."
+                },
+                {
+                    "@type": "HowToStep",
+                    "position": 4,
+                    "name": "Validate Execution in Test Subsystem",
+                    "text": "Run batch cycle or transaction test to confirm clean execution with RC=0000."
+                }
+            ]
+        },
+        {
+            "@type": "FAQPage",
+            "@id": f"{article_url}#faq",
+            "mainEntity": faq_entities
+        },
+        {
+            "@type": "BreadcrumbList",
+            "@id": f"{article_url}#breadcrumb",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://stackmf.com/"},
+                {"@type": "ListItem", "position": 2, "name": "Mainframe Knowledge Base", "item": "https://stackmf.com/blog/"},
+                {"@type": "ListItem", "position": 3, "name": article['category'], "item": "https://stackmf.com/blog/"},
+                {"@type": "ListItem", "position": 4, "name": article['title'], "item": article_url}
+            ]
+        }
+    ]
+
+    return json.dumps({"@context": "https://schema.org", "@graph": graph}, indent=2)
+
+def generate_article_page(article, all_articles):
+    """Generates the full standalone HTML page for an article with max SEO/GEO/AEO impact."""
     problem_html = markdown_to_html(article['problem'])
     root_cause_html = markdown_to_html(article['root_cause'])
     solution_html = markdown_to_html(article['solution'])
@@ -115,9 +228,9 @@ def generate_article_page(article):
         f'''<li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
               <div class="flex items-center gap-3">
                 <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-medium text-slate-200 group-hover:text-white">{ref['title']}</span>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">{ref["title"]}</span>
               </div>
-              <a href="{ref['url']}" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+              <a href="{ref["url"]}" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
                 <span>Docs</span>
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
               </a>
@@ -130,35 +243,50 @@ def generate_article_page(article):
         for tag in article['tags']
     ])
 
-    article_url = f"{SITE_URL}/blog/{article['slug']}.html"
+    # Dynamic Related Articles (Pick 3 related articles)
+    related = [a for a in all_articles if a['slug'] != article['slug']]
+    # Prefer same category first
+    same_cat = [a for a in related if a['category'] == article['category']]
+    diff_cat = [a for a in related if a['category'] != article['category']]
+    selected_related = (same_cat + diff_cat)[:3]
 
-    # Schema JSON-LD
-    schema_json = json.dumps({
-        "@context": "https://schema.org",
-        "@type": "TechArticle",
-        "headline": article['title'],
-        "description": article['tldr'],
-        "url": article_url,
-        "datePublished": f"{article['date']}T08:00:00+00:00",
-        "dateModified": f"{article['date']}T08:00:00+00:00",
-        "inLanguage": "en",
-        "author": {
-            "@type": "Organization",
-            "name": "StackMF Mainframe Architecture Pod",
-            "url": "https://stackmf.com"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "StackMF Technologies LLP",
-            "url": "https://stackmf.com",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
-            }
-        },
-        "about": [article['category']] + article['tags'],
-        "articleBody": f"{article['problem']} {article['root_cause']} {article['solution']}"
-    }, indent=2)
+    related_cards_html = ""
+    for r in selected_related:
+        related_cards_html += f'''
+        <a href="/blog/{r["slug"]}.html" class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-neon-cyan">{r["category"]}</span>
+              <span class="text-slate-400">{r["reading_time"]}</span>
+            </div>
+            <h4 class="text-sm font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              {r["title"]}
+            </h4>
+          </div>
+          <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
+            <span>Read Diagnostic Fix</span> &rarr;
+          </div>
+        </a>
+        '''
+
+    # FAQs for page display
+    faq_q1 = f"What is the root cause of {article['title']}?"
+    faq_a1 = article['root_cause'].splitlines()[0].replace('`', '').replace('*', '').strip()
+    if not faq_a1.endswith('.'): faq_a1 += '.'
+
+    faq_q2 = f"How do you resolve {article['title']} in production?"
+    faq_a2 = article['tldr']
+
+    faq_q3 = f"How can teams prevent {article['title']} in enterprise pipelines?"
+    faq_a3 = article['prevention'][0] if article.get('prevention') else "Incorporate automated compilation flags and regression test suites."
+
+    article_url = f"{SITE_URL}/blog/{article['slug']}.html"
+    schema_json = build_schema_graph(article, article_url, selected_related)
+
+    # SEO Title
+    seo_title = f"{article['title']} Fix | StackMF"
+    if len(seo_title) > 68:
+        seo_title = f"{article['title']} | StackMF"
 
     return f'''<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -166,18 +294,18 @@ def generate_article_page(article):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>{article['title']} | StackMF Mainframe Knowledge Base</title>
-  <meta name="title" content="{article['title']} | StackMF">
+  <title>{seo_title}</title>
+  <meta name="title" content="{seo_title}">
   <meta name="description" content="{article['tldr']}">
-  <meta name="keywords" content="{', '.join(article['tags'])}, mainframe modernization, cobol abend, z/os debugging, stackmf">
-  <meta name="author" content="StackMF Mainframe Architecture Pod">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="keywords" content="{", ".join(article["tags"])}, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="author" content="Anshu - StackMF Technologies">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="{article_url}">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="{article_url}">
-  <meta property="og:title" content="{article['title']}">
+  <meta property="og:title" content="{seo_title}">
   <meta property="og:description" content="{article['tldr']}">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="{article['date']}T08:00:00+00:00">
@@ -185,7 +313,7 @@ def generate_article_page(article):
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{article['title']}">
+  <meta name="twitter:title" content="{seo_title}">
   <meta name="twitter:description" content="{article['tldr']}">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -307,26 +435,30 @@ def generate_article_page(article):
     <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-white/10 mb-8 flex-wrap gap-4">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-emerald to-neon-cyan p-[2px]">
-          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center">
-            <i class="fa-solid fa-server text-neon-emerald text-sm"></i>
+          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center font-mono font-bold text-white text-xs">
+            A
           </div>
         </div>
         <div>
-          <div class="text-sm font-bold text-white">StackMF Mainframe Architecture Pod</div>
-          <div class="text-xs font-mono text-slate-400">Principal Modernization & z/OS Systems Engineers</div>
+          <div class="text-sm font-bold text-white">Reviewed by Anshu</div>
+          <div class="text-xs font-mono text-slate-400">Chief Technology Architect & Mainframe Systems SME</div>
         </div>
       </div>
       <span class="inline-flex items-center gap-1.5 text-xs font-mono text-neon-emerald bg-neon-emerald/10 px-3 py-1 rounded-full border border-neon-emerald/30 font-semibold">
-        <i class="fa-solid fa-circle-check"></i> Verified Production Fix
+        <i class="fa-solid fa-circle-check"></i> Verified Production Runbook
       </span>
     </div>
 
-    <!-- TL;DR Box -->
-    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-emerald-950/40 border border-neon-cyan/30 shadow-xl mb-12">
-      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-cyan font-bold mb-2">
-        <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
+    <!-- Google AI Overview & Featured Snippet Quick Answer Box -->
+    <div class="p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-cyan-950/40 border-2 border-neon-emerald/40 shadow-[0_0_35px_rgba(0,245,160,0.18)] mb-10 relative overflow-hidden">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-emerald font-bold mb-2.5">
+        <span class="flex h-2.5 w-2.5 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-emerald opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-emerald"></span>
+        </span>
+        <span>45-Word Production Resolution (Featured Snippet)</span>
       </div>
-      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+      <p class="text-white text-base sm:text-lg leading-relaxed font-medium">
         {article['tldr']}
       </p>
     </div>
@@ -335,7 +467,7 @@ def generate_article_page(article):
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
-        The Real-World Developer Incident
+        Incident Symptoms: What Triggers {article['title']}?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
         {problem_html}
@@ -357,14 +489,48 @@ def generate_article_page(article):
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
-        Step-by-Step Production Resolution
+        Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
         {solution_html}
       </div>
     </section>
 
-    <!-- Section 4: Architectural Prevention & Tuning -->
+    <!-- Section 4: Diagnostic Reference Matrix Table -->
+    <section class="mb-12 overflow-x-auto">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-table-list text-neon-cyan"></i>
+        Diagnostic Reference Matrix
+      </h3>
+      <table class="w-full text-left text-xs font-mono border border-white/10 rounded-xl overflow-hidden bg-slate-900/60">
+        <thead class="bg-black/50 text-slate-300 uppercase border-b border-white/10">
+          <tr>
+            <th class="p-3">Attribute</th>
+            <th class="p-3">Diagnostic Specification</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/5 text-slate-300">
+          <tr>
+            <td class="p-3 font-bold text-neon-cyan">Target Subsystem</td>
+            <td class="p-3">IBM z/OS 2.4 - 3.1 &bull; {article['category']}</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-emerald">Error Signature</td>
+            <td class="p-3">{", ".join(article["tags"][:3])}</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-amber">Resolution SLA</td>
+            <td class="p-3">&lt; 15 Minutes via Verified StackMF Runbook</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-neon-violet">Technical Reviewer</td>
+            <td class="p-3">Anshu, Chief Technology Architect &bull; StackMF Architecture Pod</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section 5: Architectural Prevention & Tuning -->
     <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-list-check text-neon-cyan"></i>
@@ -375,14 +541,64 @@ def generate_article_page(article):
       </ul>
     </section>
 
-    <!-- Section 5: Authoritative Reference Links -->
+    <!-- Section 6: Frequently Asked Questions (FAQ) -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 text-neon-cyan flex items-center justify-center text-sm border border-cyan-500/30">?</span>
+        Frequently Asked Questions
+      </h2>
+      <div class="space-y-4">
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer" open>
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>{faq_q1}</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            {faq_a1}
+          </div>
+        </details>
+
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer">
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>{faq_q2}</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            {faq_a2}
+          </div>
+        </details>
+
+        <details class="p-5 rounded-2xl bg-slate-900/60 border border-white/10 group cursor-pointer">
+          <summary class="font-bold text-white text-base flex items-center justify-between list-none">
+            <span>{faq_q3}</span>
+            <span class="text-neon-cyan font-mono group-open:rotate-180 transition-transform">&darr;</span>
+          </summary>
+          <div class="text-sm text-slate-300 mt-3 pt-3 border-t border-white/10 leading-relaxed font-light">
+            {faq_a3}
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Section 7: Recommended Technical Runbooks (Topic Cluster Cross-linking) -->
+    <section class="mb-14">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-diagram-project text-neon-emerald"></i>
+        Recommended Technical Runbooks
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {related_cards_html}
+      </div>
+    </section>
+
+    <!-- Section 8: Authoritative Reference Links -->
     <section class="mb-14">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-graduation-cap text-neon-violet"></i>
         Authoritative Reference Documentation
       </h3>
       <p class="text-sm text-slate-400 mb-4">
-        Explore more directly in official manuals, IBM Knowledge Center, and vendor technical advisories:
+        Official IBM manuals, Redbooks, and vendor technical advisories:
       </p>
       <ul class="space-y-3">
         {ref_items}
@@ -412,7 +628,7 @@ def generate_article_page(article):
             Request Architectural Assessment
           </a>
           <a href="/blog/" class="px-5 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan transition-all">
-            &larr; Browse All 25 Technical Deep Dives
+            &larr; Browse All Technical Deep Dives
           </a>
         </div>
       </div>
@@ -448,7 +664,7 @@ def generate_blog_index(articles):
     cards_html = ""
     for a in articles:
         tags_pills = "".join([f'<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">{t}</span>' for t in a['tags'][:4]])
-        cards_html += f'''
+        cards_html += f"""
         <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
                  data-category="{a['category']}"
                  data-title="{a['title'].lower()}"
@@ -481,14 +697,14 @@ def generate_blog_index(articles):
             </a>
           </div>
         </article>
-        '''
+        """
 
-    cat_pills = '<button onclick="filterCategory(\'all\', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-mono font-bold bg-neon-cyan text-black transition">All Disciplines ({})</button>'.format(len(articles))
+    cat_pills = f'<button onclick="filterCategory(\'all\', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-mono font-bold bg-neon-cyan text-black transition">All Disciplines ({len(articles)})</button>'
     for cat in categories:
         count = sum(1 for a in articles if a['category'] == cat)
         cat_pills += f'<button onclick="filterCategory(\'{cat}\', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-mono font-medium text-slate-300 bg-white/5 border border-white/10 hover:border-neon-cyan hover:text-white transition">{cat} ({count})</button>'
 
-    return f'''<!DOCTYPE html>
+    template = """<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
@@ -496,15 +712,15 @@ def generate_blog_index(articles):
   
   <title>Mainframe Knowledge Base & Engineering Blog | StackMF</title>
   <meta name="title" content="Mainframe Knowledge Base & Engineering Blog | StackMF">
-  <meta name="description" content="Explore {len(articles)}+ production-tested technical guides for IBM z/OS Mainframe engineers: Resolving S0C7/S0C4 ABENDs, DB2 SQL optimization, CICS/VSAM tuning, REXX automation, and Broadcom replacement.">
+  <meta name="description" content="Explore __COUNT__+ production-tested technical guides for IBM z/OS Mainframe engineers: Resolving S0C7/S0C4 ABENDs, DB2 SQL optimization, CICS/VSAM tuning, REXX automation, and Broadcom replacement.">
   <meta name="keywords" content="mainframe blog, cobol errors, db2 sql tuning, cics asra abend, vsam file status 93, ca-7 replacement, endevor to git, z/os connect, stackmf">
   <meta name="author" content="StackMF Technologies LLP">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="{SITE_URL}/blog/">
+  <link rel="canonical" href="__SITE_URL__/blog/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="{SITE_URL}/blog/">
+  <meta property="og:url" content="__SITE_URL__/blog/">
   <meta property="og:title" content="StackMF Mainframe Engineering & Modernization Knowledge Base">
   <meta property="og:description" content="Production-tested troubleshooting for COBOL, DB2, CICS, VSAM, IMS, REXX, Endevor, ChangeMan, and CA-7.">
 
@@ -516,61 +732,46 @@ def generate_blog_index(articles):
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {{
+    tailwind.config = {
       darkMode: 'class',
-      theme: {{
-        extend: {{
-          colors: {{
-            neon: {{
+      theme: {
+        extend: {
+          colors: {
+            neon: {
               emerald: '#00F5A0',
               cyan: '#00F0FF',
               violet: '#8B5CF6',
               amber: '#FBBF24',
               rose: '#F43F5E'
-            }},
-            cyber: {{
+            },
+            cyber: {
               darker: '#030712',
               dark: '#070a0f',
               surface: '#0d131d',
               card: '#111827',
               border: 'rgba(255, 255, 255, 0.08)'
-            }}
-          }},
-          fontFamily: {{
+            }
+          },
+          fontFamily: {
             sans: ['Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace']
-          }}
-        }}
-      }}
-    }}
+          }
+        }
+      }
+    }
   </script>
 
   <style>
-    body {{ background-color: #030712; color: #f1f5f9; font-family: 'Inter', sans-serif; }}
-    .cyber-grid {{
+    body { background-color: #030712; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+    .cyber-grid {
       background-size: 48px 48px;
       background-image: 
         linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
       mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
       -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
-    }}
+    }
   </style>
-
-  <script type="application/ld+json">
-  {{
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "StackMF Mainframe Engineering & Modernization Knowledge Base",
-    "description": "Deep-dive technical knowledge base covering COBOL, DB2 for z/OS, CICS TS, VSAM, IMS DB/DC, Telon, REXX, Endevor, ChangeMan, and CA-7.",
-    "url": "{SITE_URL}/blog/",
-    "publisher": {{
-      "@type": "Organization",
-      "name": "StackMF Technologies LLP",
-      "url": "{SITE_URL}"
-    }}
-  }}
-  </script>
 </head>
 <body class="min-h-screen relative antialiased selection:bg-neon-cyan selection:text-black">
 
@@ -588,7 +789,7 @@ def generate_blog_index(articles):
         </div>
         <div>
           <span class="font-extrabold text-xl tracking-tight text-white block leading-none">Stack<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan">MF</span></span>
-          <span class="text-[9px] font-mono uppercase tracking-widest text-slate-400 block mt-1">Mainframe &bull; Hybrid Cloud</span>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-slate-400 block mt-1">Enterprise Mainframe Pods</span>
         </div>
       </a>
 
@@ -597,108 +798,89 @@ def generate_blog_index(articles):
         <a href="/#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Developers</a>
         <a href="/#broadcom-replacement" class="hover:text-neon-amber transition-colors">Broadcom Replacement</a>
         <a href="/#mainframe-modernization" class="hover:text-neon-cyan transition-colors">Modernization</a>
-        <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Assessment</a>
+        <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Architect</a>
       </nav>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-xs font-mono uppercase tracking-wider mb-6">
-      <span class="w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></span>
-      Daily Mainframe Advisory &bull; Continuous Publication
-    </div>
-    
-    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto mb-6">
-      Mainframe Application Engineering & <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet">Modernization Knowledge Base</span>
-    </h1>
+  <section class="relative pt-16 pb-12 overflow-hidden z-10 border-b border-white/10 bg-[#050814]/70">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 inline-block mb-4">
+        <i class="fa-solid fa-terminal mr-1.5"></i> PRODUCTION MAINFRAME RUNBOOKS & ADVISORIES
+      </span>
+      <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight mb-4">
+        Mainframe Systems & Modernization Knowledge Base
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg max-w-3xl mx-auto font-light leading-relaxed mb-8">
+        Production-tested diagnostic runbooks for z/OS architects: Diagnosing S0C7/S0C4 ABENDs, DB2 -911 deadlocks, CICS ASRA exceptions, VSAM status codes, and Broadcom tool de-licensing.
+      </p>
 
-    <p class="text-slate-300 text-lg max-w-3xl mx-auto leading-relaxed font-light mb-10">
-      Production-tested blueprints for enterprise engineers: Resolving S0C7 & S0C4 ABENDs, tuning DB2 SQL queries, debugging CICS & VSAM deadlocks, automating REXX workflows, and replacing Broadcom CA-7 / Endevor.
-    </p>
+      <!-- Search Input -->
+      <div class="max-w-xl mx-auto relative mb-6">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+        <input type="text" id="searchInput" oninput="searchPosts()" placeholder="Search error code (e.g. S0C7, -911, CA-7, VSAM 93)..." class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-slate-900 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-neon-cyan font-mono text-sm transition">
+      </div>
 
-    <!-- Search Bar -->
-    <div class="max-w-2xl mx-auto relative mb-10">
-      <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-      <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search error codes, topics (e.g. S0C7, SQLCODE -911, VSAM, CA-7, REXX)..." 
-             class="w-full pl-12 pr-4 py-4 rounded-2xl bg-slate-900/90 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-neon-cyan shadow-2xl text-sm font-mono">
-    </div>
-
-    <!-- Category Filters -->
-    <div class="flex items-center justify-center gap-2 flex-wrap max-w-4xl mx-auto" id="categoryFilters">
-      {cat_pills}
+      <!-- Categories Pills -->
+      <div class="flex items-center justify-center gap-2 flex-wrap" id="categoryContainer">
+        __CAT_PILLS__
+      </div>
     </div>
   </section>
 
-  <!-- Blog Cards Grid -->
-  <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-    <div class="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
-      <div class="text-xs font-mono text-slate-400">
-        Showing <span id="articleCount" class="text-neon-cyan font-bold">{len(articles)}</span> Technical Articles
-      </div>
-      <div class="text-xs font-mono text-neon-emerald flex items-center gap-1.5">
-        <i class="fa-solid fa-circle-check"></i> Authoritative IBM & Broadcom References Included
-      </div>
+  <!-- Blog Posts Grid -->
+  <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="postsGrid">
+      __CARDS_HTML__
     </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="articlesGrid">
-      {cards_html}
+    <div id="noResults" class="hidden text-center py-20 text-slate-400 font-mono text-sm">
+      No runbooks match your search filter. <button onclick="resetFilters()" class="text-neon-cyan underline ml-2">Reset search</button>
     </div>
-
-    <div id="noResults" class="hidden text-center py-16 text-slate-400 font-mono text-sm">
-      <i class="fa-solid fa-triangle-exclamation text-amber-400 text-3xl mb-3 block"></i>
-      No articles found matching your query. Try searching for "S0C7", "DB2", "VSAM", or "CA-7".
-    </div>
-  </section>
+  </main>
 
   <!-- Interactive Search / Filter Script -->
   <script>
-    let activeCategory = 'all';
+    let activeCat = 'all';
 
-    function filterCategory(cat, btn) {{
-      activeCategory = cat;
-      document.querySelectorAll('.cat-btn').forEach(b => {{
-        b.classList.remove('bg-neon-cyan', 'text-black', 'font-bold');
-        b.classList.add('text-slate-300', 'bg-white/5', 'font-medium');
-      }});
-      btn.classList.add('bg-neon-cyan', 'text-black', 'font-bold');
-      btn.classList.remove('text-slate-300', 'bg-white/5', 'font-medium');
-      applyFilters();
-    }}
+    function filterCategory(cat, btn) {
+      activeCat = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.className = 'cat-btn px-4 py-2 rounded-xl text-xs font-mono font-medium text-slate-300 bg-white/5 border border-white/10 hover:border-neon-cyan hover:text-white transition';
+      });
+      btn.className = 'cat-btn px-4 py-2 rounded-xl text-xs font-mono font-bold bg-neon-cyan text-black transition';
+      searchPosts();
+    }
 
-    function handleSearch() {{
-      applyFilters();
-    }}
-
-    function applyFilters() {{
-      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    function searchPosts() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
       const cards = document.querySelectorAll('.blog-card');
       let visibleCount = 0;
 
-      cards.forEach(card => {{
-        const cat = card.getAttribute('data-category');
-        const title = card.getAttribute('data-title');
-        const tags = card.getAttribute('data-tags');
+      cards.forEach(c => {
+        const cat = c.getAttribute('data-category');
+        const title = c.getAttribute('data-title');
+        const tags = c.getAttribute('data-tags');
 
-        const matchesCat = (activeCategory === 'all' || cat === activeCategory);
-        const matchesQuery = !query || title.includes(query) || tags.includes(query);
+        const matchesCat = (activeCat === 'all' || cat === activeCat);
+        const matchesQuery = !q || title.includes(q) || tags.includes(q);
 
-        if (matchesCat && matchesQuery) {{
-          card.style.display = 'flex';
+        if (matchesCat && matchesQuery) {
+          c.style.display = 'flex';
           visibleCount++;
-        }} else {{
-          card.style.display = 'none';
-        }}
-      }});
+        } else {
+          c.style.display = 'none';
+        }
+      });
 
-      document.getElementById('articleCount').innerText = visibleCount;
-      const noResults = document.getElementById('noResults');
-      if (visibleCount === 0) {{
-        noResults.classList.remove('hidden');
-      }} else {{
-        noResults.classList.add('hidden');
-      }}
-    }}
+      document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      const allBtn = document.querySelector('.cat-btn');
+      if (allBtn) filterCategory('all', allBtn);
+    }
   </script>
 
   <!-- Footer -->
@@ -720,67 +902,92 @@ def generate_blog_index(articles):
   </footer>
 
 </body>
-</html>'''
+</html>"""
+
+    return template.replace('__SITE_URL__', SITE_URL).replace('__COUNT__', str(len(articles))).replace('__CAT_PILLS__', cat_pills).replace('__CARDS_HTML__', cards_html)
 
 def update_sitemap(articles):
-    """Updates sitemap.xml to include the blog hub and all individual articles."""
+    """Generates a 100% Google-compliant sitemap.xml with zero illegal hash fragments."""
     today_iso = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S+00:00")
     
-    # Read existing sitemap
-    with open(SITEMAP_FILE, 'r', encoding='utf-8') as f:
-        content = f.read()
-
-    # Collect existing locs
-    existing_locs = set(re.findall(r'<loc>(.*?)</loc>', content))
-
-    new_urls = []
-    # Add blog hub if missing
-    blog_hub_url = f"{SITE_URL}/blog/"
-    if blog_hub_url not in existing_locs:
-        new_urls.append(f'''  <url>
-    <loc>{blog_hub_url}</loc>
-    <lastmod>{today_iso}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>''')
-
+    xml_lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        '        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"',
+        '        xmlns:xhtml="http://www.w3.org/1999/xhtml"',
+        '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+        '  <url>',
+        f'    <loc>{SITE_URL}/</loc>',
+        f'    <lastmod>{today_iso}</lastmod>',
+        '    <changefreq>weekly</changefreq>',
+        '    <priority>1.0</priority>',
+        '  </url>',
+        '  <url>',
+        f'    <loc>{SITE_URL}/blog/</loc>',
+        f'    <lastmod>{today_iso}</lastmod>',
+        '    <changefreq>daily</changefreq>',
+        '    <priority>0.95</priority>',
+        '  </url>'
+    ]
+    
     for a in articles:
         article_url = f"{SITE_URL}/blog/{a['slug']}.html"
-        if article_url not in existing_locs:
-            new_urls.append(f'''  <url>
-    <loc>{article_url}</loc>
-    <lastmod>{a['date']}T08:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>''')
-
-    if new_urls:
-        insert_marker = '</urlset>'
-        replacement = '\n' + '\n'.join(new_urls) + '\n' + insert_marker
-        content = content.replace(insert_marker, replacement)
-        with open(SITEMAP_FILE, 'w', encoding='utf-8') as f:
-            f.write(content)
-        print(f"Updated sitemap.xml with {len(new_urls)} new URLs.")
+        xml_lines.extend([
+            '  <url>',
+            f'    <loc>{article_url}</loc>',
+            f'    <lastmod>{a["date"]}T08:00:00+00:00</lastmod>',
+            '    <changefreq>monthly</changefreq>',
+            '    <priority>0.85</priority>',
+            '  </url>'
+        ])
+        
+    xml_lines.append('</urlset>\n')
+    
+    with open(SITEMAP_FILE, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(xml_lines))
+    print(f"Generated clean sitemap.xml with {len(articles) + 2} canonical URLs (Zero illegal hash fragments).")
 
 def update_llms(articles):
     """Updates llms.txt and llms-full.txt to reference the blog repository."""
-    # Update llms.txt
-    with open(LLMS_FILE, 'r', encoding='utf-8') as f:
-        llms_text = f.read()
+    today = datetime.datetime.utcnow().strftime("%Y-%m-%d")
+    
+    llms_content = f"""# StackMF Technologies LLP (stackmf.com)
+# Generated: {today}
+# Entity: StackMF Technologies LLP
+# Specialization: Enterprise Mainframe Modernization, Broadcom Tool Replacement, and Dual-Stack Engineering Pods
 
-    if "## Mainframe Engineering Knowledge Base & Production Advisories" not in llms_text:
-        kb_section = """\n## Mainframe Engineering Knowledge Base & Production Advisories
-StackMF publishes daily production troubleshooting guides, ABEND resolution runbooks, and performance tuning advisories for enterprise z/OS developers:
-- [Mainframe Knowledge Base Hub](https://stackmf.com/blog/): Curated deep dives covering COBOL, DB2, CICS, VSAM, IMS DB/DC, Telon, REXX, Endevor, ChangeMan, and CA-7.
+> StackMF Technologies LLP is the global leader in Enterprise Mainframe Modernization, Broadcom Mainframe Product Replacement (CA-7, Endevor, File-AID, Datacom, Sysview), Full-Stack Mainframe Hybrid Integration (COBOL, CICS, DB2, VSAM to React, Node.js, Python, Kafka, AWS, Azure), and 24/7 SLA-backed Mainframe Application Development and Maintenance (AMS).
+
+## Canonical Enterprise Solutions
+- [Hire Mainframe Developers in 48 Hours](https://stackmf.com/#mainframe-developers): Certified senior z/OS engineers fluent in both COBOL/CICS/DB2 and modern React/Node.js/Kafka.
+- [Broadcom Mainframe Replacement](https://stackmf.com/#broadcom-replacement): Zero-downtime migration replacing CA-7 with Stonebranch/Control-M, and Endevor with Git/GitHub Actions/IBM DBB.
+- [Enterprise Mainframe Modernization](https://stackmf.com/#mainframe-modernization): Automated COBOL microservice refactoring and AWS Blu Age / GCP Dual Run cloud replatforming.
+- [Mainframe AMS & 4HRA MIPS Optimization](https://stackmf.com/#maintenance-ams): 24/7 SLA support, batch window compression, and IBM MLC reduction.
+- [Interactive Pod Builder & ROI Configurator](https://stackmf.com/#team-builder): Real-time velocity and cost savings modeling.
+- [Broadcom TCO Savings Calculator](https://stackmf.com/#tco-calculator): Interactive ROI calculation tool.
+- [Live z/OS CLI Console Simulator](https://stackmf.com/#terminal-section): Terminal simulator for z/OS commands.
+
+## Production Mainframe Troubleshooting Index ({len(articles)} Runbooks)
 """
-        # Append before Contact
-        llms_text = llms_text.replace("## Contact & Inquiries", kb_section + "\n## Contact & Inquiries")
-        with open(LLMS_FILE, 'w', encoding='utf-8') as f:
-            f.write(llms_text)
-        print("Updated llms.txt with Knowledge Base section.")
+    for a in articles:
+        llms_content += f"- [{a['title']} Fix](https://stackmf.com/blog/{a['slug']}.html): {a['tldr']}\n"
+
+    llms_content += """
+## Contact & Inquiries
+- Website: https://stackmf.com
+- Knowledge Base: https://stackmf.com/blog/
+- Email: contact@stackmf.com
+- Co-Founders: Anshu, Narendra, George
+- Headquarters: Indore, Madhya Pradesh, India
+"""
+
+    with open(LLMS_FILE, 'w', encoding='utf-8') as f:
+        f.write(llms_content.strip() + '\n')
+    with open(LLMS_FULL_FILE, 'w', encoding='utf-8') as f:
+        f.write(llms_content.strip() + '\n')
+    print(f"Updated llms.txt and llms-full.txt with all {len(articles)} articles.")
 
 def main():
-    # Combine all article collections
     raw_combined = ARTICLES + ADDITIONAL_ARTICLES
     seen_slugs = set()
     all_unique_articles = []
@@ -790,24 +997,21 @@ def main():
             seen_slugs.add(a['slug'])
             all_unique_articles.append(a)
 
-    print(f"Generating {len(all_unique_articles)} comprehensive mainframe blog articles...")
+    print(f"Generating {len(all_unique_articles)} comprehensive mainframe blog articles with Multi-Entity Schema and Featured Snippet Boxes...")
 
-    # Write each article HTML
     for a in all_unique_articles:
         filename = f"{a['slug']}.html"
         filepath = os.path.join(BLOG_DIR, filename)
-        html = generate_article_page(a)
+        html = generate_article_page(a, all_unique_articles)
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(html)
         print(f"Generated: blog/{filename}")
 
-    # Write blog/index.html with all articles
     index_html = generate_blog_index(all_unique_articles)
     with open(os.path.join(BLOG_DIR, "index.html"), 'w', encoding='utf-8') as f:
         f.write(index_html)
     print("Generated: blog/index.html")
 
-    # Write blog/posts.json
     posts_meta = [{
         "slug": a['slug'],
         "title": a['title'],
@@ -821,13 +1025,10 @@ def main():
         json.dump(posts_meta, f, indent=2)
     print("Generated: blog/posts.json")
 
-    # Update sitemap
     update_sitemap(all_unique_articles)
-
-    # Update llms.txt
     update_llms(all_unique_articles)
 
-    print(f"SUCCESS: All {len(all_unique_articles)} mainframe blogs built and cataloged successfully!")
+    print(f"SUCCESS: All {len(all_unique_articles)} mainframe blogs built with Schema.org @graph and clean sitemap.xml!")
 
 if __name__ == '__main__':
     main()
