@@ -1,0 +1,53 @@
+name: Deploy to Google Cloud Run (100% Free Tier)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: serviceapartments
+  SERVICE_NAME: stackmf
+  REGION: us-central1
+
+jobs:
+  build-and-deploy:
+    name: Build Container & Deploy StackMF to Cloud Run
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ env.SERVICE_NAME }}
+          region: ${{ env.REGION }}
+          source: ./
+          flags: |
+            --allow-unauthenticated
+            --memory=512Mi
+            --cpu=1
+            --timeout=300
+            --concurrency=80
+            --min-instances=0
+            --max-instances=2
+
+      - name: Show Live Service URL
+        run: |
+          echo "========================================================="
+          echo "🚀 StackMF successfully deployed to Google Cloud Run!"
+          echo "🔗 Live Service URL: ${{ steps.deploy.outputs.url }}"
+          echo "========================================================="

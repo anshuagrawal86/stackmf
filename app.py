@@ -1,0 +1,125 @@
+import os
+import json
+import datetime
+from flask import Flask, send_from_directory, request, jsonify, render_template_string
+
+app = Flask(__name__, static_folder='.', static_url_path='')
+
+LEADS_FILE = os.path.join(os.path.dirname(__file__), 'leads.json')
+
+@app.route('/')
+def home():
+    """Serves the primary StackMF enterprise platform."""
+    return send_from_directory('.', 'index.html')
+
+@app.route('/robots.txt')
+def robots():
+    """Serves robots.txt with bot & GEO permissions."""
+    return send_from_directory('.', 'robots.txt', mimetype='text/plain')
+
+@app.route('/sitemap.xml')
+def sitemap():
+    """Serves search engine sitemap."""
+    return send_from_directory('.', 'sitemap.xml', mimetype='application/xml')
+
+@app.route('/llms.txt')
+def llms_txt():
+    """Serves AI engine knowledge specification (Perplexity, ChatGPT, Claude)."""
+    return send_from_directory('.', 'llms.txt', mimetype='text/plain; charset=utf-8')
+
+@app.route('/llms-full.txt')
+def llms_full_txt():
+    """Serves deep LLM technical graph and migration specification."""
+    return send_from_directory('.', 'llms-full.txt', mimetype='text/plain; charset=utf-8')
+
+@app.route('/healthz')
+def healthz():
+    """Google Cloud Run healthcheck endpoint."""
+    return jsonify({
+        "status": "healthy",
+        "service": "stackmf",
+        "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
+    }), 200
+
+@app.route('/api/contact', methods=['POST'])
+def submit_contact():
+    """Handles enterprise consultation bookings and lead captures."""
+    try:
+        data = request.get_json(silent=True) or request.form.to_dict()
+        name = data.get('name', '').strip()
+        email = data.get('email', '').strip()
+        company = data.get('company', '').strip()
+        service = data.get('service', 'General Inquiry').strip()
+        message = data.get('message', '').strip()
+
+        if not name or not email:
+            return jsonify({"success": False, "error": "Name and email are required"}), 400
+
+        lead_entry = {
+            "name": name,
+            "email": email,
+            "company": company,
+            "service": service,
+            "message": message,
+            "created_at": datetime.datetime.utcnow().isoformat() + "Z",
+            "ip_address": request.headers.get('X-Forwarded-For', request.remote_addr)
+        }
+
+        # Persist lead entry safely
+        leads = []
+        if os.path.exists(LEADS_FILE):
+            try:
+                with open(LEADS_FILE, 'r', encoding='utf-8') as f:
+                    leads = json.load(f)
+            except Exception:
+                leads = []
+
+        leads.append(lead_entry)
+        with open(LEADS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(leads, f, indent=2)
+
+        return jsonify({
+            "success": True,
+            "message": "Consultation request recorded. A principal architect will respond within 4 hours."
+        }), 200
+
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route('/api/broadcom-savings', methods=['POST'])
+def calculate_savings():
+    """Programmatic API for calculating Broadcom license replacement savings."""
+    try:
+        payload = request.get_json(silent=True) or {}
+        annual_spend = float(payload.get('annualSpend', 850000))
+        tools = payload.get('tools', ['ca7', 'endevor', 'filemaster'])
+
+        weight_map = {
+            'ca7': 0.22,
+            'endevor': 0.18,
+            'filemaster': 0.08,
+            'sysview': 0.12,
+            'datacom': 0.15,
+            'netmaster': 0.08
+        }
+
+        tool_weights = sum(weight_map.get(t.lower(), 0.0) for t in tools)
+        savings_fraction = min(0.70, max(0.25, tool_weights * 0.95))
+        annual_savings = round(annual_spend * savings_fraction)
+        three_year_savings = annual_savings * 3
+
+        return jsonify({
+            "annualSpend": annual_spend,
+            "selectedTools": tools,
+            "savingsPercentage": round(savings_fraction * 100),
+            "estimatedAnnualSavings": annual_savings,
+            "estimatedThreeYearSavings": three_year_savings,
+            "paybackMonths": "4 - 7 Months"
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port, debug=False)

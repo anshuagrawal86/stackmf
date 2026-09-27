@@ -3,6 +3,9 @@ node_modules/
 dist/
 build/
 .cache/
+__pycache__/
+*.pyc
+leads.json
 
 # Environment and sensitive config
 .env
