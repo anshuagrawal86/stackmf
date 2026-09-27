@@ -61,10 +61,10 @@
               blue: '#38BDF8'
             },
             cyber: {
-              darker: '#030712',
-              dark: '#070a0f',
-              surface: '#0d131d',
-              card: '#111827',
+              darker: '#020611',
+              dark: '#050914',
+              surface: '#0c1220',
+              card: '#101828',
               cardHover: '#162238',
               border: 'rgba(255, 255, 255, 0.08)'
             }
@@ -80,30 +80,30 @@
 
   <style>
     /* ==============================================================================
-       World-Class Cybernetic Enterprise Design System Styles
+       Silicon Valley Unicorn & Awwwards-Level Design System Styles
        ============================================================================== */
     body {
-      background-color: #030712;
+      background-color: #020611;
       color: #f1f5f9;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
     }
 
-    /* 1. Cybernetic Grid Background with Radial Fade */
+    /* 1. Cybernetic Perspective Grid Background */
     .cyber-grid {
       background-size: 48px 48px;
       background-image: 
         linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-      mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+      mask-image: radial-gradient(ellipse 75% 65% at 50% 20%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 20%, #000 40%, transparent 100%);
     }
 
     /* 2. Atmospheric Multi-Tone Radial Glow Orbs */
     .glow-orb-emerald {
       position: absolute;
-      width: 600px;
-      height: 600px;
+      width: 650px;
+      height: 650px;
       background: radial-gradient(circle, rgba(0, 245, 160, 0.16) 0%, rgba(6, 182, 212, 0.05) 50%, transparent 70%);
       filter: blur(100px);
       pointer-events: none;
@@ -111,51 +111,51 @@
     }
     .glow-orb-violet {
       position: absolute;
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 55%, transparent 70%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, rgba(59, 130, 246, 0.05) 55%, transparent 70%);
       filter: blur(110px);
       pointer-events: none;
       z-index: 0;
     }
     .glow-orb-amber {
       position: absolute;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.14) 0%, transparent 65%);
-      filter: blur(90px);
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 65%);
+      filter: blur(95px);
       pointer-events: none;
       z-index: 0;
     }
 
     /* 3. Glassmorphic Surface Cards with Thematic Glows */
     .glass-card {
-      background: rgba(17, 24, 39, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(16, 24, 40, 0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .glass-card:hover {
       transform: translateY(-3px);
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.22);
     }
 
     .glow-border-emerald {
       border: 1px solid rgba(0, 245, 160, 0.35);
-      box-shadow: 0 0 30px -5px rgba(0, 245, 160, 0.18), inset 0 0 15px -5px rgba(0, 245, 160, 0.08);
+      box-shadow: 0 0 35px -5px rgba(0, 245, 160, 0.18), inset 0 0 15px -5px rgba(0, 245, 160, 0.08);
     }
     .glow-border-cyan {
       border: 1px solid rgba(0, 240, 255, 0.35);
-      box-shadow: 0 0 30px -5px rgba(0, 240, 255, 0.18), inset 0 0 15px -5px rgba(0, 240, 255, 0.08);
+      box-shadow: 0 0 35px -5px rgba(0, 240, 255, 0.18), inset 0 0 15px -5px rgba(0, 240, 255, 0.08);
     }
     .glow-border-violet {
       border: 1px solid rgba(139, 92, 246, 0.4);
-      box-shadow: 0 0 35px -5px rgba(139, 92, 246, 0.2), inset 0 0 15px -5px rgba(139, 92, 246, 0.1);
+      box-shadow: 0 0 40px -5px rgba(139, 92, 246, 0.22), inset 0 0 15px -5px rgba(139, 92, 246, 0.1);
     }
     .glow-border-amber {
       border: 1px solid rgba(245, 158, 11, 0.4);
-      box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.2), inset 0 0 15px -5px rgba(245, 158, 11, 0.08);
+      box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.2), inset 0 0 15px -5px rgba(245, 158, 11, 0.08);
     }
 
     /* 4. High-Impact Typography Gradients */
@@ -257,7 +257,7 @@
       width: 8px;
     }
     ::-webkit-scrollbar-track {
-      background: #030712;
+      background: #020611;
     }
     ::-webkit-scrollbar-thumb {
       background: #1f2937;
@@ -269,7 +269,7 @@
 
     .interactive-node.active {
       border-color: #00F0FF;
-      background: rgba(0, 240, 255, 0.12);
+      background: rgba(0, 240, 255, 0.14);
       box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
     }
   </style>
@@ -418,19 +418,19 @@
   }
   </script>
 </head>
-<body class="bg-[#030712] text-slate-100 antialiased selection:bg-neon-emerald selection:text-black">
+<body class="bg-[#020611] text-slate-100 antialiased selection:bg-neon-emerald selection:text-black">
 
   <!-- Atmospheric Multi-Tone Background Orbs -->
-  <div class="cyber-grid absolute inset-0 pointer-events-none h-[1400px] z-0"></div>
-  <div class="glow-orb-emerald top-[-100px] left-[15%]"></div>
-  <div class="glow-orb-violet top-[200px] right-[5%]"></div>
-  <div class="glow-orb-amber top-[1800px] left-[10%]"></div>
-  <div class="glow-orb-emerald top-[3200px] right-[15%]"></div>
+  <div class="cyber-grid absolute inset-0 pointer-events-none h-[1500px] z-0"></div>
+  <div class="glow-orb-emerald top-[-80px] left-[10%]"></div>
+  <div class="glow-orb-violet top-[220px] right-[5%]"></div>
+  <div class="glow-orb-amber top-[1800px] left-[8%]"></div>
+  <div class="glow-orb-emerald top-[3300px] right-[12%]"></div>
 
   <!-- Announcement Bar (Urgent Advisory Pill) -->
   <div class="bg-gradient-to-r from-emerald-950/90 via-slate-900 to-violet-950/90 border-b border-white/10 py-2 px-4 text-xs font-mono text-center text-slate-300 relative z-30">
     <div class="max-w-7xl mx-auto flex items-center justify-center gap-2 flex-wrap">
-      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 font-bold border border-rose-500/30 text-[10px] uppercase">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 font-bold border border-rose-500/30 text-[10px] uppercase">
         <i class="fa-solid fa-triangle-exclamation"></i> 2026 Broadcom Renewal Alert
       </span>
       <span>Facing 150%–300% price hikes on CA-7 or Endevor?</span>
@@ -441,7 +441,7 @@
   </div>
 
   <!-- Modern Luminous Navigation Header -->
-  <header class="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
+  <header class="sticky top-0 z-50 bg-[#020611]/90 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
     <!-- Top Multi-Tone Neon Accent Wire -->
     <div class="h-[2px] w-full bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet"></div>
     
@@ -450,7 +450,7 @@
       <!-- Brand Logo -->
       <a href="/" class="flex items-center gap-3.5 group">
         <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-neon-emerald via-neon-cyan to-neon-violet p-[2px] shadow-lg shadow-neon-cyan/20 group-hover:scale-105 transition-transform">
-          <div class="w-full h-full bg-[#030712] rounded-[10px] flex items-center justify-center">
+          <div class="w-full h-full bg-[#020611] rounded-[10px] flex items-center justify-center">
             <span class="font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan text-xl tracking-tighter">S/MF</span>
           </div>
         </div>
@@ -461,9 +461,13 @@
       </a>
 
       <!-- Desktop Nav Links -->
-      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="#team-builder" class="hover:text-neon-violet transition-colors flex items-center gap-1.5 font-semibold">
+          <i class="fa-solid fa-sliders text-neon-violet text-xs"></i>
+          <span>Pod Builder</span>
+        </a>
         <a href="#mainframe-developers" class="hover:text-neon-emerald transition-colors flex items-center gap-1.5">
-          <i class="fa-solid fa-user-astronaut text-neon-violet text-xs"></i>
+          <i class="fa-solid fa-user-astronaut text-neon-emerald text-xs"></i>
           <span>Hire Developers</span>
         </a>
         <a href="#broadcom-replacement" class="hover:text-neon-emerald transition-colors flex items-center gap-1.5">
@@ -471,13 +475,16 @@
           <span>Broadcom Replacement</span>
           <span class="bg-neon-emerald/20 text-neon-emerald text-[10px] font-mono px-1.5 py-0.5 rounded border border-neon-emerald/40 font-bold">Save 60%</span>
         </a>
+        <a href="/blog/" class="hover:text-neon-cyan transition-colors flex items-center gap-1.5 font-semibold">
+          <i class="fa-solid fa-book-bookmark text-neon-cyan text-xs"></i>
+          <span>Knowledge Base</span>
+          <span class="bg-cyan-500/20 text-neon-cyan text-[10px] font-mono px-1.5 py-0.5 rounded border border-cyan-500/40 font-bold">25+ Guides</span>
+        </a>
         <a href="#mainframe-modernization" class="hover:text-neon-cyan transition-colors flex items-center gap-1.5">
           <i class="fa-solid fa-microchip text-neon-cyan text-xs"></i>
           <span>Modernization</span>
         </a>
-        <a href="#fullstack-bridge" class="hover:text-neon-cyan transition-colors">Full-Stack Bridge</a>
-        <a href="#maintenance-ams" class="hover:text-neon-emerald transition-colors">24/7 AMS</a>
-        <a href="#system-flow" class="hover:text-neon-cyan transition-colors">System Flow</a>
+        <a href="#fullstack-bridge" class="hover:text-neon-cyan transition-colors">Full-Stack</a>
         <a href="#tco-calculator" class="text-neon-amber hover:text-white font-mono transition-colors flex items-center gap-1">
           <i class="fa-solid fa-calculator text-xs"></i>
           <span>ROI Calc</span>
@@ -485,12 +492,12 @@
       </nav>
 
       <!-- Action CTAs -->
-      <div class="hidden md:flex items-center gap-4">
-        <a href="#terminal-section" class="px-3.5 py-2 rounded-lg text-xs font-mono text-slate-300 border border-slate-700 bg-slate-900/60 hover:border-neon-cyan hover:text-neon-cyan transition-all flex items-center gap-2 shadow-sm">
+      <div class="hidden md:flex items-center gap-3">
+        <a href="#terminal-section" class="px-3 py-2 rounded-lg text-xs font-mono text-slate-300 border border-slate-700 bg-slate-900/60 hover:border-neon-cyan hover:text-neon-cyan transition-all flex items-center gap-2 shadow-sm">
           <span class="w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></span>
           <span>z/OS CLI</span>
         </a>
-        <a href="#contact" class="btn-shimmer px-5 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-neon-emerald via-teal-400 to-neon-cyan text-black shadow-lg shadow-neon-emerald/25 hover:shadow-neon-cyan/40 transition-all hover:scale-[1.02]">
+        <a href="#contact" class="btn-shimmer px-4 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-neon-emerald via-teal-400 to-neon-cyan text-black shadow-lg shadow-neon-emerald/25 hover:shadow-neon-cyan/40 transition-all hover:scale-[1.02]">
           Book Assessment
         </a>
       </div>
@@ -504,7 +511,12 @@
     </div>
 
     <!-- Mobile Dropdown -->
-    <div id="mobileMenu" class="hidden lg:hidden bg-[#070b12] border-b border-white/10 px-5 py-5 space-y-3 font-medium text-slate-300">
+    <div id="mobileMenu" class="hidden lg:hidden bg-[#050914] border-b border-white/10 px-5 py-5 space-y-3 font-medium text-slate-300">
+      <a href="/blog/" class="block py-2 text-neon-cyan font-semibold flex items-center justify-between">
+        <span>Knowledge Base (25+ Guides)</span>
+        <span class="bg-cyan-500/20 text-neon-cyan text-[10px] font-mono px-1.5 py-0.5 rounded border border-cyan-500/40">25 Articles</span>
+      </a>
+      <a href="#team-builder" class="block py-2 text-neon-violet font-semibold">Interactive Pod Builder</a>
       <a href="#mainframe-developers" class="block py-2 text-neon-emerald font-semibold">Hire Mainframe Developers (48h)</a>
       <a href="#broadcom-replacement" class="block py-2 text-neon-amber font-semibold">Broadcom Replacement Hub</a>
       <a href="#mainframe-modernization" class="block py-2 hover:text-neon-cyan">Mainframe Modernization</a>
@@ -515,91 +527,391 @@
     </div>
   </header>
 
-  <!-- Hero Section (Vibrant & Electrifying) -->
-  <section class="relative pt-16 pb-20 md:pt-24 md:pb-32 overflow-hidden z-10">
+  <!-- Hero Section: The Dual-Stack Hyper-Cockpit (Silicon Valley Tier) -->
+  <section class="relative pt-14 pb-20 md:pt-20 md:pb-28 overflow-hidden z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
-      <!-- Luminous Floating Eyebrow Badge -->
-      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/15 via-cyan-500/15 to-violet-500/15 border border-cyan-400/40 backdrop-blur-md mb-8 shadow-[0_0_25px_rgba(0,240,255,0.2)]">
-        <span class="flex h-2.5 w-2.5 relative">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-emerald"></span>
-        </span>
-        <span class="text-xs font-mono font-medium tracking-wide text-slate-200">
-          <strong class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan">ENTERPRISE REVOLUTION:</strong> 48h Developer Pods &bull; Cut Broadcom OPEX by 60%
-        </span>
-      </div>
-
-      <!-- Main Headline with Rich Multi-Color Gradients -->
-      <div class="max-w-4xl">
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] mb-6">
-          Modernize Mainframes. <br>
-          <span class="text-gradient-hero">Eliminate Broadcom Lock-in.</span> <br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-violet via-pink-400 to-amber-300">Deploy Dual-Stack Pods.</span>
-        </h1>
-        <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-3xl mb-10 font-normal">
-          StackMF is the premier engineering consultancy solving the global mainframe talent crunch and licensing crisis. We replace <strong class="text-neon-amber font-semibold">Broadcom CA-7 & Endevor</strong> with open DevOps, bridge <strong class="text-neon-cyan font-semibold">COBOL/CICS with React & Node.js</strong>, and deploy vetted senior pods in <strong class="text-neon-emerald font-semibold">under 48 hours</strong>.
-        </p>
-
-        <!-- CTA Buttons with Shimmer & Glowing Glow Shadows -->
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-16">
-          <a href="#tco-calculator" class="btn-shimmer px-8 py-4 rounded-2xl text-base font-extrabold bg-gradient-to-r from-neon-emerald via-teal-400 to-neon-cyan text-black shadow-[0_0_35px_rgba(0,245,160,0.35)] hover:shadow-[0_0_50px_rgba(0,245,160,0.5)] flex items-center justify-center gap-3 group transition-all hover:scale-[1.02]">
-            <i class="fa-solid fa-calculator text-lg"></i>
-            <span>Calculate Broadcom Savings</span>
-            <i class="fa-solid fa-arrow-right group-hover:translate-x-1.5 transition-transform"></i>
-          </a>
-          <a href="#mainframe-developers" class="px-8 py-4 rounded-2xl text-base font-bold bg-slate-900/90 hover:bg-slate-800 text-white border border-neon-violet/50 hover:border-neon-violet shadow-[0_0_25px_rgba(139,92,246,0.2)] flex items-center justify-center gap-3 transition-all hover:scale-[1.02]">
-            <i class="fa-solid fa-terminal text-neon-violet"></i>
-            <span>Hire Developer Pods (48h)</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Bento Metric Cards with Thematic Luminous Jewel Borders -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pt-10 border-t border-white/10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
-        <!-- Metric 1: Broadcom Savings (Amber/Gold Theme) -->
-        <div class="glass-card glow-border-amber p-6 rounded-2xl relative overflow-hidden group">
-          <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-neon-amber/10 rounded-full blur-xl group-hover:bg-neon-amber/20 transition-colors"></div>
-          <span class="inline-block px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold uppercase mb-2 border border-amber-500/40">
-            <i class="fa-solid fa-shield text-xs mr-1"></i> Replace CA-7 / Endevor
-          </span>
-          <div class="text-3xl sm:text-4xl font-black text-gradient-gold font-mono tracking-tight">45% - 65%</div>
-          <div class="text-xs uppercase font-mono tracking-wider text-slate-300 font-bold mt-1">Broadcom Cost Reduction</div>
-          <p class="text-xs text-slate-400 mt-1">Guaranteed zero downtime migration</p>
+        <!-- Left Column: Copy & High-Converting CTAs (7 Cols) -->
+        <div class="lg:col-span-7">
+          
+          <!-- Luminous Floating Eyebrow Badge -->
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 shadow-[0_0_25px_rgba(0,245,160,0.2)] mb-6">
+            <span class="flex h-2.5 w-2.5 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-emerald opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-emerald"></span>
+            </span>
+            <span class="text-xs font-mono font-medium tracking-wide text-slate-200">
+              <strong class="text-neon-emerald">2026 BROADCOM DEFENSE:</strong> Replace CA-7 & Endevor in 60 Days
+            </span>
+          </div>
+
+          <!-- Main Headline with Rich Multi-Color Gradients -->
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] mb-6">
+            The Enterprise <br>
+            <span class="text-gradient-hero">Mainframe Modernization</span> <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-violet via-pink-400 to-amber-300">Engine.</span>
+          </h1>
+
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8 font-normal">
+            StackMF liberates Fortune 500 ledgers from escalating Broadcom license taxation and deploys senior dual-stack engineering pods fluent in both <strong class="text-neon-emerald font-semibold">IBM z/OS COBOL/CICS</strong> and <strong class="text-neon-cyan font-semibold">Cloud-Native React/Kafka</strong> within <span class="text-white font-bold underline decoration-neon-emerald decoration-2">48 hours</span>.
+          </p>
+
+          <!-- CTA Buttons with Shimmer & Glow Shadows -->
+          <div class="flex flex-wrap items-center gap-4 mb-10">
+            <a href="#tco-calculator" class="btn-shimmer px-8 py-4 rounded-xl text-sm font-black bg-gradient-to-r from-neon-emerald via-teal-400 to-neon-cyan text-black shadow-[0_0_35px_rgba(0,245,160,0.35)] hover:scale-[1.02] transition-transform flex items-center gap-2.5">
+              <i class="fa-solid fa-calculator text-base"></i>
+              <span>Calculate Broadcom Savings</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="#team-builder" class="px-7 py-4 rounded-xl text-sm font-bold bg-slate-900/90 text-white border border-white/15 hover:border-neon-violet hover:bg-slate-800 transition-all flex items-center gap-2.5 shadow-lg">
+              <i class="fa-solid fa-sliders text-neon-violet"></i>
+              <span>Build Custom Pod</span>
+            </a>
+          </div>
+
+          <!-- Trust Badges Row -->
+          <div class="flex flex-wrap items-center gap-6 pt-6 border-t border-white/10 text-xs font-mono text-slate-400">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-shield-check text-neon-emerald"></i>
+              <span>Zero-Downtime Guarantee</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-bolt text-neon-cyan"></i>
+              <span>48h SLA Deployment</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-lock text-neon-violet"></i>
+              <span>Banking SOC-2 Ready</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Metric 2: Deployment Velocity (Cyan Theme) -->
-        <div class="glass-card glow-border-cyan p-6 rounded-2xl relative overflow-hidden group">
-          <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-neon-cyan/10 rounded-full blur-xl group-hover:bg-neon-cyan/20 transition-colors"></div>
-          <span class="inline-block px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold uppercase mb-2 border border-cyan-500/40">
-            <i class="fa-solid fa-bolt text-xs mr-1"></i> Rapid Staffing
-          </span>
-          <div class="text-3xl sm:text-4xl font-black text-gradient-cyan font-mono tracking-tight">&lt; 48 Hours</div>
-          <div class="text-xs uppercase font-mono tracking-wider text-slate-300 font-bold mt-1">Developer Deployment</div>
-          <p class="text-xs text-slate-400 mt-1">Vetted senior z/OS & full-stack pods</p>
+        <!-- Right Column: Interactive Dual-Stack Hyper-Cockpit (5 Cols) -->
+        <div class="lg:col-span-5">
+          <div class="glass-card glow-border-cyan rounded-3xl p-6 sm:p-7 relative overflow-hidden bg-gradient-to-b from-[#0c1424] via-[#080e1c] to-[#040812] shadow-[0_0_60px_rgba(0,240,255,0.18)]">
+            
+            <!-- Cockpit Header & Interactive Switcher -->
+            <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald"></span>
+                <span class="text-xs font-mono text-slate-300 font-bold ml-1.5">STACKMF // DUAL-STACK COCKPIT</span>
+              </div>
+              
+              <!-- Interactive State Toggle (Legacy vs Modern) -->
+              <div class="flex items-center bg-black/60 p-1 rounded-xl border border-white/10">
+                <button id="modeLegacyBtn" onclick="setCockpitMode('legacy')" class="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold text-slate-400 hover:text-white transition-all">
+                  Legacy
+                </button>
+                <button id="modeModernBtn" onclick="setCockpitMode('modern')" class="px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/40 transition-all">
+                  Modernized
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Live Dual-Stack Display -->
+            <div class="space-y-4">
+              <!-- Telemetry Metrics Row -->
+              <div class="grid grid-cols-2 gap-3.5 font-mono">
+                <div class="p-3.5 rounded-2xl bg-black/50 border border-white/10">
+                  <span class="text-[10px] text-slate-400 uppercase font-semibold block">Licensing Overhead</span>
+                  <span id="cockpitCostVal" class="text-2xl font-black text-neon-emerald font-mono tracking-tight block mt-0.5">-62% OPEX</span>
+                  <span id="cockpitCostSub" class="text-[10px] text-slate-400 block mt-0.5">CA-7 & Endevor Decommissioned</span>
+                </div>
+                <div class="p-3.5 rounded-2xl bg-black/50 border border-white/10">
+                  <span class="text-[10px] text-slate-400 uppercase font-semibold block">CICS Bridge Latency</span>
+                  <span id="cockpitLatencyVal" class="text-2xl font-black text-neon-cyan font-mono tracking-tight block mt-0.5">3.2 ms</span>
+                  <span id="cockpitLatencySub" class="text-[10px] text-slate-400 block mt-0.5">Zowe REST Native Gateway</span>
+                </div>
+              </div>
+
+              <!-- Animated Data Pipeline Node Flow -->
+              <div class="p-4 sm:p-5 rounded-2xl bg-[#060a14] border border-cyan-500/25 relative overflow-hidden">
+                <div class="flex items-center justify-between text-xs font-mono mb-2.5">
+                  <span class="text-white font-bold flex items-center gap-1.5">
+                    <i class="fa-solid fa-server text-neon-emerald"></i> z16 Mainframe
+                  </span>
+                  <span class="text-neon-cyan text-[10px] font-bold animate-pulse">&larr;&rarr; sub-5ms bridge &larr;&rarr;</span>
+                  <span class="text-sky-400 font-bold flex items-center gap-1.5">
+                    <i class="fa-brands fa-react text-neon-cyan"></i> React 19 / Cloud
+                  </span>
+                </div>
+
+                <!-- Pulsing Connection Line -->
+                <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden relative">
+                  <div class="absolute inset-0 bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet animate-pulse"></div>
+                </div>
+
+                <!-- Real-Time Packet Stream Log -->
+                <div class="mt-3.5 bg-black/80 rounded-xl p-3 font-mono text-[10px] text-slate-300 space-y-1 border border-slate-800">
+                  <div class="flex justify-between text-slate-400">
+                    <span>[TRANS_ID: ACCT9942]</span>
+                    <span class="text-neon-emerald">EBCDIC &rarr; JSON (2.8ms)</span>
+                  </div>
+                  <div class="truncate text-slate-300">
+                    <span class="text-neon-violet font-bold">GET</span> /api/v2/ledger/balance?account=490218 <span class="text-neon-emerald font-bold">[200 OK]</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dual-Stack Pod Status Bar -->
+              <div class="p-3.5 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-between font-mono text-xs">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald animate-ping"></span>
+                  <span class="text-slate-200">Pod Status: <strong class="text-white">Active (18 Architects Ready)</strong></span>
+                </div>
+                <span class="text-neon-emerald font-bold">&lt; 48h Deploy</span>
+              </div>
+            </div>
+
+          </div>
         </div>
 
-        <!-- Metric 3: Banking-Grade SLA (Emerald Theme) -->
-        <div class="glass-card glow-border-emerald p-6 rounded-2xl relative overflow-hidden group">
-          <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-neon-emerald/10 rounded-full blur-xl group-hover:bg-neon-emerald/20 transition-colors"></div>
-          <span class="inline-block px-2 py-0.5 rounded bg-emerald-500/20 text-neon-emerald font-mono text-[10px] font-bold uppercase mb-2 border border-neon-emerald/40">
-            <i class="fa-solid fa-circle-check text-xs mr-1"></i> Enterprise SLA
-          </span>
-          <div class="text-3xl sm:text-4xl font-black text-neon-emerald font-mono tracking-tight">99.999%</div>
-          <div class="text-xs uppercase font-mono tracking-wider text-slate-300 font-bold mt-1">Mission-Critical Uptime</div>
-          <p class="text-xs text-slate-400 mt-1">24/7 batch recovery & incident SLA</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Enterprise Ecosystem Technology Marquee -->
+  <div class="py-10 border-y border-white/5 bg-[#030714]/80 overflow-hidden relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-5">
+      <span class="text-[11px] font-mono uppercase tracking-[0.2em] text-slate-400 font-bold">
+        ENGINEERED FOR ENTERPRISE STACKS & OPEN STANDARDS
+      </span>
+    </div>
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-center flex-wrap gap-8 sm:gap-14 font-mono text-xs font-bold text-slate-300">
+      <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-brands fa-ibm text-2xl text-blue-400"></i> IBM z/OS & z16</span>
+      <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-brands fa-aws text-2xl text-amber-400"></i> AWS Blu Age</span>
+      <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-brands fa-linux text-2xl text-neon-emerald"></i> Linux Foundation Zowe</span>
+      <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-network-wired text-2xl text-neon-cyan"></i> Stonebranch UAC</span>
+      <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-brands fa-git-alt text-2xl text-rose-400"></i> Git & GitLab CI/CD</span>
+      <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-brands fa-redhat text-2xl text-red-500"></i> Red Hat OpenShift</span>
+    </div>
+  </div>
+
+  <!-- Bento Grid Composition: Asymmetric Modernization Showcase -->
+  <section class="py-20 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+        
+        <!-- Master Card 1: 8 Columns Span (Broadcom Replacement Hub) -->
+        <div class="md:col-span-8 glass-card glow-border-amber p-8 sm:p-10 rounded-3xl relative overflow-hidden flex flex-col justify-between group">
+          <div class="absolute -right-16 -top-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/20 transition-all"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3.5 py-1 rounded-full bg-amber-500/20 text-neon-amber text-xs font-mono font-bold border border-amber-500/30">
+                <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> MISSION-CRITICAL OPEX RESCUE
+              </span>
+              <span class="text-xs font-mono text-neon-emerald font-bold">45% - 65% SAVED</span>
+            </div>
+            <h3 class="text-2xl sm:text-4xl font-black text-white mb-3">
+              Escape the Broadcom Licensing Squeeze Without Business Outage
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed max-w-xl mb-6">
+              Broadcom renewal pricing increases of 100%–300% are an unbudgeted tax on IT. StackMF provides automated dependency extraction to migrate CA-7 to Stonebranch/Control-M and Endevor to Git CI/CD.
+            </p>
+          </div>
+
+          <!-- Mini Replacement Interactive Pill Row -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs pt-5 border-t border-white/10">
+            <div class="p-3.5 rounded-xl bg-black/60 border border-slate-800">
+              <span class="text-rose-400 line-through block text-[11px]">Broadcom CA-7</span>
+              <span class="text-neon-emerald font-bold">&rarr; Stonebranch / UAC</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-black/60 border border-slate-800">
+              <span class="text-rose-400 line-through block text-[11px]">Broadcom Endevor</span>
+              <span class="text-neon-emerald font-bold">&rarr; Git + IBM DBB</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-black/60 border border-slate-800">
+              <span class="text-rose-400 line-through block text-[11px]">CA-SYSVIEW</span>
+              <span class="text-neon-emerald font-bold">&rarr; Grafana / OpenTel</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Metric 4: Dual-Run Parity (Violet Theme) -->
-        <div class="glass-card glow-border-violet p-6 rounded-2xl relative overflow-hidden group">
-          <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-neon-violet/10 rounded-full blur-xl group-hover:bg-neon-violet/20 transition-colors"></div>
-          <span class="inline-block px-2 py-0.5 rounded bg-violet-500/20 text-violet-300 font-mono text-[10px] font-bold uppercase mb-2 border border-violet-500/40">
-            <i class="fa-solid fa-code-compare text-xs mr-1"></i> Parallel Verification
-          </span>
-          <div class="text-3xl sm:text-4xl font-black text-gradient-violet font-mono tracking-tight">100%</div>
-          <div class="text-xs uppercase font-mono tracking-wider text-slate-300 font-bold mt-1">Zero-Disruption Record</div>
-          <p class="text-xs text-slate-400 mt-1">Automated parity check harnesses</p>
+        <!-- Vertical Tower Card 2: 4 Columns Span (Developer Velocity) -->
+        <div class="md:col-span-4 glass-card glow-border-cyan p-8 rounded-3xl relative overflow-hidden flex flex-col justify-between">
+          <div>
+            <span class="px-3.5 py-1 rounded-full bg-cyan-500/20 text-neon-cyan text-xs font-mono font-bold border border-cyan-500/30">
+              RAPID DISPATCH
+            </span>
+            <div class="text-5xl font-black text-white font-mono my-4 text-gradient-cyan">&lt; 48h</div>
+            <h4 class="text-xl font-bold text-white mb-2">Dual-Stack Staffing SLA</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Pre-vetted senior z/OS systems programmers and full-stack architects deployed to your Jira boards in 2 business days.
+            </p>
+          </div>
+          <div class="pt-6">
+            <a href="#team-builder" class="w-full py-3.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-neon-cyan border border-cyan-500/40 font-mono text-xs font-bold text-center block transition-all shadow-sm">
+              Configure Pod Staffing &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Row 2: 4 Columns Span (Zero-Risk Dual-Run Engine) -->
+        <div class="md:col-span-4 glass-card glow-border-violet p-8 rounded-3xl relative flex flex-col justify-between">
+          <div>
+            <span class="px-3.5 py-1 rounded-full bg-violet-500/20 text-neon-violet text-xs font-mono font-bold border border-violet-500/30">
+              PARITY ASSURANCE
+            </span>
+            <div class="text-4xl font-black text-white font-mono my-4 text-gradient-violet">100%</div>
+            <h4 class="text-xl font-bold text-white mb-2">Automated Dual-Run Testing</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Zero production risk. We run legacy and modernized workloads concurrently in shadow mode with automated reconciliation diffing before physical cutover.
+            </p>
+          </div>
+          <div class="text-xs font-mono text-slate-400 mt-4 flex items-center gap-2">
+            <i class="fa-solid fa-code-compare text-neon-violet"></i> Zero Ledger Divergence Record
+          </div>
+        </div>
+
+        <!-- Row 2: 8 Columns Span (Full-Stack Zowe Bridge Showcase) -->
+        <div class="md:col-span-8 glass-card glow-border-emerald p-8 sm:p-10 rounded-3xl relative overflow-hidden flex flex-col justify-between">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+            <div>
+              <span class="px-3.5 py-1 rounded-full bg-emerald-500/20 text-neon-emerald text-xs font-mono font-bold border border-neon-emerald/30">
+                NON-DESTRUCTIVE MODERNIZATION
+              </span>
+              <h4 class="text-2xl sm:text-3xl font-black text-white mt-2">Zero-Recode CICS & DB2 API Modernization</h4>
+            </div>
+            <div class="font-mono text-xs text-neon-emerald bg-emerald-950/60 px-3.5 py-1.5 rounded-xl border border-emerald-500/40 font-bold">
+              LATENCY: 3.4ms
+            </div>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+            Do not rewrite 10 million lines of proven COBOL. StackMF wraps core transaction COMMAREAs and DB2 stored procedures into high-speed OpenAPI REST endpoints with bi-directional Kafka streaming.
+          </p>
+          <div class="flex flex-wrap gap-2 text-xs font-mono">
+            <span class="px-3 py-1 rounded-lg bg-black/60 text-slate-300 border border-slate-800">React 19 Frontend</span>
+            <span class="px-3 py-1 rounded-lg bg-black/60 text-slate-300 border border-slate-800">Node.js Microservices</span>
+            <span class="px-3 py-1 rounded-lg bg-black/60 text-slate-300 border border-slate-800">Zowe REST Gateway</span>
+            <span class="px-3 py-1 rounded-lg bg-black/60 text-slate-300 border border-slate-800">IBM z/OS 3.1 CICS</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Pod Builder & Cost Configurator -->
+  <section id="team-builder" class="py-24 bg-[#040812] border-t border-white/10 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3.5 py-1 rounded-full bg-violet-500/15 border border-violet-500/30 text-neon-violet font-mono text-xs uppercase tracking-widest font-bold">
+          <i class="fa-solid fa-users-gear mr-1.5"></i> Custom Staffing Engine
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white mt-3">Interactive Modernization Pod Builder</h2>
+        <p class="text-slate-300 text-sm sm:text-base mt-3">Tailor your dedicated engineering squad. Dial role allocations to see team velocity, timeline projections, and investment comparison.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        
+        <!-- Left: Interactive Sliders (7 Cols) -->
+        <div class="lg:col-span-7 glass-card p-8 rounded-3xl space-y-7 border border-white/10">
+          
+          <!-- Slider 1: Senior Mainframe Engineers -->
+          <div>
+            <div class="flex justify-between items-center text-xs font-mono mb-2.5">
+              <span class="text-white font-bold flex items-center gap-2">
+                <i class="fa-solid fa-server text-neon-emerald"></i> Senior Mainframe Engineers (COBOL/CICS/DB2)
+              </span>
+              <span id="valMainframeDevs" class="text-neon-emerald font-bold text-sm bg-emerald-950/60 px-3 py-0.5 rounded-lg border border-emerald-500/30">2 Engineers</span>
+            </div>
+            <input type="range" id="sliderMainframe" min="1" max="10" value="2" oninput="updatePodConfig()" class="w-full h-2.5 bg-slate-900 rounded-lg cursor-pointer">
+            <div class="flex justify-between text-[11px] font-mono text-slate-500 mt-1">
+              <span>1 Eng</span>
+              <span>5 Eng</span>
+              <span>10 Eng</span>
+            </div>
+          </div>
+
+          <!-- Slider 2: Full-Stack Cloud Engineers -->
+          <div>
+            <div class="flex justify-between items-center text-xs font-mono mb-2.5">
+              <span class="text-white font-bold flex items-center gap-2">
+                <i class="fa-brands fa-react text-neon-cyan"></i> Cloud Full-Stack Engineers (React 19 / Node / Kafka)
+              </span>
+              <span id="valCloudDevs" class="text-neon-cyan font-bold text-sm bg-cyan-950/60 px-3 py-0.5 rounded-lg border border-cyan-500/30">2 Engineers</span>
+            </div>
+            <input type="range" id="sliderCloud" min="0" max="8" value="2" oninput="updatePodConfig()" class="w-full h-2.5 bg-slate-900 rounded-lg cursor-pointer">
+            <div class="flex justify-between text-[11px] font-mono text-slate-500 mt-1">
+              <span>0 Eng</span>
+              <span>4 Eng</span>
+              <span>8 Eng</span>
+            </div>
+          </div>
+
+          <!-- Slider 3: Modern DevOps / Zowe Architect -->
+          <div>
+            <div class="flex justify-between items-center text-xs font-mono mb-2.5">
+              <span class="text-white font-bold flex items-center gap-2">
+                <i class="fa-solid fa-code-merge text-neon-violet"></i> DevOps & Broadcom Migration Leads (Git / Zowe)
+              </span>
+              <span id="valDevOpsDevs" class="text-neon-violet font-bold text-sm bg-violet-950/60 px-3 py-0.5 rounded-lg border border-violet-500/30">1 Architect</span>
+            </div>
+            <input type="range" id="sliderDevOps" min="0" max="4" value="1" oninput="updatePodConfig()" class="w-full h-2.5 bg-slate-900 rounded-lg cursor-pointer">
+            <div class="flex justify-between text-[11px] font-mono text-slate-500 mt-1">
+              <span>0 Lead</span>
+              <span>2 Leads</span>
+              <span>4 Leads</span>
+            </div>
+          </div>
+
+          <!-- Deployment Velocity Guarantee -->
+          <div class="p-4 rounded-2xl bg-[#080e1a] border border-cyan-500/25 flex items-center justify-between font-mono text-xs">
+            <div class="flex items-center gap-2.5 text-slate-300">
+              <i class="fa-solid fa-plane-departure text-neon-cyan"></i>
+              <span>Guaranteed Sprint Onboarding:</span>
+            </div>
+            <span class="text-neon-emerald font-bold">&lt; 48 Hours to Active Sprints</span>
+          </div>
+
+        </div>
+
+        <!-- Right: Real-Time Projection Card (5 Cols) -->
+        <div class="lg:col-span-5 glass-card glow-border-violet p-8 rounded-3xl relative overflow-hidden bg-gradient-to-b from-[#0e1628] to-[#070b14]">
+          <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+            <span class="text-xs font-mono uppercase text-neon-violet font-bold tracking-wider">PROJECTED POD SPECIFICATION</span>
+            <span class="px-2 py-0.5 rounded bg-violet-500/20 text-neon-violet font-mono text-[10px] font-bold border border-violet-500/30">DEDICATED SQUAD</span>
+          </div>
+
+          <div class="space-y-4 font-mono">
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-slate-400">Total Dedicated Pod Size:</span>
+              <span id="summaryPodSize" class="text-2xl font-black text-white font-mono">5 Engineers</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-slate-400">Estimated Monthly Velocity:</span>
+              <span id="summaryVelocity" class="text-base font-bold text-neon-emerald font-mono">140 Story Points / mo</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-slate-400">Migration Run-Rate:</span>
+              <span id="summaryMigrationRate" class="text-base font-bold text-neon-cyan font-mono">~450 JCL/COBOL Units / mo</span>
+            </div>
+
+            <!-- Benchmark vs Big-4 Consulting -->
+            <div class="p-4 rounded-2xl bg-black/60 border border-slate-800 mt-6">
+              <div class="text-[11px] text-slate-400 uppercase mb-1">Traditional Big-4 Consulting Equivalent:</div>
+              <div class="text-sm font-bold text-rose-400 line-through font-mono">$115,000 - $140,000 / mo</div>
+              <div class="text-[11px] text-slate-400 uppercase mt-3 mb-1">StackMF Dedicated Pod Advantage:</div>
+              <div id="summarySavings" class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan font-mono">
+                Save ~$65,000/mo vs Big-4
+              </div>
+            </div>
+          </div>
+
+          <button onclick="deployConfiguredPod()" class="btn-shimmer w-full mt-6 py-4 rounded-2xl bg-gradient-to-r from-neon-violet via-purple-500 to-neon-cyan text-white font-black text-xs uppercase tracking-wider block text-center shadow-lg shadow-purple-500/30 hover:scale-[1.02] transition-transform">
+            Lock In This Pod Roster (48h) &rarr;
+          </button>
+
         </div>
 
       </div>
@@ -608,7 +920,7 @@
   </section>
 
   <!-- Interactive System Design Flow: Mainframe to Cloud -->
-  <section id="system-flow" class="py-24 bg-[#050912] border-y border-white/10 relative">
+  <section id="system-flow" class="py-24 bg-[#050912] border-y border-white/10 relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-16">
@@ -1330,6 +1642,163 @@
     </div>
   </section>
 
+  <!-- Enterprise Knowledge Base Spotlight Section -->
+  <section id="knowledge-base" class="py-24 border-t border-white/10 bg-[#030713] relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div>
+          <span class="px-3.5 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-neon-cyan font-mono text-xs uppercase tracking-widest font-bold">
+            <i class="fa-solid fa-book-open mr-1.5"></i> Enterprise Mainframe Knowledge Base
+          </span>
+          <h2 class="text-3xl sm:text-5xl font-black text-white mt-3">Production Diagnostics & Migration Playbooks</h2>
+          <p class="text-slate-300 text-sm sm:text-base mt-2 max-w-2xl">
+            Authored by active z/OS systems architects. In-depth technical guides for resolving mission-critical ABENDs, optimizing DB2, and replacing legacy Broadcom tooling.
+          </p>
+        </div>
+        <div>
+          <a href="/blog/" class="btn-shimmer px-6 py-3.5 rounded-xl bg-slate-900 border border-cyan-500/40 hover:border-neon-cyan text-neon-cyan hover:text-white font-mono text-xs font-bold transition-all flex items-center gap-2 shadow-lg">
+            <span>Browse All 25+ Deep Dives</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Featured Articles Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1 -->
+        <a href="/blog/soc7-data-exception-cobol-packed-decimal.html" class="glass-card glow-border-emerald p-6 rounded-2xl flex flex-col justify-between group hover:-translate-y-1 transition-all">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-3">
+              <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-neon-emerald font-bold border border-emerald-500/30">ABENDS & Diagnostics</span>
+              <span class="text-slate-400">9 min read</span>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-neon-emerald transition-colors line-clamp-2 mb-2">
+              Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3)
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed line-clamp-3">
+              Hardware microcode analysis, CEEDUMP traceback inspection, and defensive PIC 9/COMP-3 validation patterns to permanently eliminate S0C7.
+            </p>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[11px] text-slate-400 mt-5 pt-3 border-t border-white/10">
+            <span class="text-neon-emerald font-semibold">COBOL &bull; z/OS &bull; CEEDUMP</span>
+            <span class="text-slate-400 group-hover:text-white transition-colors">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="/blog/replacing-broadcom-endevor-with-git-zowe.html" class="glass-card glow-border-amber p-6 rounded-2xl flex flex-col justify-between group hover:-translate-y-1 transition-all">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-3">
+              <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-neon-amber font-bold border border-amber-500/30">DevOps & Automation</span>
+              <span class="text-slate-400">11 min read</span>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-neon-amber transition-colors line-clamp-2 mb-2">
+              Replacing Broadcom Endevor with Modern Git & IBM Dependency Based Build (DBB)
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed line-clamp-3">
+              Extracting packages, element inventories, and processor scripts into modern GitLab/GitHub CI/CD pipelines with zero developer downtime.
+            </p>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[11px] text-slate-400 mt-5 pt-3 border-t border-white/10">
+            <span class="text-neon-amber font-semibold">Endevor &bull; Git &bull; IBM DBB</span>
+            <span class="text-slate-400 group-hover:text-white transition-colors">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="/blog/db2-sqlcode-911-904-resource-unavailable-deadlocks.html" class="glass-card glow-border-cyan p-6 rounded-2xl flex flex-col justify-between group hover:-translate-y-1 transition-all">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-3">
+              <span class="px-2.5 py-0.5 rounded bg-cyan-500/20 text-neon-cyan font-bold border border-cyan-500/30">DB2 SQL & Performance</span>
+              <span class="text-slate-400">10 min read</span>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              Eliminating DB2 SQLCODE -911 & -904 Deadlocks in High-Throughput Batch
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed line-clamp-3">
+              Catalog analysis, isolation level adjustments (UR vs CS vs RR), commit frequency tuning, and lock escalation resolution for z/OS DB2.
+            </p>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[11px] text-slate-400 mt-5 pt-3 border-t border-white/10">
+            <span class="text-neon-cyan font-semibold">DB2 z/OS &bull; SQLCODE -911</span>
+            <span class="text-slate-400 group-hover:text-white transition-colors">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Card 4 -->
+        <a href="/blog/automating-ca7-migration-to-stonebranch-controlm.html" class="glass-card glow-border-violet p-6 rounded-2xl flex flex-col justify-between group hover:-translate-y-1 transition-all">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-3">
+              <span class="px-2.5 py-0.5 rounded bg-violet-500/20 text-neon-violet font-bold border border-violet-500/30">DevOps & Automation</span>
+              <span class="text-slate-400">12 min read</span>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-neon-violet transition-colors line-clamp-2 mb-2">
+              Automating CA-7 Workload Migration to Stonebranch Universal Automation Center
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed line-clamp-3">
+              Programmatic extraction of CA-7 SASSSB01 database definitions, trigger conditions, and VRM dependencies with 100% schedule fidelity.
+            </p>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[11px] text-slate-400 mt-5 pt-3 border-t border-white/10">
+            <span class="text-neon-violet font-semibold">CA-7 &bull; Stonebranch &bull; VRM</span>
+            <span class="text-slate-400 group-hover:text-white transition-colors">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Card 5 -->
+        <a href="/blog/soc4-protection-exception-linkage-pointer.html" class="glass-card glow-border-emerald p-6 rounded-2xl flex flex-col justify-between group hover:-translate-y-1 transition-all">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-3">
+              <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-neon-emerald font-bold border border-emerald-500/30">ABENDS & Diagnostics</span>
+              <span class="text-slate-400">8 min read</span>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-neon-emerald transition-colors line-clamp-2 mb-2">
+              Diagnosing ABEND S0C4 (Protection Exception) in COBOL Linkage Pointers
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed line-clamp-3">
+              Resolving invalid memory address referencing, unpassed CALL parameters, and out-of-bounds array indexing in z/OS 64-bit storage keys.
+            </p>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[11px] text-slate-400 mt-5 pt-3 border-t border-white/10">
+            <span class="text-neon-emerald font-semibold">S0C4 &bull; Linkage Section &bull; z/OS</span>
+            <span class="text-slate-400 group-hover:text-white transition-colors">&rarr;</span>
+          </div>
+        </a>
+
+        <!-- Card 6 -->
+        <a href="/blog/zos-connect-rest-api-cobol-cics.html" class="glass-card glow-border-cyan p-6 rounded-2xl flex flex-col justify-between group hover:-translate-y-1 transition-all">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono mb-3">
+              <span class="px-2.5 py-0.5 rounded bg-cyan-500/20 text-neon-cyan font-bold border border-cyan-500/30">Modernisation & Cloud</span>
+              <span class="text-slate-400">10 min read</span>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-2">
+              Exposing CICS COMMAREA & Channels as OpenAPI 3.0 REST Microservices
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed line-clamp-3">
+              Sub-5ms JSON-to-EBCDIC transformations using z/OS Connect EE and Zowe API Mediation Layer without rewriting core COBOL business logic.
+            </p>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[11px] text-slate-400 mt-5 pt-3 border-t border-white/10">
+            <span class="text-neon-cyan font-semibold">CICS &bull; REST APIs &bull; Zowe</span>
+            <span class="text-slate-400 group-hover:text-white transition-colors">&rarr;</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/blog/" class="inline-flex items-center gap-2.5 text-sm font-mono text-neon-cyan hover:underline font-bold">
+          <span>Explore complete technical index across 25+ mainframe topics</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
   <!-- GEO & SEO FAQ Section -->
   <section id="faq" class="py-24 border-t border-white/10 relative z-10">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1397,7 +1866,7 @@
   </section>
 
   <!-- High-Converting Contact & Assessment Booking Section -->
-  <section id="contact" class="py-24 bg-gradient-to-b from-[#050912] to-[#030712] border-t border-white/10 relative z-10">
+  <section id="contact" class="py-24 bg-gradient-to-b from-[#050912] to-[#020611] border-t border-white/10 relative z-10">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="glass-card glow-border-cyan p-8 sm:p-14 rounded-3xl shadow-2xl relative overflow-hidden">
@@ -1490,7 +1959,7 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-[#02050b] border-t border-white/10 py-14 text-slate-400 text-xs relative z-10">
+  <footer class="bg-[#01040a] border-t border-white/10 py-14 text-slate-400 text-xs relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
@@ -1510,6 +1979,7 @@
         <div>
           <h4 class="font-mono uppercase text-white font-bold text-xs tracking-wider mb-3.5 text-neon-emerald">Core Practices</h4>
           <ul class="space-y-2">
+            <li><a href="#team-builder" class="hover:text-neon-emerald transition-colors font-semibold text-neon-violet">Pod Builder Engine</a></li>
             <li><a href="#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Mainframe Developers</a></li>
             <li><a href="#broadcom-replacement" class="hover:text-neon-emerald transition-colors">Broadcom Replacement Hub</a></li>
             <li><a href="#mainframe-modernization" class="hover:text-neon-emerald transition-colors">Mainframe Modernization</a></li>
@@ -1532,6 +2002,7 @@
         <div>
           <h4 class="font-mono uppercase text-white font-bold text-xs tracking-wider mb-3.5 text-neon-cyan">GEO & AI Resources</h4>
           <ul class="space-y-2 font-mono text-[11px]">
+            <li><a href="/blog/" class="text-neon-cyan hover:underline font-bold flex items-center gap-1.5"><i class="fa-solid fa-book-bookmark text-xs"></i> <span>/blog/ (Knowledge Base)</span></a></li>
             <li><a href="/llms.txt" class="hover:text-neon-cyan transition-colors">/llms.txt (AI Crawlers)</a></li>
             <li><a href="/llms-full.txt" class="hover:text-neon-cyan transition-colors">/llms-full.txt (Deep LLM Spec)</a></li>
             <li><a href="/sitemap.xml" class="hover:text-neon-cyan transition-colors">/sitemap.xml</a></li>
@@ -1561,6 +2032,77 @@
     mobileMenuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
     });
+
+    // Cockpit Mode Switcher (Legacy vs Modern)
+    function setCockpitMode(mode) {
+      const legacyBtn = document.getElementById('modeLegacyBtn');
+      const modernBtn = document.getElementById('modeModernBtn');
+      const costVal = document.getElementById('cockpitCostVal');
+      const costSub = document.getElementById('cockpitCostSub');
+      const latVal = document.getElementById('cockpitLatencyVal');
+      const latSub = document.getElementById('cockpitLatencySub');
+
+      if (mode === 'legacy') {
+        legacyBtn.className = 'px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40 transition-all';
+        modernBtn.className = 'px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold text-slate-400 hover:text-white transition-all';
+        costVal.innerText = '+180% SPEND';
+        costVal.className = 'text-2xl font-black text-rose-400 font-mono tracking-tight block mt-0.5';
+        costSub.innerText = 'Broadcom Lock-in & Annual Escalation';
+        latVal.innerText = '120 - 450 ms';
+        latVal.className = 'text-2xl font-black text-amber-400 font-mono tracking-tight block mt-0.5';
+        latSub.innerText = 'Green Screen 3270 & Batch Delays';
+      } else {
+        modernBtn.className = 'px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/40 transition-all';
+        legacyBtn.className = 'px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold text-slate-400 hover:text-white transition-all';
+        costVal.innerText = '-62% OPEX';
+        costVal.className = 'text-2xl font-black text-neon-emerald font-mono tracking-tight block mt-0.5';
+        costSub.innerText = 'CA-7 & Endevor Decommissioned';
+        latVal.innerText = '3.2 ms';
+        latVal.className = 'text-2xl font-black text-neon-cyan font-mono tracking-tight block mt-0.5';
+        latSub.innerText = 'Zowe REST Native Gateway';
+      }
+    }
+
+    // Pod Builder Dynamic Calculation Logic
+    function updatePodConfig() {
+      const mf = parseInt(document.getElementById('sliderMainframe').value);
+      const cloud = parseInt(document.getElementById('sliderCloud').value);
+      const devops = parseInt(document.getElementById('sliderDevOps').value);
+
+      document.getElementById('valMainframeDevs').innerText = `${mf} Engineer${mf > 1 ? 's' : ''}`;
+      document.getElementById('valCloudDevs').innerText = `${cloud} Engineer${cloud > 1 ? 's' : ''}`;
+      document.getElementById('valDevOpsDevs').innerText = `${devops} Architect${devops > 1 ? 's' : ''}`;
+
+      const totalHeadcount = mf + cloud + devops;
+      document.getElementById('summaryPodSize').innerText = `${totalHeadcount} Engineers`;
+
+      const velocity = totalHeadcount * 28;
+      document.getElementById('summaryVelocity').innerText = `${velocity} Story Points / mo`;
+
+      const migrationRate = (mf * 150) + (devops * 150);
+      document.getElementById('summaryMigrationRate').innerText = `~${migrationRate} JCL/COBOL Units / mo`;
+
+      const monthlyEstSavings = totalHeadcount * 13000;
+      document.getElementById('summarySavings').innerText = `Save ~$${monthlyEstSavings.toLocaleString()}/mo vs Big-4`;
+    }
+
+    // One-Click Pod Selection into Contact Form
+    function deployConfiguredPod() {
+      const mf = document.getElementById('sliderMainframe').value;
+      const cloud = document.getElementById('sliderCloud').value;
+      const devops = document.getElementById('sliderDevOps').value;
+      
+      const formService = document.getElementById('formService');
+      if (formService) formService.value = 'hiring';
+      
+      const formMsg = document.getElementById('formMessage');
+      if (formMsg) {
+        formMsg.value = `Requested Pod Roster: ${mf}x Senior Mainframe Engineers, ${cloud}x Cloud Full-Stack Engineers, ${devops}x DevOps & Migration Architects. Target deployment: within 48 hours.`;
+      }
+      
+      const contactSection = document.getElementById('contact');
+      if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
 
     // Interactive System Flow Logic with Thematic Color Nodes
     const stagesData = {

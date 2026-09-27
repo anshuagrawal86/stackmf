@@ -1,0 +1,52 @@
+name: Autonomous Daily Mainframe Blog Publisher
+
+on:
+  schedule:
+    # Runs daily at 06:00 UTC (11:30 AM IST) - 100% Free Tier
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    # Allows manual trigger at any time
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "daily-blog"
+  cancel-in-progress: false
+
+jobs:
+  publish-daily-post:
+    name: Generate & Publish Daily Blog Post
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Daily Blog Publisher Agent
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python scripts/daily_blog_publisher.py
+
+      - name: Commit and Push New Blog Post to Main
+        run: |
+          git config user.name "StackMF Mainframe Agent"
+          git config user.email "agent@stackmf.com"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "New blog content detected. Committing and pushing to main..."
+            git add blog/ sitemap.xml llms.txt blog-config.json
+            git commit -m "[auto-blog] New Daily Mainframe Deep-Dive Knowledge Base Post" || true
+            git push origin main
+            echo "Successfully pushed daily post to main branch."
+          else
+            echo "No changes to commit. Kill-switch may be active or queue empty."
+          fi

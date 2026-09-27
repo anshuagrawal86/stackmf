@@ -1,0 +1,439 @@
+[
+  {
+    "slug": "db2-rebind-stability-package-plan-switching",
+    "title": "Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "Plan Stability",
+      "REBIND",
+      "Access Paths",
+      "APREUSE",
+      "PLANMGMT"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads."
+  },
+  {
+    "slug": "cics-storage-violation-aica-runaway-task",
+    "title": "Diagnosing CICS AICA (Runaway Task) and Storage Violations (Subpool Overwrites)",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "CICS",
+      "AICA",
+      "Storage Violation",
+      "Runaway Task",
+      "Subpool",
+      "Dump Analysis"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "CICS ABEND AICA halts transactions that loop without yielding CPU control to CICS task dispatcher, while storage violations corrupt transaction work areas. Discover how to inspect the CICS System Dump, identify runaway loops, and configure storage protection keys."
+  },
+  {
+    "slug": "soc7-data-exception-cobol-packed-decimal",
+    "title": "Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "COBOL",
+      "z/OS",
+      "S0C7",
+      "COMP-3",
+      "CEEDUMP",
+      "Batch"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options."
+  },
+  {
+    "slug": "soc4-protection-exception-linkage-pointer",
+    "title": "Debugging ABEND S0C4 (Protection Exception) in COBOL Linkage Section & Pointers",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "COBOL",
+      "z/OS",
+      "S0C4",
+      "Linkage Section",
+      "Pointers",
+      "CICS"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "ABEND S0C4 (0C4) indicates a hardware storage protection violation caused by dereferencing a NULL pointer, exceeding table OCCURS subscript boundaries without bounds checking, or accessing unallocated Linkage Section items. Learn how to parse the PSW, TEA, and CEEDUMP to isolate the invalid memory address."
+  },
+  {
+    "slug": "sb37-sd37-se37-space-abends-jcl",
+    "title": "Mastering SB37, SD37, and SE37 Out-of-Space ABENDs in z/OS Sequential & PDS Datasets",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "JCL",
+      "z/OS",
+      "DFSMS",
+      "Storage",
+      "SB37",
+      "SD37",
+      "SE37",
+      "IDCAMS"
+    ],
+    "reading_time": "8 min read",
+    "tldr": "Space ABENDs (SB37, SD37, SE37) crash critical overnight batch jobs when datasets exceed volume, extent, or catalog limits. Discover how to configure secondary allocations, RLSE, SMS Dataclasses, and Extended Format attributes to prevent volume exhaustion."
+  },
+  {
+    "slug": "s0c1-operation-exception-cics-load",
+    "title": "Diagnosing ABEND S0C1 (Operation Exception) in CICS & Batch Execution",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "COBOL",
+      "z/OS",
+      "S0C1",
+      "CICS",
+      "Linkage Editor",
+      "HLASM"
+    ],
+    "reading_time": "7 min read",
+    "tldr": "ABEND S0C1 occurs when the mainframe CPU attempts to execute an instruction with an invalid or undefined operation code. Common causes include calling an unlinked dummy subroutine, branching into Working-Storage data, or mismatched AMODE/RMODE compiler parameters."
+  },
+  {
+    "slug": "asra-abend-cics-debugging-cedf",
+    "title": "Resolving ASRA ABENDs in IBM CICS TS: Command-Level Debugging & CEDF Analysis",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "CICS",
+      "ASRA",
+      "CEDF",
+      "COBOL",
+      "Dump Analysis",
+      "Storage Violation"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "CICS ASRA is the general transaction abend code indicating a program check (S0C4, S0C7, S0C1, etc.) inside an online transaction. Learn how to locate the execution offset in the CICS Transaction Dump, use CEDF and CEBR to inspect storage, and fix transaction failures."
+  },
+  {
+    "slug": "aey9-abend-cics-security-racf",
+    "title": "Fixing CICS AEY9 ABEND: Transaction & Resource Security Key Check Failures",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "CICS",
+      "AEY9",
+      "RACF",
+      "Security",
+      "ACF2",
+      "Top Secret"
+    ],
+    "reading_time": "7 min read",
+    "tldr": "CICS ABEND AEY9 occurs when a user or surrogate identity attempts to execute a transaction or access a protected CICS resource (file, program, TS queue) without required RACF, ACF2, or Top Secret authorization. Understand ESM class definitions and command security."
+  },
+  {
+    "slug": "u4038-le-runtime-abend-troubleshooting",
+    "title": "Taming Language Environment (LE) User ABEND U4038: CEEDUMP Analysis & TRAP Tuning",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "LE",
+      "U4038",
+      "CEEDUMP",
+      "COBOL",
+      "z/OS",
+      "Diagnostics"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "User ABEND U4038 occurs when an unhandled condition of severity 2 or greater terminates a Language Environment (LE) enclave. Learn how to decipher the CEEDUMP traceback, inspect condition tokens, and configure runtime options like TERMTHDACT and TRAP."
+  },
+  {
+    "slug": "u0778-u0777-ims-dc-deadlock-resolution",
+    "title": "Resolving IMS DB/DC U0777 and U0778 Deadlocks in Fast Path & Full-Function Databases",
+    "date": "2026-09-27",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "IMS DB",
+      "IMS DC",
+      "U0777",
+      "U0778",
+      "DL/I",
+      "Fast Path",
+      "Deadlocks"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "IMS U0777 and U0778 pseudo-abends occur when two concurrent Message Processing Programs (MPP) or BMP batch jobs deadlock while competing for database segments or Fast Path DEDB control intervals. Learn lock sequence structuring, commit strategies, and lock timeout tuning."
+  },
+  {
+    "slug": "db2-sqlcode-911-904-resource-unavailable-deadlocks",
+    "title": "Resolving DB2 SQLCODE -911 (Reason 00C90088 / Deadlock) and -904 Resource Unavailable",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "SQLCODE -911",
+      "SQLCODE -904",
+      "Deadlocks",
+      "IRLM",
+      "COBOL DB2"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "DB2 SQLCODE -911 indicates your unit of work was rolled back due to a deadlock (Reason 00C90088) or lock timeout (Reason 00C9008E). SQLCODE -904 indicates an unavailable resource (tablespace locked, thread limit exceeded). Discover root causes and concurrency tuning."
+  },
+  {
+    "slug": "db2-stage-1-vs-stage-2-predicates-tuning",
+    "title": "DB2 z/OS Query Optimization: Converting Stage 2 (Residual) into Stage 1 (Indexable) Predicates",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "SQL Tuning",
+      "EXPLAIN",
+      "Stage 1",
+      "Stage 2",
+      "PLAN_TABLE"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "In DB2 for z/OS, Stage 1 (sargable) predicates are evaluated inside the Data Manager (DM) at near-hardware speeds, while Stage 2 (residual) predicates require transferring rows to the Relational Data System (RDS), burning massive CPU. Learn how to refactor SQL for Stage 1 execution."
+  },
+  {
+    "slug": "db2-runstats-index-clustering-optimizer",
+    "title": "How Outdated RUNSTATS Cause Catastrophic Tablespace Scans in DB2 for z/OS",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "RUNSTATS",
+      "Optimizer",
+      "Catalog",
+      "Index Clustering",
+      "PLAN_TABLE"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "When RUNSTATS statistics are stale or missing, the DB2 Cost-Based Optimizer makes catastrophic access path choices, selecting full tablespace scans over clustered indexes. Master RUNSTATS parameters, real-time statistics (RTS), and access path stability."
+  },
+  {
+    "slug": "db2-lock-escalation-isolation-levels",
+    "title": "Preventing DB2 Lock Escalation: Tuning LOCKSIZE, Isolation Levels, and SKIP LOCKED DATA",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "Lock Escalation",
+      "Concurrency",
+      "Isolation CS",
+      "SKIP LOCKED DATA",
+      "DSNZPARM"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "When a transaction acquires more locks than DSNZPARM NUMLKTS, DB2 automatically escalates page/row locks to an exclusive tablespace lock, freezing out all concurrent users. Learn how to tune LOCKSIZE, use Isolation CS, and implement SKIP LOCKED DATA for high-throughput queues."
+  },
+  {
+    "slug": "db2-stored-procedure-cobol-wlm-tuning",
+    "title": "Performance Tuning COBOL DB2 Stored Procedures: WLM Environments & APPLCOMPAT",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "Stored Procedures",
+      "WLM",
+      "COBOL",
+      "APPLCOMPAT",
+      "SQLCODE -471"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "DB2 Stored Procedures running in WLM-managed address spaces can suffer from thread starvation, initialization latency, and SQLCODE -471 timeouts. Discover how to configure WLM NUMTCB parameters, reuse threads with STAYRESIDENT, and manage APPLCOMPAT."
+  },
+  {
+    "slug": "vsam-file-status-92-93-dynamic-allocation",
+    "title": "Diagnosing VSAM File Status 92 and 93: Enqueue Locks & Dynamic Allocation Contention",
+    "date": "2026-09-27",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "VSAM",
+      "File Status 92",
+      "File Status 93",
+      "CICS",
+      "COBOL",
+      "IDCAMS",
+      "DISP=SHR"
+    ],
+    "reading_time": "8 min read",
+    "tldr": "VSAM File Status 92 indicates a logic error (e.g. attempting to OPEN an already opened file), while File Status 93 signals resource contention (dataset locked by CICS or another batch job). Learn how to diagnose exclusive enqueue locks and configure non-disruptive access."
+  },
+  {
+    "slug": "vsam-ci-ca-splits-reorg-idcams",
+    "title": "Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation",
+    "date": "2026-09-27",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "VSAM",
+      "KSDS",
+      "CI Splits",
+      "CA Splits",
+      "IDCAMS",
+      "REORG",
+      "FREESPACE"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs."
+  },
+  {
+    "slug": "vsam-rls-record-level-sharing-sysplex",
+    "title": "Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access",
+    "date": "2026-09-27",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "VSAM",
+      "VSAM RLS",
+      "CICS",
+      "Parallel Sysplex",
+      "SMSVSAM",
+      "Coupling Facility"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes."
+  },
+  {
+    "slug": "zos-connect-rest-api-cobol-cics",
+    "title": "Modernizing COBOL Copybooks to OpenAPI 3.0 REST APIs using IBM z/OS Connect",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Modernisation",
+      "z/OS Connect",
+      "OpenAPI",
+      "REST API",
+      "COBOL",
+      "CICS"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "Unlock legacy core mainframe assets by exposing COBOL Commareas and CICS Channels/Containers as OpenAPI 3.0 RESTful endpoints with sub-10ms latency using IBM z/OS Connect EE. Say goodbye to brittle screen scraping and middleware gateways."
+  },
+  {
+    "slug": "mainframe-kafka-event-streaming-cdc",
+    "title": "Real-Time Mainframe Change Data Capture (CDC) to Apache Kafka: Streaming DB2 & VSAM to Cloud",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Modernisation",
+      "Apache Kafka",
+      "CDC",
+      "DB2",
+      "VSAM",
+      "Cloud Lakehouse"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "Eliminate overnight batch ETL delays by capturing row-level inserts, updates, and deletes from DB2 for z/OS and VSAM log streams and streaming them directly into Apache Kafka, Snowflake, and AWS/GCP with sub-second latency."
+  },
+  {
+    "slug": "cobol-java-interoperability-zos",
+    "title": "Dual-Stack COBOL and Java Interoperability on z/OS using 64-bit IBM Semeru Runtime",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Modernisation",
+      "COBOL",
+      "Java",
+      "z/OS",
+      "zIIP",
+      "Semeru"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Enterprise COBOL 6.4 allows seamless, bi-directional calling between COBOL and Java in the same address space. Offload compute-intensive business logic, encryption, and machine learning to zIIP specialty engines, saving up to 90% on IBM software charges."
+  },
+  {
+    "slug": "replacing-broadcom-endevor-with-git-zowe",
+    "title": "Migrating from Broadcom Endevor to Git & Modern CI/CD using Zowe CLI and IBM DBB",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Endevor",
+      "DevOps",
+      "Broadcom Replacement",
+      "Git",
+      "Zowe CLI",
+      "IBM DBB"
+    ],
+    "reading_time": "12 min read",
+    "tldr": "Eliminate escalating Broadcom Endevor licensing fees by migrating your mainframe source code inventory, components, and processors to Git repositories orchestrated with Zowe CLI, GitHub Actions, and IBM Dependency Based Build (DBB)."
+  },
+  {
+    "slug": "automating-ca7-migration-to-stonebranch-controlm",
+    "title": "Broadcom CA-7 / CA-11 Decoupling: Migrating 20,000+ JCL Batch Schedules to Stonebranch or Control-M",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "CA-7",
+      "CA-11",
+      "Stonebranch",
+      "Control-M",
+      "Broadcom Replacement",
+      "JCL"
+    ],
+    "reading_time": "12 min read",
+    "tldr": "Escape exorbitant Broadcom Workload Automation (CA-7 / CA-11) renewal hikes. Discover automated parsing of BROWSE databases, translating predecessor/successor trigger nets, and establishing hybrid cloud orchestration with Stonebranch UAC or BMC Control-M."
+  },
+  {
+    "slug": "rexx-automation-ispf-tso-utilities",
+    "title": "Building Enterprise REXX Automation: Scripting TSO/E, ISPF Panels, and SDSF Job Parsing",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "REXX",
+      "TSO/E",
+      "ISPF",
+      "SDSF",
+      "Automation",
+      "Batch Monitoring"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "REXX is the scripting powerhouse of z/OS. Learn how to write robust REXX scripts that interact with TSO/E, display custom ISPF panels, and programmatically parse SDSF batch job spool logs to trap production errors automatically without expensive 3rd party tools."
+  },
+  {
+    "slug": "telon-screen-generator-to-cics-bms-migration",
+    "title": "De-supporting CA-Telon: Reverse Engineering Generated COBOL Screens into Pure CICS BMS Maps",
+    "date": "2026-09-27",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Telon",
+      "CA-Telon",
+      "CICS BMS",
+      "COBOL",
+      "Modernisation",
+      "Broadcom Replacement"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "CA-Telon is a legacy 4GL application generator that produces obfuscated COBOL and proprietary runtime dependencies. Discover strategies to de-support Telon, reverse-engineer screen formats into pure CICS Basic Mapping Support (BMS) or modern React front-ends."
+  },
+  {
+    "slug": "serena-changeman-zmf-promotion-freeze-troubleshooting",
+    "title": "Resolving Serena / Micro Focus ChangeMan ZMF Package Promotion Freezes and Audit RC 08",
+    "date": "2026-09-27",
+    "category": "DevOps & Automation",
+    "tags": [
+      "ChangeMan",
+      "ChangeMan ZMF",
+      "DevOps",
+      "Audit RC 08",
+      "ISPF",
+      "COBOL Staging"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "ChangeMan ZMF package promotions fail when the automated Audit step returns Return Code 08 due to out-of-synch copybooks, missing components, or concurrent change collisions. Learn how to parse the Audit Report and resolve staging discrepancies."
+  },
+  {
+    "slug": "optimizing-4hra-wlm-batch-compression",
+    "title": "Slashing IBM MLC / WLM Rolling 4-Hour Average (4HRA) through Compiler Optimization & Batch Tuning",
+    "date": "2026-09-27",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "Performance",
+      "4HRA",
+      "WLM",
+      "COBOL 6.x",
+      "DFSORT",
+      "MIPS Reduction"
+    ],
+    "reading_time": "12 min read",
+    "tldr": "IBM Monthly License Charges (MLC) are dictated by peak Rolling 4-Hour Average (4HRA) MSU consumption. Discover how to compress your batch processing window by 35% through Enterprise COBOL OPT(3)/ARCH(14), DFSORT memory tuning, and WLM batch cap smoothing."
+  }
+]

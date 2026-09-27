@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields | StackMF">
+  <meta name="description" content="ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.">
+  <meta name="keywords" content="COBOL, z/OS, S0C7, COMP-3, CEEDUMP, Batch, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="author" content="StackMF Mainframe Architecture Pod">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html">
+  <meta property="og:title" content="Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields">
+  <meta property="og:description" content="ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.">
+  <meta property="og:site_name" content="StackMF Technologies LLP">
+  <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
+  <meta property="article:section" content="ABENDS & Diagnostics">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields">
+  <meta name="twitter:description" content="ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            neon: {
+              emerald: '#00F5A0',
+              cyan: '#00F0FF',
+              violet: '#8B5CF6',
+              amber: '#FBBF24',
+              rose: '#F43F5E'
+            },
+            cyber: {
+              darker: '#030712',
+              dark: '#070a0f',
+              surface: '#0d131d',
+              card: '#111827',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #030712; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+    .cyber-grid {
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+    }
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields",
+  "description": "ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.",
+  "url": "https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html",
+  "datePublished": "2026-09-27T08:00:00+00:00",
+  "dateModified": "2026-09-27T08:00:00+00:00",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "StackMF Mainframe Architecture Pod",
+    "url": "https://stackmf.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "StackMF Technologies LLP",
+    "url": "https://stackmf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+    }
+  },
+  "about": [
+    "ABENDS & Diagnostics",
+    "COBOL",
+    "z/OS",
+    "S0C7",
+    "COMP-3",
+    "CEEDUMP",
+    "Batch"
+  ],
+  "articleBody": "During high-volume batch billing or financial reconciliation runs on IBM z/OS, batch job steps fail abruptly with:\n```text\nSYSTEM COMPLETION CODE=0C7  REASON CODE=00000007\nPSW AT TIME OF INTERRUPT: 078D1000 84A3B214  ILC 6  INTC 07\nCEE3207S The system was unable to complete execution due to a data exception.\n         From compile unit ACCNTREC at entry point PROCESS-INVOICE at statement 842.\n```\nDevelopers inspect the job log and find that statement 842 (`COMPUTE WS-TOTAL-BALANCE = WS-TOTAL-BALANCE + WS-INVOICE-AMT`) caused the crash. The batch stream halts mid-cycle, leaving datasets half-updated and downstream CA-7 dependencies blocked. Packed decimal (`COMP-3` or `USAGE COMPUTATIONAL-3`) stores two decimal digits per byte, with the lowest nibble of the rightmost byte containing the sign:\n- Valid positive sign nibbles: `X'C'` or `X'F'` (e.g., `+125` is stored as `X'125C'` or `X'125F'`)\n- Valid negative sign nibbles: `X'D'` (e.g., `-125` is stored as `X'125D'`)\n\nWhen a record is read from a sequential file (QSAM), VSAM, or MQ payload where the sender populated the field with EBCDIC spaces (`X'40'`), binary zeroes (`X'00'`), or corrupted alphanumeric characters, the System/390 / z/Architecture hardware execution unit runs an `AP` (Add Packed), `MP` (Multiply Packed), or `CP` (Compare Packed) instruction. The CPU hardware microcode validates each digit (`0-9`) and the terminating sign nibble. If any digit exceeds `9` or the sign is not `A-F` (specifically `C`, `D`, or `F`), the hardware raises an Interrupt Code 07 (Data Exception), translated by MVS into ABEND S0C7. ### 1. Identify the Exact Offending Field from CEEDUMP\nLocate the compiler listing or examine the Language Environment CEEDUMP:\n1. Search for `Traceback` in the CEEDUMP. Note the statement number (e.g., `Statement 842`).\n2. Examine the `Parameters and Local Variables` section.\n3. Look at the hexadecimal dump of the variables involved in the arithmetic operation:\n   `WS-INVOICE-AMT: X'4040404040'` (pure spaces!) or `X'0000000000'` (uninitialized binary zeroes).\n\n### 2. Implement Defensive Validation in COBOL\nDo not perform direct arithmetic on external inputs without pre-clearing or testing:\n```cobol\n       IDENTIFICATION DIVISION.\n       PROGRAM-ID. ACCNTREC.\n       DATA DIVISION.\n       WORKING-STORAGE SECTION.\n       01  WS-INVOICE-RECORD.\n           05  WS-RAW-AMOUNT-ALPHA      PIC X(07).\n           05  WS-INVOICE-AMT           PIC S9(7)V99 COMP-3.\n           05  WS-TOTAL-BALANCE         PIC S9(9)V99 COMP-3 VALUE +0.\n\n       PROCEDURE DIVISION.\n       PROCESS-INVOICE.\n      * Validate before calculation to prevent S0C7\n           IF WS-RAW-AMOUNT-ALPHA IS NUMERIC\n               COMPUTE WS-INVOICE-AMT = FUNCTION NUMVAL(WS-RAW-AMOUNT-ALPHA)\n               ADD WS-INVOICE-AMT TO WS-TOTAL-BALANCE\n           ELSE\n               PERFORM 9900-HANDLE-CORRUPT-INPUT\n           END-IF.\n```\n\n### 3. Ensure Strict Variable Initialization\nAlways initialize Working-Storage groups before reading records:\n```cobol\n       INITIALIZE WS-INVOICE-RECORD\n                  REPLACING NUMERIC DATA BY ZEROES\n                            ALPHANUMERIC DATA BY SPACES.\n```\n\n### 4. Enterprise COBOL 6.x Compiler Flags\nCompile with `INITCHECK` and `NUMCHECK(PACF,ZON)` during test phases:\n```jcl\n//COBSTEP EXEC PGM=IGYCRCTL,\n//  PARM='OPT(2),ARCH(14),NUMPROC(PFD),NUMCHECK(PACF,ZON),INITCHECK'\n```\n`NUMCHECK` generates runtime code to verify zoned and packed decimal validity before each instruction, pinpointing corrupt fields immediately before they cause production hardware exceptions."
+}
+  </script>
+</head>
+<body class="min-h-screen relative antialiased selection:bg-neon-cyan selection:text-black">
+
+  <div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-xl border-b border-white/10">
+    <div class="h-[2px] w-full bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-emerald via-neon-cyan to-neon-violet p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-[10px] flex items-center justify-center">
+            <span class="font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan text-lg">S/MF</span>
+          </div>
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight text-white block leading-none">Stack<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan">MF</span></span>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-slate-400 block mt-1">Knowledge Base &bull; z/OS</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/blog/" class="text-neon-cyan hover:text-white transition-colors flex items-center gap-1.5 font-bold">
+          <i class="fa-solid fa-book-open text-xs"></i> All Blogs
+        </a>
+        <a href="/#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Developers</a>
+        <a href="/#broadcom-replacement" class="hover:text-neon-amber transition-colors">Broadcom Replacement</a>
+        <a href="/#mainframe-modernization" class="hover:text-neon-cyan transition-colors">Modernization</a>
+        <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Architect</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-24">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-mono text-slate-400 mb-6 flex-wrap">
+      <a href="/" class="hover:text-white transition">Home</a>
+      <span>/</span>
+      <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
+      <span>/</span>
+      <span class="text-neon-cyan">ABENDS & Diagnostics</span>
+    </nav>
+
+    <!-- Header Badges -->
+    <div class="flex items-center gap-3 flex-wrap mb-4">
+      <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
+        ABENDS & Diagnostics
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-clock"></i> 9 min read
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-calendar"></i> 2026-09-27
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
+      Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields
+    </h1>
+
+    <!-- Author & Trust Pod -->
+    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-white/10 mb-8 flex-wrap gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-emerald to-neon-cyan p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-server text-neon-emerald text-sm"></i>
+          </div>
+        </div>
+        <div>
+          <div class="text-sm font-bold text-white">StackMF Mainframe Architecture Pod</div>
+          <div class="text-xs font-mono text-slate-400">Principal Modernization & z/OS Systems Engineers</div>
+        </div>
+      </div>
+      <span class="inline-flex items-center gap-1.5 text-xs font-mono text-neon-emerald bg-neon-emerald/10 px-3 py-1 rounded-full border border-neon-emerald/30 font-semibold">
+        <i class="fa-solid fa-circle-check"></i> Verified Production Fix
+      </span>
+    </div>
+
+    <!-- TL;DR Box -->
+    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-emerald-950/40 border border-neon-cyan/30 shadow-xl mb-12">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-cyan font-bold mb-2">
+        <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
+      </div>
+      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+        ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.
+      </p>
+    </div>
+
+    <!-- Section 1: The Production Incident / Problem -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
+        The Real-World Developer Incident
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">During high-volume batch billing or financial reconciliation runs on IBM z/OS, batch job steps fail abruptly with:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SYSTEM COMPLETION CODE=0C7  REASON CODE=00000007
+PSW AT TIME OF INTERRUPT: 078D1000 84A3B214  ILC 6  INTC 07
+CEE3207S The system was unable to complete execution due to a data exception.
+         From compile unit ACCNTREC at entry point PROCESS-INVOICE at statement 842.</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Developers inspect the job log and find that statement 842 (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">COMPUTE WS-TOTAL-BALANCE = WS-TOTAL-BALANCE + WS-INVOICE-AMT</code>) caused the crash. The batch stream halts mid-cycle, leaving datasets half-updated and downstream CA-7 dependencies blocked.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: Root Cause Mechanics -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm border border-amber-500/30">2</span>
+        Technical Root Cause & Architecture Mechanics
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Packed decimal (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">COMP-3</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">USAGE COMPUTATIONAL-3</code>) stores two decimal digits per byte, with the lowest nibble of the rightmost byte containing the sign:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Valid positive sign nibbles: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'C'</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'F'</code> (e.g., <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">+125</code> is stored as <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'125C'</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'125F'</code>)</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Valid negative sign nibbles: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'D'</code> (e.g., <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">-125</code> is stored as <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'125D'</code>)</span></li>
+</ul>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When a record is read from a sequential file (QSAM), VSAM, or MQ payload where the sender populated the field with EBCDIC spaces (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'40'</code>), binary zeroes (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'00'</code>), or corrupted alphanumeric characters, the System/390 / z/Architecture hardware execution unit runs an <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">AP</code> (Add Packed), <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">MP</code> (Multiply Packed), or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CP</code> (Compare Packed) instruction. The CPU hardware microcode validates each digit (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">0-9</code>) and the terminating sign nibble. If any digit exceeds <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">9</code> or the sign is not <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">A-F</code> (specifically <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">C</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">D</code>, or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">F</code>), the hardware raises an Interrupt Code 07 (Data Exception), translated by MVS into ABEND S0C7.</p>
+      </div>
+    </section>
+
+    <!-- Section 3: Step-by-Step Resolution -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
+        Step-by-Step Production Resolution
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Identify the Exact Offending Field from CEEDUMP</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Locate the compiler listing or examine the Language Environment CEEDUMP:</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. Search for <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">Traceback</code> in the CEEDUMP. Note the statement number (e.g., <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">Statement 842</code>).</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. Examine the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">Parameters and Local Variables</code> section.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. Look at the hexadecimal dump of the variables involved in the arithmetic operation:</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light"><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">WS-INVOICE-AMT: X'4040404040'</code> (pure spaces!) or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'0000000000'</code> (uninitialized binary zeroes).</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Implement Defensive Validation in COBOL</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Do not perform direct arithmetic on external inputs without pre-clearing or testing:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>IDENTIFICATION DIVISION.
+       PROGRAM-ID. ACCNTREC.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01  WS-INVOICE-RECORD.
+           05  WS-RAW-AMOUNT-ALPHA      PIC X(07).
+           05  WS-INVOICE-AMT           PIC S9(7)V99 COMP-3.
+           05  WS-TOTAL-BALANCE         PIC S9(9)V99 COMP-3 VALUE +0.
+
+       PROCEDURE DIVISION.
+       PROCESS-INVOICE.
+      * Validate before calculation to prevent S0C7
+           IF WS-RAW-AMOUNT-ALPHA IS NUMERIC
+               COMPUTE WS-INVOICE-AMT = FUNCTION NUMVAL(WS-RAW-AMOUNT-ALPHA)
+               ADD WS-INVOICE-AMT TO WS-TOTAL-BALANCE
+           ELSE
+               PERFORM 9900-HANDLE-CORRUPT-INPUT
+           END-IF.</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Ensure Strict Variable Initialization</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Always initialize Working-Storage groups before reading records:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>INITIALIZE WS-INVOICE-RECORD
+                  REPLACING NUMERIC DATA BY ZEROES
+                            ALPHANUMERIC DATA BY SPACES.</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Enterprise COBOL 6.x Compiler Flags</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Compile with <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">INITCHECK</code> and <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">NUMCHECK(PACF,ZON)</code> during test phases:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//COBSTEP EXEC PGM=IGYCRCTL,
+//  PARM='OPT(2),ARCH(14),NUMPROC(PFD),NUMCHECK(PACF,ZON),INITCHECK'</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light"><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">NUMCHECK</code> generates runtime code to verify zoned and packed decimal validity before each instruction, pinpointing corrupt fields immediately before they cause production hardware exceptions.</p>
+      </div>
+    </section>
+
+    <!-- Section 4: Architectural Prevention & Tuning -->
+    <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-list-check text-neon-cyan"></i>
+        Architectural Prevention & Performance Tuning Checklist
+      </h3>
+      <ul class="space-y-3">
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Never use group MOVEs to populate records containing COMP-3 child fields (e.g., `MOVE SPACES TO WS-CUSTOMER-RECORD`). Always use `INITIALIZE`.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use `NUMPROC(PFD)` only if you guarantee clean signs; otherwise use `NUMPROC(NOPFD)` to allow compiler sign fixing.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>When consuming data from Web APIs, MQ, or Kafka via z/OS Connect, ensure JSON nulls are mapped to zero values rather than uninitialized storage.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Run DFSORT or ICETOOL `VERIFY` checks on incoming flat files prior to invoking COBOL batch programs.</span></li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Authoritative Reference Links -->
+    <section class="mb-14">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-graduation-cap text-neon-violet"></i>
+        Authoritative Reference Documentation
+      </h3>
+      <p class="text-sm text-slate-400 mb-4">
+        Explore more directly in official manuals, IBM Knowledge Center, and vendor technical advisories:
+      </p>
+      <ul class="space-y-3">
+        <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Enterprise COBOL for z/OS: Handling Data Exceptions</span>
+              </div>
+              <a href="https://www.ibm.com/docs/en/cobol-zos/latest?topic=exceptions-handling-data-exceptions" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM z/OS MVS System Codes: S0C7 Details</span>
+              </div>
+              <a href="https://www.ibm.com/docs/en/zos/latest?topic=codes-0c7" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Mainframe Application Maintenance (AMS) Solutions</span>
+              </div>
+              <a href="https://stackmf.com/#maintenance-ams" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li>
+      </ul>
+    </section>
+
+    <!-- Tags -->
+    <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
+      <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">COBOL</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">z/OS</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">S0C7</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">COMP-3</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">CEEDUMP</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Batch</span>
+    </div>
+
+    <!-- Bottom Advisory Banner CTA -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-cyan-950/60 border border-neon-emerald/30 shadow-2xl relative overflow-hidden">
+      <div class="relative z-10">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/40 uppercase tracking-widest">
+          Enterprise Advisory
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">
+          Struggling with Critical Mainframe Incidents or Vendor Renewal Pressure?
+        </h3>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+          StackMF deploys certified Senior Mainframe Engineers fluent in both z/OS legacy internals (COBOL, DB2, CICS, VSAM, CA-7, Endevor) and modern cloud stacks (React, Kafka, AWS, Git). Onboard dedicated pods in 48 hours or cut Broadcom licensing by 60%.
+        </p>
+        <div class="flex items-center gap-4 flex-wrap">
+          <a href="/#contact" class="px-6 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all shadow-lg shadow-neon-emerald/20">
+            Request Architectural Assessment
+          </a>
+          <a href="/blog/" class="px-5 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan transition-all">
+            &larr; Browse All 25 Technical Deep Dives
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-[#02050c] text-slate-400 py-12 text-sm relative z-10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="font-mono text-xs text-slate-500 mb-2">
+        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization & Broadcom Replacement Pods.
+      </p>
+      <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
+        <a href="/" class="hover:text-neon-cyan">Home</a>
+        <span>&bull;</span>
+        <a href="/blog/" class="hover:text-neon-cyan">Knowledge Base</a>
+        <span>&bull;</span>
+        <a href="/#broadcom-replacement" class="hover:text-neon-cyan">Broadcom Replacement</a>
+        <span>&bull;</span>
+        <a href="/#contact" class="hover:text-neon-cyan">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

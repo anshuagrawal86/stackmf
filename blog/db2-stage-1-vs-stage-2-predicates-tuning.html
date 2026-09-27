@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>DB2 z/OS Query Optimization: Converting Stage 2 (Residual) into Stage 1 (Indexable) Predicates | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="DB2 z/OS Query Optimization: Converting Stage 2 (Residual) into Stage 1 (Indexable) Predicates | StackMF">
+  <meta name="description" content="In DB2 for z/OS, Stage 1 (sargable) predicates are evaluated inside the Data Manager (DM) at near-hardware speeds, while Stage 2 (residual) predicates require transferring rows to the Relational Data System (RDS), burning massive CPU. Learn how to refactor SQL for Stage 1 execution.">
+  <meta name="keywords" content="DB2, SQL Tuning, EXPLAIN, Stage 1, Stage 2, PLAN_TABLE, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="author" content="StackMF Mainframe Architecture Pod">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://stackmf.com/blog/db2-stage-1-vs-stage-2-predicates-tuning.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://stackmf.com/blog/db2-stage-1-vs-stage-2-predicates-tuning.html">
+  <meta property="og:title" content="DB2 z/OS Query Optimization: Converting Stage 2 (Residual) into Stage 1 (Indexable) Predicates">
+  <meta property="og:description" content="In DB2 for z/OS, Stage 1 (sargable) predicates are evaluated inside the Data Manager (DM) at near-hardware speeds, while Stage 2 (residual) predicates require transferring rows to the Relational Data System (RDS), burning massive CPU. Learn how to refactor SQL for Stage 1 execution.">
+  <meta property="og:site_name" content="StackMF Technologies LLP">
+  <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
+  <meta property="article:section" content="DB2 SQL & Performance">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DB2 z/OS Query Optimization: Converting Stage 2 (Residual) into Stage 1 (Indexable) Predicates">
+  <meta name="twitter:description" content="In DB2 for z/OS, Stage 1 (sargable) predicates are evaluated inside the Data Manager (DM) at near-hardware speeds, while Stage 2 (residual) predicates require transferring rows to the Relational Data System (RDS), burning massive CPU. Learn how to refactor SQL for Stage 1 execution.">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            neon: {
+              emerald: '#00F5A0',
+              cyan: '#00F0FF',
+              violet: '#8B5CF6',
+              amber: '#FBBF24',
+              rose: '#F43F5E'
+            },
+            cyber: {
+              darker: '#030712',
+              dark: '#070a0f',
+              surface: '#0d131d',
+              card: '#111827',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #030712; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+    .cyber-grid {
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+    }
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "DB2 z/OS Query Optimization: Converting Stage 2 (Residual) into Stage 1 (Indexable) Predicates",
+  "description": "In DB2 for z/OS, Stage 1 (sargable) predicates are evaluated inside the Data Manager (DM) at near-hardware speeds, while Stage 2 (residual) predicates require transferring rows to the Relational Data System (RDS), burning massive CPU. Learn how to refactor SQL for Stage 1 execution.",
+  "url": "https://stackmf.com/blog/db2-stage-1-vs-stage-2-predicates-tuning.html",
+  "datePublished": "2026-09-27T08:00:00+00:00",
+  "dateModified": "2026-09-27T08:00:00+00:00",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "StackMF Mainframe Architecture Pod",
+    "url": "https://stackmf.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "StackMF Technologies LLP",
+    "url": "https://stackmf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+    }
+  },
+  "about": [
+    "DB2 SQL & Performance",
+    "DB2",
+    "SQL Tuning",
+    "EXPLAIN",
+    "Stage 1",
+    "Stage 2",
+    "PLAN_TABLE"
+  ],
+  "articleBody": "A core query scanning a 50-million-row customer table consumes 45 CPU seconds per execution:\n```sql\nSELECT CUST_ID, CUST_NAME, CURRENT_BALANCE\nFROM CUSTOMER_TABLE\nWHERE CUST_STATUS || CUST_REGION = 'A' || 'EAST'\n  AND YEAR(LAST_LOGIN_DATE) = 2026;\n```\nWhen running DB2 EXPLAIN, the developer sees `STAGE='2'` in `DSN_PREDICAT_TABLE`. The query causes massive I/O buffer pool churn and inflates the enterprise 4HRA MIPS billing peak. DB2 executes SQL through a two-tiered processing pipeline:\n1. **Stage 1 (Data Manager / DM / Sargable)**: Evaluated directly as rows are read from disk or buffer pools. Non-qualifying rows are discarded immediately without CPU-intensive context switching.\n2. **Stage 2 (Relational Data System / RDS / Residual)**: Rows passing Stage 1 must be packaged into internal structures and passed across internal component boundaries to RDS for evaluation.\n\nWhen developers wrap columns in scalar functions (`YEAR(COL)`, `SUBSTR(COL)`, `COL1 || COL2`), use mismatched datatypes (e.g., comparing `VARCHAR` to `INTEGER`), or use expressions on indexable columns, the DB2 query optimizer cannot use an index and is forced to push evaluation into Stage 2. ### 1. Inspect DSN_PREDICAT_TABLE via EXPLAIN\nRun `EXPLAIN ALL SET QUERYNO = 101 FOR ...` and check predicate stages:\n```sql\nSELECT PREDNO, STAGE, TYPE, PREDICATE_TEXT\nFROM DSN_PREDICAT_TABLE\nWHERE QUERYNO = 101;\n```\nLook for any predicate where `STAGE = '2'`.\n\n### 2. Refactor Scalar Functions into Range Predicates\nAvoid function wrappers on columns in the `WHERE` clause:\n```sql\n-- SLOW (Stage 2 - Full scan of all rows):\nWHERE YEAR(LAST_LOGIN_DATE) = 2026\n\n-- FAST (Stage 1 / Indexable Range Search):\nWHERE LAST_LOGIN_DATE >= '2026-01-01-00.00.00.000000'\n  AND LAST_LOGIN_DATE <= '2026-12-31-23.59.59.999999'\n```\n\n### 3. Separate Concatenated Columns\nNever concatenate columns on the left-hand side of a comparison:\n```sql\n-- SLOW (Stage 2):\nWHERE CUST_STATUS || CUST_REGION = 'AEAST'\n\n-- FAST (Stage 1 - Indexable composite match):\nWHERE CUST_STATUS = 'A'\n  AND CUST_REGION = 'EAST'\n```\n\n### 4. Match Host Variable Datatypes Exactly\nIn COBOL programs, ensure host variables match the DB2 catalog column definition:\n- If column is `DECIMAL(9,2)`, host variable must be `PIC S9(7)V99 COMP-3`.\n- If host variable is defined as `PIC X(10)` or integer, DB2 must perform type conversion at runtime, degrading the predicate to Stage 2."
+}
+  </script>
+</head>
+<body class="min-h-screen relative antialiased selection:bg-neon-cyan selection:text-black">
+
+  <div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-xl border-b border-white/10">
+    <div class="h-[2px] w-full bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-emerald via-neon-cyan to-neon-violet p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-[10px] flex items-center justify-center">
+            <span class="font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan text-lg">S/MF</span>
+          </div>
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight text-white block leading-none">Stack<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan">MF</span></span>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-slate-400 block mt-1">Knowledge Base &bull; z/OS</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/blog/" class="text-neon-cyan hover:text-white transition-colors flex items-center gap-1.5 font-bold">
+          <i class="fa-solid fa-book-open text-xs"></i> All Blogs
+        </a>
+        <a href="/#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Developers</a>
+        <a href="/#broadcom-replacement" class="hover:text-neon-amber transition-colors">Broadcom Replacement</a>
+        <a href="/#mainframe-modernization" class="hover:text-neon-cyan transition-colors">Modernization</a>
+        <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Architect</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-24">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-mono text-slate-400 mb-6 flex-wrap">
+      <a href="/" class="hover:text-white transition">Home</a>
+      <span>/</span>
+      <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
+      <span>/</span>
+      <span class="text-neon-cyan">DB2 SQL & Performance</span>
+    </nav>
+
+    <!-- Header Badges -->
+    <div class="flex items-center gap-3 flex-wrap mb-4">
+      <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
+        DB2 SQL & Performance
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-clock"></i> 10 min read
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-calendar"></i> 2026-09-27
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
+      DB2 z/OS Query Optimization: Converting Stage 2 (Residual) into Stage 1 (Indexable) Predicates
+    </h1>
+
+    <!-- Author & Trust Pod -->
+    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-white/10 mb-8 flex-wrap gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-emerald to-neon-cyan p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-server text-neon-emerald text-sm"></i>
+          </div>
+        </div>
+        <div>
+          <div class="text-sm font-bold text-white">StackMF Mainframe Architecture Pod</div>
+          <div class="text-xs font-mono text-slate-400">Principal Modernization & z/OS Systems Engineers</div>
+        </div>
+      </div>
+      <span class="inline-flex items-center gap-1.5 text-xs font-mono text-neon-emerald bg-neon-emerald/10 px-3 py-1 rounded-full border border-neon-emerald/30 font-semibold">
+        <i class="fa-solid fa-circle-check"></i> Verified Production Fix
+      </span>
+    </div>
+
+    <!-- TL;DR Box -->
+    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-emerald-950/40 border border-neon-cyan/30 shadow-xl mb-12">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-cyan font-bold mb-2">
+        <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
+      </div>
+      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+        In DB2 for z/OS, Stage 1 (sargable) predicates are evaluated inside the Data Manager (DM) at near-hardware speeds, while Stage 2 (residual) predicates require transferring rows to the Relational Data System (RDS), burning massive CPU. Learn how to refactor SQL for Stage 1 execution.
+      </p>
+    </div>
+
+    <!-- Section 1: The Production Incident / Problem -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
+        The Real-World Developer Incident
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A core query scanning a 50-million-row customer table consumes 45 CPU seconds per execution:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">sql</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SELECT CUST_ID, CUST_NAME, CURRENT_BALANCE
+FROM CUSTOMER_TABLE
+WHERE CUST_STATUS || CUST_REGION = 'A' || 'EAST'
+  AND YEAR(LAST_LOGIN_DATE) = 2026;</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When running DB2 EXPLAIN, the developer sees <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">STAGE='2'</code> in <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DSN_PREDICAT_TABLE</code>. The query causes massive I/O buffer pool churn and inflates the enterprise 4HRA MIPS billing peak.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: Root Cause Mechanics -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm border border-amber-500/30">2</span>
+        Technical Root Cause & Architecture Mechanics
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">DB2 executes SQL through a two-tiered processing pipeline:</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">Stage 1 (Data Manager / DM / Sargable)</strong>: Evaluated directly as rows are read from disk or buffer pools. Non-qualifying rows are discarded immediately without CPU-intensive context switching.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Stage 2 (Relational Data System / RDS / Residual)</strong>: Rows passing Stage 1 must be packaged into internal structures and passed across internal component boundaries to RDS for evaluation.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When developers wrap columns in scalar functions (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">YEAR(COL)</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SUBSTR(COL)</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">COL1 || COL2</code>), use mismatched datatypes (e.g., comparing <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">VARCHAR</code> to <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">INTEGER</code>), or use expressions on indexable columns, the DB2 query optimizer cannot use an index and is forced to push evaluation into Stage 2.</p>
+      </div>
+    </section>
+
+    <!-- Section 3: Step-by-Step Resolution -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
+        Step-by-Step Production Resolution
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Inspect DSN_PREDICAT_TABLE via EXPLAIN</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Run <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXPLAIN ALL SET QUERYNO = 101 FOR ...</code> and check predicate stages:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">sql</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SELECT PREDNO, STAGE, TYPE, PREDICATE_TEXT
+FROM DSN_PREDICAT_TABLE
+WHERE QUERYNO = 101;</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Look for any predicate where <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">STAGE = '2'</code>.</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Refactor Scalar Functions into Range Predicates</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Avoid function wrappers on columns in the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">WHERE</code> clause:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">sql</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>-- SLOW (Stage 2 - Full scan of all rows):
+WHERE YEAR(LAST_LOGIN_DATE) = 2026
+
+-- FAST (Stage 1 / Indexable Range Search):
+WHERE LAST_LOGIN_DATE &gt;= '2026-01-01-00.00.00.000000'
+  AND LAST_LOGIN_DATE &lt;= '2026-12-31-23.59.59.999999'</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Separate Concatenated Columns</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Never concatenate columns on the left-hand side of a comparison:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">sql</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>-- SLOW (Stage 2):
+WHERE CUST_STATUS || CUST_REGION = 'AEAST'
+
+-- FAST (Stage 1 - Indexable composite match):
+WHERE CUST_STATUS = 'A'
+  AND CUST_REGION = 'EAST'</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Match Host Variable Datatypes Exactly</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In COBOL programs, ensure host variables match the DB2 catalog column definition:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>If column is <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DECIMAL(9,2)</code>, host variable must be <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PIC S9(7)V99 COMP-3</code>.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>If host variable is defined as <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PIC X(10)</code> or integer, DB2 must perform type conversion at runtime, degrading the predicate to Stage 2.</span></li>
+</ul>
+      </div>
+    </section>
+
+    <!-- Section 4: Architectural Prevention & Tuning -->
+    <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-list-check text-neon-cyan"></i>
+        Architectural Prevention & Performance Tuning Checklist
+      </h3>
+      <ul class="space-y-3">
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Integrate DB2 EXPLAIN checks into automated Endevor/Git pull request pipelines.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Never apply scalar functions to indexed columns; rewrite as explicit range boundaries.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Ensure COBOL host variable datatypes exactly replicate DB2 DCLGEN definitions.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Create generated columns or expression-based indexes (`CREATE INDEX ... ON TABLE (YEAR(DATE_COL))`) if SQL cannot be refactored.</span></li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Authoritative Reference Links -->
+    <section class="mb-14">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-graduation-cap text-neon-violet"></i>
+        Authoritative Reference Documentation
+      </h3>
+      <p class="text-sm text-slate-400 mb-4">
+        Explore more directly in official manuals, IBM Knowledge Center, and vendor technical advisories:
+      </p>
+      <ul class="space-y-3">
+        <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS Managing Performance: Predicate Processing</span>
+              </div>
+              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=queries-predicate-processing" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Redbooks: Subsystem and Transaction Monitoring with Db2 for z/OS</span>
+              </div>
+              <a href="https://www.redbooks.ibm.com/abstracts/sg248182.html" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Enterprise Mainframe Modernization & DB2 Tuning</span>
+              </div>
+              <a href="https://stackmf.com/#mainframe-modernization" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li>
+      </ul>
+    </section>
+
+    <!-- Tags -->
+    <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
+      <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">DB2</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">SQL Tuning</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">EXPLAIN</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Stage 1</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Stage 2</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">PLAN_TABLE</span>
+    </div>
+
+    <!-- Bottom Advisory Banner CTA -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-cyan-950/60 border border-neon-emerald/30 shadow-2xl relative overflow-hidden">
+      <div class="relative z-10">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/40 uppercase tracking-widest">
+          Enterprise Advisory
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">
+          Struggling with Critical Mainframe Incidents or Vendor Renewal Pressure?
+        </h3>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+          StackMF deploys certified Senior Mainframe Engineers fluent in both z/OS legacy internals (COBOL, DB2, CICS, VSAM, CA-7, Endevor) and modern cloud stacks (React, Kafka, AWS, Git). Onboard dedicated pods in 48 hours or cut Broadcom licensing by 60%.
+        </p>
+        <div class="flex items-center gap-4 flex-wrap">
+          <a href="/#contact" class="px-6 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all shadow-lg shadow-neon-emerald/20">
+            Request Architectural Assessment
+          </a>
+          <a href="/blog/" class="px-5 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan transition-all">
+            &larr; Browse All 25 Technical Deep Dives
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-[#02050c] text-slate-400 py-12 text-sm relative z-10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="font-mono text-xs text-slate-500 mb-2">
+        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization & Broadcom Replacement Pods.
+      </p>
+      <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
+        <a href="/" class="hover:text-neon-cyan">Home</a>
+        <span>&bull;</span>
+        <a href="/blog/" class="hover:text-neon-cyan">Knowledge Base</a>
+        <span>&bull;</span>
+        <a href="/#broadcom-replacement" class="hover:text-neon-cyan">Broadcom Replacement</a>
+        <span>&bull;</span>
+        <a href="/#contact" class="hover:text-neon-cyan">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

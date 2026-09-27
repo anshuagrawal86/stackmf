@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Resolving DB2 SQLCODE -911 (Reason 00C90088 / Deadlock) and -904 Resource Unavailable | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="Resolving DB2 SQLCODE -911 (Reason 00C90088 / Deadlock) and -904 Resource Unavailable | StackMF">
+  <meta name="description" content="DB2 SQLCODE -911 indicates your unit of work was rolled back due to a deadlock (Reason 00C90088) or lock timeout (Reason 00C9008E). SQLCODE -904 indicates an unavailable resource (tablespace locked, thread limit exceeded). Discover root causes and concurrency tuning.">
+  <meta name="keywords" content="DB2, SQLCODE -911, SQLCODE -904, Deadlocks, IRLM, COBOL DB2, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="author" content="StackMF Mainframe Architecture Pod">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://stackmf.com/blog/db2-sqlcode-911-904-resource-unavailable-deadlocks.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://stackmf.com/blog/db2-sqlcode-911-904-resource-unavailable-deadlocks.html">
+  <meta property="og:title" content="Resolving DB2 SQLCODE -911 (Reason 00C90088 / Deadlock) and -904 Resource Unavailable">
+  <meta property="og:description" content="DB2 SQLCODE -911 indicates your unit of work was rolled back due to a deadlock (Reason 00C90088) or lock timeout (Reason 00C9008E). SQLCODE -904 indicates an unavailable resource (tablespace locked, thread limit exceeded). Discover root causes and concurrency tuning.">
+  <meta property="og:site_name" content="StackMF Technologies LLP">
+  <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
+  <meta property="article:section" content="DB2 SQL & Performance">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Resolving DB2 SQLCODE -911 (Reason 00C90088 / Deadlock) and -904 Resource Unavailable">
+  <meta name="twitter:description" content="DB2 SQLCODE -911 indicates your unit of work was rolled back due to a deadlock (Reason 00C90088) or lock timeout (Reason 00C9008E). SQLCODE -904 indicates an unavailable resource (tablespace locked, thread limit exceeded). Discover root causes and concurrency tuning.">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            neon: {
+              emerald: '#00F5A0',
+              cyan: '#00F0FF',
+              violet: '#8B5CF6',
+              amber: '#FBBF24',
+              rose: '#F43F5E'
+            },
+            cyber: {
+              darker: '#030712',
+              dark: '#070a0f',
+              surface: '#0d131d',
+              card: '#111827',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #030712; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+    .cyber-grid {
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+    }
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Resolving DB2 SQLCODE -911 (Reason 00C90088 / Deadlock) and -904 Resource Unavailable",
+  "description": "DB2 SQLCODE -911 indicates your unit of work was rolled back due to a deadlock (Reason 00C90088) or lock timeout (Reason 00C9008E). SQLCODE -904 indicates an unavailable resource (tablespace locked, thread limit exceeded). Discover root causes and concurrency tuning.",
+  "url": "https://stackmf.com/blog/db2-sqlcode-911-904-resource-unavailable-deadlocks.html",
+  "datePublished": "2026-09-27T08:00:00+00:00",
+  "dateModified": "2026-09-27T08:00:00+00:00",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "StackMF Mainframe Architecture Pod",
+    "url": "https://stackmf.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "StackMF Technologies LLP",
+    "url": "https://stackmf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+    }
+  },
+  "about": [
+    "DB2 SQL & Performance",
+    "DB2",
+    "SQLCODE -911",
+    "SQLCODE -904",
+    "Deadlocks",
+    "IRLM",
+    "COBOL DB2"
+  ],
+  "articleBody": "Production transactions and overnight batch update suites crash with:\n```text\nDSNT408I SQLCODE = -911, ERROR:  THE CURRENT UNIT OF WORK HAS BEEN ROLLED BACK DUE\n         TO DEADLOCK OR TIMEOUT. REASON 00C90088, TYPE OF RESOURCE 00000302,\n         RESOURCE NAME DSN8D13A.DSN8S13E\nDSNT418I SQLSTATE   = 40001 SQLSTATE RETURN CODE\n```\nOr in peak periods:\n```text\nDSNT408I SQLCODE = -904, ERROR:  UNSUCCESSFUL EXECUTION CAUSED BY AN UNAVAILABLE\n         RESOURCE. REASON 00C90084, TYPE 00000200, NAME DSN8D13A\n```\nApplication threads are terminated, requiring manual transaction re-submits and delaying financial closing windows. DB2 for z/OS concurrency is orchestrated by the Internal Resource Lock Manager (IRLM):\n1. **SQLCODE -911 / Reason 00C90088 (Deadlock)**: Two threads requested exclusive (`X`) or update (`U`) locks on database pages or rows held by each other in cyclical dependency. IRLM selects one as the 'victim' and rolls back its uncommitted SQL statements.\n2. **SQLCODE -911 / Reason 00C9008E (Timeout)**: A thread waited longer than the IRLM timeout value (defined in DSNZPARM `IRLMRWT`, typically 30 or 60 seconds) for a lock to be released.\n3. **SQLCODE -904 / Reason 00C90084 (Max Lock Escaped / Space Limit)**: A utility (e.g., REORG, LOAD) has exclusive access to the tablespace, or maximum active threads (`CTHREAD` / `MAXDBAT`) were exhausted. ### 1. Identify the Competitor Threads via DB2 Diagnostic Logs\nQuery the MVS Syslog or DB2 MSTR/DIST address space logs for message `DSNT375I` / `DSNT376I`:\n```text\nDSNT375I  PLAN=PLNPAY01 WITH CORRELATION ID=PAYJOB1 IS HOLDING A LOCK\nDSNT376I  PLAN=PLNWEB01 WITH CORRELATION ID=ODBC_SRV WAS WAITING\n```\nThis isolates the exact two programs colliding on resource `DSN8S13E`.\n\n### 2. Implement Retry Logic in Application Code\nFor online transactions and MQ/Kafka listeners, catch `-911` and retry before failing:\n```cobol\n       EXEC SQL\n           UPDATE ACCOUNT_BALANCE\n           SET BALANCE = BALANCE - :WS-TX-AMOUNT\n           WHERE ACCOUNT_ID = :WS-ACCT-ID\n       END-EXEC.\n\n       IF SQLCODE = -911\n           ADD 1 TO WS-RETRY-COUNT\n           IF WS-RETRY-COUNT <= 3\n      * Small exponential backoff\n               CALL 'CEESGL' ...\n               PERFORM 1000-REEXECUTE-TX\n           ELSE\n               PERFORM 9900-LOG-DEADLOCK-ABEND\n           END-IF\n       END-IF.\n```\n\n### 3. Enforce Frequent Commits in Batch Jobs\nNever run long-running batch updates without periodic `COMMIT`:\n```cobol\n       ADD 1 TO WS-RECS-SINCE-COMMIT\n       IF WS-RECS-SINCE-COMMIT > 1000\n           EXEC SQL COMMIT END-EXEC\n           MOVE 0 TO WS-RECS-SINCE-COMMIT\n       END-IF.\n```\n\n### 4. Optimize Concurrency Bind Options\nBind packages with:\n- `ISOLATION(CS)` (Cursor Stability)\n- `CURRENTDATA(NO)`\n- `CONCURRENTACCESSRESOLUTION(USECURRENTLYCOMMITTED)`: Allows queries to read the previous committed version of a row rather than waiting for an in-flight update lock to release!"
+}
+  </script>
+</head>
+<body class="min-h-screen relative antialiased selection:bg-neon-cyan selection:text-black">
+
+  <div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-xl border-b border-white/10">
+    <div class="h-[2px] w-full bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-emerald via-neon-cyan to-neon-violet p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-[10px] flex items-center justify-center">
+            <span class="font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan text-lg">S/MF</span>
+          </div>
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight text-white block leading-none">Stack<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan">MF</span></span>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-slate-400 block mt-1">Knowledge Base &bull; z/OS</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/blog/" class="text-neon-cyan hover:text-white transition-colors flex items-center gap-1.5 font-bold">
+          <i class="fa-solid fa-book-open text-xs"></i> All Blogs
+        </a>
+        <a href="/#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Developers</a>
+        <a href="/#broadcom-replacement" class="hover:text-neon-amber transition-colors">Broadcom Replacement</a>
+        <a href="/#mainframe-modernization" class="hover:text-neon-cyan transition-colors">Modernization</a>
+        <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Architect</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-24">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-mono text-slate-400 mb-6 flex-wrap">
+      <a href="/" class="hover:text-white transition">Home</a>
+      <span>/</span>
+      <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
+      <span>/</span>
+      <span class="text-neon-cyan">DB2 SQL & Performance</span>
+    </nav>
+
+    <!-- Header Badges -->
+    <div class="flex items-center gap-3 flex-wrap mb-4">
+      <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
+        DB2 SQL & Performance
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-clock"></i> 11 min read
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-calendar"></i> 2026-09-27
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
+      Resolving DB2 SQLCODE -911 (Reason 00C90088 / Deadlock) and -904 Resource Unavailable
+    </h1>
+
+    <!-- Author & Trust Pod -->
+    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-white/10 mb-8 flex-wrap gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-emerald to-neon-cyan p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-server text-neon-emerald text-sm"></i>
+          </div>
+        </div>
+        <div>
+          <div class="text-sm font-bold text-white">StackMF Mainframe Architecture Pod</div>
+          <div class="text-xs font-mono text-slate-400">Principal Modernization & z/OS Systems Engineers</div>
+        </div>
+      </div>
+      <span class="inline-flex items-center gap-1.5 text-xs font-mono text-neon-emerald bg-neon-emerald/10 px-3 py-1 rounded-full border border-neon-emerald/30 font-semibold">
+        <i class="fa-solid fa-circle-check"></i> Verified Production Fix
+      </span>
+    </div>
+
+    <!-- TL;DR Box -->
+    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-emerald-950/40 border border-neon-cyan/30 shadow-xl mb-12">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-cyan font-bold mb-2">
+        <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
+      </div>
+      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+        DB2 SQLCODE -911 indicates your unit of work was rolled back due to a deadlock (Reason 00C90088) or lock timeout (Reason 00C9008E). SQLCODE -904 indicates an unavailable resource (tablespace locked, thread limit exceeded). Discover root causes and concurrency tuning.
+      </p>
+    </div>
+
+    <!-- Section 1: The Production Incident / Problem -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
+        The Real-World Developer Incident
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Production transactions and overnight batch update suites crash with:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNT408I SQLCODE = -911, ERROR:  THE CURRENT UNIT OF WORK HAS BEEN ROLLED BACK DUE
+         TO DEADLOCK OR TIMEOUT. REASON 00C90088, TYPE OF RESOURCE 00000302,
+         RESOURCE NAME DSN8D13A.DSN8S13E
+DSNT418I SQLSTATE   = 40001 SQLSTATE RETURN CODE</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Or in peak periods:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNT408I SQLCODE = -904, ERROR:  UNSUCCESSFUL EXECUTION CAUSED BY AN UNAVAILABLE
+         RESOURCE. REASON 00C90084, TYPE 00000200, NAME DSN8D13A</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Application threads are terminated, requiring manual transaction re-submits and delaying financial closing windows.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: Root Cause Mechanics -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm border border-amber-500/30">2</span>
+        Technical Root Cause & Architecture Mechanics
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">DB2 for z/OS concurrency is orchestrated by the Internal Resource Lock Manager (IRLM):</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">SQLCODE -911 / Reason 00C90088 (Deadlock)</strong>: Two threads requested exclusive (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X</code>) or update (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">U</code>) locks on database pages or rows held by each other in cyclical dependency. IRLM selects one as the 'victim' and rolls back its uncommitted SQL statements.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">SQLCODE -911 / Reason 00C9008E (Timeout)</strong>: A thread waited longer than the IRLM timeout value (defined in DSNZPARM <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">IRLMRWT</code>, typically 30 or 60 seconds) for a lock to be released.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. <strong class="text-white font-semibold">SQLCODE -904 / Reason 00C90084 (Max Lock Escaped / Space Limit)</strong>: A utility (e.g., REORG, LOAD) has exclusive access to the tablespace, or maximum active threads (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CTHREAD</code> / <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">MAXDBAT</code>) were exhausted.</p>
+      </div>
+    </section>
+
+    <!-- Section 3: Step-by-Step Resolution -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
+        Step-by-Step Production Resolution
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Identify the Competitor Threads via DB2 Diagnostic Logs</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Query the MVS Syslog or DB2 MSTR/DIST address space logs for message <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DSNT375I</code> / <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DSNT376I</code>:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNT375I  PLAN=PLNPAY01 WITH CORRELATION ID=PAYJOB1 IS HOLDING A LOCK
+DSNT376I  PLAN=PLNWEB01 WITH CORRELATION ID=ODBC_SRV WAS WAITING</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">This isolates the exact two programs colliding on resource <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DSN8S13E</code>.</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Implement Retry Logic in Application Code</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">For online transactions and MQ/Kafka listeners, catch <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">-911</code> and retry before failing:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>EXEC SQL
+           UPDATE ACCOUNT_BALANCE
+           SET BALANCE = BALANCE - :WS-TX-AMOUNT
+           WHERE ACCOUNT_ID = :WS-ACCT-ID
+       END-EXEC.
+
+       IF SQLCODE = -911
+           ADD 1 TO WS-RETRY-COUNT
+           IF WS-RETRY-COUNT &lt;= 3
+      * Small exponential backoff
+               CALL 'CEESGL' ...
+               PERFORM 1000-REEXECUTE-TX
+           ELSE
+               PERFORM 9900-LOG-DEADLOCK-ABEND
+           END-IF
+       END-IF.</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Enforce Frequent Commits in Batch Jobs</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Never run long-running batch updates without periodic <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">COMMIT</code>:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>ADD 1 TO WS-RECS-SINCE-COMMIT
+       IF WS-RECS-SINCE-COMMIT &gt; 1000
+           EXEC SQL COMMIT END-EXEC
+           MOVE 0 TO WS-RECS-SINCE-COMMIT
+       END-IF.</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Optimize Concurrency Bind Options</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Bind packages with:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ISOLATION(CS)</code> (Cursor Stability)</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CURRENTDATA(NO)</code></span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CONCURRENTACCESSRESOLUTION(USECURRENTLYCOMMITTED)</code>: Allows queries to read the previous committed version of a row rather than waiting for an in-flight update lock to release!</span></li>
+</ul>
+      </div>
+    </section>
+
+    <!-- Section 4: Architectural Prevention & Tuning -->
+    <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-list-check text-neon-cyan"></i>
+        Architectural Prevention & Performance Tuning Checklist
+      </h3>
+      <ul class="space-y-3">
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Bind all read-heavy queries with `CONCURRENTACCESSRESOLUTION(USECURRENTLYCOMMITTED)` to eliminate reader-writer contention.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Always update tables in a uniform alphabetical and key order across all application components.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Tune DSNZPARM `IRLMRWT` (Resource Wait Time) and `DEADLOK` sweep frequencies appropriately.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Ensure batch programs commit every 500 to 2,000 updates to release row/page locks.</span></li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Authoritative Reference Links -->
+    <section class="mb-14">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-graduation-cap text-neon-violet"></i>
+        Authoritative Reference Documentation
+      </h3>
+      <p class="text-sm text-slate-400 mb-4">
+        Explore more directly in official manuals, IBM Knowledge Center, and vendor technical advisories:
+      </p>
+      <ul class="space-y-3">
+        <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS Codes: SQLCODE -911 Details</span>
+              </div>
+              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=codes-911" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Db2 13 for z/OS Managing Concurrency and Locking</span>
+              </div>
+              <a href="https://www.ibm.com/docs/en/db2-for-zos/13?topic=performance-concurrency-locking" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF DB2 Performance Tuning & Modernization</span>
+              </div>
+              <a href="https://stackmf.com/#mainframe-modernization" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li>
+      </ul>
+    </section>
+
+    <!-- Tags -->
+    <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
+      <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">DB2</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">SQLCODE -911</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">SQLCODE -904</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Deadlocks</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">IRLM</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">COBOL DB2</span>
+    </div>
+
+    <!-- Bottom Advisory Banner CTA -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-cyan-950/60 border border-neon-emerald/30 shadow-2xl relative overflow-hidden">
+      <div class="relative z-10">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/40 uppercase tracking-widest">
+          Enterprise Advisory
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">
+          Struggling with Critical Mainframe Incidents or Vendor Renewal Pressure?
+        </h3>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+          StackMF deploys certified Senior Mainframe Engineers fluent in both z/OS legacy internals (COBOL, DB2, CICS, VSAM, CA-7, Endevor) and modern cloud stacks (React, Kafka, AWS, Git). Onboard dedicated pods in 48 hours or cut Broadcom licensing by 60%.
+        </p>
+        <div class="flex items-center gap-4 flex-wrap">
+          <a href="/#contact" class="px-6 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all shadow-lg shadow-neon-emerald/20">
+            Request Architectural Assessment
+          </a>
+          <a href="/blog/" class="px-5 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan transition-all">
+            &larr; Browse All 25 Technical Deep Dives
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-[#02050c] text-slate-400 py-12 text-sm relative z-10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="font-mono text-xs text-slate-500 mb-2">
+        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization & Broadcom Replacement Pods.
+      </p>
+      <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
+        <a href="/" class="hover:text-neon-cyan">Home</a>
+        <span>&bull;</span>
+        <a href="/blog/" class="hover:text-neon-cyan">Knowledge Base</a>
+        <span>&bull;</span>
+        <a href="/#broadcom-replacement" class="hover:text-neon-cyan">Broadcom Replacement</a>
+        <span>&bull;</span>
+        <a href="/#contact" class="hover:text-neon-cyan">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

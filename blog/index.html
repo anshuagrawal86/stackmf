@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mainframe Knowledge Base & Engineering Blog | StackMF</title>
+  <meta name="title" content="Mainframe Knowledge Base & Engineering Blog | StackMF">
+  <meta name="description" content="Explore 26+ production-tested technical guides for IBM z/OS Mainframe engineers: Resolving S0C7/S0C4 ABENDs, DB2 SQL optimization, CICS/VSAM tuning, REXX automation, and Broadcom replacement.">
+  <meta name="keywords" content="mainframe blog, cobol errors, db2 sql tuning, cics asra abend, vsam file status 93, ca-7 replacement, endevor to git, z/os connect, stackmf">
+  <meta name="author" content="StackMF Technologies LLP">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://stackmf.com/blog/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://stackmf.com/blog/">
+  <meta property="og:title" content="StackMF Mainframe Engineering & Modernization Knowledge Base">
+  <meta property="og:description" content="Production-tested troubleshooting for COBOL, DB2, CICS, VSAM, IMS, REXX, Endevor, ChangeMan, and CA-7.">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            neon: {
+              emerald: '#00F5A0',
+              cyan: '#00F0FF',
+              violet: '#8B5CF6',
+              amber: '#FBBF24',
+              rose: '#F43F5E'
+            },
+            cyber: {
+              darker: '#030712',
+              dark: '#070a0f',
+              surface: '#0d131d',
+              card: '#111827',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #030712; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+    .cyber-grid {
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "StackMF Mainframe Engineering & Modernization Knowledge Base",
+    "description": "Deep-dive technical knowledge base covering COBOL, DB2 for z/OS, CICS TS, VSAM, IMS DB/DC, Telon, REXX, Endevor, ChangeMan, and CA-7.",
+    "url": "https://stackmf.com/blog/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "StackMF Technologies LLP",
+      "url": "https://stackmf.com"
+    }
+  }
+  </script>
+</head>
+<body class="min-h-screen relative antialiased selection:bg-neon-cyan selection:text-black">
+
+  <div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-xl border-b border-white/10">
+    <div class="h-[2px] w-full bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-emerald via-neon-cyan to-neon-violet p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-[10px] flex items-center justify-center">
+            <span class="font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan text-lg">S/MF</span>
+          </div>
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight text-white block leading-none">Stack<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan">MF</span></span>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-slate-400 block mt-1">Mainframe &bull; Hybrid Cloud</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/" class="hover:text-neon-cyan transition-colors">Home</a>
+        <a href="/#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Developers</a>
+        <a href="/#broadcom-replacement" class="hover:text-neon-amber transition-colors">Broadcom Replacement</a>
+        <a href="/#mainframe-modernization" class="hover:text-neon-cyan transition-colors">Modernization</a>
+        <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Assessment</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-xs font-mono uppercase tracking-wider mb-6">
+      <span class="w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></span>
+      Daily Mainframe Advisory &bull; Continuous Publication
+    </div>
+    
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto mb-6">
+      Mainframe Application Engineering & <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet">Modernization Knowledge Base</span>
+    </h1>
+
+    <p class="text-slate-300 text-lg max-w-3xl mx-auto leading-relaxed font-light mb-10">
+      Production-tested blueprints for enterprise engineers: Resolving S0C7 & S0C4 ABENDs, tuning DB2 SQL queries, debugging CICS & VSAM deadlocks, automating REXX workflows, and replacing Broadcom CA-7 / Endevor.
+    </p>
+
+    <!-- Search Bar -->
+    <div class="max-w-2xl mx-auto relative mb-10">
+      <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+      <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search error codes, topics (e.g. S0C7, SQLCODE -911, VSAM, CA-7, REXX)..." 
+             class="w-full pl-12 pr-4 py-4 rounded-2xl bg-slate-900/90 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-neon-cyan shadow-2xl text-sm font-mono">
+    </div>
+
+    <!-- Category Filters -->
+    <div class="flex items-center justify-center gap-2 flex-wrap max-w-4xl mx-auto" id="categoryFilters">
+      <button onclick="filterCategory('all', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-mono font-bold bg-neon-cyan text-black transition">All Disciplines (26)</button><button onclick="filterCategory('ABENDS & Diagnostics', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-mono font-medium text-slate-300 bg-white/5 border border-white/10 hover:border-neon-cyan hover:text-white transition">ABENDS & Diagnostics (8)</button><button onclick="filterCategory('CICS & VSAM Architecture', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-mono font-medium text-slate-300 bg-white/5 border border-white/10 hover:border-neon-cyan hover:text-white transition">CICS & VSAM Architecture (3)</button><button onclick="filterCategory('DB2 SQL & Performance', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-mono font-medium text-slate-300 bg-white/5 border border-white/10 hover:border-neon-cyan hover:text-white transition">DB2 SQL & Performance (7)</button><button onclick="filterCategory('DevOps & Automation', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-mono font-medium text-slate-300 bg-white/5 border border-white/10 hover:border-neon-cyan hover:text-white transition">DevOps & Automation (4)</button><button onclick="filterCategory('Modernisation & Cloud', this)" class="cat-btn px-4 py-2 rounded-xl text-xs font-mono font-medium text-slate-300 bg-white/5 border border-white/10 hover:border-neon-cyan hover:text-white transition">Modernisation & Cloud (4)</button>
+    </div>
+  </section>
+
+  <!-- Blog Cards Grid -->
+  <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <div class="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
+      <div class="text-xs font-mono text-slate-400">
+        Showing <span id="articleCount" class="text-neon-cyan font-bold">26</span> Technical Articles
+      </div>
+      <div class="text-xs font-mono text-neon-emerald flex items-center gap-1.5">
+        <i class="fa-solid fa-circle-check"></i> Authoritative IBM & Broadcom References Included
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="articlesGrid">
+      
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DB2 SQL & Performance"
+                 data-title="mastering db2 package plan stability: avoiding access path regressions during rebind"
+                 data-tags="db2 plan stability rebind access paths apreuse planmgmt">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DB2 SQL & Performance
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 9 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/db2-rebind-stability-package-plan-switching.html">Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              Rebinding DB2 packages after software maintenance or schema changes can cause access path regressions, resulting in sudden 10x query slowdowns. Master DB2 Plan Management (PLANMGMT), APREUSE, and catalog switching to safeguard production workloads.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">DB2</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Plan Stability</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">REBIND</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Access Paths</span>
+            </div>
+            
+            <a href="/blog/db2-rebind-stability-package-plan-switching.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="ABENDS & Diagnostics"
+                 data-title="resolving abend s0c7 (data exception) in cobol packed-decimal (comp-3) fields"
+                 data-tags="cobol z/os s0c7 comp-3 ceedump batch">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                ABENDS & Diagnostics
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 9 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/soc7-data-exception-cobol-packed-decimal.html">Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">COBOL</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">z/OS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">S0C7</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">COMP-3</span>
+            </div>
+            
+            <a href="/blog/soc7-data-exception-cobol-packed-decimal.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="ABENDS & Diagnostics"
+                 data-title="debugging abend s0c4 (protection exception) in cobol linkage section & pointers"
+                 data-tags="cobol z/os s0c4 linkage section pointers cics">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                ABENDS & Diagnostics
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 10 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/soc4-protection-exception-linkage-pointer.html">Debugging ABEND S0C4 (Protection Exception) in COBOL Linkage Section & Pointers</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              ABEND S0C4 (0C4) indicates a hardware storage protection violation caused by dereferencing a NULL pointer, exceeding table OCCURS subscript boundaries without bounds checking, or accessing unallocated Linkage Section items. Learn how to parse the PSW, TEA, and CEEDUMP to isolate the invalid memory address.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">COBOL</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">z/OS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">S0C4</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Linkage Section</span>
+            </div>
+            
+            <a href="/blog/soc4-protection-exception-linkage-pointer.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="ABENDS & Diagnostics"
+                 data-title="mastering sb37, sd37, and se37 out-of-space abends in z/os sequential & pds datasets"
+                 data-tags="jcl z/os dfsms storage sb37 sd37 se37 idcams">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                ABENDS & Diagnostics
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 8 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/sb37-sd37-se37-space-abends-jcl.html">Mastering SB37, SD37, and SE37 Out-of-Space ABENDs in z/OS Sequential & PDS Datasets</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              Space ABENDs (SB37, SD37, SE37) crash critical overnight batch jobs when datasets exceed volume, extent, or catalog limits. Discover how to configure secondary allocations, RLSE, SMS Dataclasses, and Extended Format attributes to prevent volume exhaustion.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">JCL</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">z/OS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">DFSMS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Storage</span>
+            </div>
+            
+            <a href="/blog/sb37-sd37-se37-space-abends-jcl.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="ABENDS & Diagnostics"
+                 data-title="diagnosing abend s0c1 (operation exception) in cics & batch execution"
+                 data-tags="cobol z/os s0c1 cics linkage editor hlasm">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                ABENDS & Diagnostics
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 7 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/s0c1-operation-exception-cics-load.html">Diagnosing ABEND S0C1 (Operation Exception) in CICS & Batch Execution</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              ABEND S0C1 occurs when the mainframe CPU attempts to execute an instruction with an invalid or undefined operation code. Common causes include calling an unlinked dummy subroutine, branching into Working-Storage data, or mismatched AMODE/RMODE compiler parameters.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">COBOL</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">z/OS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">S0C1</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CICS</span>
+            </div>
+            
+            <a href="/blog/s0c1-operation-exception-cics-load.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="ABENDS & Diagnostics"
+                 data-title="resolving asra abends in ibm cics ts: command-level debugging & cedf analysis"
+                 data-tags="cics asra cedf cobol dump analysis storage violation">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                ABENDS & Diagnostics
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 10 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/asra-abend-cics-debugging-cedf.html">Resolving ASRA ABENDs in IBM CICS TS: Command-Level Debugging & CEDF Analysis</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              CICS ASRA is the general transaction abend code indicating a program check (S0C4, S0C7, S0C1, etc.) inside an online transaction. Learn how to locate the execution offset in the CICS Transaction Dump, use CEDF and CEBR to inspect storage, and fix transaction failures.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CICS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">ASRA</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CEDF</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">COBOL</span>
+            </div>
+            
+            <a href="/blog/asra-abend-cics-debugging-cedf.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="ABENDS & Diagnostics"
+                 data-title="fixing cics aey9 abend: transaction & resource security key check failures"
+                 data-tags="cics aey9 racf security acf2 top secret">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                ABENDS & Diagnostics
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 7 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/aey9-abend-cics-security-racf.html">Fixing CICS AEY9 ABEND: Transaction & Resource Security Key Check Failures</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              CICS ABEND AEY9 occurs when a user or surrogate identity attempts to execute a transaction or access a protected CICS resource (file, program, TS queue) without required RACF, ACF2, or Top Secret authorization. Understand ESM class definitions and command security.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CICS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">AEY9</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">RACF</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Security</span>
+            </div>
+            
+            <a href="/blog/aey9-abend-cics-security-racf.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="ABENDS & Diagnostics"
+                 data-title="taming language environment (le) user abend u4038: ceedump analysis & trap tuning"
+                 data-tags="le u4038 ceedump cobol z/os diagnostics">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                ABENDS & Diagnostics
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 9 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/u4038-le-runtime-abend-troubleshooting.html">Taming Language Environment (LE) User ABEND U4038: CEEDUMP Analysis & TRAP Tuning</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              User ABEND U4038 occurs when an unhandled condition of severity 2 or greater terminates a Language Environment (LE) enclave. Learn how to decipher the CEEDUMP traceback, inspect condition tokens, and configure runtime options like TERMTHDACT and TRAP.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">LE</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">U4038</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CEEDUMP</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">COBOL</span>
+            </div>
+            
+            <a href="/blog/u4038-le-runtime-abend-troubleshooting.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="ABENDS & Diagnostics"
+                 data-title="resolving ims db/dc u0777 and u0778 deadlocks in fast path & full-function databases"
+                 data-tags="ims db ims dc u0777 u0778 dl/i fast path deadlocks">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                ABENDS & Diagnostics
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 9 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/u0778-u0777-ims-dc-deadlock-resolution.html">Resolving IMS DB/DC U0777 and U0778 Deadlocks in Fast Path & Full-Function Databases</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              IMS U0777 and U0778 pseudo-abends occur when two concurrent Message Processing Programs (MPP) or BMP batch jobs deadlock while competing for database segments or Fast Path DEDB control intervals. Learn lock sequence structuring, commit strategies, and lock timeout tuning.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">IMS DB</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">IMS DC</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">U0777</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">U0778</span>
+            </div>
+            
+            <a href="/blog/u0778-u0777-ims-dc-deadlock-resolution.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DB2 SQL & Performance"
+                 data-title="resolving db2 sqlcode -911 (reason 00c90088 / deadlock) and -904 resource unavailable"
+                 data-tags="db2 sqlcode -911 sqlcode -904 deadlocks irlm cobol db2">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DB2 SQL & Performance
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 11 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/db2-sqlcode-911-904-resource-unavailable-deadlocks.html">Resolving DB2 SQLCODE -911 (Reason 00C90088 / Deadlock) and -904 Resource Unavailable</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              DB2 SQLCODE -911 indicates your unit of work was rolled back due to a deadlock (Reason 00C90088) or lock timeout (Reason 00C9008E). SQLCODE -904 indicates an unavailable resource (tablespace locked, thread limit exceeded). Discover root causes and concurrency tuning.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">DB2</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">SQLCODE -911</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">SQLCODE -904</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Deadlocks</span>
+            </div>
+            
+            <a href="/blog/db2-sqlcode-911-904-resource-unavailable-deadlocks.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DB2 SQL & Performance"
+                 data-title="db2 z/os query optimization: converting stage 2 (residual) into stage 1 (indexable) predicates"
+                 data-tags="db2 sql tuning explain stage 1 stage 2 plan_table">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DB2 SQL & Performance
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 10 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/db2-stage-1-vs-stage-2-predicates-tuning.html">DB2 z/OS Query Optimization: Converting Stage 2 (Residual) into Stage 1 (Indexable) Predicates</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              In DB2 for z/OS, Stage 1 (sargable) predicates are evaluated inside the Data Manager (DM) at near-hardware speeds, while Stage 2 (residual) predicates require transferring rows to the Relational Data System (RDS), burning massive CPU. Learn how to refactor SQL for Stage 1 execution.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">DB2</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">SQL Tuning</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">EXPLAIN</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Stage 1</span>
+            </div>
+            
+            <a href="/blog/db2-stage-1-vs-stage-2-predicates-tuning.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DB2 SQL & Performance"
+                 data-title="how outdated runstats cause catastrophic tablespace scans in db2 for z/os"
+                 data-tags="db2 runstats optimizer catalog index clustering plan_table">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DB2 SQL & Performance
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 9 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/db2-runstats-index-clustering-optimizer.html">How Outdated RUNSTATS Cause Catastrophic Tablespace Scans in DB2 for z/OS</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              When RUNSTATS statistics are stale or missing, the DB2 Cost-Based Optimizer makes catastrophic access path choices, selecting full tablespace scans over clustered indexes. Master RUNSTATS parameters, real-time statistics (RTS), and access path stability.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">DB2</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">RUNSTATS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Optimizer</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Catalog</span>
+            </div>
+            
+            <a href="/blog/db2-runstats-index-clustering-optimizer.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DB2 SQL & Performance"
+                 data-title="preventing db2 lock escalation: tuning locksize, isolation levels, and skip locked data"
+                 data-tags="db2 lock escalation concurrency isolation cs skip locked data dsnzparm">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DB2 SQL & Performance
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 10 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/db2-lock-escalation-isolation-levels.html">Preventing DB2 Lock Escalation: Tuning LOCKSIZE, Isolation Levels, and SKIP LOCKED DATA</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              When a transaction acquires more locks than DSNZPARM NUMLKTS, DB2 automatically escalates page/row locks to an exclusive tablespace lock, freezing out all concurrent users. Learn how to tune LOCKSIZE, use Isolation CS, and implement SKIP LOCKED DATA for high-throughput queues.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">DB2</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Lock Escalation</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Concurrency</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Isolation CS</span>
+            </div>
+            
+            <a href="/blog/db2-lock-escalation-isolation-levels.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DB2 SQL & Performance"
+                 data-title="performance tuning cobol db2 stored procedures: wlm environments & applcompat"
+                 data-tags="db2 stored procedures wlm cobol applcompat sqlcode -471">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DB2 SQL & Performance
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 9 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/db2-stored-procedure-cobol-wlm-tuning.html">Performance Tuning COBOL DB2 Stored Procedures: WLM Environments & APPLCOMPAT</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              DB2 Stored Procedures running in WLM-managed address spaces can suffer from thread starvation, initialization latency, and SQLCODE -471 timeouts. Discover how to configure WLM NUMTCB parameters, reuse threads with STAYRESIDENT, and manage APPLCOMPAT.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">DB2</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Stored Procedures</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">WLM</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">COBOL</span>
+            </div>
+            
+            <a href="/blog/db2-stored-procedure-cobol-wlm-tuning.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="CICS & VSAM Architecture"
+                 data-title="diagnosing vsam file status 92 and 93: enqueue locks & dynamic allocation contention"
+                 data-tags="vsam file status 92 file status 93 cics cobol idcams disp=shr">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                CICS & VSAM Architecture
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 8 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/vsam-file-status-92-93-dynamic-allocation.html">Diagnosing VSAM File Status 92 and 93: Enqueue Locks & Dynamic Allocation Contention</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              VSAM File Status 92 indicates a logic error (e.g. attempting to OPEN an already opened file), while File Status 93 signals resource contention (dataset locked by CICS or another batch job). Learn how to diagnose exclusive enqueue locks and configure non-disruptive access.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">VSAM</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">File Status 92</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">File Status 93</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CICS</span>
+            </div>
+            
+            <a href="/blog/vsam-file-status-92-93-dynamic-allocation.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="CICS & VSAM Architecture"
+                 data-title="eliminating performance degradation from vsam ksds ci/ca splits: idcams reorg automation"
+                 data-tags="vsam ksds ci splits ca splits idcams reorg freespace">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                CICS & VSAM Architecture
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 9 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/vsam-ci-ca-splits-reorg-idcams.html">Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">VSAM</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">KSDS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CI Splits</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CA Splits</span>
+            </div>
+            
+            <a href="/blog/vsam-ci-ca-splits-reorg-idcams.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="CICS & VSAM Architecture"
+                 data-title="implementing vsam record-level sharing (rls) for concurrent batch and cics access"
+                 data-tags="vsam vsam rls cics parallel sysplex smsvsam coupling facility">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                CICS & VSAM Architecture
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 10 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/vsam-rls-record-level-sharing-sysplex.html">Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">VSAM</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">VSAM RLS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CICS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Parallel Sysplex</span>
+            </div>
+            
+            <a href="/blog/vsam-rls-record-level-sharing-sysplex.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="Modernisation & Cloud"
+                 data-title="modernizing cobol copybooks to openapi 3.0 rest apis using ibm z/os connect"
+                 data-tags="modernisation z/os connect openapi rest api cobol cics">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                Modernisation & Cloud
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 11 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/zos-connect-rest-api-cobol-cics.html">Modernizing COBOL Copybooks to OpenAPI 3.0 REST APIs using IBM z/OS Connect</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              Unlock legacy core mainframe assets by exposing COBOL Commareas and CICS Channels/Containers as OpenAPI 3.0 RESTful endpoints with sub-10ms latency using IBM z/OS Connect EE. Say goodbye to brittle screen scraping and middleware gateways.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Modernisation</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">z/OS Connect</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">OpenAPI</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">REST API</span>
+            </div>
+            
+            <a href="/blog/zos-connect-rest-api-cobol-cics.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="Modernisation & Cloud"
+                 data-title="real-time mainframe change data capture (cdc) to apache kafka: streaming db2 & vsam to cloud"
+                 data-tags="modernisation apache kafka cdc db2 vsam cloud lakehouse">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                Modernisation & Cloud
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 11 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/mainframe-kafka-event-streaming-cdc.html">Real-Time Mainframe Change Data Capture (CDC) to Apache Kafka: Streaming DB2 & VSAM to Cloud</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              Eliminate overnight batch ETL delays by capturing row-level inserts, updates, and deletes from DB2 for z/OS and VSAM log streams and streaming them directly into Apache Kafka, Snowflake, and AWS/GCP with sub-second latency.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Modernisation</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Apache Kafka</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CDC</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">DB2</span>
+            </div>
+            
+            <a href="/blog/mainframe-kafka-event-streaming-cdc.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="Modernisation & Cloud"
+                 data-title="dual-stack cobol and java interoperability on z/os using 64-bit ibm semeru runtime"
+                 data-tags="modernisation cobol java z/os ziip semeru">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                Modernisation & Cloud
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 10 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/cobol-java-interoperability-zos.html">Dual-Stack COBOL and Java Interoperability on z/OS using 64-bit IBM Semeru Runtime</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              Enterprise COBOL 6.4 allows seamless, bi-directional calling between COBOL and Java in the same address space. Offload compute-intensive business logic, encryption, and machine learning to zIIP specialty engines, saving up to 90% on IBM software charges.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Modernisation</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">COBOL</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Java</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">z/OS</span>
+            </div>
+            
+            <a href="/blog/cobol-java-interoperability-zos.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DevOps & Automation"
+                 data-title="migrating from broadcom endevor to git & modern ci/cd using zowe cli and ibm dbb"
+                 data-tags="endevor devops broadcom replacement git zowe cli ibm dbb">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DevOps & Automation
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 12 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/replacing-broadcom-endevor-with-git-zowe.html">Migrating from Broadcom Endevor to Git & Modern CI/CD using Zowe CLI and IBM DBB</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              Eliminate escalating Broadcom Endevor licensing fees by migrating your mainframe source code inventory, components, and processors to Git repositories orchestrated with Zowe CLI, GitHub Actions, and IBM Dependency Based Build (DBB).
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Endevor</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">DevOps</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Broadcom Replacement</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Git</span>
+            </div>
+            
+            <a href="/blog/replacing-broadcom-endevor-with-git-zowe.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DevOps & Automation"
+                 data-title="broadcom ca-7 / ca-11 decoupling: migrating 20,000+ jcl batch schedules to stonebranch or control-m"
+                 data-tags="ca-7 ca-11 stonebranch control-m broadcom replacement jcl">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DevOps & Automation
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 12 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/automating-ca7-migration-to-stonebranch-controlm.html">Broadcom CA-7 / CA-11 Decoupling: Migrating 20,000+ JCL Batch Schedules to Stonebranch or Control-M</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              Escape exorbitant Broadcom Workload Automation (CA-7 / CA-11) renewal hikes. Discover automated parsing of BROWSE databases, translating predecessor/successor trigger nets, and establishing hybrid cloud orchestration with Stonebranch UAC or BMC Control-M.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CA-7</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CA-11</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Stonebranch</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Control-M</span>
+            </div>
+            
+            <a href="/blog/automating-ca7-migration-to-stonebranch-controlm.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DevOps & Automation"
+                 data-title="building enterprise rexx automation: scripting tso/e, ispf panels, and sdsf job parsing"
+                 data-tags="rexx tso/e ispf sdsf automation batch monitoring">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DevOps & Automation
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 9 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/rexx-automation-ispf-tso-utilities.html">Building Enterprise REXX Automation: Scripting TSO/E, ISPF Panels, and SDSF Job Parsing</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              REXX is the scripting powerhouse of z/OS. Learn how to write robust REXX scripts that interact with TSO/E, display custom ISPF panels, and programmatically parse SDSF batch job spool logs to trap production errors automatically without expensive 3rd party tools.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">REXX</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">TSO/E</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">ISPF</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">SDSF</span>
+            </div>
+            
+            <a href="/blog/rexx-automation-ispf-tso-utilities.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="Modernisation & Cloud"
+                 data-title="de-supporting ca-telon: reverse engineering generated cobol screens into pure cics bms maps"
+                 data-tags="telon ca-telon cics bms cobol modernisation broadcom replacement">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                Modernisation & Cloud
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 11 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/telon-screen-generator-to-cics-bms-migration.html">De-supporting CA-Telon: Reverse Engineering Generated COBOL Screens into Pure CICS BMS Maps</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              CA-Telon is a legacy 4GL application generator that produces obfuscated COBOL and proprietary runtime dependencies. Discover strategies to de-support Telon, reverse-engineer screen formats into pure CICS Basic Mapping Support (BMS) or modern React front-ends.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Telon</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CA-Telon</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">CICS BMS</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">COBOL</span>
+            </div>
+            
+            <a href="/blog/telon-screen-generator-to-cics-bms-migration.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DevOps & Automation"
+                 data-title="resolving serena / micro focus changeman zmf package promotion freezes and audit rc 08"
+                 data-tags="changeman changeman zmf devops audit rc 08 ispf cobol staging">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DevOps & Automation
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 10 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/serena-changeman-zmf-promotion-freeze-troubleshooting.html">Resolving Serena / Micro Focus ChangeMan ZMF Package Promotion Freezes and Audit RC 08</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              ChangeMan ZMF package promotions fail when the automated Audit step returns Return Code 08 due to out-of-synch copybooks, missing components, or concurrent change collisions. Learn how to parse the Audit Report and resolve staging discrepancies.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">ChangeMan</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">ChangeMan ZMF</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">DevOps</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Audit RC 08</span>
+            </div>
+            
+            <a href="/blog/serena-changeman-zmf-promotion-freeze-troubleshooting.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+        <article class="blog-card flex flex-col justify-between p-6 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/50 hover:bg-slate-900/90 transition-all duration-300 group shadow-lg"
+                 data-category="DB2 SQL & Performance"
+                 data-title="slashing ibm mlc / wlm rolling 4-hour average (4hra) through compiler optimization & batch tuning"
+                 data-tags="performance 4hra wlm cobol 6.x dfsort mips reduction">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-3">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 text-[11px]">
+                DB2 SQL & Performance
+              </span>
+              <span class="flex items-center gap-1"><i class="fa-regular fa-clock"></i> 12 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold text-white group-hover:text-neon-cyan transition-colors line-clamp-2 mb-3">
+              <a href="/blog/optimizing-4hra-wlm-batch-compression.html">Slashing IBM MLC / WLM Rolling 4-Hour Average (4HRA) through Compiler Optimization & Batch Tuning</a>
+            </h2>
+            
+            <p class="text-slate-300 text-sm leading-relaxed line-clamp-3 mb-4 font-light">
+              IBM Monthly License Charges (MLC) are dictated by peak Rolling 4-Hour Average (4HRA) MSU consumption. Discover how to compress your batch processing window by 35% through Enterprise COBOL OPT(3)/ARCH(14), DFSORT memory tuning, and WLM batch cap smoothing.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap mb-4">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">Performance</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">4HRA</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">WLM</span><span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-slate-300 border border-white/5">COBOL 6.x</span>
+            </div>
+            
+            <a href="/blog/optimizing-4hra-wlm-batch-compression.html" class="inline-flex items-center gap-2 text-xs font-mono font-bold text-neon-emerald group-hover:text-neon-cyan transition-colors">
+              <span>Read Full Solution</span>
+              <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+          </div>
+        </article>
+        
+    </div>
+
+    <div id="noResults" class="hidden text-center py-16 text-slate-400 font-mono text-sm">
+      <i class="fa-solid fa-triangle-exclamation text-amber-400 text-3xl mb-3 block"></i>
+      No articles found matching your query. Try searching for "S0C7", "DB2", "VSAM", or "CA-7".
+    </div>
+  </section>
+
+  <!-- Interactive Search / Filter Script -->
+  <script>
+    let activeCategory = 'all';
+
+    function filterCategory(cat, btn) {
+      activeCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.classList.remove('bg-neon-cyan', 'text-black', 'font-bold');
+        b.classList.add('text-slate-300', 'bg-white/5', 'font-medium');
+      });
+      btn.classList.add('bg-neon-cyan', 'text-black', 'font-bold');
+      btn.classList.remove('text-slate-300', 'bg-white/5', 'font-medium');
+      applyFilters();
+    }
+
+    function handleSearch() {
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.blog-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        const title = card.getAttribute('data-title');
+        const tags = card.getAttribute('data-tags');
+
+        const matchesCat = (activeCategory === 'all' || cat === activeCategory);
+        const matchesQuery = !query || title.includes(query) || tags.includes(query);
+
+        if (matchesCat && matchesQuery) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('articleCount').innerText = visibleCount;
+      const noResults = document.getElementById('noResults');
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-[#02050c] text-slate-400 py-12 text-sm relative z-10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="font-mono text-xs text-slate-500 mb-2">
+        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization & Broadcom Replacement Pods.
+      </p>
+      <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
+        <a href="/" class="hover:text-neon-cyan">Home</a>
+        <span>&bull;</span>
+        <a href="/blog/" class="hover:text-neon-cyan">Knowledge Base</a>
+        <span>&bull;</span>
+        <a href="/#broadcom-replacement" class="hover:text-neon-cyan">Broadcom Replacement</a>
+        <span>&bull;</span>
+        <a href="/#contact" class="hover:text-neon-cyan">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

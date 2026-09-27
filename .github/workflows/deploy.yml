@@ -8,6 +8,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Autonomous Daily Mainframe Blog Publisher"]
+    types:
+      - completed
+    branches:
+      - main
 
 # Grant GITHUB_TOKEN permissions required for GitHub Pages deployment
 permissions:
@@ -89,7 +95,7 @@ jobs:
   deploy-hostinger:
     name: Deploy to Hostinger (stackmf.com)
     needs: validate
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    if: (github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')) || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
@@ -120,7 +126,7 @@ jobs:
   deploy-github-pages:
     name: Deploy Preview to GitHub Pages
     needs: validate
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    if: (github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')) || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     environment:
       name: github-pages

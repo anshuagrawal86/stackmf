@@ -27,6 +27,21 @@ def serve_txt(filename):
     """Serves root text files like llms.txt, robots.txt, IndexNow verification keys."""
     return send_from_directory('.', f'{filename}.txt', mimetype='text/plain; charset=utf-8')
 
+@app.route('/blog')
+@app.route('/blog/')
+def blog_index():
+    """Serves the Mainframe Engineering Knowledge Base Index."""
+    return send_from_directory('blog', 'index.html')
+
+@app.route('/blog/<path:slug>')
+def blog_post(slug):
+    """Serves individual blog articles, supporting clean URLs without .html extension."""
+    if not slug.endswith('.html'):
+        candidate = f"{slug}.html"
+        if os.path.exists(os.path.join(os.path.dirname(__file__), 'blog', candidate)):
+            return send_from_directory('blog', candidate)
+    return send_from_directory('blog', slug)
+
 @app.route('/healthz')
 def healthz():
     """Google Cloud Run healthcheck endpoint."""

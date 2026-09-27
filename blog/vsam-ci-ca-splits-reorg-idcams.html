@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation | StackMF">
+  <meta name="description" content="High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs.">
+  <meta name="keywords" content="VSAM, KSDS, CI Splits, CA Splits, IDCAMS, REORG, FREESPACE, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="author" content="StackMF Mainframe Architecture Pod">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://stackmf.com/blog/vsam-ci-ca-splits-reorg-idcams.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://stackmf.com/blog/vsam-ci-ca-splits-reorg-idcams.html">
+  <meta property="og:title" content="Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation">
+  <meta property="og:description" content="High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs.">
+  <meta property="og:site_name" content="StackMF Technologies LLP">
+  <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
+  <meta property="article:section" content="CICS & VSAM Architecture">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation">
+  <meta name="twitter:description" content="High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs.">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            neon: {
+              emerald: '#00F5A0',
+              cyan: '#00F0FF',
+              violet: '#8B5CF6',
+              amber: '#FBBF24',
+              rose: '#F43F5E'
+            },
+            cyber: {
+              darker: '#030712',
+              dark: '#070a0f',
+              surface: '#0d131d',
+              card: '#111827',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #030712; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+    .cyber-grid {
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+    }
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation",
+  "description": "High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs.",
+  "url": "https://stackmf.com/blog/vsam-ci-ca-splits-reorg-idcams.html",
+  "datePublished": "2026-09-27T08:00:00+00:00",
+  "dateModified": "2026-09-27T08:00:00+00:00",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "StackMF Mainframe Architecture Pod",
+    "url": "https://stackmf.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "StackMF Technologies LLP",
+    "url": "https://stackmf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+    }
+  },
+  "about": [
+    "CICS & VSAM Architecture",
+    "VSAM",
+    "KSDS",
+    "CI Splits",
+    "CA Splits",
+    "IDCAMS",
+    "REORG",
+    "FREESPACE"
+  ],
+  "articleBody": "Online transactions reading a core customer VSAM KSDS experience response time degradation, jumping from 30ms to over 800ms. Batch processing times double. System monitors report excessive I/O wait times and physical DASD head contention on volumes hosting the VSAM cluster. A VSAM KSDS is organized into Control Intervals (CIs) grouped into Control Areas (CAs):\n1. **Control Interval (CI) Split**: When a program inserts a record into a CI that lacks sufficient free space, VSAM creates a new CI within the same CA, moves roughly half the records to it, and updates the index. While this takes some CPU and I/O time, records remain within the same cylinder.\n2. **Control Area (CA) Split**: When a CI split occurs but there are no remaining free CIs within that Control Area, VSAM must split the entire CA. It allocates a brand-new CA at the physical end of the dataset, moves half the CIs to it, and updates the high-level index.\n\nCA splits require moving megabytes of data across cylinders, causing severe rotational delay, index fragmentation, and serialization bottlenecks across the parallel sysplex. ### 1. Analyze CI and CA Splits via IDCAMS LISTCAT\nRun an IDCAMS `LISTCAT` report:\n```jcl\n//STEP1    EXEC PGM=IDCAMS\n//SYSPRINT DD SYSOUT=*\n//SYSIN    DD *\n  LISTCAT ENTRIES('PROD.KSDS.CUSTOMER') ALL\n/*\n```\nLook for:\n```text\nSPLITS-CI ------------ 14,290\nSPLITS-CA -------------- 1,412\nFREESPACE-%CI ------------- 0\nFREESPACE-%CA ------------- 0\nEXCP-COUNT -------- 14,812,094\n```\nOver 1,400 CA splits indicates massive fragmentation and urgent reorg requirement!\n\n### 2. Calibrate FREESPACE Parameter\nWhen defining the KSDS, provide adequate freespace tailored to the insert rate:\n- For uniform random inserts: `FREESPACE(20 20)` reserves 20% free space in each CI and 20% free CIs in each CA.\n- For sequential inserts at the end of the file: `FREESPACE(0 0)` is optimal.\n\n### 3. Automated IDCAMS REORG Script\nExecute an IDCAMS backup, delete/define, and reload:\n```jcl\n//REORG    JOB (ACCT),'VSAM REORG',CLASS=A,MSGCLASS=X\n//STEP1    EXEC PGM=IDCAMS\n//SYSPRINT DD SYSOUT=*\n//BACKUP   DD DSN=PROD.KSDS.CUSTOMER.BKUP,DISP=(NEW,CATLG,DELETE),\n//            SPACE=(CYL,(100,50),RLSE),UNIT=SYSDA\n//SYSIN    DD *\n  /* 1. EXPORT/REPRO DATA TO BACKUP */\n  REPRO INDATASET('PROD.KSDS.CUSTOMER') -\n        OUTDATASET('PROD.KSDS.CUSTOMER.BKUP')\n\n  /* 2. DELETE OLD CLUSTER */\n  DELETE 'PROD.KSDS.CUSTOMER' CLUSTER PURGE\n\n  /* 3. REDEFINE WITH OPTIMIZED FREESPACE & BUFFERSPACE */\n  DEFINE CLUSTER (NAME('PROD.KSDS.CUSTOMER') -\n         CYLINDERS(200 50) -\n         RECORDSIZE(250 250) -\n         KEYS(16 0) -\n         FREESPACE(20 15) -\n         SHAREOPTIONS(2 3) -\n         BUFFERSPACE(1048576)) -\n         DATA (NAME('PROD.KSDS.CUSTOMER.DATA')) -\n         INDEX (NAME('PROD.KSDS.CUSTOMER.INDEX'))\n\n  /* 4. REPOPULATE FROM BACKUP */\n  REPRO INDATASET('PROD.KSDS.CUSTOMER.BKUP') -\n        OUTDATASET('PROD.KSDS.CUSTOMER')\n/*\n```"
+}
+  </script>
+</head>
+<body class="min-h-screen relative antialiased selection:bg-neon-cyan selection:text-black">
+
+  <div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-xl border-b border-white/10">
+    <div class="h-[2px] w-full bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-emerald via-neon-cyan to-neon-violet p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-[10px] flex items-center justify-center">
+            <span class="font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan text-lg">S/MF</span>
+          </div>
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight text-white block leading-none">Stack<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan">MF</span></span>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-slate-400 block mt-1">Knowledge Base &bull; z/OS</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/blog/" class="text-neon-cyan hover:text-white transition-colors flex items-center gap-1.5 font-bold">
+          <i class="fa-solid fa-book-open text-xs"></i> All Blogs
+        </a>
+        <a href="/#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Developers</a>
+        <a href="/#broadcom-replacement" class="hover:text-neon-amber transition-colors">Broadcom Replacement</a>
+        <a href="/#mainframe-modernization" class="hover:text-neon-cyan transition-colors">Modernization</a>
+        <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Architect</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-24">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-mono text-slate-400 mb-6 flex-wrap">
+      <a href="/" class="hover:text-white transition">Home</a>
+      <span>/</span>
+      <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
+      <span>/</span>
+      <span class="text-neon-cyan">CICS & VSAM Architecture</span>
+    </nav>
+
+    <!-- Header Badges -->
+    <div class="flex items-center gap-3 flex-wrap mb-4">
+      <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
+        CICS & VSAM Architecture
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-clock"></i> 9 min read
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-calendar"></i> 2026-09-27
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
+      Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation
+    </h1>
+
+    <!-- Author & Trust Pod -->
+    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-white/10 mb-8 flex-wrap gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-emerald to-neon-cyan p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-server text-neon-emerald text-sm"></i>
+          </div>
+        </div>
+        <div>
+          <div class="text-sm font-bold text-white">StackMF Mainframe Architecture Pod</div>
+          <div class="text-xs font-mono text-slate-400">Principal Modernization & z/OS Systems Engineers</div>
+        </div>
+      </div>
+      <span class="inline-flex items-center gap-1.5 text-xs font-mono text-neon-emerald bg-neon-emerald/10 px-3 py-1 rounded-full border border-neon-emerald/30 font-semibold">
+        <i class="fa-solid fa-circle-check"></i> Verified Production Fix
+      </span>
+    </div>
+
+    <!-- TL;DR Box -->
+    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-emerald-950/40 border border-neon-cyan/30 shadow-xl mb-12">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-cyan font-bold mb-2">
+        <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
+      </div>
+      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+        High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs.
+      </p>
+    </div>
+
+    <!-- Section 1: The Production Incident / Problem -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
+        The Real-World Developer Incident
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Online transactions reading a core customer VSAM KSDS experience response time degradation, jumping from 30ms to over 800ms. Batch processing times double. System monitors report excessive I/O wait times and physical DASD head contention on volumes hosting the VSAM cluster.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: Root Cause Mechanics -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm border border-amber-500/30">2</span>
+        Technical Root Cause & Architecture Mechanics
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A VSAM KSDS is organized into Control Intervals (CIs) grouped into Control Areas (CAs):</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">Control Interval (CI) Split</strong>: When a program inserts a record into a CI that lacks sufficient free space, VSAM creates a new CI within the same CA, moves roughly half the records to it, and updates the index. While this takes some CPU and I/O time, records remain within the same cylinder.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Control Area (CA) Split</strong>: When a CI split occurs but there are no remaining free CIs within that Control Area, VSAM must split the entire CA. It allocates a brand-new CA at the physical end of the dataset, moves half the CIs to it, and updates the high-level index.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">CA splits require moving megabytes of data across cylinders, causing severe rotational delay, index fragmentation, and serialization bottlenecks across the parallel sysplex.</p>
+      </div>
+    </section>
+
+    <!-- Section 3: Step-by-Step Resolution -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
+        Step-by-Step Production Resolution
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Analyze CI and CA Splits via IDCAMS LISTCAT</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Run an IDCAMS <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LISTCAT</code> report:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//STEP1    EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  LISTCAT ENTRIES('PROD.KSDS.CUSTOMER') ALL
+/*</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Look for:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SPLITS-CI ------------ 14,290
+SPLITS-CA -------------- 1,412
+FREESPACE-%CI ------------- 0
+FREESPACE-%CA ------------- 0
+EXCP-COUNT -------- 14,812,094</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Over 1,400 CA splits indicates massive fragmentation and urgent reorg requirement!</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Calibrate FREESPACE Parameter</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When defining the KSDS, provide adequate freespace tailored to the insert rate:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>For uniform random inserts: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FREESPACE(20 20)</code> reserves 20% free space in each CI and 20% free CIs in each CA.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>For sequential inserts at the end of the file: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FREESPACE(0 0)</code> is optimal.</span></li>
+</ul>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Automated IDCAMS REORG Script</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Execute an IDCAMS backup, delete/define, and reload:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//REORG    JOB (ACCT),'VSAM REORG',CLASS=A,MSGCLASS=X
+//STEP1    EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//BACKUP   DD DSN=PROD.KSDS.CUSTOMER.BKUP,DISP=(NEW,CATLG,DELETE),
+//            SPACE=(CYL,(100,50),RLSE),UNIT=SYSDA
+//SYSIN    DD *
+  /* 1. EXPORT/REPRO DATA TO BACKUP */
+  REPRO INDATASET('PROD.KSDS.CUSTOMER') -
+        OUTDATASET('PROD.KSDS.CUSTOMER.BKUP')
+
+  /* 2. DELETE OLD CLUSTER */
+  DELETE 'PROD.KSDS.CUSTOMER' CLUSTER PURGE
+
+  /* 3. REDEFINE WITH OPTIMIZED FREESPACE &amp; BUFFERSPACE */
+  DEFINE CLUSTER (NAME('PROD.KSDS.CUSTOMER') -
+         CYLINDERS(200 50) -
+         RECORDSIZE(250 250) -
+         KEYS(16 0) -
+         FREESPACE(20 15) -
+         SHAREOPTIONS(2 3) -
+         BUFFERSPACE(1048576)) -
+         DATA (NAME('PROD.KSDS.CUSTOMER.DATA')) -
+         INDEX (NAME('PROD.KSDS.CUSTOMER.INDEX'))
+
+  /* 4. REPOPULATE FROM BACKUP */
+  REPRO INDATASET('PROD.KSDS.CUSTOMER.BKUP') -
+        OUTDATASET('PROD.KSDS.CUSTOMER')
+/*</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Architectural Prevention & Tuning -->
+    <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-list-check text-neon-cyan"></i>
+        Architectural Prevention & Performance Tuning Checklist
+      </h3>
+      <ul class="space-y-3">
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Monitor VSAM datasets weekly and trigger automated REORG when `SPLITS-CA > 50`.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Tune `BUFFERSPACE` parameter to allow at least 5 data buffers and 2 index buffers in batch JCL (`AMP=('BUFND=10,BUFNI=5')`).</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Place the VSAM Index component on high-speed solid-state or cache-boosted DASD volumes.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Evaluate converting critical high-churn VSAM datasets to IBM DB2 tables for automatic space management.</span></li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Authoritative Reference Links -->
+    <section class="mb-14">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-graduation-cap text-neon-violet"></i>
+        Authoritative Reference Documentation
+      </h3>
+      <p class="text-sm text-slate-400 mb-4">
+        Explore more directly in official manuals, IBM Knowledge Center, and vendor technical advisories:
+      </p>
+      <ul class="space-y-3">
+        <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM DFSMS Access Method Services Commands: DEFINE CLUSTER</span>
+              </div>
+              <a href="https://www.ibm.com/docs/en/zos/latest?topic=commands-define-cluster" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM Redbooks: VSAM Demystified</span>
+              </div>
+              <a href="https://www.redbooks.ibm.com/abstracts/sg246105.html" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF 24/7 Managed Application Maintenance (AMS)</span>
+              </div>
+              <a href="https://stackmf.com/#maintenance-ams" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li>
+      </ul>
+    </section>
+
+    <!-- Tags -->
+    <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
+      <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">VSAM</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">KSDS</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">CI Splits</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">CA Splits</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">IDCAMS</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">REORG</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">FREESPACE</span>
+    </div>
+
+    <!-- Bottom Advisory Banner CTA -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-cyan-950/60 border border-neon-emerald/30 shadow-2xl relative overflow-hidden">
+      <div class="relative z-10">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/40 uppercase tracking-widest">
+          Enterprise Advisory
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">
+          Struggling with Critical Mainframe Incidents or Vendor Renewal Pressure?
+        </h3>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+          StackMF deploys certified Senior Mainframe Engineers fluent in both z/OS legacy internals (COBOL, DB2, CICS, VSAM, CA-7, Endevor) and modern cloud stacks (React, Kafka, AWS, Git). Onboard dedicated pods in 48 hours or cut Broadcom licensing by 60%.
+        </p>
+        <div class="flex items-center gap-4 flex-wrap">
+          <a href="/#contact" class="px-6 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all shadow-lg shadow-neon-emerald/20">
+            Request Architectural Assessment
+          </a>
+          <a href="/blog/" class="px-5 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan transition-all">
+            &larr; Browse All 25 Technical Deep Dives
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-[#02050c] text-slate-400 py-12 text-sm relative z-10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="font-mono text-xs text-slate-500 mb-2">
+        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization & Broadcom Replacement Pods.
+      </p>
+      <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
+        <a href="/" class="hover:text-neon-cyan">Home</a>
+        <span>&bull;</span>
+        <a href="/blog/" class="hover:text-neon-cyan">Knowledge Base</a>
+        <span>&bull;</span>
+        <a href="/#broadcom-replacement" class="hover:text-neon-cyan">Broadcom Replacement</a>
+        <span>&bull;</span>
+        <a href="/#contact" class="hover:text-neon-cyan">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

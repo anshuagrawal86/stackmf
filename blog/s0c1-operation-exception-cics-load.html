@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Diagnosing ABEND S0C1 (Operation Exception) in CICS & Batch Execution | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="Diagnosing ABEND S0C1 (Operation Exception) in CICS & Batch Execution | StackMF">
+  <meta name="description" content="ABEND S0C1 occurs when the mainframe CPU attempts to execute an instruction with an invalid or undefined operation code. Common causes include calling an unlinked dummy subroutine, branching into Working-Storage data, or mismatched AMODE/RMODE compiler parameters.">
+  <meta name="keywords" content="COBOL, z/OS, S0C1, CICS, Linkage Editor, HLASM, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="author" content="StackMF Mainframe Architecture Pod">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://stackmf.com/blog/s0c1-operation-exception-cics-load.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://stackmf.com/blog/s0c1-operation-exception-cics-load.html">
+  <meta property="og:title" content="Diagnosing ABEND S0C1 (Operation Exception) in CICS & Batch Execution">
+  <meta property="og:description" content="ABEND S0C1 occurs when the mainframe CPU attempts to execute an instruction with an invalid or undefined operation code. Common causes include calling an unlinked dummy subroutine, branching into Working-Storage data, or mismatched AMODE/RMODE compiler parameters.">
+  <meta property="og:site_name" content="StackMF Technologies LLP">
+  <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
+  <meta property="article:section" content="ABENDS & Diagnostics">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Diagnosing ABEND S0C1 (Operation Exception) in CICS & Batch Execution">
+  <meta name="twitter:description" content="ABEND S0C1 occurs when the mainframe CPU attempts to execute an instruction with an invalid or undefined operation code. Common causes include calling an unlinked dummy subroutine, branching into Working-Storage data, or mismatched AMODE/RMODE compiler parameters.">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            neon: {
+              emerald: '#00F5A0',
+              cyan: '#00F0FF',
+              violet: '#8B5CF6',
+              amber: '#FBBF24',
+              rose: '#F43F5E'
+            },
+            cyber: {
+              darker: '#030712',
+              dark: '#070a0f',
+              surface: '#0d131d',
+              card: '#111827',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #030712; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+    .cyber-grid {
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+    }
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Diagnosing ABEND S0C1 (Operation Exception) in CICS & Batch Execution",
+  "description": "ABEND S0C1 occurs when the mainframe CPU attempts to execute an instruction with an invalid or undefined operation code. Common causes include calling an unlinked dummy subroutine, branching into Working-Storage data, or mismatched AMODE/RMODE compiler parameters.",
+  "url": "https://stackmf.com/blog/s0c1-operation-exception-cics-load.html",
+  "datePublished": "2026-09-27T08:00:00+00:00",
+  "dateModified": "2026-09-27T08:00:00+00:00",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "StackMF Mainframe Architecture Pod",
+    "url": "https://stackmf.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "StackMF Technologies LLP",
+    "url": "https://stackmf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+    }
+  },
+  "about": [
+    "ABENDS & Diagnostics",
+    "COBOL",
+    "z/OS",
+    "S0C1",
+    "CICS",
+    "Linkage Editor",
+    "HLASM"
+  ],
+  "articleBody": "A newly compiled COBOL module deployed via Endevor or ChangeMan fails immediately upon invocation:\n```text\nSYSTEM COMPLETION CODE=0C1  REASON CODE=00000001\nPSW AT TIME OF INTERRUPT: 078D1000 80000002  ILC 2  INTC 01\nIEA995I SYMPTOM DUMP OUTPUT\n  USER COMPLETION CODE=XXXX\n  PSW AT ENTRY TO ABEND   078D1000  80000002\n```\nIn CICS, the transaction abends with `ASRA`, and the execution address in the CICS dump points to an area populated with binary zeroes (`X'0000'`). The z/Architecture hardware microcode inspects the first byte of every machine instruction to determine the operation code (opcode). An S0C1 (Interrupt Code 01) triggers when:\n1. **Unresolved External Reference**: A COBOL program executes `CALL 'SUBPGM1'`, but during the Link-Edit / Binder phase, `SUBPGM1` was not in the `SYSLIB` concatenation. The Binder marked the entry point as unresolved or resolved it to address zero (`00000000`). When executed, the CPU jumps to address 0, encounters `X'0000'`, and abends with S0C1.\n2. **Branching into Data**: An overwritten return address in the save area (due to a buffer overrun or corrupt register 14) causes the program to return into variable storage rather than executable code.\n3. **AMODE Switching Fault**: Calling a 31-bit subprogram from a 24-bit caller without proper `AMODE 31` linkage or BASSM instruction. ### 1. Verify Linkage Editor / Binder Output\nInspect the Binder listing (`SYSPRINT`) from the compile/link job. Check for:\n```text\nIEW2456E 9207 SYMBOL SUBPGM1 UNRESOLVED.  MEMBER MARKED NOT EXECUTABLE.\n```\nIf the Binder flag `NCAL` (No Call) was specified without `LET`, the module was saved as non-executable. Fix the JCL Binder step to include the missing library:\n```jcl\n//LKED.SYSLIB DD DSN=CEE.SCEELKED,DISP=SHR\n//            DD DSN=PROD.COBOL.LOADLIB,DISP=SHR\n//            DD DSN=PROD.SUBROUTINES.LOADLIB,DISP=SHR\n```\n\n### 2. Verify Dynamic vs Static CALL Syntax\nIf the subprogram is meant to be loaded dynamically at runtime, ensure the module name is in a variable or compile with `DYNAM`:\n```cobol\n      * DYNAMIC CALL - loaded from STEPLIB at runtime\n       MOVE 'SUBPGM1' TO WS-SUBPROGRAM-NAME.\n       CALL WS-SUBPROGRAM-NAME USING WS-DATA-PAYLOAD.\n```\nIn JCL, verify that `PROD.SUBROUTINES.LOADLIB` is included in the runtime `STEPLIB` or `JOBLIB` concatenation.\n\n### 3. Check CICS Program Definition (CSD / BAS)\nIn CICS, verify that the program is installed in the CSD:\n```text\nCEMT INQUIRE PROGRAM(SUBPGM1)\n```\nEnsure the program status is `ENA` (Enabled) and `PRO` (Program). If `STATUS: DIS` (Disabled), issue `CEMT SET PROGRAM(SUBPGM1) ENA NEWCOPY`."
+}
+  </script>
+</head>
+<body class="min-h-screen relative antialiased selection:bg-neon-cyan selection:text-black">
+
+  <div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-xl border-b border-white/10">
+    <div class="h-[2px] w-full bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-emerald via-neon-cyan to-neon-violet p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-[10px] flex items-center justify-center">
+            <span class="font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan text-lg">S/MF</span>
+          </div>
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight text-white block leading-none">Stack<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan">MF</span></span>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-slate-400 block mt-1">Knowledge Base &bull; z/OS</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/blog/" class="text-neon-cyan hover:text-white transition-colors flex items-center gap-1.5 font-bold">
+          <i class="fa-solid fa-book-open text-xs"></i> All Blogs
+        </a>
+        <a href="/#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Developers</a>
+        <a href="/#broadcom-replacement" class="hover:text-neon-amber transition-colors">Broadcom Replacement</a>
+        <a href="/#mainframe-modernization" class="hover:text-neon-cyan transition-colors">Modernization</a>
+        <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Architect</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-24">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-mono text-slate-400 mb-6 flex-wrap">
+      <a href="/" class="hover:text-white transition">Home</a>
+      <span>/</span>
+      <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
+      <span>/</span>
+      <span class="text-neon-cyan">ABENDS & Diagnostics</span>
+    </nav>
+
+    <!-- Header Badges -->
+    <div class="flex items-center gap-3 flex-wrap mb-4">
+      <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
+        ABENDS & Diagnostics
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-clock"></i> 7 min read
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-calendar"></i> 2026-09-27
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
+      Diagnosing ABEND S0C1 (Operation Exception) in CICS & Batch Execution
+    </h1>
+
+    <!-- Author & Trust Pod -->
+    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-white/10 mb-8 flex-wrap gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-emerald to-neon-cyan p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-server text-neon-emerald text-sm"></i>
+          </div>
+        </div>
+        <div>
+          <div class="text-sm font-bold text-white">StackMF Mainframe Architecture Pod</div>
+          <div class="text-xs font-mono text-slate-400">Principal Modernization & z/OS Systems Engineers</div>
+        </div>
+      </div>
+      <span class="inline-flex items-center gap-1.5 text-xs font-mono text-neon-emerald bg-neon-emerald/10 px-3 py-1 rounded-full border border-neon-emerald/30 font-semibold">
+        <i class="fa-solid fa-circle-check"></i> Verified Production Fix
+      </span>
+    </div>
+
+    <!-- TL;DR Box -->
+    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-emerald-950/40 border border-neon-cyan/30 shadow-xl mb-12">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-cyan font-bold mb-2">
+        <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
+      </div>
+      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+        ABEND S0C1 occurs when the mainframe CPU attempts to execute an instruction with an invalid or undefined operation code. Common causes include calling an unlinked dummy subroutine, branching into Working-Storage data, or mismatched AMODE/RMODE compiler parameters.
+      </p>
+    </div>
+
+    <!-- Section 1: The Production Incident / Problem -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
+        The Real-World Developer Incident
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A newly compiled COBOL module deployed via Endevor or ChangeMan fails immediately upon invocation:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SYSTEM COMPLETION CODE=0C1  REASON CODE=00000001
+PSW AT TIME OF INTERRUPT: 078D1000 80000002  ILC 2  INTC 01
+IEA995I SYMPTOM DUMP OUTPUT
+  USER COMPLETION CODE=XXXX
+  PSW AT ENTRY TO ABEND   078D1000  80000002</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In CICS, the transaction abends with <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ASRA</code>, and the execution address in the CICS dump points to an area populated with binary zeroes (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'0000'</code>).</p>
+      </div>
+    </section>
+
+    <!-- Section 2: Root Cause Mechanics -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm border border-amber-500/30">2</span>
+        Technical Root Cause & Architecture Mechanics
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The z/Architecture hardware microcode inspects the first byte of every machine instruction to determine the operation code (opcode). An S0C1 (Interrupt Code 01) triggers when:</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">Unresolved External Reference</strong>: A COBOL program executes <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CALL 'SUBPGM1'</code>, but during the Link-Edit / Binder phase, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SUBPGM1</code> was not in the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SYSLIB</code> concatenation. The Binder marked the entry point as unresolved or resolved it to address zero (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">00000000</code>). When executed, the CPU jumps to address 0, encounters <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'0000'</code>, and abends with S0C1.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Branching into Data</strong>: An overwritten return address in the save area (due to a buffer overrun or corrupt register 14) causes the program to return into variable storage rather than executable code.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. <strong class="text-white font-semibold">AMODE Switching Fault</strong>: Calling a 31-bit subprogram from a 24-bit caller without proper <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">AMODE 31</code> linkage or BASSM instruction.</p>
+      </div>
+    </section>
+
+    <!-- Section 3: Step-by-Step Resolution -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
+        Step-by-Step Production Resolution
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Verify Linkage Editor / Binder Output</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Inspect the Binder listing (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SYSPRINT</code>) from the compile/link job. Check for:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>IEW2456E 9207 SYMBOL SUBPGM1 UNRESOLVED.  MEMBER MARKED NOT EXECUTABLE.</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If the Binder flag <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">NCAL</code> (No Call) was specified without <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LET</code>, the module was saved as non-executable. Fix the JCL Binder step to include the missing library:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//LKED.SYSLIB DD DSN=CEE.SCEELKED,DISP=SHR
+//            DD DSN=PROD.COBOL.LOADLIB,DISP=SHR
+//            DD DSN=PROD.SUBROUTINES.LOADLIB,DISP=SHR</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Verify Dynamic vs Static CALL Syntax</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If the subprogram is meant to be loaded dynamically at runtime, ensure the module name is in a variable or compile with <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DYNAM</code>:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>* DYNAMIC CALL - loaded from STEPLIB at runtime
+       MOVE 'SUBPGM1' TO WS-SUBPROGRAM-NAME.
+       CALL WS-SUBPROGRAM-NAME USING WS-DATA-PAYLOAD.</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In JCL, verify that <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PROD.SUBROUTINES.LOADLIB</code> is included in the runtime <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">STEPLIB</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">JOBLIB</code> concatenation.</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Check CICS Program Definition (CSD / BAS)</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In CICS, verify that the program is installed in the CSD:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CEMT INQUIRE PROGRAM(SUBPGM1)</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure the program status is <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ENA</code> (Enabled) and <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PRO</code> (Program). If <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">STATUS: DIS</code> (Disabled), issue <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CEMT SET PROGRAM(SUBPGM1) ENA NEWCOPY</code>.</p>
+      </div>
+    </section>
+
+    <!-- Section 4: Architectural Prevention & Tuning -->
+    <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-list-check text-neon-cyan"></i>
+        Architectural Prevention & Performance Tuning Checklist
+      </h3>
+      <ul class="space-y-3">
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Set Linkage Editor / Binder return code threshold `MAXRC=0` or `MAXRC=4`. Never deploy a module if Binder issues `RC=08`.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Standardize on Enterprise COBOL 6.x with `AMODE(31),RMODE(ANY)` across all application components.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Use automated Endevor/ChangeMan build processors with strict dependency validation rules.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Test dynamic `CALL` targets using automated CI/CD pipelines before promoting load modules to production.</span></li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Authoritative Reference Links -->
+    <section class="mb-14">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-graduation-cap text-neon-violet"></i>
+        Authoritative Reference Documentation
+      </h3>
+      <p class="text-sm text-slate-400 mb-4">
+        Explore more directly in official manuals, IBM Knowledge Center, and vendor technical advisories:
+      </p>
+      <ul class="space-y-3">
+        <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM z/OS MVS Program Management: User's Guide and Reference</span>
+              </div>
+              <a href="https://www.ibm.com/docs/en/zos/latest?topic=binder-link-editing-programs" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM z/OS MVS System Codes: Completion Code 0C1</span>
+              </div>
+              <a href="https://www.ibm.com/docs/en/zos/latest?topic=codes-0c1" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Broadcom Endevor Replacement & CI/CD Services</span>
+              </div>
+              <a href="https://stackmf.com/#broadcom-replacement" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li>
+      </ul>
+    </section>
+
+    <!-- Tags -->
+    <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
+      <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">COBOL</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">z/OS</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">S0C1</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">CICS</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Linkage Editor</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">HLASM</span>
+    </div>
+
+    <!-- Bottom Advisory Banner CTA -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-cyan-950/60 border border-neon-emerald/30 shadow-2xl relative overflow-hidden">
+      <div class="relative z-10">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/40 uppercase tracking-widest">
+          Enterprise Advisory
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">
+          Struggling with Critical Mainframe Incidents or Vendor Renewal Pressure?
+        </h3>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+          StackMF deploys certified Senior Mainframe Engineers fluent in both z/OS legacy internals (COBOL, DB2, CICS, VSAM, CA-7, Endevor) and modern cloud stacks (React, Kafka, AWS, Git). Onboard dedicated pods in 48 hours or cut Broadcom licensing by 60%.
+        </p>
+        <div class="flex items-center gap-4 flex-wrap">
+          <a href="/#contact" class="px-6 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all shadow-lg shadow-neon-emerald/20">
+            Request Architectural Assessment
+          </a>
+          <a href="/blog/" class="px-5 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan transition-all">
+            &larr; Browse All 25 Technical Deep Dives
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-[#02050c] text-slate-400 py-12 text-sm relative z-10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="font-mono text-xs text-slate-500 mb-2">
+        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization & Broadcom Replacement Pods.
+      </p>
+      <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
+        <a href="/" class="hover:text-neon-cyan">Home</a>
+        <span>&bull;</span>
+        <a href="/blog/" class="hover:text-neon-cyan">Knowledge Base</a>
+        <span>&bull;</span>
+        <a href="/#broadcom-replacement" class="hover:text-neon-cyan">Broadcom Replacement</a>
+        <span>&bull;</span>
+        <a href="/#contact" class="hover:text-neon-cyan">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

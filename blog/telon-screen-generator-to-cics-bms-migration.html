@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>De-supporting CA-Telon: Reverse Engineering Generated COBOL Screens into Pure CICS BMS Maps | StackMF Mainframe Knowledge Base</title>
+  <meta name="title" content="De-supporting CA-Telon: Reverse Engineering Generated COBOL Screens into Pure CICS BMS Maps | StackMF">
+  <meta name="description" content="CA-Telon is a legacy 4GL application generator that produces obfuscated COBOL and proprietary runtime dependencies. Discover strategies to de-support Telon, reverse-engineer screen formats into pure CICS Basic Mapping Support (BMS) or modern React front-ends.">
+  <meta name="keywords" content="Telon, CA-Telon, CICS BMS, COBOL, Modernisation, Broadcom Replacement, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="author" content="StackMF Mainframe Architecture Pod">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://stackmf.com/blog/telon-screen-generator-to-cics-bms-migration.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://stackmf.com/blog/telon-screen-generator-to-cics-bms-migration.html">
+  <meta property="og:title" content="De-supporting CA-Telon: Reverse Engineering Generated COBOL Screens into Pure CICS BMS Maps">
+  <meta property="og:description" content="CA-Telon is a legacy 4GL application generator that produces obfuscated COBOL and proprietary runtime dependencies. Discover strategies to de-support Telon, reverse-engineer screen formats into pure CICS Basic Mapping Support (BMS) or modern React front-ends.">
+  <meta property="og:site_name" content="StackMF Technologies LLP">
+  <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
+  <meta property="article:section" content="Modernisation & Cloud">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="De-supporting CA-Telon: Reverse Engineering Generated COBOL Screens into Pure CICS BMS Maps">
+  <meta name="twitter:description" content="CA-Telon is a legacy 4GL application generator that produces obfuscated COBOL and proprietary runtime dependencies. Discover strategies to de-support Telon, reverse-engineer screen formats into pure CICS Basic Mapping Support (BMS) or modern React front-ends.">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            neon: {
+              emerald: '#00F5A0',
+              cyan: '#00F0FF',
+              violet: '#8B5CF6',
+              amber: '#FBBF24',
+              rose: '#F43F5E'
+            },
+            cyber: {
+              darker: '#030712',
+              dark: '#070a0f',
+              surface: '#0d131d',
+              card: '#111827',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { background-color: #030712; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+    .cyber-grid {
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 25%, #000 40%, transparent 100%);
+    }
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "De-supporting CA-Telon: Reverse Engineering Generated COBOL Screens into Pure CICS BMS Maps",
+  "description": "CA-Telon is a legacy 4GL application generator that produces obfuscated COBOL and proprietary runtime dependencies. Discover strategies to de-support Telon, reverse-engineer screen formats into pure CICS Basic Mapping Support (BMS) or modern React front-ends.",
+  "url": "https://stackmf.com/blog/telon-screen-generator-to-cics-bms-migration.html",
+  "datePublished": "2026-09-27T08:00:00+00:00",
+  "dateModified": "2026-09-27T08:00:00+00:00",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Organization",
+    "name": "StackMF Mainframe Architecture Pod",
+    "url": "https://stackmf.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "StackMF Technologies LLP",
+    "url": "https://stackmf.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
+    }
+  },
+  "about": [
+    "Modernisation & Cloud",
+    "Telon",
+    "CA-Telon",
+    "CICS BMS",
+    "COBOL",
+    "Modernisation",
+    "Broadcom Replacement"
+  ],
+  "articleBody": "An enterprise relies on hundreds of mission-critical customer service screens generated in the 1990s using CA-Telon. Broadcom support for Telon is costly and specialized skills are nearly extinct. When developers need to update a screen or comply with accessibility guidelines, they find the underlying COBOL code heavily obscured by Telon macro expansions and runtime drivers. CA-Telon generated COBOL applications rely on proprietary runtime routines:\n1. **Telon Driver Architecture**: Rather than calling standard CICS `RECEIVE MAP` and `SEND MAP` commands directly, Telon programs delegate execution to proprietary runtime modules (e.g., `TLNMAIN`, `TLNCICS`).\n2. **Proprietary TDF Data Dictionaries**: Application logic, field validations, and screen transitions are trapped inside proprietary Telon Development Facility (TDF) files.\n3. **Macro Obfuscation**: The emitted COBOL contains hundreds of repetitive generated labels, cryptic working-storage copybooks (`TLNPCOMM`), and opaque internal pointer arrays that cannot be easily maintained by standard COBOL engineers. ### 1. Extract Screen Coordinates from Telon Panel Definitions\nExport the screen panel layout from the Telon catalog or capture the 3270 datastream to extract literal labels, input fields, attributes (protect, numeric, bright), and cursor positions.\n\n### 2. Generate Standard CICS BMS Macro Definition\nConvert the extracted panel into pure, vendor-neutral CICS Basic Mapping Support (BMS) assembler macros:\n```assembler\n* CICS BMS MAPSET DEFINITION - DECOUPLING FROM TELON\nCUSTSET  DFHMSD TYPE=&SYSPARM,MODE=INOUT,LANG=COBOL,                   X\n               STORAGE=AUTO,TIOAPFX=YES\nCUSTMAP  DFHMDI SIZE=(24,80),CTRL=(FREEKB,FRSET)\n         DFHMDF POS=(1,28),ATTRB=(ASKIP,BRT),LENGTH=24,               X\n               INITIAL='CUSTOMER INQUIRY SYSTEM'\n         DFHMDF POS=(4,2),ATTRB=(ASKIP,NORM),LENGTH=12,                X\n               INITIAL='ACCOUNT NO:'\nACCTIN   DFHMDF POS=(4,15),ATTRB=(UNPROT,NUM,IC),LENGTH=10\n         DFHMDF POS=(4,26),ATTRB=(ASKIP),LENGTH=1\n         DFHMDF POS=(6,2),ATTRB=(ASKIP,NORM),LENGTH=12,                X\n               INITIAL='CUST NAME :'\nNAMEIN   DFHMDF POS=(6,15),ATTRB=(ASKIP,BRT),LENGTH=30\nCUSTSET  DFHMSD TYPE=FINAL\n         END\n```\n\n### 3. Replace Telon Runtime Calls with Native CICS Commands\nIn the COBOL program, replace the Telon driver invocation with native CICS statements:\n```cobol\n      * NATIVE CICS RECEIVE & SEND (NO TELON LICENSES REQUIRED)\n       EXEC CICS RECEIVE\n                 MAP('CUSTMAP')\n                 MAPSET('CUSTSET')\n                 INTO(CUSTMAPI)\n       END-EXEC.\n\n       MOVE CUST-NAME TO NAMEINO.\n\n       EXEC CICS SEND\n                 MAP('CUSTMAP')\n                 MAPSET('CUSTSET')\n                 FROM(CUSTMAPO)\n                 ERASE\n       END-EXEC.\n```\n\n### 4. Alternative: Direct Bridge to Modern Web (React / Vue)\nFor enterprises looking beyond green-screens, StackMF provides automated converters that translate BMS/Telon field layouts directly into JSON schemas and React UI component libraries!"
+}
+  </script>
+</head>
+<body class="min-h-screen relative antialiased selection:bg-neon-cyan selection:text-black">
+
+  <div class="fixed inset-0 cyber-grid pointer-events-none z-0"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-[#030712]/90 backdrop-blur-xl border-b border-white/10">
+    <div class="h-[2px] w-full bg-gradient-to-r from-neon-emerald via-neon-cyan to-neon-violet"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3.5 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-emerald via-neon-cyan to-neon-violet p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-[10px] flex items-center justify-center">
+            <span class="font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan text-lg">S/MF</span>
+          </div>
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight text-white block leading-none">Stack<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-emerald to-neon-cyan">MF</span></span>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-slate-400 block mt-1">Knowledge Base &bull; z/OS</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="/blog/" class="text-neon-cyan hover:text-white transition-colors flex items-center gap-1.5 font-bold">
+          <i class="fa-solid fa-book-open text-xs"></i> All Blogs
+        </a>
+        <a href="/#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Developers</a>
+        <a href="/#broadcom-replacement" class="hover:text-neon-amber transition-colors">Broadcom Replacement</a>
+        <a href="/#mainframe-modernization" class="hover:text-neon-cyan transition-colors">Modernization</a>
+        <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Architect</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-24">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-mono text-slate-400 mb-6 flex-wrap">
+      <a href="/" class="hover:text-white transition">Home</a>
+      <span>/</span>
+      <a href="/blog/" class="hover:text-white transition">Knowledge Base</a>
+      <span>/</span>
+      <span class="text-neon-cyan">Modernisation & Cloud</span>
+    </nav>
+
+    <!-- Header Badges -->
+    <div class="flex items-center gap-3 flex-wrap mb-4">
+      <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
+        Modernisation & Cloud
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-clock"></i> 11 min read
+      </span>
+      <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+        <i class="fa-regular fa-calendar"></i> 2026-09-27
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
+      De-supporting CA-Telon: Reverse Engineering Generated COBOL Screens into Pure CICS BMS Maps
+    </h1>
+
+    <!-- Author & Trust Pod -->
+    <div class="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-white/10 mb-8 flex-wrap gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon-emerald to-neon-cyan p-[2px]">
+          <div class="w-full h-full bg-[#030712] rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-server text-neon-emerald text-sm"></i>
+          </div>
+        </div>
+        <div>
+          <div class="text-sm font-bold text-white">StackMF Mainframe Architecture Pod</div>
+          <div class="text-xs font-mono text-slate-400">Principal Modernization & z/OS Systems Engineers</div>
+        </div>
+      </div>
+      <span class="inline-flex items-center gap-1.5 text-xs font-mono text-neon-emerald bg-neon-emerald/10 px-3 py-1 rounded-full border border-neon-emerald/30 font-semibold">
+        <i class="fa-solid fa-circle-check"></i> Verified Production Fix
+      </span>
+    </div>
+
+    <!-- TL;DR Box -->
+    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-emerald-950/40 border border-neon-cyan/30 shadow-xl mb-12">
+      <div class="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neon-cyan font-bold mb-2">
+        <i class="fa-solid fa-bolt"></i> Executive Summary / TL;DR
+      </div>
+      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+        CA-Telon is a legacy 4GL application generator that produces obfuscated COBOL and proprietary runtime dependencies. Discover strategies to de-support Telon, reverse-engineer screen formats into pure CICS Basic Mapping Support (BMS) or modern React front-ends.
+      </p>
+    </div>
+
+    <!-- Section 1: The Production Incident / Problem -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
+        The Real-World Developer Incident
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">An enterprise relies on hundreds of mission-critical customer service screens generated in the 1990s using CA-Telon. Broadcom support for Telon is costly and specialized skills are nearly extinct. When developers need to update a screen or comply with accessibility guidelines, they find the underlying COBOL code heavily obscured by Telon macro expansions and runtime drivers.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: Root Cause Mechanics -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm border border-amber-500/30">2</span>
+        Technical Root Cause & Architecture Mechanics
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">CA-Telon generated COBOL applications rely on proprietary runtime routines:</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">Telon Driver Architecture</strong>: Rather than calling standard CICS <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RECEIVE MAP</code> and <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SEND MAP</code> commands directly, Telon programs delegate execution to proprietary runtime modules (e.g., <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TLNMAIN</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TLNCICS</code>).</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Proprietary TDF Data Dictionaries</strong>: Application logic, field validations, and screen transitions are trapped inside proprietary Telon Development Facility (TDF) files.</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. <strong class="text-white font-semibold">Macro Obfuscation</strong>: The emitted COBOL contains hundreds of repetitive generated labels, cryptic working-storage copybooks (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TLNPCOMM</code>), and opaque internal pointer arrays that cannot be easily maintained by standard COBOL engineers.</p>
+      </div>
+    </section>
+
+    <!-- Section 3: Step-by-Step Resolution -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
+        Step-by-Step Production Resolution
+      </h2>
+      <div class="prose prose-invert max-w-none text-slate-300">
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Extract Screen Coordinates from Telon Panel Definitions</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Export the screen panel layout from the Telon catalog or capture the 3270 datastream to extract literal labels, input fields, attributes (protect, numeric, bright), and cursor positions.</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Generate Standard CICS BMS Macro Definition</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Convert the extracted panel into pure, vendor-neutral CICS Basic Mapping Support (BMS) assembler macros:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">assembler</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>* CICS BMS MAPSET DEFINITION - DECOUPLING FROM TELON
+CUSTSET  DFHMSD TYPE=&amp;SYSPARM,MODE=INOUT,LANG=COBOL,                   X
+               STORAGE=AUTO,TIOAPFX=YES
+CUSTMAP  DFHMDI SIZE=(24,80),CTRL=(FREEKB,FRSET)
+         DFHMDF POS=(1,28),ATTRB=(ASKIP,BRT),LENGTH=24,               X
+               INITIAL='CUSTOMER INQUIRY SYSTEM'
+         DFHMDF POS=(4,2),ATTRB=(ASKIP,NORM),LENGTH=12,                X
+               INITIAL='ACCOUNT NO:'
+ACCTIN   DFHMDF POS=(4,15),ATTRB=(UNPROT,NUM,IC),LENGTH=10
+         DFHMDF POS=(4,26),ATTRB=(ASKIP),LENGTH=1
+         DFHMDF POS=(6,2),ATTRB=(ASKIP,NORM),LENGTH=12,                X
+               INITIAL='CUST NAME :'
+NAMEIN   DFHMDF POS=(6,15),ATTRB=(ASKIP,BRT),LENGTH=30
+CUSTSET  DFHMSD TYPE=FINAL
+         END</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Replace Telon Runtime Calls with Native CICS Commands</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In the COBOL program, replace the Telon driver invocation with native CICS statements:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>* NATIVE CICS RECEIVE &amp; SEND (NO TELON LICENSES REQUIRED)
+       EXEC CICS RECEIVE
+                 MAP('CUSTMAP')
+                 MAPSET('CUSTSET')
+                 INTO(CUSTMAPI)
+       END-EXEC.
+
+       MOVE CUST-NAME TO NAMEINO.
+
+       EXEC CICS SEND
+                 MAP('CUSTMAP')
+                 MAPSET('CUSTSET')
+                 FROM(CUSTMAPO)
+                 ERASE
+       END-EXEC.</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Alternative: Direct Bridge to Modern Web (React / Vue)</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">For enterprises looking beyond green-screens, StackMF provides automated converters that translate BMS/Telon field layouts directly into JSON schemas and React UI component libraries!</p>
+      </div>
+    </section>
+
+    <!-- Section 4: Architectural Prevention & Tuning -->
+    <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-list-check text-neon-cyan"></i>
+        Architectural Prevention & Performance Tuning Checklist
+      </h3>
+      <ul class="space-y-3">
+        <li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>De-license CA-Telon runtime modules from CICS startup load libraries to eliminate recurrent fees.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Adopt modern API-first architectures using z/OS Connect rather than generating new 3270 screens.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Preserve original business validation rules when extracting logic from Telon generated COBOL.</span></li><li class="flex items-start gap-3 text-slate-200 text-sm sm:text-base"><i class="fa-solid fa-shield-halved text-neon-cyan mt-1 shrink-0"></i><span>Partner with StackMF's modernization pods to automate large-scale Telon de-supporting.</span></li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Authoritative Reference Links -->
+    <section class="mb-14">
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
+        <i class="fa-solid fa-graduation-cap text-neon-violet"></i>
+        Authoritative Reference Documentation
+      </h3>
+      <p class="text-sm text-slate-400 mb-4">
+        Explore more directly in official manuals, IBM Knowledge Center, and vendor technical advisories:
+      </p>
+      <ul class="space-y-3">
+        <li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">IBM CICS TS: Creating and Using BMS Maps</span>
+              </div>
+              <a href="https://www.ibm.com/docs/en/cics-ts/latest?topic=bms-basic-mapping-support" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">Broadcom Support: CA Telon Product Decommissioning Advisory</span>
+              </div>
+              <a href="https://support.broadcom.com" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li><li class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/10 hover:border-neon-cyan/40 transition group">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-book-bookmark text-neon-cyan group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-medium text-slate-200 group-hover:text-white">StackMF Enterprise Broadcom Replacement Program</span>
+              </div>
+              <a href="https://stackmf.com/#broadcom-replacement" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-neon-cyan hover:text-white flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 hover:bg-neon-cyan hover:text-black transition">
+                <span>Docs</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </li>
+      </ul>
+    </section>
+
+    <!-- Tags -->
+    <div class="pt-6 border-t border-white/10 flex items-center gap-2 flex-wrap mb-12">
+      <span class="text-xs font-mono text-slate-400 mr-2"><i class="fa-solid fa-tags"></i> Related Topics:</span>
+      <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Telon</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">CA-Telon</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">CICS BMS</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">COBOL</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Modernisation</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Broadcom Replacement</span>
+    </div>
+
+    <!-- Bottom Advisory Banner CTA -->
+    <div class="p-8 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-cyan-950/60 border border-neon-emerald/30 shadow-2xl relative overflow-hidden">
+      <div class="relative z-10">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/40 uppercase tracking-widest">
+          Enterprise Advisory
+        </span>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white mt-3 mb-2">
+          Struggling with Critical Mainframe Incidents or Vendor Renewal Pressure?
+        </h3>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+          StackMF deploys certified Senior Mainframe Engineers fluent in both z/OS legacy internals (COBOL, DB2, CICS, VSAM, CA-7, Endevor) and modern cloud stacks (React, Kafka, AWS, Git). Onboard dedicated pods in 48 hours or cut Broadcom licensing by 60%.
+        </p>
+        <div class="flex items-center gap-4 flex-wrap">
+          <a href="/#contact" class="px-6 py-3 rounded-xl text-sm font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all shadow-lg shadow-neon-emerald/20">
+            Request Architectural Assessment
+          </a>
+          <a href="/blog/" class="px-5 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white border border-white/10 hover:border-neon-cyan transition-all">
+            &larr; Browse All 25 Technical Deep Dives
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-[#02050c] text-slate-400 py-12 text-sm relative z-10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="font-mono text-xs text-slate-500 mb-2">
+        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization & Broadcom Replacement Pods.
+      </p>
+      <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
+        <a href="/" class="hover:text-neon-cyan">Home</a>
+        <span>&bull;</span>
+        <a href="/blog/" class="hover:text-neon-cyan">Knowledge Base</a>
+        <span>&bull;</span>
+        <a href="/#broadcom-replacement" class="hover:text-neon-cyan">Broadcom Replacement</a>
+        <span>&bull;</span>
+        <a href="/#contact" class="hover:text-neon-cyan">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

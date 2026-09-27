@@ -1,0 +1,79 @@
+{
+  "active": true,
+  "description": "StackMF Autonomous Daily Mainframe Engineering & Modernization Knowledge Base Agent",
+  "kill_switch_instruction": "To immediately pause or permanently halt automated daily blog publication, change 'active' to false or instruct the agent.",
+  "publish_schedule_utc": "06:00 UTC Daily",
+  "site_url": "https://stackmf.com",
+  "author": "StackMF Mainframe Architecture Pod",
+  "author_title": "Principal Mainframe Systems & Modernization Architects",
+  "free_tier_mode": true,
+  "categories": [
+    "ABENDS & Diagnostics",
+    "DB2 SQL & Performance",
+    "CICS & VSAM Architecture",
+    "Modernisation & Cloud",
+    "DevOps & Automation"
+  ],
+  "upcoming_queue": [
+    {
+      "slug": "cics-storage-violation-aica-runaway-task",
+      "category": "ABENDS & Diagnostics",
+      "tech": ["CICS TS", "COBOL", "Dump Analysis"],
+      "title": "Diagnosing CICS AICA (Runaway Task) and Storage Violations (Subpool Corruptions)"
+    },
+    {
+      "slug": "db2-rebind-stability-package-plan-switching",
+      "category": "DB2 SQL & Performance",
+      "tech": ["DB2 for z/OS", "Plan Management", "BIF"],
+      "title": "Mastering DB2 Package Plan Stability: Avoiding Access Path Regressions During REBIND"
+    },
+    {
+      "slug": "ims-db-pointer-corruption-hd-databases",
+      "category": "CICS & VSAM Architecture",
+      "tech": ["IMS DB", "HDAM/HIDAM", "Pointer Checker"],
+      "title": "Resolving Pointer Corruption and Broken Chains in IMS HDAM and HIDAM Databases"
+    },
+    {
+      "slug": "mainframe-to-snowflake-event-streaming-cdc",
+      "category": "Modernisation & Cloud",
+      "tech": ["Mainframe CDC", "Kafka", "Snowflake", "DB2"],
+      "title": "Real-Time Streaming from z/OS DB2 and VSAM to Snowflake Cloud Data Warehouse"
+    },
+    {
+      "slug": "replacing-file-aid-with-python-zowe-cli",
+      "category": "DevOps & Automation",
+      "tech": ["File-AID Replacement", "Zowe CLI", "Python", "VSAM"],
+      "title": "De-licensing BMC Compuware File-AID: Automating VSAM & QSAM Record Editing with Open Tooling"
+    },
+    {
+      "slug": "cobol-null-indicators-db2-host-variables",
+      "category": "DB2 SQL & Performance",
+      "tech": ["COBOL", "DB2", "SQLCODE -305"],
+      "title": "Handling DB2 SQLCODE -305: Null Indicator Variables in COBOL Working-Storage"
+    },
+    {
+      "slug": "ca-7-virtual-resource-management-vrm-contention",
+      "category": "DevOps & Automation",
+      "tech": ["CA-7", "VRM", "Workload Automation"],
+      "title": "Troubleshooting CA-7 Virtual Resource Management (VRM) Enqueue Locks and Depths"
+    },
+    {
+      "slug": "syncsort-dfsort-memory-tuning-hiperspaces",
+      "category": "ABENDS & Diagnostics",
+      "tech": ["DFSORT", "SyncSort", "I/O Compression"],
+      "title": "Compressing Batch Sort Windows: Tuning DFSORT Memory Objects, Hiperspaces & Dynamic Storage"
+    },
+    {
+      "slug": "cics-web-services-soap-to-rest-json-migration",
+      "category": "Modernisation & Cloud",
+      "tech": ["CICS TS", "SOAP", "REST", "JSON Parsing"],
+      "title": "Converting Deprecated CICS SOAP Web Services to JSON/REST APIs with Zero z/OS Recompilation"
+    },
+    {
+      "slug": "endevor-footprint-verification-cobol-load-modules",
+      "category": "DevOps & Automation",
+      "tech": ["Broadcom Endevor", "Footprint Analysis", "BC1PFP00"],
+      "title": "Auditing COBOL Load Module Footprints with BC1PFP00 to Detect Out-of-Synch Deployments"
+    }
+  ]
+}

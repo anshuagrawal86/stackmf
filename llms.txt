@@ -33,6 +33,11 @@ StackMF solves the enterprise "Mainframe Talent Cliff" by supplying elite engine
 - **Modern Tier**: TypeScript, React, Vue, Node.js, Python, Java Spring Boot, Go, Docker, Kubernetes, Apache Kafka, REST APIs, GraphQL.
 - **Enterprise DevOps**: Git, Zowe, Jenkins, GitHub Actions, Ansible for z/OS.
 
+
+## Mainframe Engineering Knowledge Base & Production Advisories
+StackMF publishes daily production troubleshooting guides, ABEND resolution runbooks, and performance tuning advisories for enterprise z/OS developers:
+- [Mainframe Knowledge Base Hub](https://stackmf.com/blog/): Curated deep dives covering COBOL, DB2, CICS, VSAM, IMS DB/DC, Telon, REXX, Endevor, ChangeMan, and CA-7.
+
 ## Contact & Inquiries
 - **Website**: https://stackmf.com
 - **Direct Engagement**: Request a Free TCO & Modernization Architecture Assessment on https://stackmf.com/#contact
