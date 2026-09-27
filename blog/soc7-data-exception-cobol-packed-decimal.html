@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Resolving ABEND S0C7 / SOC7 (Data Exception) in COBOL Packed-Decimal (COMP-3) | StackMF</title>
-  <meta name="title" content="Resolving ABEND S0C7 / SOC7 (Data Exception) in COBOL Packed-Decimal (COMP-3) | StackMF">
-  <meta name="description" content="ABEND S0C7 / SOC7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data in a COMP-3 field. Production runbook by StackMF.">
-  <meta name="keywords" content="soc7 abend stackmf, s0c7 abend stackmf, soc7 abend, s0c7 abend, COBOL, z/OS, S0C7, SOC7, COMP-3, CEEDUMP, Batch, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <title>Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields | StackMF</title>
+  <meta name="title" content="Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields | StackMF">
+  <meta name="description" content="ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.">
+  <meta name="keywords" content="COBOL, z/OS, S0C7, COMP-3, CEEDUMP, Batch, mainframe modernization, cobol abend, z/os debugging, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html">
@@ -15,16 +15,16 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html">
-  <meta property="og:title" content="Resolving ABEND S0C7 / SOC7 (Data Exception) in COBOL Packed-Decimal (COMP-3) | StackMF">
-  <meta property="og:description" content="ABEND S0C7 / SOC7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data in a COMP-3 field. Production runbook by StackMF.">
+  <meta property="og:title" content="Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields | StackMF">
+  <meta property="og:description" content="ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
   <meta property="article:section" content="ABENDS & Diagnostics">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Resolving ABEND S0C7 / SOC7 (Data Exception) in COBOL Packed-Decimal (COMP-3) | StackMF">
-  <meta name="twitter:description" content="ABEND S0C7 / SOC7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data in a COMP-3 field. Production runbook by StackMF.">
+  <meta name="twitter:title" content="Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields | StackMF">
+  <meta name="twitter:description" content="ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,7 +90,7 @@
       "description": "ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.",
       "url": "https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:36:14+00:00",
+      "dateModified": "2026-09-27T08:58:53+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html",
       "author": {
@@ -319,7 +319,7 @@
 
     <!-- Title -->
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
-      Resolving ABEND S0C7 / SOC7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields
+      Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields
     </h1>
 
     <!-- Author & Trust Pod -->
@@ -663,6 +663,20 @@ CEE3207S The system was unable to complete execution due to a data exception.
       <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">COBOL</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">z/OS</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">S0C7</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">COMP-3</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">CEEDUMP</span><span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/5 text-slate-300 border border-white/10">Batch</span>
     </div>
 
+    <!-- Section 9: Diagnostic Notice & Nominative Fair Use Disclaimer -->
+    <div class="my-10 p-5 rounded-2xl bg-[#060a14] border border-white/10 text-xs font-mono text-slate-400 space-y-2">
+      <div class="text-slate-300 font-bold flex items-center gap-2">
+        <i class="fa-solid fa-scale-balanced text-neon-cyan"></i>
+        <span>Diagnostic Runbook Notice &amp; Nominative Fair Use Disclaimer</span>
+      </div>
+      <p class="leading-relaxed">
+        This diagnostic runbook is published by StackMF Technologies LLP for educational and architectural reference only. All code snippets, JCL, and procedures are provided <strong>"AS IS"</strong> without warranty of any kind. Always test changes thoroughly in non-production sysplex environments prior to production rollout.
+      </p>
+      <p class="leading-relaxed text-[11px] text-slate-500">
+        IBM, z/OS, CICS, Db2, IMS, RACF, and IDz are registered trademarks of International Business Machines Corporation. Broadcom, CA-7, and Endevor are trademarks of Broadcom Inc. All other trademarks belong to their respective owners and are referenced under the Nominative Fair Use Doctrine (US Lanham Act 15 U.S.C. § 1125 / Section 30 of the Indian Trade Marks Act, 1999) solely for technology compatibility and diagnostic identification. StackMF Technologies LLP is an independent consulting entity not affiliated with or endorsed by these vendors. <a href="/legal.html" class="text-neon-cyan hover:underline font-semibold">View Full Legal &amp; IP Policy &rarr;</a>
+      </p>
+    </div>
+
     <!-- Bottom Advisory Banner CTA -->
     <div class="p-8 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-cyan-950/60 border border-neon-emerald/30 shadow-2xl relative overflow-hidden">
       <div class="relative z-10">
@@ -692,14 +706,17 @@ CEE3207S The system was unable to complete execution due to a data exception.
   <footer class="border-t border-white/10 bg-[#02050c] text-slate-400 py-12 text-sm relative z-10">
     <div class="max-w-7xl mx-auto px-4 text-center">
       <p class="font-mono text-xs text-slate-500 mb-2">
-        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization & Broadcom Replacement Pods.
+        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization &amp; Dual-Stack Pods.
+      </p>
+      <p class="font-mono text-[10px] text-slate-600 mb-4 max-w-2xl mx-auto">
+        IBM, z/OS, CICS, Db2, IMS, Broadcom, CA-7, Endevor, Control-M, Stonebranch, ChangeMan, and Zowe are trademarks of their respective owners, used under nominative fair use.
       </p>
       <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
         <a href="/" class="hover:text-neon-cyan">Home</a>
         <span>&bull;</span>
         <a href="/blog/" class="hover:text-neon-cyan">Knowledge Base</a>
         <span>&bull;</span>
-        <a href="/#broadcom-replacement" class="hover:text-neon-cyan">Broadcom Replacement</a>
+        <a href="/legal.html" class="text-neon-cyan hover:underline font-bold">Legal &amp; Trademarks</a>
         <span>&bull;</span>
         <a href="/#contact" class="hover:text-neon-cyan">Contact</a>
       </div>

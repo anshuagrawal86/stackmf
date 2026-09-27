@@ -611,6 +611,20 @@ def generate_article_page(article, all_articles):
       {tags_html}
     </div>
 
+    <!-- Section 9: Diagnostic Notice & Nominative Fair Use Disclaimer -->
+    <div class="my-10 p-5 rounded-2xl bg-[#060a14] border border-white/10 text-xs font-mono text-slate-400 space-y-2">
+      <div class="text-slate-300 font-bold flex items-center gap-2">
+        <i class="fa-solid fa-scale-balanced text-neon-cyan"></i>
+        <span>Diagnostic Runbook Notice &amp; Nominative Fair Use Disclaimer</span>
+      </div>
+      <p class="leading-relaxed">
+        This diagnostic runbook is published by StackMF Technologies LLP for educational and architectural reference only. All code snippets, JCL, and procedures are provided <strong>"AS IS"</strong> without warranty of any kind. Always test changes thoroughly in non-production sysplex environments prior to production rollout.
+      </p>
+      <p class="leading-relaxed text-[11px] text-slate-500">
+        IBM, z/OS, CICS, Db2, IMS, RACF, and IDz are registered trademarks of International Business Machines Corporation. Broadcom, CA-7, and Endevor are trademarks of Broadcom Inc. All other trademarks belong to their respective owners and are referenced under the Nominative Fair Use Doctrine (US Lanham Act 15 U.S.C. § 1125 / Section 30 of the Indian Trade Marks Act, 1999) solely for technology compatibility and diagnostic identification. StackMF Technologies LLP is an independent consulting entity not affiliated with or endorsed by these vendors. <a href="/legal.html" class="text-neon-cyan hover:underline font-semibold">View Full Legal &amp; IP Policy &rarr;</a>
+      </p>
+    </div>
+
     <!-- Bottom Advisory Banner CTA -->
     <div class="p-8 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-cyan-950/60 border border-neon-emerald/30 shadow-2xl relative overflow-hidden">
       <div class="relative z-10">
@@ -640,14 +654,17 @@ def generate_article_page(article, all_articles):
   <footer class="border-t border-white/10 bg-[#02050c] text-slate-400 py-12 text-sm relative z-10">
     <div class="max-w-7xl mx-auto px-4 text-center">
       <p class="font-mono text-xs text-slate-500 mb-2">
-        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization & Broadcom Replacement Pods.
+        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization &amp; Dual-Stack Pods.
+      </p>
+      <p class="font-mono text-[10px] text-slate-600 mb-4 max-w-2xl mx-auto">
+        IBM, z/OS, CICS, Db2, IMS, Broadcom, CA-7, Endevor, Control-M, Stonebranch, ChangeMan, and Zowe are trademarks of their respective owners, used under nominative fair use.
       </p>
       <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
         <a href="/" class="hover:text-neon-cyan">Home</a>
         <span>&bull;</span>
         <a href="/blog/" class="hover:text-neon-cyan">Knowledge Base</a>
         <span>&bull;</span>
-        <a href="/#broadcom-replacement" class="hover:text-neon-cyan">Broadcom Replacement</a>
+        <a href="/legal.html" class="text-neon-cyan hover:underline font-bold">Legal &amp; Trademarks</a>
         <span>&bull;</span>
         <a href="/#contact" class="hover:text-neon-cyan">Contact</a>
       </div>
@@ -887,14 +904,17 @@ def generate_blog_index(articles):
   <footer class="border-t border-white/10 bg-[#02050c] text-slate-400 py-12 text-sm relative z-10">
     <div class="max-w-7xl mx-auto px-4 text-center">
       <p class="font-mono text-xs text-slate-500 mb-2">
-        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization & Broadcom Replacement Pods.
+        &copy; 2026 StackMF Technologies LLP &bull; Enterprise Mainframe Modernization &amp; Broadcom Replacement Pods.
+      </p>
+      <p class="font-mono text-[10px] text-slate-600 mb-4 max-w-2xl mx-auto">
+        IBM, z/OS, CICS, Db2, IMS, Broadcom, CA-7, Endevor, Control-M, Stonebranch, ChangeMan, and Zowe are trademarks of their respective owners, used under nominative fair use.
       </p>
       <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
         <a href="/" class="hover:text-neon-cyan">Home</a>
         <span>&bull;</span>
         <a href="/blog/" class="hover:text-neon-cyan">Knowledge Base</a>
         <span>&bull;</span>
-        <a href="/#broadcom-replacement" class="hover:text-neon-cyan">Broadcom Replacement</a>
+        <a href="/legal.html" class="text-neon-cyan hover:underline font-bold">Legal &amp; Trademarks</a>
         <span>&bull;</span>
         <a href="/#contact" class="hover:text-neon-cyan">Contact</a>
       </div>
@@ -927,6 +947,12 @@ def update_sitemap(articles):
         f'    <lastmod>{today_iso}</lastmod>',
         '    <changefreq>daily</changefreq>',
         '    <priority>0.95</priority>',
+        '  </url>',
+        '  <url>',
+        f'    <loc>{SITE_URL}/legal.html</loc>',
+        f'    <lastmod>{today_iso}</lastmod>',
+        '    <changefreq>monthly</changefreq>',
+        '    <priority>0.70</priority>',
         '  </url>'
     ]
     
@@ -945,7 +971,7 @@ def update_sitemap(articles):
     
     with open(SITEMAP_FILE, 'w', encoding='utf-8') as f:
         f.write('\n'.join(xml_lines))
-    print(f"Generated clean sitemap.xml with {len(articles) + 2} canonical URLs (Zero illegal hash fragments).")
+    print(f"Generated clean sitemap.xml with {len(articles) + 3} canonical URLs (Zero illegal hash fragments).")
 
 def update_llms(articles):
     """Updates llms.txt and llms-full.txt to reference the blog repository."""
@@ -966,6 +992,7 @@ def update_llms(articles):
 - [Interactive Pod Builder & ROI Configurator](https://stackmf.com/#team-builder): Real-time velocity and cost savings modeling.
 - [Broadcom TCO Savings Calculator](https://stackmf.com/#tco-calculator): Interactive ROI calculation tool.
 - [Live z/OS CLI Console Simulator](https://stackmf.com/#terminal-section): Terminal simulator for z/OS commands.
+- [Legal, Nominative Fair Use & Disclaimers](https://stackmf.com/legal.html): Statutory compliance, IP notices, and IT Act Grievance details.
 
 ## Production Mainframe Troubleshooting Index ({len(articles)} Runbooks)
 """

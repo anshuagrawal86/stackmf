@@ -13,6 +13,7 @@
 - [Interactive Pod Builder & ROI Configurator](https://stackmf.com/#team-builder): Real-time velocity and cost savings modeling.
 - [Broadcom TCO Savings Calculator](https://stackmf.com/#tco-calculator): Interactive ROI calculation tool.
 - [Live z/OS CLI Console Simulator](https://stackmf.com/#terminal-section): Terminal simulator for z/OS commands.
+- [Legal, Nominative Fair Use & Disclaimers](https://stackmf.com/legal.html): Statutory compliance, IP notices, and IT Act Grievance details.
 
 ## Production Mainframe Troubleshooting Index (78 Runbooks)
 - [Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields Fix](https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html): ABEND S0C7 occurs when an arithmetic statement or NUMERIC test encounters invalid packed-decimal data (such as uninitialized spaces X'4040' or low-values X'0000') in a COMP-3 field without a valid nibble sign (C, D, or F). Fix it using INITIALIZE, defensive NUMERIC checks, and proper compiler options.
