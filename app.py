@@ -22,6 +22,12 @@ def sitemap():
     """Serves search engine sitemap."""
     return send_from_directory('.', 'sitemap.xml', mimetype='application/xml')
 
+@app.route('/legal')
+@app.route('/legal.html')
+def legal():
+    """Serves statutory legal, IP compliance, and nominative fair use documentation."""
+    return send_from_directory('.', 'legal.html')
+
 @app.route('/google<token>.html')
 def serve_google_verification(token):
     """Serves Google Search Console HTML verification file."""
