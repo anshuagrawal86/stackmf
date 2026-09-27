@@ -22,15 +22,10 @@ def sitemap():
     """Serves search engine sitemap."""
     return send_from_directory('.', 'sitemap.xml', mimetype='application/xml')
 
-@app.route('/llms.txt')
-def llms_txt():
-    """Serves AI engine knowledge specification (Perplexity, ChatGPT, Claude)."""
-    return send_from_directory('.', 'llms.txt', mimetype='text/plain; charset=utf-8')
-
-@app.route('/llms-full.txt')
-def llms_full_txt():
-    """Serves deep LLM technical graph and migration specification."""
-    return send_from_directory('.', 'llms-full.txt', mimetype='text/plain; charset=utf-8')
+@app.route('/<filename>.txt')
+def serve_txt(filename):
+    """Serves root text files like llms.txt, robots.txt, IndexNow verification keys."""
+    return send_from_directory('.', f'{filename}.txt', mimetype='text/plain; charset=utf-8')
 
 @app.route('/healthz')
 def healthz():
