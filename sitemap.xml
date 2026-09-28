@@ -5,19 +5,19 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://stackmf.com/</loc>
-    <lastmod>2026-09-27T08:58:53+00:00</lastmod>
+    <lastmod>2026-09-28T04:30:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/</loc>
-    <lastmod>2026-09-27T08:58:53+00:00</lastmod>
+    <lastmod>2026-09-28T04:30:55+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://stackmf.com/legal.html</loc>
-    <lastmod>2026-09-27T08:58:53+00:00</lastmod>
+    <lastmod>2026-09-28T04:30:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Resolving IMS DB/DC U0777 and U0778 Deadlocks in Fast Path & Full-Function Databases | StackMF</title>
-  <meta name="title" content="Resolving IMS DB/DC U0777 and U0778 Deadlocks in Fast Path & Full-Function Databases | StackMF">
+  <title>IMS DB/DC U0777 and U0778 Deadlocks in Fast Path | StackMF</title>
+  <meta name="title" content="IMS DB/DC U0777 and U0778 Deadlocks in Fast Path | StackMF">
   <meta name="description" content="IMS U0777 and U0778 pseudo-abends occur when two concurrent Message Processing Programs (MPP) or BMP batch jobs deadlock while competing for database segments or Fast Path DEDB control intervals. Learn lock sequence structuring, commit strategies, and lock timeout tuning.">
-  <meta name="keywords" content="IMS DB, IMS DC, U0777, U0778, DL/I, Fast Path, Deadlocks, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="IMS DB, IMS DC, U0777, U0778, DL/I, Fast Path, Deadlocks, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/u0778-u0777-ims-dc-deadlock-resolution.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/u0778-u0777-ims-dc-deadlock-resolution.html">
-  <meta property="og:title" content="Resolving IMS DB/DC U0777 and U0778 Deadlocks in Fast Path & Full-Function Databases | StackMF">
+  <meta property="og:title" content="IMS DB/DC U0777 and U0778 Deadlocks in Fast Path | StackMF">
   <meta property="og:description" content="IMS U0777 and U0778 pseudo-abends occur when two concurrent Message Processing Programs (MPP) or BMP batch jobs deadlock while competing for database segments or Fast Path DEDB control intervals. Learn lock sequence structuring, commit strategies, and lock timeout tuning.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Resolving IMS DB/DC U0777 and U0778 Deadlocks in Fast Path & Full-Function Databases | StackMF">
+  <meta name="twitter:title" content="IMS DB/DC U0777 and U0778 Deadlocks in Fast Path | StackMF">
   <meta name="twitter:description" content="IMS U0777 and U0778 pseudo-abends occur when two concurrent Message Processing Programs (MPP) or BMP batch jobs deadlock while competing for database segments or Fast Path DEDB control intervals. Learn lock sequence structuring, commit strategies, and lock timeout tuning.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "IMS U0777 and U0778 pseudo-abends occur when two concurrent Message Processing Programs (MPP) or BMP batch jobs deadlock while competing for database segments or Fast Path DEDB control intervals. Learn lock sequence structuring, commit strategies, and lock timeout tuning.",
       "url": "https://stackmf.com/blog/u0778-u0777-ims-dc-deadlock-resolution.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/u0778-u0777-ims-dc-deadlock-resolution.html",
       "author": {
@@ -118,8 +118,8 @@
         "DL/I",
         "Fast Path",
         "Deadlocks",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -366,21 +366,7 @@
         Incident Symptoms: What Triggers Resolving IMS DB/DC U0777 and U0778 Deadlocks in Fast Path & Full-Function Databases?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">High-concurrency IMS online message processing programs (MPP) terminate with:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DFS554A JOBMPP01 STEP010 TRANS TXINV1 ABEND U0778
-DFS555I TRANSACTION TXINV1 TERMINATED WITH REASON CODE 00000000</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In batch message processing (BMP) jobs, steps fail with <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ABEND=U0777</code>, requiring operator intervention to requeue input messages or restart the database block.</p>
+        None
       </div>
     </section>
 
@@ -391,12 +377,7 @@ DFS555I TRANSACTION TXINV1 TERMINATED WITH REASON CODE 00000000</code></pre>
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In IBM IMS Database Manager:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">U0777 (Pseudo-Abend)</strong>: Indicates a database deadlock between two or more application programs contending for the same DL/I database segment, buffer, or Fast Path DEDB Control Interval. IMS dynamically terminates one of the tasks (the 'victim'), rolls back uncommitted changes to the last syncpoint, and automatically requeues the input transaction message for retry up to the system limit.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">U0778 (Unsuccessful Retry / Deadlock Exceeded)</strong>: Occurs when an MPP transaction repeatedly hits a deadlock condition during automatic retry attempts or when a BMP program deadlocks without commit syncpoint restart capability.</span></li>
-</ul>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Deadlocks occur when Program A locks Segment 1 and requests Segment 2, while Program B locks Segment 2 and requests Segment 1.</p>
+        None
       </div>
     </section>
 
@@ -407,71 +388,7 @@ DFS555I TRANSACTION TXINV1 TERMINATED WITH REASON CODE 00000000</code></pre>
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Enforce Consistent Root-Key Access Order</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">All programs accessing multiple database records or segments must access keys in strictly ascending alphanumeric sequence:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>* BAD: Updating accounts in random order received from web payload
-      * GOOD: Sort input keys before issuing DL/I calls
-       PERFORM VARYING WS-IDX FROM 1 BY 1 UNTIL WS-IDX &gt; WS-COUNT
-           MOVE WS-SORTED-ACCT(WS-IDX) TO DB-ACCT-KEY
-           CALL 'CBLTDLI' USING GHU
-                                ACCOUNT-PCB
-                                ACCOUNT-SEGMENT
-                                ACCOUNT-SSA
-           PERFORM 2000-PROCESS-UPDATE
-           CALL 'CBLTDLI' USING REPL
-                                ACCOUNT-PCB
-                                ACCOUNT-SEGMENT
-       END-PERFORM.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Implement Frequent CHKP (Checkpoints) in BMPs</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Batch BMP jobs holding locks for thousands of records starve MPPs. Insert periodic checkpoint calls:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>ADD 1 TO WS-TX-COUNT
-       IF WS-TX-COUNT &gt; 500
-           CALL 'CBLTDLI' USING CHKP
-                                CHKP-PCB
-                                CHKP-LEN
-                                CHKP-ID
-           MOVE 0 TO WS-TX-COUNT
-       END-IF.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Tune IRLM Lock Timeouts</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">For Full-Function databases utilizing IRLM (Internal Resource Lock Manager), adjust the lock timeout parameter in <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">BPECFG</code> / <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">IRLMPROC</code>:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DEADLOK=(1,5)</code></pre>
-        </div>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>First parameter (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">1</code> sec): Frequency of local deadlock cycle detection.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Second parameter (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">5</code> cycles): Global sysplex deadlock sweep interval.</span></li>
-</ul>
+        None
       </div>
     </section>
 

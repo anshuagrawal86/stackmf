@@ -88,7 +88,72 @@ def markdown_to_html(md_text):
     for idx, block in enumerate(code_blocks):
         html_out = html_out.replace(f'<!--CODE_BLOCK_{idx}-->', block)
 
-    return html_out
+def optimize_seo_title(article):
+    """
+    Produces front-loaded, exact-match SEO title tags (< 60 chars)
+    that prioritize high-volume developer search queries (S0C7, S0C4, SQLCODE, etc.).
+    """
+    clean = article['title'].strip()
+    slug = article['slug'].lower()
+    
+    if "soc7" in slug or "s0c7" in clean.lower():
+        return "S0C7 / SOC7 ABEND Fix: COBOL Data Exception (COMP-3) | StackMF"
+    if "soc4" in slug or "s0c4" in clean.lower():
+        return "S0C4 / SOC4 ABEND Fix: Protection Exception & Linkage Pointers | StackMF"
+    if "soc1" in slug or "s0c1" in clean.lower():
+        return "S0C1 / SOC1 ABEND Fix: Operation Exception & Unresolved Calls | StackMF"
+    if "sb37" in slug or "b37" in clean.lower() or "d37" in clean.lower():
+        return "Sx37 Out-of-Space ABEND Fix: B37, D37, E37 Resolution | StackMF"
+    if "asra" in slug:
+        return "CICS ASRA ABEND Fix: Program Check & Memory Overwrite | StackMF"
+    if "aica" in slug:
+        return "CICS AICA ABEND Fix: Runaway Task & Storage Violations | StackMF"
+    if "911" in slug or "904" in slug:
+        return "DB2 SQLCODE -911 & -904 Fix: Deadlocks & Timeouts | StackMF"
+    if "status-92" in slug:
+        return "VSAM File Status 92 & 93 Fix: Dynamic Allocation Conflicts | StackMF"
+    if "status-35" in slug:
+        return "VSAM File Status 35 Fix: File Not Found & JCL DD Miss | StackMF"
+    if "ca7" in slug or "ca-7" in slug:
+        return "CA-7 Migration Guide: Modernizing to Stonebranch & Control-M | StackMF"
+    if "endevor" in slug:
+        return "Broadcom Endevor to Git Migration: Modern DevOps Guide | StackMF"
+
+    for prefix in ["Resolving ABEND ", "Resolving ", "Diagnosing ", "Mastering ", "Demystifying ", "Comprehensive Guide to ", "Complete Guide: "]:
+        if clean.startswith(prefix):
+            clean = clean[len(prefix):]
+            break
+
+    brand = " | StackMF"
+    max_len = 60 - len(brand)
+    if len(clean) > max_len:
+        clean = clean[:max_len].rsplit(' ', 1)[0]
+
+    return f"{clean}{brand}"
+
+def get_article_keywords(article):
+    """Generates rich exact-match keyword variations and technical synonyms for search engines."""
+    kw = list(article.get('tags', []))
+    slug = article['slug'].lower()
+    title_lower = article['title'].lower()
+
+    if "soc7" in slug or "s0c7" in title_lower:
+        kw.extend(["S0C7", "SOC7", "0C7", "abend s0c7", "abend 0c7", "data exception", "CEE3207S", "COMP-3", "packed decimal", "NUMVAL"])
+    elif "soc4" in slug or "s0c4" in title_lower:
+        kw.extend(["S0C4", "SOC4", "0C4", "abend s0c4", "protection exception", "linkage section", "addressing exception", "BASSM"])
+    elif "soc1" in slug or "s0c1" in title_lower:
+        kw.extend(["S0C1", "SOC1", "0C1", "operation exception", "unresolved call", "missing module"])
+    elif "911" in slug or "904" in slug:
+        kw.extend(["SQLCODE -911", "SQLCODE -904", "DB2 deadlock", "resource unavailable", "00C90088", "DSNT408I"])
+    elif "vsam" in slug:
+        kw.extend(["VSAM", "file status 92", "file status 93", "file status 35", "IDC3009I", "dynamic allocation", "VERIFY"])
+    elif "ca7" in slug or "ca-7" in slug:
+        kw.extend(["CA-7", "CA 7", "Stonebranch", "Control-M", "SASSSB01", "workload automation"])
+    elif "endevor" in slug:
+        kw.extend(["Endevor", "CA Endevor", "Git", "Zowe", "IBM DBB", "BC1PFP00", "SCM migration"])
+
+    kw.extend(["IBM z/OS", "mainframe modernization", "production troubleshooting", "stackmf"])
+    return list(dict.fromkeys(kw))
 
 def build_schema_graph(article, article_url, related_articles):
     """Builds a rich, multi-entity linked Schema.org @graph including TechArticle, HowTo, FAQPage, and BreadcrumbList."""
@@ -153,7 +218,7 @@ def build_schema_graph(article, article_url, related_articles):
                     "url": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=192,h=192,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png"
                 }
             },
-            "keywords": article['tags'] + ["mainframe modernization", "IBM z/OS", "production troubleshooting", "stackmf"],
+            "keywords": get_article_keywords(article),
             "about": [{"@type": "Thing", "name": t} for t in article['tags']]
         },
         {
@@ -283,10 +348,20 @@ def generate_article_page(article, all_articles):
     article_url = f"{SITE_URL}/blog/{article['slug']}.html"
     schema_json = build_schema_graph(article, article_url, selected_related)
 
-    # SEO Title
-    seo_title = f"{article['title']} Fix | StackMF"
-    if len(seo_title) > 68:
-        seo_title = f"{article['title']} | StackMF"
+    # High-ranking exact-match SEO Title & Keywords
+    seo_title = optimize_seo_title(article)
+    article_keywords = ", ".join(get_article_keywords(article))
+
+    display_h1 = article['title']
+    slug_lower = article['slug'].lower()
+    if "soc7" in slug_lower or "s0c7" in slug_lower:
+        display_h1 = "S0C7 / SOC7 ABEND: Resolving Data Exception in COBOL Packed-Decimal (COMP-3)"
+    elif "soc4" in slug_lower or "s0c4" in slug_lower:
+        display_h1 = "S0C4 / SOC4 ABEND: Resolving Protection Exception & Linkage Pointers"
+    elif "soc1" in slug_lower or "s0c1" in slug_lower:
+        display_h1 = "S0C1 / SOC1 ABEND: Resolving Operation Exception & Missing Modules"
+    elif "sb37" in slug_lower or "b37" in slug_lower:
+        display_h1 = "Sx37 (B37 / D37 / E37) ABEND: Resolving Disk Dataset Out-of-Space Errors"
 
     return f'''<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -297,7 +372,7 @@ def generate_article_page(article, all_articles):
   <title>{seo_title}</title>
   <meta name="title" content="{seo_title}">
   <meta name="description" content="{article['tldr']}">
-  <meta name="keywords" content="{", ".join(article["tags"])}, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="{article_keywords}">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="{article_url}">
@@ -428,7 +503,7 @@ def generate_article_page(article, all_articles):
 
     <!-- Title -->
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
-      {article['title']}
+      {display_h1}
     </h1>
 
     <!-- Author & Trust Pod -->

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1) | StackMF</title>
-  <meta name="title" content="Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1) | StackMF">
+  <title>Migrating CA-Easytrieve Plus to COBOL using IBM | StackMF</title>
+  <meta name="title" content="Migrating CA-Easytrieve Plus to COBOL using IBM | StackMF">
   <meta name="description" content="Eliminate expensive Broadcom Easytrieve Plus software licenses by converting legacy EZT programs into standard Enterprise COBOL using IBM Migration Utility (IMU). Learn how to set up the FSCCL1 translator step, configure EZPARAMS, and verify bit-for-bit output parity.">
-  <meta name="keywords" content="Easytrieve, IBM Migration Utility, IMU, COBOL, Broadcom Replacement, FSCCL1, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Easytrieve, IBM Migration Utility, IMU, COBOL, Broadcom Replacement, FSCCL1, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/ezt-to-imu-automated-migration-guide.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/ezt-to-imu-automated-migration-guide.html">
-  <meta property="og:title" content="Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1) | StackMF">
+  <meta property="og:title" content="Migrating CA-Easytrieve Plus to COBOL using IBM | StackMF">
   <meta property="og:description" content="Eliminate expensive Broadcom Easytrieve Plus software licenses by converting legacy EZT programs into standard Enterprise COBOL using IBM Migration Utility (IMU). Learn how to set up the FSCCL1 translator step, configure EZPARAMS, and verify bit-for-bit output parity.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1) | StackMF">
+  <meta name="twitter:title" content="Migrating CA-Easytrieve Plus to COBOL using IBM | StackMF">
   <meta name="twitter:description" content="Eliminate expensive Broadcom Easytrieve Plus software licenses by converting legacy EZT programs into standard Enterprise COBOL using IBM Migration Utility (IMU). Learn how to set up the FSCCL1 translator step, configure EZPARAMS, and verify bit-for-bit output parity.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Eliminate expensive Broadcom Easytrieve Plus software licenses by converting legacy EZT programs into standard Enterprise COBOL using IBM Migration Utility (IMU). Learn how to set up the FSCCL1 translator step, configure EZPARAMS, and verify bit-for-bit output parity.",
       "url": "https://stackmf.com/blog/ezt-to-imu-automated-migration-guide.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/ezt-to-imu-automated-migration-guide.html",
       "author": {
@@ -117,8 +117,8 @@
         "COBOL",
         "Broadcom Replacement",
         "FSCCL1",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Migrating CA-Easytrieve Plus to COBOL using IBM Migration Utility (IMU / FSCCL1)?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Enterprises paying millions annually in Broadcom software renewals discover hundreds of legacy CA-Easytrieve Plus programs embedded in critical nightly batch extraction pipelines. Because Easytrieve is an interpreted or proprietary-compiled language, removing the Broadcom runtime causes jobs executing PGM=EZTPA00 to fail with ABEND S806 (Module Not Found).</p>
+        None
       </div>
     </section>
 
@@ -372,13 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">CA-Easytrieve Plus relies on proprietary macros, file control tables, and runtime dynamic link modules (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EZTPA00</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EZTPX01</code>).</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">IBM Migration Utility (IMU / product 5655-MGM) provides a transparent source-to-source compiler:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>IMU preprocessor <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FSCCL1</code> translates Easytrieve statements (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">JOB INPUT</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PRINT</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">REPORT</code>) into standard Enterprise COBOL source code.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The emitted COBOL is compiled with <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">IGYCRCTL</code> and linked into standard z/OS executable load modules.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Jobs run at native machine speed, completely bypassing Easytrieve runtime licenses while slashing CPU consumption up to 25%.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -389,83 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Configure the IMU Translation JCL Step</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Replace the legacy <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXEC PGM=EZTPA00</code> with the standard IMU conversion cataloged procedure (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FSCASAP</code>):</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//STEP1    EXEC PGM=FSCCL1,
-//  PARM='LIST,SOURCE,NODECK,NOTEST,NOMAP,FLAG(I)'
-//STEPLIB  DD DSN=SYS1.IMU.SFSCLLMD,DISP=SHR
-//SYSIN    DD DSN=PROD.EZT.SRCLIB(REPORT01),DISP=SHR
-//SYSOUT   DD SYSOUT=*
-//FSCCOBOL DD DSN=&amp;&amp;COBSRCE,DISP=(NEW,PASS),
-//            SPACE=(CYL,(5,2)),UNIT=SYSDA,
-//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=27920)
-//FSCDMSG  DD SYSOUT=*
-//SYSERRS  DD SYSOUT=*</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Configure EZPARAMS Translation Rules</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Customize the IMU translation table (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EZPARAMS</code>) to ensure compatibility:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>* IMU EZPARAMS CONFIGURATION
-COLLSEQ=EBCDIC
-DOWHILE=NATIVE
-EASYTRAN=YES
-SQLMODE=BIND
-PAGESIZE=060
-LINESIZE=132
-AUTOCB=YES</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Compile and Link the Emitted COBOL</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Pass <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">&&COBSRCE</code> to standard Enterprise COBOL compiler:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//COBSTEP  EXEC PGM=IGYCRCTL,PARM='OPT(2),ARCH(14)'
-//SYSIN    DD DSN=&amp;&amp;COBSRCE,DISP=(OLD,DELETE)
-//SYSLIN   DD DSN=&amp;&amp;LOADSET,DISP=(MOD,PASS),SPACE=(CYL,(2,1))</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Execute the Converted Native Load Module</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Run the compiled application without any Broadcom software active:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//RUNSTEP  EXEC PGM=REPORT01
-//STEPLIB  DD DSN=PROD.CONVERTED.LOADLIB,DISP=SHR
-//SYSUT1   DD DSN=PROD.INVOICE.INPUT,DISP=SHR
-//SYSPRINT DD SYSOUT=*</code></pre>
-        </div>
+        None
       </div>
     </section>
 

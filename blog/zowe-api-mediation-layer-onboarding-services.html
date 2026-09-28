@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery | StackMF</title>
-  <meta name="title" content="Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery | StackMF">
+  <title>Onboarding Custom Mainframe REST Services to Zowe | StackMF</title>
+  <meta name="title" content="Onboarding Custom Mainframe REST Services to Zowe | StackMF">
   <meta name="description" content="The Zowe API Mediation Layer (APIML) provides a central enterprise gateway, SSO, and service discovery for all mainframe REST APIs. Learn how to onboard custom z/OS Connect or Java Spring Boot services using Netflix Eureka registration and Swagger/OpenAPI schemas.">
-  <meta name="keywords" content="Zowe, APIML, REST API, Eureka, API Gateway, Modernisation, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Zowe, APIML, REST API, Eureka, API Gateway, Modernisation, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/zowe-api-mediation-layer-onboarding-services.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/zowe-api-mediation-layer-onboarding-services.html">
-  <meta property="og:title" content="Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery | StackMF">
+  <meta property="og:title" content="Onboarding Custom Mainframe REST Services to Zowe | StackMF">
   <meta property="og:description" content="The Zowe API Mediation Layer (APIML) provides a central enterprise gateway, SSO, and service discovery for all mainframe REST APIs. Learn how to onboard custom z/OS Connect or Java Spring Boot services using Netflix Eureka registration and Swagger/OpenAPI schemas.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery | StackMF">
+  <meta name="twitter:title" content="Onboarding Custom Mainframe REST Services to Zowe | StackMF">
   <meta name="twitter:description" content="The Zowe API Mediation Layer (APIML) provides a central enterprise gateway, SSO, and service discovery for all mainframe REST APIs. Learn how to onboard custom z/OS Connect or Java Spring Boot services using Netflix Eureka registration and Swagger/OpenAPI schemas.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "The Zowe API Mediation Layer (APIML) provides a central enterprise gateway, SSO, and service discovery for all mainframe REST APIs. Learn how to onboard custom z/OS Connect or Java Spring Boot services using Netflix Eureka registration and Swagger/OpenAPI schemas.",
       "url": "https://stackmf.com/blog/zowe-api-mediation-layer-onboarding-services.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/zowe-api-mediation-layer-onboarding-services.html",
       "author": {
@@ -117,8 +117,8 @@
         "Eureka",
         "API Gateway",
         "Modernisation",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Onboarding Custom Mainframe REST Services to Zowe API Mediation Layer (APIML) with Eureka Discovery?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Enterprises building dozens of microservices on z/OS find their cloud developers overwhelmed by fragmented mainframe endpoints, multiple port numbers, varying authentication methods, and lack of dynamic failover.</p>
+        None
       </div>
     </section>
 
@@ -372,13 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Individual mainframe subsystems (z/OSMF, z/OS Connect, CICS, IMS Mobile) run on disparate TCP ports with differing security schemes.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The <strong class="text-white font-semibold">Zowe API Mediation Layer (APIML)</strong> implements an enterprise API Gateway based on Spring Cloud Gateway and Netflix Eureka:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Provides a single secure entry point (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">https://mainframe-gateway:7554/api/v1/...</code>).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Validates enterprise tokens (JWT / RACF passTickets) once at the perimeter.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Auto-discovers active backend service instances dynamically.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -389,66 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Create the Service Onboarding Configuration (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">api-defs.yml</code>)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Define your service metadata:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">yaml</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>serviceId: banking-core-service
-title: Enterprise Core Banking REST API
-description: Real-time accounts, ledger posting, and card transactions via CICS &amp; DB2
-instance:
-  homePageUrl: https://zsys1.stackmf.internal:10443/
-  statusPageUrl: https://zsys1.stackmf.internal:10443/status
-  healthCheckUrl: https://zsys1.stackmf.internal:10443/healthz
-routedServices:
-  - gatewayUrl: api/v1/banking
-    serviceUrl: /api/v1
-routes:
-  - gatewayUrl: api/v1/banking
-    serviceUrl: /api/v1
-apiInfo:
-  - version: 1.0.0
-    swaggerUrl: https://zsys1.stackmf.internal:10443/swagger/v3/api-docs
-authentication:
-  scheme: httpBasicPassTicket
-  applid: CICSPROD</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Register Service with the Zowe Discovery Service</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Post the registration payload to APIML Discovery Service:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>curl -X POST https://apiml.stackmf.internal:7553/eureka/apps/BANKING-CORE-SERVICE      -H "Content-Type: application/json"      -d @api-defs.json</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Invoke Service via Unified APIML Gateway</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Cloud clients now invoke the API via standard HTTPS:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>curl -X GET https://apiml.stackmf.internal:7554/banking-core-service/api/v1/accounts/49201      -H "Authorization: Bearer &lt;ZOWE_JWT_TOKEN&gt;"</code></pre>
-        </div>
+        None
       </div>
     </section>
 

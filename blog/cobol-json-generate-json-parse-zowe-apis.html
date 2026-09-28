@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Native JSON Parsing and Generation in Enterprise COBOL 6.x for Modern REST Gateways | StackMF</title>
-  <meta name="title" content="Native JSON Parsing and Generation in Enterprise COBOL 6.x for Modern REST Gateways | StackMF">
+  <title>Native JSON Parsing and Generation in Enterprise | StackMF</title>
+  <meta name="title" content="Native JSON Parsing and Generation in Enterprise | StackMF">
   <meta name="description" content="Eliminate middleware gateways. Discover how to use Enterprise COBOL 6.x native JSON GENERATE and JSON PARSE statements to consume and emit UTF-8 JSON payloads directly inside z/OS batch and CICS programs.">
-  <meta name="keywords" content="COBOL 6.x, JSON PARSE, JSON GENERATE, REST API, Modernisation, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="COBOL 6.x, JSON PARSE, JSON GENERATE, REST API, Modernisation, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/cobol-json-generate-json-parse-zowe-apis.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/cobol-json-generate-json-parse-zowe-apis.html">
-  <meta property="og:title" content="Native JSON Parsing and Generation in Enterprise COBOL 6.x for Modern REST Gateways | StackMF">
+  <meta property="og:title" content="Native JSON Parsing and Generation in Enterprise | StackMF">
   <meta property="og:description" content="Eliminate middleware gateways. Discover how to use Enterprise COBOL 6.x native JSON GENERATE and JSON PARSE statements to consume and emit UTF-8 JSON payloads directly inside z/OS batch and CICS programs.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Native JSON Parsing and Generation in Enterprise COBOL 6.x for Modern REST Gateways | StackMF">
+  <meta name="twitter:title" content="Native JSON Parsing and Generation in Enterprise | StackMF">
   <meta name="twitter:description" content="Eliminate middleware gateways. Discover how to use Enterprise COBOL 6.x native JSON GENERATE and JSON PARSE statements to consume and emit UTF-8 JSON payloads directly inside z/OS batch and CICS programs.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Eliminate middleware gateways. Discover how to use Enterprise COBOL 6.x native JSON GENERATE and JSON PARSE statements to consume and emit UTF-8 JSON payloads directly inside z/OS batch and CICS programs.",
       "url": "https://stackmf.com/blog/cobol-json-generate-json-parse-zowe-apis.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/cobol-json-generate-json-parse-zowe-apis.html",
       "author": {
@@ -116,8 +116,8 @@
         "JSON GENERATE",
         "REST API",
         "Modernisation",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -356,7 +356,7 @@
         Incident Symptoms: What Triggers Native JSON Parsing and Generation in Enterprise COBOL 6.x for Modern REST Gateways?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A modern microservice sends JSON payloads to a mainframe banking service. Developers previously wrote hundreds of lines of brittle substring parsing code to extract customer values from the text string, causing production crashes whenever JSON key order varied.</p>
+        None
       </div>
     </section>
 
@@ -367,12 +367,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">JSON is hierarchical and variable-length, while COBOL relies on fixed-width structures.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In <strong class="text-white font-semibold">Enterprise COBOL 6.2+</strong>:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The compiler includes native statements: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">JSON PARSE</code> and <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">JSON GENERATE</code>.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Automatically maps JSON objects and arrays into COBOL group items and <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">OCCURS</code> tables with full Unicode UTF-8 and EBCDIC conversion.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -383,78 +378,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Define the COBOL Data Structure</h3>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>01  CUSTOMER-PAYLOAD.
-           05  ACCOUNT-ID       PIC X(10).
-           05  CUSTOMER-NAME    PIC X(30).
-           05  BALANCE          PIC S9(7)V99 COMP-3.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Parse Incoming JSON String into COBOL</h3>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>JSON PARSE WS-JSON-INPUT INTO CUSTOMER-PAYLOAD
-           WITH DETAIL
-           NAME OF ACCOUNT-ID IS 'accountId'
-                   CUSTOMER-NAME IS 'name'
-                   BALANCE IS 'balance'
-           ON EXCEPTION
-               DISPLAY 'JSON Parse Failed! Code: ' XML-CODE
-               PERFORM 9900-HANDLE-JSON-ERROR
-           NOT ON EXCEPTION
-               PERFORM 2000-PROCESS-DATA
-       END-JSON.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Generate JSON Output from COBOL Structure</h3>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>JSON GENERATE WS-JSON-OUTPUT FROM CUSTOMER-PAYLOAD
-           NAME OF ACCOUNT-ID IS 'accountId'
-                   CUSTOMER-NAME IS 'name'
-                   BALANCE IS 'balance'
-           COUNT IN WS-CHAR-COUNT
-           ON EXCEPTION
-               PERFORM 9900-HANDLE-GEN-ERROR
-       END-JSON.</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Result in <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">WS-JSON-OUTPUT</code>:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">json</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>{"accountId":"ACC-90214","name":"ACME CORP","balance":14250.75}</code></pre>
-        </div>
+        None
       </div>
     </section>
 

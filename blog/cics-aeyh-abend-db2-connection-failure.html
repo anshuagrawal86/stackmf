@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Resolving CICS AEYH ABEND: CICS-DB2 Attachment Facility Disconnects and Thread Pool Starvation | StackMF</title>
-  <meta name="title" content="Resolving CICS AEYH ABEND: CICS-DB2 Attachment Facility Disconnects and Thread Pool Starvation | StackMF">
+  <title>CICS AEYH ABEND: CICS-DB2 Attachment Facility | StackMF</title>
+  <meta name="title" content="CICS AEYH ABEND: CICS-DB2 Attachment Facility | StackMF">
   <meta name="description" content="CICS ABEND AEYH occurs when an application issues an EXEC SQL statement but the CICS-DB2 attachment facility is inactive or when all pool threads are exhausted. Learn how to diagnose DB2CONN and DB2ENTRY resources and tune thread limits.">
-  <meta name="keywords" content="CICS, DB2, ABEND AEYH, Attachment Facility, Threads, DB2CONN, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="CICS, DB2, ABEND AEYH, Attachment Facility, Threads, DB2CONN, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/cics-aeyh-abend-db2-connection-failure.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/cics-aeyh-abend-db2-connection-failure.html">
-  <meta property="og:title" content="Resolving CICS AEYH ABEND: CICS-DB2 Attachment Facility Disconnects and Thread Pool Starvation | StackMF">
+  <meta property="og:title" content="CICS AEYH ABEND: CICS-DB2 Attachment Facility | StackMF">
   <meta property="og:description" content="CICS ABEND AEYH occurs when an application issues an EXEC SQL statement but the CICS-DB2 attachment facility is inactive or when all pool threads are exhausted. Learn how to diagnose DB2CONN and DB2ENTRY resources and tune thread limits.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Resolving CICS AEYH ABEND: CICS-DB2 Attachment Facility Disconnects and Thread Pool Starvation | StackMF">
+  <meta name="twitter:title" content="CICS AEYH ABEND: CICS-DB2 Attachment Facility | StackMF">
   <meta name="twitter:description" content="CICS ABEND AEYH occurs when an application issues an EXEC SQL statement but the CICS-DB2 attachment facility is inactive or when all pool threads are exhausted. Learn how to diagnose DB2CONN and DB2ENTRY resources and tune thread limits.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "CICS ABEND AEYH occurs when an application issues an EXEC SQL statement but the CICS-DB2 attachment facility is inactive or when all pool threads are exhausted. Learn how to diagnose DB2CONN and DB2ENTRY resources and tune thread limits.",
       "url": "https://stackmf.com/blog/cics-aeyh-abend-db2-connection-failure.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/cics-aeyh-abend-db2-connection-failure.html",
       "author": {
@@ -117,8 +117,8 @@
         "Attachment Facility",
         "Threads",
         "DB2CONN",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,21 +361,7 @@
         Incident Symptoms: What Triggers Resolving CICS AEYH ABEND: CICS-DB2 Attachment Facility Disconnects and Thread Pool Starvation?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Every CICS transaction attempting to access DB2 tables crashes simultaneously:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DFHAC2206 09:12:04 CICS01 TRANSACTION TXIN ABENDED AEYH IN PROGRAM CUSTINQ.
-          THE CICS DB2 ATTACHMENT FACILITY IS NOT CONNECTED.</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Online customer portals return HTTP 500 errors across all digital banking channels.</p>
+        None
       </div>
     </section>
 
@@ -386,10 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The CICS-to-DB2 interface is managed by the CICS DB2 Attachment Facility:</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">DB2 Subsystem Disconnected</strong>: DB2 was recycled or crashed, or the attachment was disconnected via <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DSNC DISCONNECT</code>.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Thread Starvation</strong>: The transaction's <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DB2ENTRY</code> reached its <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">THREADLIMIT</code>, and <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">THREADWAIT=NO</code> was specified, forcing an immediate AEYH rejection.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. <strong class="text-white font-semibold">Plan Authorization Failure</strong>: The CICS user lacks <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXECUTE</code> authority on the DB2 application plan.</p>
+        None
       </div>
     </section>
 
@@ -400,90 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Inquire and Start the CICS-DB2 Connection</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">From the CICS master terminal:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CEMT INQUIRE DB2CONN</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">STATUS: DISCONNECTED</code>, issue:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CEMT SET DB2CONN CONNECTED</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Or via the DB2 operator interface:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNC STRT DB2P</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Configure DB2ENTRY Thread Overflow</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In the CICS System Definition (CSD), configure thread pool overflow so transactions wait or overflow to general pool threads rather than abending:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CEDA DEFINE DB2ENTRY(TXINENT) GROUP(BANKGRP)
-     TRANSID(TXIN)
-     PLAN(PLNBANK1)
-     THREADLIMIT(25)
-     THREADWAIT(YES)</code></pre>
-        </div>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">THREADWAIT(YES)</code>: If all 25 threads are active, incoming requests queue smoothly instead of crashing with AEYH.</span></li>
-</ul>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Handle AEYH in Application Code</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Add error handling around SQL calls:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>EXEC SQL
-           SELECT CUST_NAME INTO :WS-CUST-NAME
-           FROM CUSTOMER WHERE CUST_ID = :WS-CUST-ID
-       END-EXEC.
-
-       IF SQLCODE = -922 OR SQLCODE = -924
-           MOVE 'DB2 Subsystem Offline - Try Again Later'
-             TO WS-USER-MESSAGE
-           EXEC CICS RETURN END-EXEC
-       END-IF.</code></pre>
-        </div>
+        None
       </div>
     </section>
 

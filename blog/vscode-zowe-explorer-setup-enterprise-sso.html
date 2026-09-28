@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuring VS Code Zowe Explorer with Enterprise SSO, Team Profiles, and API Mediation Layer (APIML) | StackMF</title>
-  <meta name="title" content="Configuring VS Code Zowe Explorer with Enterprise SSO, Team Profiles, and API Mediation Layer (APIML) | StackMF">
+  <title>Configuring VS Code Zowe Explorer with Enterprise | StackMF</title>
+  <meta name="title" content="Configuring VS Code Zowe Explorer with Enterprise | StackMF">
   <meta name="description" content="Elevate mainframe developer productivity by moving from 3270 green-screens to Visual Studio Code. Discover how to configure Zowe Explorer v2 with team configuration profiles (`zowe.config.json`), secure client certificates, and Single Sign-On (SSO) via the Zowe API Mediation Layer.">
-  <meta name="keywords" content="Zowe, VS Code, Zowe Explorer, APIML, SSO, DevOps, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Zowe, VS Code, Zowe Explorer, APIML, SSO, DevOps, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/vscode-zowe-explorer-setup-enterprise-sso.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/vscode-zowe-explorer-setup-enterprise-sso.html">
-  <meta property="og:title" content="Configuring VS Code Zowe Explorer with Enterprise SSO, Team Profiles, and API Mediation Layer (APIML) | StackMF">
+  <meta property="og:title" content="Configuring VS Code Zowe Explorer with Enterprise | StackMF">
   <meta property="og:description" content="Elevate mainframe developer productivity by moving from 3270 green-screens to Visual Studio Code. Discover how to configure Zowe Explorer v2 with team configuration profiles (`zowe.config.json`), secure client certificates, and Single Sign-On (SSO) via the Zowe API Mediation Layer.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Configuring VS Code Zowe Explorer with Enterprise SSO, Team Profiles, and API Mediation Layer (APIML) | StackMF">
+  <meta name="twitter:title" content="Configuring VS Code Zowe Explorer with Enterprise | StackMF">
   <meta name="twitter:description" content="Elevate mainframe developer productivity by moving from 3270 green-screens to Visual Studio Code. Discover how to configure Zowe Explorer v2 with team configuration profiles (`zowe.config.json`), secure client certificates, and Single Sign-On (SSO) via the Zowe API Mediation Layer.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Elevate mainframe developer productivity by moving from 3270 green-screens to Visual Studio Code. Discover how to configure Zowe Explorer v2 with team configuration profiles (`zowe.config.json`), secure client certificates, and Single Sign-On (SSO) via the Zowe API Mediation Layer.",
       "url": "https://stackmf.com/blog/vscode-zowe-explorer-setup-enterprise-sso.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/vscode-zowe-explorer-setup-enterprise-sso.html",
       "author": {
@@ -117,8 +117,8 @@
         "APIML",
         "SSO",
         "DevOps",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,22 +361,7 @@
         Incident Symptoms: What Triggers Configuring VS Code Zowe Explorer with Enterprise SSO, Team Profiles, and API Mediation Layer (APIML)?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Enterprise mainframe developers install the Zowe Explorer extension in VS Code but encounter constant credential prompts, connection timeouts, or SSL handshake failures when connecting to z/OSMF:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>Zowe Explorer: Error connecting to session 'zsys1'.
-Request failed with status code 401: Unauthorized.
-JWT Token expired or APIML routing unavailable.</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Developers revert to 3270 emulators because team profile configurations are not standardized across workstations.</p>
+        None
       </div>
     </section>
 
@@ -387,11 +372,7 @@ JWT Token expired or APIML routing unavailable.</code></pre>
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Zowe Explorer v2 introduced team configuration files (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">zowe.config.json</code>):</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Instead of individual engineers storing plaintext credentials in local user profiles, enterprise organizations centralize mainframe gateway endpoints, API Mediation Layer (APIML) URLs, and certificate authorities.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>If the APIML gateway certificate is not trusted by Node.js/VS Code or if JWT token expiration is misconfigured, authentication fails.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -402,72 +383,7 @@ JWT Token expired or APIML routing unavailable.</code></pre>
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Initialize an Enterprise Team Configuration</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In the root of your developer workspace or home directory, create <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">zowe.config.json</code>:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">json</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>{
-  "$schema": "https://zowe.org/schemas/zowe.config.json",
-  "profiles": {
-    "base": {
-      "type": "base",
-      "properties": {
-        "host": "apiml.mainframe.stackmf.internal",
-        "port": 7554,
-        "rejectUnauthorized": false
-      },
-      "secure": []
-    },
-    "apiml": {
-      "type": "apiml",
-      "properties": {
-        "authType": "token"
-      }
-    },
-    "zosmf": {
-      "type": "zosmf",
-      "properties": {
-        "port": 443,
-        "basePath": "/api/v1"
-      }
-    }
-  },
-  "defaults": {
-    "base": "base",
-    "zosmf": "zosmf"
-  }
-}</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Authenticate Using Enterprise SSO / Login Command</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Open the VS Code integrated terminal and authenticate to generate an encrypted JSON Web Token (JWT):</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>zowe auth login apiml</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Enter your enterprise RACF / ACF2 / Top Secret credentials. Zowe securely saves the token in your operating system credential vault (Windows Credential Manager / macOS Keychain).</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Access Datasets, USS Files, and JES Spool in VS Code</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Open the Zowe Explorer viewlet:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Under <strong class="text-white font-semibold">Data Sets</strong>, click <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">+</code> and enter pattern <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PROD.COBOL.*</code>.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Browse, edit, syntax-highlight, and save datasets with instant automatic z/OS synchronization!</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Under <strong class="text-white font-semibold">Jobs</strong>, submit JCL and inspect spool output without ever opening TSO/ISPF!</span></li>
-</ul>
+        None
       </div>
     </section>
 

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Accelerating Batch SQL by 400%: Implementing DB2 Multi-Row FETCH and Multi-Row INSERT in COBOL | StackMF</title>
-  <meta name="title" content="Accelerating Batch SQL by 400%: Implementing DB2 Multi-Row FETCH and Multi-Row INSERT in COBOL | StackMF">
+  <title>Accelerating Batch SQL by 400%: Implementing DB2 | StackMF</title>
+  <meta name="title" content="Accelerating Batch SQL by 400%: Implementing DB2 | StackMF">
   <meta name="description" content="Single-row SQL cursors incur CPU cross-memory switching costs on every single row. Learn how to implement DB2 for z/OS Multi-Row FETCH and Multi-Row INSERT in COBOL, reducing batch elapsed times and CPU consumption by up to 70%.">
-  <meta name="keywords" content="DB2, Multi-Row FETCH, Multi-Row INSERT, Performance, COBOL DB2, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="DB2, Multi-Row FETCH, Multi-Row INSERT, Performance, COBOL DB2, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/db2-multi-row-fetch-insert-batch-tuning.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/db2-multi-row-fetch-insert-batch-tuning.html">
-  <meta property="og:title" content="Accelerating Batch SQL by 400%: Implementing DB2 Multi-Row FETCH and Multi-Row INSERT in COBOL | StackMF">
+  <meta property="og:title" content="Accelerating Batch SQL by 400%: Implementing DB2 | StackMF">
   <meta property="og:description" content="Single-row SQL cursors incur CPU cross-memory switching costs on every single row. Learn how to implement DB2 for z/OS Multi-Row FETCH and Multi-Row INSERT in COBOL, reducing batch elapsed times and CPU consumption by up to 70%.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Accelerating Batch SQL by 400%: Implementing DB2 Multi-Row FETCH and Multi-Row INSERT in COBOL | StackMF">
+  <meta name="twitter:title" content="Accelerating Batch SQL by 400%: Implementing DB2 | StackMF">
   <meta name="twitter:description" content="Single-row SQL cursors incur CPU cross-memory switching costs on every single row. Learn how to implement DB2 for z/OS Multi-Row FETCH and Multi-Row INSERT in COBOL, reducing batch elapsed times and CPU consumption by up to 70%.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Single-row SQL cursors incur CPU cross-memory switching costs on every single row. Learn how to implement DB2 for z/OS Multi-Row FETCH and Multi-Row INSERT in COBOL, reducing batch elapsed times and CPU consumption by up to 70%.",
       "url": "https://stackmf.com/blog/db2-multi-row-fetch-insert-batch-tuning.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/db2-multi-row-fetch-insert-batch-tuning.html",
       "author": {
@@ -116,8 +116,8 @@
         "Multi-Row INSERT",
         "Performance",
         "COBOL DB2",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -356,7 +356,7 @@
         Incident Symptoms: What Triggers Accelerating Batch SQL by 400%: Implementing DB2 Multi-Row FETCH and Multi-Row INSERT in COBOL?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">An overnight batch billing program takes 3 hours to process 10 million DB2 rows. The developer discovers that 80% of the CPU time is burned in DB2 cross-memory context switches executing <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FETCH</code> 10 million individual times.</p>
+        None
       </div>
     </section>
 
@@ -367,15 +367,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Every <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXEC SQL FETCH</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">INSERT</code> statement incurs:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Address space cross-memory switching between application and DB2 Data Manager (DSNDB01).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>SQL validation and lock acquisition overhead.</span></li>
-</ul>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light"><strong class="text-white font-semibold">Multi-Row Operations (MRF / MRI)</strong>:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Transports arrays of 100 to 1,000 rows across the address space boundary in a <strong class="text-white font-semibold">single CPU call</strong>, slashing context switching by 99%!</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -386,72 +378,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Declare Cursor for Multi-Row FETCH</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In COBOL Working-Storage:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>01  WS-ROW-ARRAYS.
-           05  WS-ACCT-ID       OCCURS 100 TIMES PIC X(10).
-           05  WS-BALANCE       OCCURS 100 TIMES PIC S9(7)V99 COMP-3.
-       01  WS-ROWS-FETCHED      PIC S9(9) COMP.
-
-       EXEC SQL
-           DECLARE CUST_CSR CURSOR FOR
-           SELECT ACCT_ID, BALANCE
-           FROM CUSTOMER
-           FOR FETCH ONLY
-       END-EXEC.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Execute Multi-Row FETCH Statement</h3>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>EXEC SQL OPEN CUST_CSR END-EXEC.
-
-       PERFORM UNTIL SQLCODE = 100
-           EXEC SQL
-               FETCH NEXT ROWSET 100 ROWS FROM CUST_CSR
-               INTO :WS-ACCT-ID, :WS-BALANCE
-           END-EXEC
-
-           IF SQLCODE = 0 OR SQLCODE = 100
-               PERFORM 2000-PROCESS-ROWSET
-           END-IF
-       END-PERFORM.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Multi-Row INSERT Syntax</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Bulk insert 100 rows in a single SQL statement:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>EXEC SQL
-           INSERT INTO AUDIT_LOG (ACCT_ID, BALANCE)
-           VALUES (:WS-ACCT-ID, :WS-BALANCE)
-           FOR 100 ROWS
-       END-EXEC.</code></pre>
-        </div>
+        None
       </div>
     </section>
 

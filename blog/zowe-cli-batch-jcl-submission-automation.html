@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Automating z/OS JCL Submission, Spool Polling, and Output Retrieval via Zowe CLI in CI/CD | StackMF</title>
-  <meta name="title" content="Automating z/OS JCL Submission, Spool Polling, and Output Retrieval via Zowe CLI in CI/CD | StackMF">
+  <title>Automating z/OS JCL Submission, Spool Polling, | StackMF</title>
+  <meta name="title" content="Automating z/OS JCL Submission, Spool Polling, | StackMF">
   <meta name="description" content="Integrate mainframe batch execution into modern DevOps pipelines. Learn how to submit JCL from local Git branches, wait for completion, check return codes, and download spool outputs (SYSUDUMP, CEEDUMP) programmatically using Zowe CLI commands.">
-  <meta name="keywords" content="Zowe CLI, JCL, CI/CD, GitHub Actions, Spool Parsing, Automation, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Zowe CLI, JCL, CI/CD, GitHub Actions, Spool Parsing, Automation, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/zowe-cli-batch-jcl-submission-automation.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/zowe-cli-batch-jcl-submission-automation.html">
-  <meta property="og:title" content="Automating z/OS JCL Submission, Spool Polling, and Output Retrieval via Zowe CLI in CI/CD | StackMF">
+  <meta property="og:title" content="Automating z/OS JCL Submission, Spool Polling, | StackMF">
   <meta property="og:description" content="Integrate mainframe batch execution into modern DevOps pipelines. Learn how to submit JCL from local Git branches, wait for completion, check return codes, and download spool outputs (SYSUDUMP, CEEDUMP) programmatically using Zowe CLI commands.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Automating z/OS JCL Submission, Spool Polling, and Output Retrieval via Zowe CLI in CI/CD | StackMF">
+  <meta name="twitter:title" content="Automating z/OS JCL Submission, Spool Polling, | StackMF">
   <meta name="twitter:description" content="Integrate mainframe batch execution into modern DevOps pipelines. Learn how to submit JCL from local Git branches, wait for completion, check return codes, and download spool outputs (SYSUDUMP, CEEDUMP) programmatically using Zowe CLI commands.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Integrate mainframe batch execution into modern DevOps pipelines. Learn how to submit JCL from local Git branches, wait for completion, check return codes, and download spool outputs (SYSUDUMP, CEEDUMP) programmatically using Zowe CLI commands.",
       "url": "https://stackmf.com/blog/zowe-cli-batch-jcl-submission-automation.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/zowe-cli-batch-jcl-submission-automation.html",
       "author": {
@@ -117,8 +117,8 @@
         "GitHub Actions",
         "Spool Parsing",
         "Automation",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Automating z/OS JCL Submission, Spool Polling, and Output Retrieval via Zowe CLI in CI/CD?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">DevOps teams attempting to automate regression testing in GitHub Actions or Jenkins struggle to trigger mainframe batch jobs. Engineers resort to manual submission or flaky FTP scripts that fail to report whether the submitted batch job succeeded, timed out, or crashed with an ABEND.</p>
+        None
       </div>
     </section>
 
@@ -372,13 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Submitting batch jobs across network boundaries requires interacting with the z/OSMF Jobs REST API.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Zowe CLI abstracts these complex HTTP calls into simple command-line invocations:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">zowe zos-jobs submit</code> handles dataset or local file submission.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">--wait-for-active</code> and <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">--wait-for-output</code> flags pause execution until the job completes in JES2/JES3.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Return codes (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CC 0000</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ABEND S0C7</code>) are captured natively as shell exit codes.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -389,81 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Submit Local JCL and Wait for Completion</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In your CI/CD runner or terminal:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>zowe zos-jobs submit local-file ./jcl/TESTPAY01.jcl      --wait-for-output      --view-all-spool-content</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Output returns:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>jobid:   JOB04821
-jobname: TESTPAY01
-status:  OUTPUT
-retcode: CC 0000</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Evaluate Return Code Programmatically in Bash Script</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Create an automated test verification script:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>#!/usr/bin/env bash
-set -e
-
-echo "Submitting batch job..."
-RESPONSE=$(zowe zos-jobs submit local-file ./jcl/TESTPAY01.jcl --wait-for-output --response-format-json)
-
-JOB_ID=$(echo "$RESPONSE" | jq -r '.data.jobid')
-RET_CODE=$(echo "$RESPONSE" | jq -r '.data.retcode')
-
-echo "Job $JOB_ID completed with: $RET_CODE"
-
-if [[ "$RET_CODE" != "CC 0000" &amp;&amp; "$RET_CODE" != "CC 0004" ]]; then
-  echo "ERROR: Batch test failed! Downloading CEEDUMP..."
-  zowe zos-jobs download spool-file-by-id "$JOB_ID" 4 --file "./logs/CEEDUMP.txt"
-  exit 1
-fi
-
-echo "Batch verification passed successfully!"</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Download Specific Spool Datasets</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Download only SYSPRINT to verify application outputs:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>zowe zos-jobs view spool-file-by-id JOB04821 3 &gt; ./logs/SYSPRINT.txt</code></pre>
-        </div>
+        None
       </div>
     </section>
 

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool | StackMF</title>
-  <meta name="title" content="Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool | StackMF">
+  <title>Setting up Remote COBOL/PL/I Debug Sessions in | StackMF</title>
+  <meta name="title" content="Setting up Remote COBOL/PL/I Debug Sessions in | StackMF">
   <meta name="description" content="Step-by-step guide to configuring interactive source-level debugging for batch and CICS COBOL applications inside IBM Developer for z/OS (IDz). Discover how to configure TEST compiler options, establish TCP/IP daemon connections, and trigger breakpoints dynamically.">
-  <meta name="keywords" content="IDz, COBOL, Remote Debug, Debug Tool, Eclipse, z/OS Debugger, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="IDz, COBOL, Remote Debug, Debug Tool, Eclipse, z/OS Debugger, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/ibm-developer-for-zos-idz-remote-debugging.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/ibm-developer-for-zos-idz-remote-debugging.html">
-  <meta property="og:title" content="Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool | StackMF">
+  <meta property="og:title" content="Setting up Remote COBOL/PL/I Debug Sessions in | StackMF">
   <meta property="og:description" content="Step-by-step guide to configuring interactive source-level debugging for batch and CICS COBOL applications inside IBM Developer for z/OS (IDz). Discover how to configure TEST compiler options, establish TCP/IP daemon connections, and trigger breakpoints dynamically.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool | StackMF">
+  <meta name="twitter:title" content="Setting up Remote COBOL/PL/I Debug Sessions in | StackMF">
   <meta name="twitter:description" content="Step-by-step guide to configuring interactive source-level debugging for batch and CICS COBOL applications inside IBM Developer for z/OS (IDz). Discover how to configure TEST compiler options, establish TCP/IP daemon connections, and trigger breakpoints dynamically.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Step-by-step guide to configuring interactive source-level debugging for batch and CICS COBOL applications inside IBM Developer for z/OS (IDz). Discover how to configure TEST compiler options, establish TCP/IP daemon connections, and trigger breakpoints dynamically.",
       "url": "https://stackmf.com/blog/ibm-developer-for-zos-idz-remote-debugging.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/ibm-developer-for-zos-idz-remote-debugging.html",
       "author": {
@@ -117,8 +117,8 @@
         "Debug Tool",
         "Eclipse",
         "z/OS Debugger",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Setting up Remote COBOL/PL/I Debug Sessions in IBM Developer for z/OS (IDz) using Debug Tool?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Developers spend days inserting temporary <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DISPLAY</code> statements into 5,000-line COBOL programs to trace elusive logic bugs. Re-compiling and promoting code just to inspect variables burns immense CPU and delays incident turnaround.</p>
+        None
       </div>
     </section>
 
@@ -372,13 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">IBM Developer for z/OS (IDz) pairs with the <strong class="text-white font-semibold">IBM z/OS Debugger</strong> backend.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When properly configured:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The mainframe program executes under control of Language Environment's <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TEST</code> runtime parameter.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>It opens a reverse TCP/IP connection to the developer's workstation running the IDz Debug Daemon (typically on port 8001).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The developer steps through live COBOL code, sets breakpoints, and inspects variables in real-time within the IDz GUI.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -389,54 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Compile COBOL with the TEST Option</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure the compile step generates DWARF debugging information:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//COBSTEP EXEC PGM=IGYCRCTL,
-//  PARM='TEST(SOURCE,SEPARATE),OPT(0),ARCH(14)'
-//SYSDEBUG DD DSN=DEV.USER.SYSDEBUG(ACCNTREC),DISP=SHR</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Using <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TEST(SEPARATE)</code> stores debug tables in a separate side-file (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SYSDEBUG</code>), keeping production load module sizes minimal.</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Start the IDz Debug Daemon on Your Workstation</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In IDz:</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. Open the <strong class="text-white font-semibold">Debug</strong> perspective.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. Ensure the daemon icon in the toolbar indicates <strong class="text-white font-semibold">Debug Daemon Listening on port 8001</strong>.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. Note your workstation IP address (e.g., <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">10.14.20.105</code>).</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Pass TEST Runtime Options in Batch JCL</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Add the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CEEOPTS</code> DD statement to your execution JCL:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//RUNSTEP  EXEC PGM=ACCNTREC
-//STEPLIB  DD DSN=DEV.USER.LOADLIB,DISP=SHR
-//         DD DSN=EQAW.SEQAMOD,DISP=SHR
-//CEEOPTS  DD *
-  TEST(ALL,*,PROMPT,TCPIP&amp;10.14.20.105%8001:)
-/*</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Interactive Debugging in IDz</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Upon launching the batch job, execution immediately suspends at statement 1:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>IDz opens the COBOL source automatically.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Press <strong class="text-white font-semibold">F5</strong> to step into, <strong class="text-white font-semibold">F6</strong> to step over.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Hover over any variable to inspect or modify its value in memory!</span></li>
-</ul>
+        None
       </div>
     </section>
 

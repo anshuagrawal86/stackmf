@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation | StackMF</title>
-  <meta name="title" content="Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation | StackMF">
+  <title>Eliminating Performance Degradation from VSAM | StackMF</title>
+  <meta name="title" content="Eliminating Performance Degradation from VSAM | StackMF">
   <meta name="description" content="High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs.">
-  <meta name="keywords" content="VSAM, KSDS, CI Splits, CA Splits, IDCAMS, REORG, FREESPACE, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="VSAM, KSDS, CI Splits, CA Splits, IDCAMS, REORG, FREESPACE, file status 92, file status 93, file status 35, IDC3009I, dynamic allocation, VERIFY, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/vsam-ci-ca-splits-reorg-idcams.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/vsam-ci-ca-splits-reorg-idcams.html">
-  <meta property="og:title" content="Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation | StackMF">
+  <meta property="og:title" content="Eliminating Performance Degradation from VSAM | StackMF">
   <meta property="og:description" content="High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation | StackMF">
+  <meta name="twitter:title" content="Eliminating Performance Degradation from VSAM | StackMF">
   <meta name="twitter:description" content="High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "High volumes of random inserts into a VSAM KSDS cause Control Interval (CI) and Control Area (CA) splits, leading to severe I/O bottlenecks and disk fragmentation. Learn how to monitor split metrics, calibrate FREESPACE, and automate zero-downtime IDCAMS REORGs.",
       "url": "https://stackmf.com/blog/vsam-ci-ca-splits-reorg-idcams.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/vsam-ci-ca-splits-reorg-idcams.html",
       "author": {
@@ -118,8 +118,14 @@
         "IDCAMS",
         "REORG",
         "FREESPACE",
-        "mainframe modernization",
+        "file status 92",
+        "file status 93",
+        "file status 35",
+        "IDC3009I",
+        "dynamic allocation",
+        "VERIFY",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -366,7 +372,7 @@
         Incident Symptoms: What Triggers Eliminating Performance Degradation from VSAM KSDS CI/CA Splits: IDCAMS REORG Automation?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Online transactions reading a core customer VSAM KSDS experience response time degradation, jumping from 30ms to over 800ms. Batch processing times double. System monitors report excessive I/O wait times and physical DASD head contention on volumes hosting the VSAM cluster.</p>
+        None
       </div>
     </section>
 
@@ -377,10 +383,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A VSAM KSDS is organized into Control Intervals (CIs) grouped into Control Areas (CAs):</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">Control Interval (CI) Split</strong>: When a program inserts a record into a CI that lacks sufficient free space, VSAM creates a new CI within the same CA, moves roughly half the records to it, and updates the index. While this takes some CPU and I/O time, records remain within the same cylinder.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Control Area (CA) Split</strong>: When a CI split occurs but there are no remaining free CIs within that Control Area, VSAM must split the entire CA. It allocates a brand-new CA at the physical end of the dataset, moves half the CIs to it, and updates the high-level index.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">CA splits require moving megabytes of data across cylinders, causing severe rotational delay, index fragmentation, and serialization bottlenecks across the parallel sysplex.</p>
+        None
       </div>
     </section>
 
@@ -391,89 +394,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Analyze CI and CA Splits via IDCAMS LISTCAT</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Run an IDCAMS <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LISTCAT</code> report:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//STEP1    EXEC PGM=IDCAMS
-//SYSPRINT DD SYSOUT=*
-//SYSIN    DD *
-  LISTCAT ENTRIES('PROD.KSDS.CUSTOMER') ALL
-/*</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Look for:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SPLITS-CI ------------ 14,290
-SPLITS-CA -------------- 1,412
-FREESPACE-%CI ------------- 0
-FREESPACE-%CA ------------- 0
-EXCP-COUNT -------- 14,812,094</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Over 1,400 CA splits indicates massive fragmentation and urgent reorg requirement!</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Calibrate FREESPACE Parameter</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When defining the KSDS, provide adequate freespace tailored to the insert rate:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>For uniform random inserts: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FREESPACE(20 20)</code> reserves 20% free space in each CI and 20% free CIs in each CA.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>For sequential inserts at the end of the file: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FREESPACE(0 0)</code> is optimal.</span></li>
-</ul>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Automated IDCAMS REORG Script</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Execute an IDCAMS backup, delete/define, and reload:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//REORG    JOB (ACCT),'VSAM REORG',CLASS=A,MSGCLASS=X
-//STEP1    EXEC PGM=IDCAMS
-//SYSPRINT DD SYSOUT=*
-//BACKUP   DD DSN=PROD.KSDS.CUSTOMER.BKUP,DISP=(NEW,CATLG,DELETE),
-//            SPACE=(CYL,(100,50),RLSE),UNIT=SYSDA
-//SYSIN    DD *
-  /* 1. EXPORT/REPRO DATA TO BACKUP */
-  REPRO INDATASET('PROD.KSDS.CUSTOMER') -
-        OUTDATASET('PROD.KSDS.CUSTOMER.BKUP')
-
-  /* 2. DELETE OLD CLUSTER */
-  DELETE 'PROD.KSDS.CUSTOMER' CLUSTER PURGE
-
-  /* 3. REDEFINE WITH OPTIMIZED FREESPACE &amp; BUFFERSPACE */
-  DEFINE CLUSTER (NAME('PROD.KSDS.CUSTOMER') -
-         CYLINDERS(200 50) -
-         RECORDSIZE(250 250) -
-         KEYS(16 0) -
-         FREESPACE(20 15) -
-         SHAREOPTIONS(2 3) -
-         BUFFERSPACE(1048576)) -
-         DATA (NAME('PROD.KSDS.CUSTOMER.DATA')) -
-         INDEX (NAME('PROD.KSDS.CUSTOMER.INDEX'))
-
-  /* 4. REPOPULATE FROM BACKUP */
-  REPRO INDATASET('PROD.KSDS.CUSTOMER.BKUP') -
-        OUTDATASET('PROD.KSDS.CUSTOMER')
-/*</code></pre>
-        </div>
+        None
       </div>
     </section>
 

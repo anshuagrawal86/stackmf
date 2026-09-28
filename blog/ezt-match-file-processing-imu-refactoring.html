@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Translating Easytrieve Synchronous File Match (MATCH Statement) into COBOL Two-Way Merge Logic | StackMF</title>
-  <meta name="title" content="Translating Easytrieve Synchronous File Match (MATCH Statement) into COBOL Two-Way Merge Logic | StackMF">
+  <title>Translating Easytrieve Synchronous File Match | StackMF</title>
+  <meta name="title" content="Translating Easytrieve Synchronous File Match | StackMF">
   <meta name="description" content="Easytrieve's native MATCH statement provides automated multi-file synchronization (matching master and transaction files). Discover how IMU converts MATCH statements into high-efficiency COBOL balanced line algorithms.">
-  <meta name="keywords" content="Easytrieve, MATCH Statement, IMU, COBOL, File Merge, Batch, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Easytrieve, MATCH Statement, IMU, COBOL, File Merge, Batch, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/ezt-match-file-processing-imu-refactoring.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/ezt-match-file-processing-imu-refactoring.html">
-  <meta property="og:title" content="Translating Easytrieve Synchronous File Match (MATCH Statement) into COBOL Two-Way Merge Logic | StackMF">
+  <meta property="og:title" content="Translating Easytrieve Synchronous File Match | StackMF">
   <meta property="og:description" content="Easytrieve's native MATCH statement provides automated multi-file synchronization (matching master and transaction files). Discover how IMU converts MATCH statements into high-efficiency COBOL balanced line algorithms.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Translating Easytrieve Synchronous File Match (MATCH Statement) into COBOL Two-Way Merge Logic | StackMF">
+  <meta name="twitter:title" content="Translating Easytrieve Synchronous File Match | StackMF">
   <meta name="twitter:description" content="Easytrieve's native MATCH statement provides automated multi-file synchronization (matching master and transaction files). Discover how IMU converts MATCH statements into high-efficiency COBOL balanced line algorithms.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Easytrieve's native MATCH statement provides automated multi-file synchronization (matching master and transaction files). Discover how IMU converts MATCH statements into high-efficiency COBOL balanced line algorithms.",
       "url": "https://stackmf.com/blog/ezt-match-file-processing-imu-refactoring.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/ezt-match-file-processing-imu-refactoring.html",
       "author": {
@@ -117,8 +117,8 @@
         "COBOL",
         "File Merge",
         "Batch",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,22 +361,7 @@
         Incident Symptoms: What Triggers Translating Easytrieve Synchronous File Match (MATCH Statement) into COBOL Two-Way Merge Logic?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">An enterprise conversion from Easytrieve to COBOL encounters programs using:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">ezt</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>JOB INPUT (MASTER-FILE KEY (ACCT-NO) +
-           TRANS-FILE KEY (ACCT-NO)) +
-           MATCH (MASTER-FILE TRANS-FILE)</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Manual developers struggle to replicate the exact Easytrieve match logic (duplicate keys, unmatched masters, orphan transactions), causing ledger reconciliation mismatches.</p>
+        None
       </div>
     </section>
 
@@ -387,12 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Easytrieve's <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">MATCH</code> statement implements a classic <strong class="text-white font-semibold">Balanced-Line Algorithm</strong>:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Synchronously reads both files ordered by primary key.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Handles match conditions automatically (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DUPLICATE</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">MATCHED</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">MASTER-ONLY</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TRANS-ONLY</code>).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>IMU translates this into a deterministic COBOL evaluation loop with priming reads and high-value sentinel keys.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -403,53 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. View IMU Emitted Balanced-Line COBOL Logic</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">IMU automatically emits standard COBOL merge logic:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>PERFORM UNTIL WS-MASTER-EOF = 'Y' AND WS-TRANS-EOF = 'Y'
-           EVALUATE TRUE
-               WHEN WS-M-KEY = WS-T-KEY
-                   PERFORM 2000-PROCESS-MATCHED-KEYS
-                   PERFORM 1100-READ-TRANS-FILE
-               WHEN WS-M-KEY &lt; WS-T-KEY
-                   PERFORM 2100-PROCESS-MASTER-ONLY
-                   PERFORM 1000-READ-MASTER-FILE
-               WHEN WS-M-KEY &gt; WS-T-KEY
-                   PERFORM 2200-PROCESS-TRANS-ONLY
-                   PERFORM 1100-READ-TRANS-FILE
-           END-EVALUATE
-       END-PERFORM.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Handle Duplicate Keys Correctly</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">To ensure duplicate transaction keys are all processed against the same master record, the transaction file is read until <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">WS-T-KEY > WS-M-KEY</code> before advancing the master file pointer.</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. End-of-File High-Value Sentinel Pattern</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When one file reaches EOF, set its key to <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">HIGH-VALUES</code> (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'FF...FF'</code>):</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>READ MASTER-FILE
-           AT END
-               MOVE 'Y' TO WS-MASTER-EOF
-               MOVE HIGH-VALUES TO WS-M-KEY
-       END-READ.</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">This cleanly flushes remaining records from the other file without complex conditional branches!</p>
+        None
       </div>
     </section>
 

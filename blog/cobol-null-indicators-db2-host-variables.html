@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Handling DB2 SQLCODE -305: Null Indicator Variables in COBOL Working-Storage | StackMF</title>
-  <meta name="title" content="Handling DB2 SQLCODE -305: Null Indicator Variables in COBOL Working-Storage | StackMF">
+  <title>Handling DB2 SQLCODE -305: Null Indicator | StackMF</title>
+  <meta name="title" content="Handling DB2 SQLCODE -305: Null Indicator | StackMF">
   <meta name="description" content="DB2 SQLCODE -305 is raised when a query attempts to retrieve a NULL column value into a COBOL host variable without specifying an accompanying Null Indicator variable. Learn proper indicator syntax and default coalescing.">
-  <meta name="keywords" content="DB2, COBOL, SQLCODE -305, Null Indicator, Host Variables, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="DB2, COBOL, SQLCODE -305, Null Indicator, Host Variables, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/cobol-null-indicators-db2-host-variables.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/cobol-null-indicators-db2-host-variables.html">
-  <meta property="og:title" content="Handling DB2 SQLCODE -305: Null Indicator Variables in COBOL Working-Storage | StackMF">
+  <meta property="og:title" content="Handling DB2 SQLCODE -305: Null Indicator | StackMF">
   <meta property="og:description" content="DB2 SQLCODE -305 is raised when a query attempts to retrieve a NULL column value into a COBOL host variable without specifying an accompanying Null Indicator variable. Learn proper indicator syntax and default coalescing.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Handling DB2 SQLCODE -305: Null Indicator Variables in COBOL Working-Storage | StackMF">
+  <meta name="twitter:title" content="Handling DB2 SQLCODE -305: Null Indicator | StackMF">
   <meta name="twitter:description" content="DB2 SQLCODE -305 is raised when a query attempts to retrieve a NULL column value into a COBOL host variable without specifying an accompanying Null Indicator variable. Learn proper indicator syntax and default coalescing.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "DB2 SQLCODE -305 is raised when a query attempts to retrieve a NULL column value into a COBOL host variable without specifying an accompanying Null Indicator variable. Learn proper indicator syntax and default coalescing.",
       "url": "https://stackmf.com/blog/cobol-null-indicators-db2-host-variables.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/cobol-null-indicators-db2-host-variables.html",
       "author": {
@@ -116,8 +116,8 @@
         "SQLCODE -305",
         "Null Indicator",
         "Host Variables",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -356,23 +356,7 @@
         Incident Symptoms: What Triggers Handling DB2 SQLCODE -305: Null Indicator Variables in COBOL Working-Storage?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A COBOL DB2 batch program runs smoothly in testing but fails in production when processing a newly created customer record:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNT408I SQLCODE = -305, ERROR:  THE NULL VALUE CANNOT BE ASSIGNED TO A HOST
-         VARIABLE IN POSITION 4 BECAUSE NO INDICATOR VARIABLE IS SPECIFIED.
-DSNT418I SQLSTATE = 22002 SQLSTATE RETURN CODE
-CEE3250C The system or user abend U4038 was issued.</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The job halts, rolling back earlier batch changes.</p>
+        None
       </div>
     </section>
 
@@ -383,12 +367,7 @@ CEE3250C The system or user abend U4038 was issued.</code></pre>
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Relational databases support NULL (the absence of any value), whereas COBOL has no intrinsic concept of null memory—every memory location contains bits (spaces, zeroes, etc.).</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When DB2 encounters a NULL column during a FETCH or SELECT INTO:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>If the SQL statement provides a companion Indicator Variable (:VAR :IND), DB2 sets the indicator to -1 (Null) and leaves the host variable undisturbed.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>If no indicator variable was supplied on a nullable column, DB2 raises SQLCODE -305 to prevent undefined data corruption.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -399,63 +378,7 @@ CEE3250C The system or user abend U4038 was issued.</code></pre>
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Declare Indicator Variables in Working-Storage</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Define null indicators as 2-byte binary signed integers (PIC S9(4) COMP):</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>01  WS-CUSTOMER-DATA.
-           05  WS-CUST-ID               PIC X(10).
-           05  WS-PHONE-NUMBER          PIC X(15).
-           05  WS-PHONE-IND             PIC S9(4) COMP.
-           05  WS-CREDIT-SCORE          PIC S9(4) COMP.
-           05  WS-CREDIT-IND            PIC S9(4) COMP.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Include Indicators in SELECT Statements</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Attach the indicator variable immediately after the host variable:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>EXEC SQL
-           SELECT CUST_ID, PHONE_NUMBER, CREDIT_SCORE
-           INTO :WS-CUST-ID,
-                :WS-PHONE-NUMBER :WS-PHONE-IND,
-                :WS-CREDIT-SCORE :WS-CREDIT-IND
-           FROM CUSTOMER_TABLE
-           WHERE CUST_ID = :WS-CUST-ID
-       END-EXEC.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Evaluate Indicator Values in COBOL Logic</h3>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>IF WS-PHONE-IND &lt; 0
-           MOVE 'NO PHONE ON FILE' TO WS-DISPLAY-PHONE
-       ELSE
-           MOVE WS-PHONE-NUMBER    TO WS-DISPLAY-PHONE
-       END-IF.</code></pre>
-        </div>
+        None
       </div>
     </section>
 

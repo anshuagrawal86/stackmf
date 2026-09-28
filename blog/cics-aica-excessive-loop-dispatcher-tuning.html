@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Advanced CICS AICA Tuning: Calculating CPU Dispatch Loops and SIT RUNAWAY Thresholds | StackMF</title>
-  <meta name="title" content="Advanced CICS AICA Tuning: Calculating CPU Dispatch Loops and SIT RUNAWAY Thresholds | StackMF">
+  <title>CICS AICA ABEND Fix: Runaway Task & Storage Violations | StackMF</title>
+  <meta name="title" content="CICS AICA ABEND Fix: Runaway Task & Storage Violations | StackMF">
   <meta name="description" content="Deep architectural analysis of CICS transaction runaway timer mechanics. Learn how the CICS dispatcher calculates interval control timer ticks, how to calibrate SIT ICV and RUNAWAY thresholds, and how to analyze MVS system trace tables to isolate tight machine code loops.">
-  <meta name="keywords" content="CICS, AICA, SIT, RUNAWAY, Dispatcher, Performance, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="CICS, AICA, SIT, RUNAWAY, Dispatcher, Performance, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/cics-aica-excessive-loop-dispatcher-tuning.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/cics-aica-excessive-loop-dispatcher-tuning.html">
-  <meta property="og:title" content="Advanced CICS AICA Tuning: Calculating CPU Dispatch Loops and SIT RUNAWAY Thresholds | StackMF">
+  <meta property="og:title" content="CICS AICA ABEND Fix: Runaway Task & Storage Violations | StackMF">
   <meta property="og:description" content="Deep architectural analysis of CICS transaction runaway timer mechanics. Learn how the CICS dispatcher calculates interval control timer ticks, how to calibrate SIT ICV and RUNAWAY thresholds, and how to analyze MVS system trace tables to isolate tight machine code loops.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Advanced CICS AICA Tuning: Calculating CPU Dispatch Loops and SIT RUNAWAY Thresholds | StackMF">
+  <meta name="twitter:title" content="CICS AICA ABEND Fix: Runaway Task & Storage Violations | StackMF">
   <meta name="twitter:description" content="Deep architectural analysis of CICS transaction runaway timer mechanics. Learn how the CICS dispatcher calculates interval control timer ticks, how to calibrate SIT ICV and RUNAWAY thresholds, and how to analyze MVS system trace tables to isolate tight machine code loops.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Deep architectural analysis of CICS transaction runaway timer mechanics. Learn how the CICS dispatcher calculates interval control timer ticks, how to calibrate SIT ICV and RUNAWAY thresholds, and how to analyze MVS system trace tables to isolate tight machine code loops.",
       "url": "https://stackmf.com/blog/cics-aica-excessive-loop-dispatcher-tuning.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/cics-aica-excessive-loop-dispatcher-tuning.html",
       "author": {
@@ -117,8 +117,8 @@
         "RUNAWAY",
         "Dispatcher",
         "Performance",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Advanced CICS AICA Tuning: Calculating CPU Dispatch Loops and SIT RUNAWAY Thresholds?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">During peak end-of-quarter volume, high-value CICS transactions terminate with ABEND AICA. System programmers debate whether the transaction contains an infinite loop or if extreme DASD/CPU contention caused legitimate business calculations to exceed the default 5-second runaway interval.</p>
+        None
       </div>
     </section>
 
@@ -372,11 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The CICS Task Dispatcher monitors tasks executing on the Quasi-Reentrant (QR) or Open TCBs:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Every time a task yields control via a CICS command, its runaway timer resets to zero.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>If a task executes contiguous application instructions without yielding for longer than the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RUNAWAY</code> limit, CICS flags it as a runaway task and abends it with AICA to prevent starvation of other concurrent tasks.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -387,57 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Calibrate SIT RUNAWAY Parameter</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In the System Initialization Table (SIT):</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>RUNAWAY=5000</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">(Interval in milliseconds, default 5000 = 5 seconds).</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Configure Specific Transactions for Extended Limits</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">For CPU-heavy analytic or encryption transactions, override the SIT default in the CSD:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CEDA DEFINE TRANSACTION(TXAN) GROUP(FINAPP)
-     PROGRAM(ANALYT01)
-     RUNAWAY(15000)</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Allows up to 15 seconds of contiguous execution.</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Insert Programmatic Dispatcher Yields</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In COBOL programs performing heavy matrix multiplication or large table parsing:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>ADD 1 TO WS-PROCESSED-COUNT
-       IF WS-PROCESSED-COUNT &gt; 2000
-           EXEC CICS SUSPEND END-EXEC
-           MOVE 0 TO WS-PROCESSED-COUNT
-       END-IF.</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light"><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXEC CICS SUSPEND</code> causes the task to give up control to other waiting tasks and immediately resets the runaway timer!</p>
+        None
       </div>
     </section>
 

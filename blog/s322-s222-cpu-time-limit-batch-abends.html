@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Fixing ABEND S322 (CPU Time Limit Exceeded) and S222 (Job Cancelled) in Long-Running Batch | StackMF</title>
-  <meta name="title" content="Fixing ABEND S322 (CPU Time Limit Exceeded) and S222 (Job Cancelled) in Long-Running Batch | StackMF">
+  <title>Fixing ABEND S322 (CPU Time Limit Exceeded) and | StackMF</title>
+  <meta name="title" content="Fixing ABEND S322 (CPU Time Limit Exceeded) and | StackMF">
   <meta name="description" content="ABEND S322 occurs when a batch job exceeds its allocated CPU time limit (due to an infinite loop, massive dataset scans, or inadequate JCL TIME parameters). Learn how to tune TIME parameters, optimize loops, and handle S222 operator cancellations.">
-  <meta name="keywords" content="JCL, ABEND S322, ABEND S222, TIME Parameter, Batch Optimization, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="JCL, ABEND S322, ABEND S222, TIME Parameter, Batch Optimization, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/s322-s222-cpu-time-limit-batch-abends.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/s322-s222-cpu-time-limit-batch-abends.html">
-  <meta property="og:title" content="Fixing ABEND S322 (CPU Time Limit Exceeded) and S222 (Job Cancelled) in Long-Running Batch | StackMF">
+  <meta property="og:title" content="Fixing ABEND S322 (CPU Time Limit Exceeded) and | StackMF">
   <meta property="og:description" content="ABEND S322 occurs when a batch job exceeds its allocated CPU time limit (due to an infinite loop, massive dataset scans, or inadequate JCL TIME parameters). Learn how to tune TIME parameters, optimize loops, and handle S222 operator cancellations.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Fixing ABEND S322 (CPU Time Limit Exceeded) and S222 (Job Cancelled) in Long-Running Batch | StackMF">
+  <meta name="twitter:title" content="Fixing ABEND S322 (CPU Time Limit Exceeded) and | StackMF">
   <meta name="twitter:description" content="ABEND S322 occurs when a batch job exceeds its allocated CPU time limit (due to an infinite loop, massive dataset scans, or inadequate JCL TIME parameters). Learn how to tune TIME parameters, optimize loops, and handle S222 operator cancellations.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "ABEND S322 occurs when a batch job exceeds its allocated CPU time limit (due to an infinite loop, massive dataset scans, or inadequate JCL TIME parameters). Learn how to tune TIME parameters, optimize loops, and handle S222 operator cancellations.",
       "url": "https://stackmf.com/blog/s322-s222-cpu-time-limit-batch-abends.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/s322-s222-cpu-time-limit-batch-abends.html",
       "author": {
@@ -116,8 +116,8 @@
         "ABEND S222",
         "TIME Parameter",
         "Batch Optimization",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -356,22 +356,7 @@
         Incident Symptoms: What Triggers Fixing ABEND S322 (CPU Time Limit Exceeded) and S222 (Job Cancelled) in Long-Running Batch?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">An overnight database rebuild job runs for 4 hours and crashes:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>IEF373I STEP /STEP020 / START 2026270.0100
-IEF374I STEP /STEP020 / STOP  2026270.0500 CPU   240MIN 00.12SEC
-IEF450I DBREBD01 STEP020 - ABEND=S322 U0000 REASON=00000000</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Database indexes are left in rebuild-pending state, blocking morning online transaction systems.</p>
+        None
       </div>
     </section>
 
@@ -382,10 +367,7 @@ IEF450I DBREBD01 STEP020 - ABEND=S322 U0000 REASON=00000000</code></pre>
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">ABEND S322</strong>: The job step consumed more CPU time than authorized by the JCL <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TIME</code> parameter or system SMF default (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">JWT</code> / Job Wait Time in <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SMFPRMxx</code>).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">ABEND S222</strong>: The system operator or an automated console monitor issued the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CANCEL</code> command against the job due to excessive execution duration or lock blocking.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -396,46 +378,7 @@ IEF450I DBREBD01 STEP020 - ABEND=S322 U0000 REASON=00000000</code></pre>
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Increase JCL TIME Parameter</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">For legitimately long-running batch extraction or utility jobs, specify sufficient CPU time:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//STEP020  EXEC PGM=DBREBD01,TIME=(600,00)</code></pre>
-        </div>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TIME=(600,00)</code>: Grants 600 CPU minutes (10 hours) and 00 seconds.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TIME=1440</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TIME=NOLIMIT</code>: Disables the job CPU timer completely (use with caution).</span></li>
-</ul>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Isolate Infinite Loops in Program Code</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If the program should execute in 5 minutes but burns hours:</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. Examine the program PSW in the dump.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. Check for missing read advances in <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PERFORM UNTIL</code> loops:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>* BAD: Never reads next record inside loop!
-       PERFORM UNTIL WS-EOF = 'Y'
-           PERFORM 2000-PROCESS-DATA
-      * MISSING: READ INPUT-FILE AT END MOVE 'Y' TO WS-EOF
-       END-PERFORM.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Add Intermediate Checkpoint Commits</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure long-running batch jobs commit periodically to avoid lock contention that triggers operator cancellations.</p>
+        None
       </div>
     </section>
 

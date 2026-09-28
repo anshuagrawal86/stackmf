@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Resolving CA-7 LATE and LJOB Delays: Diagnosing Predecessor Hold Dependencies and Resource Depth | StackMF</title>
-  <meta name="title" content="Resolving CA-7 LATE and LJOB Delays: Diagnosing Predecessor Hold Dependencies and Resource Depth | StackMF">
+  <title>CA-7 Migration Guide: Modernizing to Stonebranch & Control-M | StackMF</title>
+  <meta name="title" content="CA-7 Migration Guide: Modernizing to Stonebranch & Control-M | StackMF">
   <meta name="description" content="When critical batch jobs are flagged as LATE in CA-7, immediate action is required to avoid breaching SLAs. Learn how to parse CA-7 Queue displays (LQ, LJOB), inspect Virtual Resource Management (VRM) locks, and release predecessor holds.">
-  <meta name="keywords" content="CA-7, LATE, Workload Automation, Queue Management, Troubleshooting, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="CA-7, LATE, Workload Automation, Queue Management, Troubleshooting, CA 7, Stonebranch, Control-M, SASSSB01, workload automation, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/ca7-late-and-unstarted-job-troubleshooting.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/ca7-late-and-unstarted-job-troubleshooting.html">
-  <meta property="og:title" content="Resolving CA-7 LATE and LJOB Delays: Diagnosing Predecessor Hold Dependencies and Resource Depth | StackMF">
+  <meta property="og:title" content="CA-7 Migration Guide: Modernizing to Stonebranch & Control-M | StackMF">
   <meta property="og:description" content="When critical batch jobs are flagged as LATE in CA-7, immediate action is required to avoid breaching SLAs. Learn how to parse CA-7 Queue displays (LQ, LJOB), inspect Virtual Resource Management (VRM) locks, and release predecessor holds.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Resolving CA-7 LATE and LJOB Delays: Diagnosing Predecessor Hold Dependencies and Resource Depth | StackMF">
+  <meta name="twitter:title" content="CA-7 Migration Guide: Modernizing to Stonebranch & Control-M | StackMF">
   <meta name="twitter:description" content="When critical batch jobs are flagged as LATE in CA-7, immediate action is required to avoid breaching SLAs. Learn how to parse CA-7 Queue displays (LQ, LJOB), inspect Virtual Resource Management (VRM) locks, and release predecessor holds.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "When critical batch jobs are flagged as LATE in CA-7, immediate action is required to avoid breaching SLAs. Learn how to parse CA-7 Queue displays (LQ, LJOB), inspect Virtual Resource Management (VRM) locks, and release predecessor holds.",
       "url": "https://stackmf.com/blog/ca7-late-and-unstarted-job-troubleshooting.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/ca7-late-and-unstarted-job-troubleshooting.html",
       "author": {
@@ -116,8 +116,13 @@
         "Workload Automation",
         "Queue Management",
         "Troubleshooting",
-        "mainframe modernization",
+        "CA 7",
+        "Stonebranch",
+        "Control-M",
+        "SASSSB01",
+        "workload automation",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -356,21 +361,7 @@
         Incident Symptoms: What Triggers Resolving CA-7 LATE and LJOB Delays: Diagnosing Predecessor Hold Dependencies and Resource Depth?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The CA-7 operations console flashes continuous alerts:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CA-7.001 - JOB ACCNT01 IS LATE FOR START AT 03:00:00 ON 2026.270
-CA-7.002 - SLA DEADLINE BREACH IMMINENT FOR FLOW 'GLOBAL_CLEARING'</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The job remains in the Request Queue (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">REQ</code>), refusing to submit to the z/OS JES2 queue.</p>
+        None
       </div>
     </section>
 
@@ -381,10 +372,7 @@ CA-7.002 - SLA DEADLINE BREACH IMMINENT FOR FLOW 'GLOBAL_CLEARING'</code></pre>
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Jobs in the CA-7 Request Queue are evaluated against three gates:</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">Predecessor Requirements</strong>: Has every predecessor job completed with acceptable condition codes?</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Dataset Dependencies</strong>: Are required input datasets cataloged and closed?</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. <strong class="text-white font-semibold">Virtual Resource Management (VRM)</strong>: Are required exclusive resources (e.g. database locks, tape drives) currently held by another job?</p>
+        None
       </div>
     </section>
 
@@ -395,63 +383,7 @@ CA-7.002 - SLA DEADLINE BREACH IMMINENT FOR FLOW 'GLOBAL_CLEARING'</code></pre>
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Inquire Why the Job is Waiting</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Issue the detailed status query in CA-7:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>LJOB,JOB=ACCNT01,LIST=ALL</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Look at the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">REQUIREMENTS</code> section:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>PRED-JOB: FEEDJOB1 - NOT SATISFIED (WAITING)
-VRM-RES : DB2_TABLE_LOCK - HELD EXCLUSIVELY BY JOBPAY02</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Satisfy or Override Predecessor Requirements</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If predecessor <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FEEDJOB1</code> completed outside CA-7 or was verified manually:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>POST,JOB=ACCNT01,DEPJOB=FEEDJOB1</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Release Virtual Resource Contention</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Check who holds the VRM resource:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>LQ,ST=RES,RES=DB2_TABLE_LOCK</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Once <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">JOBPAY02</code> completes, CA-7 immediately releases the resource and submits <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ACCNT01</code> to JES2!</p>
+        None
       </div>
     </section>
 

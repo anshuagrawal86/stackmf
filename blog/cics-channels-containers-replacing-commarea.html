@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Breaking the 32KB Limit: Transitioning CICS Commareas to Channels and Containers | StackMF</title>
-  <meta name="title" content="Breaking the 32KB Limit: Transitioning CICS Commareas to Channels and Containers | StackMF">
+  <title>Breaking the 32KB Limit: Transitioning CICS | StackMF</title>
+  <meta name="title" content="Breaking the 32KB Limit: Transitioning CICS | StackMF">
   <meta name="description" content="Traditional CICS communication is restricted by the rigid 32KB DFHCOMMAREA barrier. Discover how to modernize program-to-program and web interfaces using CICS Channels and Containers, supporting multi-megabyte JSON payloads and modular data structures.">
-  <meta name="keywords" content="CICS TS, Channels, Containers, Commarea, Modernisation, COBOL, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="CICS TS, Channels, Containers, Commarea, Modernisation, COBOL, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/cics-channels-containers-replacing-commarea.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/cics-channels-containers-replacing-commarea.html">
-  <meta property="og:title" content="Breaking the 32KB Limit: Transitioning CICS Commareas to Channels and Containers | StackMF">
+  <meta property="og:title" content="Breaking the 32KB Limit: Transitioning CICS | StackMF">
   <meta property="og:description" content="Traditional CICS communication is restricted by the rigid 32KB DFHCOMMAREA barrier. Discover how to modernize program-to-program and web interfaces using CICS Channels and Containers, supporting multi-megabyte JSON payloads and modular data structures.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Breaking the 32KB Limit: Transitioning CICS Commareas to Channels and Containers | StackMF">
+  <meta name="twitter:title" content="Breaking the 32KB Limit: Transitioning CICS | StackMF">
   <meta name="twitter:description" content="Traditional CICS communication is restricted by the rigid 32KB DFHCOMMAREA barrier. Discover how to modernize program-to-program and web interfaces using CICS Channels and Containers, supporting multi-megabyte JSON payloads and modular data structures.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Traditional CICS communication is restricted by the rigid 32KB DFHCOMMAREA barrier. Discover how to modernize program-to-program and web interfaces using CICS Channels and Containers, supporting multi-megabyte JSON payloads and modular data structures.",
       "url": "https://stackmf.com/blog/cics-channels-containers-replacing-commarea.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/cics-channels-containers-replacing-commarea.html",
       "author": {
@@ -117,8 +117,8 @@
         "Commarea",
         "Modernisation",
         "COBOL",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Breaking the 32KB Limit: Transitioning CICS Commareas to Channels and Containers?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">An enterprise extending a core CICS transaction to support modern web payloads hits the fatal architectural wall: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DFHCOMMAREA</code> exceeds 32,767 bytes, causing compiler error <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">IGYDS1089-E RECORD SIZE EXCEEDS MAXIMUM</code> and CICS ABEND <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LENG</code>.</p>
+        None
       </div>
     </section>
 
@@ -372,13 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light"><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DFHCOMMAREA</code> is addressed by a 16-bit halfword length field in the CICS Task Control Block (EIB), fundamentally capping memory transfer at 32KB.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light"><strong class="text-white font-semibold">CICS Channels and Containers</strong>:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>A <strong class="text-white font-semibold">Channel</strong> acts as a named collection of independent data payloads.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Each <strong class="text-white font-semibold">Container</strong> holds arbitrary binary, character, or JSON data of unlimited size (gigabytes if needed!).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Eliminates 32KB limitations and enables self-describing, named interfaces.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -389,54 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Put Data into a CICS Container</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In the calling program:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>01  WS-PAYLOAD-DATA      PIC X(100000).
-
-       EXEC CICS PUT CONTAINER('CUSTOMER-REQUEST')
-                 CHANNEL('BANKING-CHANNEL')
-                 FROM(WS-PAYLOAD-DATA)
-                 FLENGTH(LENGTH OF WS-PAYLOAD-DATA)
-                 DATATYPE(DFHVALUE(CHAR))
-       END-EXEC.
-
-       EXEC CICS LINK PROGRAM('PROG02')
-                 CHANNEL('BANKING-CHANNEL')
-       END-EXEC.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Retrieve Data in the Called Program</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PROG02</code>:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>EXEC CICS GET CONTAINER('CUSTOMER-REQUEST')
-                 INTO(WS-INPUT-BUFFER)
-                 FLENGTH(WS-BUFFER-LEN)
-       END-EXEC.
-
-      * Process data and return response container
-       EXEC CICS PUT CONTAINER('CUSTOMER-RESPONSE')
-                 FROM(WS-RESPONSE-BUFFER)
-                 FLENGTH(WS-RESP-LEN)
-       END-EXEC.</code></pre>
-        </div>
+        None
       </div>
     </section>
 

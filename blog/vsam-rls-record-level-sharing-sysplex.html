@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access | StackMF</title>
-  <meta name="title" content="Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access | StackMF">
+  <title>Implementing VSAM Record-Level Sharing (RLS) for | StackMF</title>
+  <meta name="title" content="Implementing VSAM Record-Level Sharing (RLS) for | StackMF">
   <meta name="description" content="VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.">
-  <meta name="keywords" content="VSAM, VSAM RLS, CICS, Parallel Sysplex, SMSVSAM, Coupling Facility, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="VSAM, VSAM RLS, CICS, Parallel Sysplex, SMSVSAM, Coupling Facility, file status 92, file status 93, file status 35, IDC3009I, dynamic allocation, VERIFY, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html">
-  <meta property="og:title" content="Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access | StackMF">
+  <meta property="og:title" content="Implementing VSAM Record-Level Sharing (RLS) for | StackMF">
   <meta property="og:description" content="VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access | StackMF">
+  <meta name="twitter:title" content="Implementing VSAM Record-Level Sharing (RLS) for | StackMF">
   <meta name="twitter:description" content="VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "VSAM RLS enables concurrent update access across multiple CICS regions and batch jobs across a Parallel Sysplex without closing files or causing File Status 93 contention. Discover SMSVSAM configuration, Coupling Facility lock structures, and JCL changes.",
       "url": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html",
       "author": {
@@ -117,8 +117,14 @@
         "Parallel Sysplex",
         "SMSVSAM",
         "Coupling Facility",
-        "mainframe modernization",
+        "file status 92",
+        "file status 93",
+        "file status 35",
+        "IDC3009I",
+        "dynamic allocation",
+        "VERIFY",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +367,7 @@
         Incident Symptoms: What Triggers Implementing VSAM Record-Level Sharing (RLS) for Concurrent Batch and CICS Access?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">An enterprise operating 24/7 banking operations cannot take CICS regions offline to allow nightly batch processing jobs to update core VSAM accounting datasets. Batch jobs attempting to run concurrently fail with File Status 93 or wait indefinitely on dataset enqueues, blocking time-critical transaction feeds.</p>
+        None
       </div>
     </section>
 
@@ -372,12 +378,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Standard VSAM uses operating system file-level enqueues (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SHAREOPTIONS</code>). When an application opens a file for output, it acquires exclusive serialization for the entire dataset.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">To achieve continuous 24/7 operation without database conversion, IBM introduced <strong class="text-white font-semibold">VSAM Record-Level Sharing (RLS)</strong>:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Serialization moves from whole-file enqueues to individual records via the SMSVSAM address space and the Coupling Facility (CF).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Multiple CICS Application Owning Regions (AORs) and batch jobs across any LPAR in the Parallel Sysplex can update different records in the same KSDS simultaneously without locking each other out.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -388,95 +389,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Verify Storage Class & SMSVSAM Prerequisites</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure the Coupling Facility has allocated the lock and cache structures:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">IGWLOCK00</code>: The sysplex-wide CF lock structure.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Assign an SMS Storage Class with a defined cache set name:</span></li>
-</ul>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//STEP1    EXEC PGM=IDCAMS
-//SYSIN    DD *
-  ALTER PROD.KSDS.CUSTOMER -
-        LOG(NONE) -
-        BWO(TYPECICS)
-/*</code></pre>
-        </div>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LOG(NONE)</code>: Non-recoverable (or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LOG(UNDO)</code> / <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LOG(ALL)</code> for CICS dynamic transaction backout via CICS System Log).</span></li>
-</ul>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Update Batch JCL for RLS Mode</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">To access the dataset in RLS mode in batch jobs, specify <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RLS=NRI</code> (No Read Integrity) or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RLS=CR</code> (Consistent Read) in the JCL <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">AMP</code> parameter:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//CUSTFILE DD DSN=PROD.KSDS.CUSTOMER,
-//            DISP=SHR,
-//            RLS=CR</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">For update operations:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//CUSTFILE DD DSN=PROD.KSDS.CUSTOMER,
-//            DISP=SHR,
-//            RLS=CRE</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Update CICS FCT / CSD Definitions</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In CICS, update the file definition:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CEDA DEFINE FILE(CUSTFILE) GROUP(FINAPP)
-     DSNAME(PROD.KSDS.CUSTOMER)
-     RLSACCESS(YES)
-     RECORDFORMAT(F)
-     STRINGS(20)</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Install the definition:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CEDA INSTALL FILE(CUSTFILE) GROUP(FINAPP)</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Now, batch jobs and CICS transactions can run simultaneously with zero lock contention!</p>
+        None
       </div>
     </section>
 

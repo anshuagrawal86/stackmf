@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Fixing CA-7 Data Set Trigger (DSN) Failures: Resolving Missed SMF Type 15 Close Events | StackMF</title>
-  <meta name="title" content="Fixing CA-7 Data Set Trigger (DSN) Failures: Resolving Missed SMF Type 15 Close Events | StackMF">
+  <title>CA-7 Migration Guide: Modernizing to Stonebranch & Control-M | StackMF</title>
+  <meta name="title" content="CA-7 Migration Guide: Modernizing to Stonebranch & Control-M | StackMF">
   <meta name="description" content="CA-7 Data Set Triggers (DSN) automatically initiate downstream batch jobs when an input file is closed. Troubleshoot why jobs fail to trigger due to disposition issues (DISP=MOD vs NEW), SMF Type 15 intercept drops, or SASSSMI0 exits.">
-  <meta name="keywords" content="CA-7, Workload Automation, Dataset Triggers, SMF, Broadcom Replacement, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="CA-7, Workload Automation, Dataset Triggers, SMF, Broadcom Replacement, CA 7, Stonebranch, Control-M, SASSSB01, workload automation, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/ca7-dataset-trigger-missed-event-resolution.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/ca7-dataset-trigger-missed-event-resolution.html">
-  <meta property="og:title" content="Fixing CA-7 Data Set Trigger (DSN) Failures: Resolving Missed SMF Type 15 Close Events | StackMF">
+  <meta property="og:title" content="CA-7 Migration Guide: Modernizing to Stonebranch & Control-M | StackMF">
   <meta property="og:description" content="CA-7 Data Set Triggers (DSN) automatically initiate downstream batch jobs when an input file is closed. Troubleshoot why jobs fail to trigger due to disposition issues (DISP=MOD vs NEW), SMF Type 15 intercept drops, or SASSSMI0 exits.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Fixing CA-7 Data Set Trigger (DSN) Failures: Resolving Missed SMF Type 15 Close Events | StackMF">
+  <meta name="twitter:title" content="CA-7 Migration Guide: Modernizing to Stonebranch & Control-M | StackMF">
   <meta name="twitter:description" content="CA-7 Data Set Triggers (DSN) automatically initiate downstream batch jobs when an input file is closed. Troubleshoot why jobs fail to trigger due to disposition issues (DISP=MOD vs NEW), SMF Type 15 intercept drops, or SASSSMI0 exits.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "CA-7 Data Set Triggers (DSN) automatically initiate downstream batch jobs when an input file is closed. Troubleshoot why jobs fail to trigger due to disposition issues (DISP=MOD vs NEW), SMF Type 15 intercept drops, or SASSSMI0 exits.",
       "url": "https://stackmf.com/blog/ca7-dataset-trigger-missed-event-resolution.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/ca7-dataset-trigger-missed-event-resolution.html",
       "author": {
@@ -116,8 +116,13 @@
         "Dataset Triggers",
         "SMF",
         "Broadcom Replacement",
-        "mainframe modernization",
+        "CA 7",
+        "Stonebranch",
+        "Control-M",
+        "SASSSB01",
+        "workload automation",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -356,7 +361,7 @@
         Incident Symptoms: What Triggers Fixing CA-7 Data Set Trigger (DSN) Failures: Resolving Missed SMF Type 15 Close Events?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A critical overnight billing job fails to launch automatically in CA-7 after upstream step <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">STEP040</code> finishes writing <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PROD.FEED.DAILY</code>. Operations teams wait hours before discovering the schedule stalled.</p>
+        None
       </div>
     </section>
 
@@ -367,10 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">CA-7 monitors dataset creation using the SMF Type 14/15 close exit (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SASSSMI0</code>):</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">Disposition Filtering</strong>: CA-7 only triggers on datasets closed successfully with <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DISP=(NEW,CATLG)</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DISP=(MOD,CATLG)</code> if configured in the dataset definition.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Step Condition Code</strong>: If the creating step abended or completed with a condition code higher than the threshold, CA-7 suppresses the trigger.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. <strong class="text-white font-semibold">Queue Full / Exit Deactivated</strong>: If the CA-7 SMF intercept queue fills up during peak traffic, SMF records drop.</p>
+        None
       </div>
     </section>
 
@@ -381,56 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Inquire Dataset Definition in CA-7</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">From the CA-7 3270 terminal:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>LDSN,DSN=PROD.FEED.DAILY</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Verify attributes:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TRIG</code>: Ensure dataset trigger is enabled (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">YES</code>).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RO</code>: Check reverse offset and creation criteria.</span></li>
-</ul>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Check the Creating Step JCL Disposition</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure the dataset was created with a triggering disposition:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//SYSUT2   DD DSN=PROD.FEED.DAILY,
-//            DISP=(NEW,CATLG,DELETE),
-//            SPACE=(CYL,(50,10)),UNIT=SYSDA</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If using <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DISP=SHR</code>, CA-7 will NOT trigger unless <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TRIGGER=ALWAYS</code> is explicitly configured.</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Manually Demand the Successor Job</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">To restore production while diagnosing:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DEMAND,JOB=BILLNIGHT,SET=ND</code></pre>
-        </div>
+        None
       </div>
     </section>
 

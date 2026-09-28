@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Building Enterprise REXX Automation: Scripting TSO/E, ISPF Panels, and SDSF Job Parsing | StackMF</title>
-  <meta name="title" content="Building Enterprise REXX Automation: Scripting TSO/E, ISPF Panels, and SDSF Job Parsing | StackMF">
+  <title>Building Enterprise REXX Automation: Scripting | StackMF</title>
+  <meta name="title" content="Building Enterprise REXX Automation: Scripting | StackMF">
   <meta name="description" content="REXX is the scripting powerhouse of z/OS. Learn how to write robust REXX scripts that interact with TSO/E, display custom ISPF panels, and programmatically parse SDSF batch job spool logs to trap production errors automatically without expensive 3rd party tools.">
-  <meta name="keywords" content="REXX, TSO/E, ISPF, SDSF, Automation, Batch Monitoring, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="REXX, TSO/E, ISPF, SDSF, Automation, Batch Monitoring, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/rexx-automation-ispf-tso-utilities.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/rexx-automation-ispf-tso-utilities.html">
-  <meta property="og:title" content="Building Enterprise REXX Automation: Scripting TSO/E, ISPF Panels, and SDSF Job Parsing | StackMF">
+  <meta property="og:title" content="Building Enterprise REXX Automation: Scripting | StackMF">
   <meta property="og:description" content="REXX is the scripting powerhouse of z/OS. Learn how to write robust REXX scripts that interact with TSO/E, display custom ISPF panels, and programmatically parse SDSF batch job spool logs to trap production errors automatically without expensive 3rd party tools.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Building Enterprise REXX Automation: Scripting TSO/E, ISPF Panels, and SDSF Job Parsing | StackMF">
+  <meta name="twitter:title" content="Building Enterprise REXX Automation: Scripting | StackMF">
   <meta name="twitter:description" content="REXX is the scripting powerhouse of z/OS. Learn how to write robust REXX scripts that interact with TSO/E, display custom ISPF panels, and programmatically parse SDSF batch job spool logs to trap production errors automatically without expensive 3rd party tools.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "REXX is the scripting powerhouse of z/OS. Learn how to write robust REXX scripts that interact with TSO/E, display custom ISPF panels, and programmatically parse SDSF batch job spool logs to trap production errors automatically without expensive 3rd party tools.",
       "url": "https://stackmf.com/blog/rexx-automation-ispf-tso-utilities.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/rexx-automation-ispf-tso-utilities.html",
       "author": {
@@ -117,8 +117,8 @@
         "SDSF",
         "Automation",
         "Batch Monitoring",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Building Enterprise REXX Automation: Scripting TSO/E, ISPF Panels, and SDSF Job Parsing?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Systems operators and developers spend hours manually logging into TSO/ISPF, typing SDSF commands, finding failed batch jobs, and manually copying CEEDUMP spools. When production incidents strike, human latency in finding error messages delays Mean Time to Resolution (MTTR).</p>
+        None
       </div>
     </section>
 
@@ -372,13 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">While mainframe operational tools are robust, manual interaction through 3270 terminals creates bottlenecks.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">REXX (Restructured Extended Executor) natively interfaces with:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">TSO/E Command Processor</strong>: Issuing dataset allocations, deletes, and catalog searches.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">ISPF Dialog Manager</strong>: Displaying dynamic user input panels, tables, and popup menus.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">ISFEXEC (SDSF Host API)</strong>: Programmatically querying the JES2/JES3 input/output spools, filtering by jobname, extracting return codes, and alerting teams via emails or webhook calls.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -389,76 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Build an Automated SDSF Job Parser in REXX</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">This script queries SDSF for any job ending with ABEND or RC > 4 in the past 2 hours:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">rexx</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>/* REXX - SDSF BATCH ERROR MONITOR */
-Address ISPEXEC
-rc = isfcalls('ON')
-
-/* Set SDSF filters */
-ISFFILTER = "RETCODE EQ ABEND* OR RETCODE GT 4"
-ISFPREFIX = "PROD*"
-
-/* Access the SDSF Status Display */
-Address SDSF "ISFEXEC ST"
-
-If rc /= 0 Then Do
-  Say "SDSF Query Failed with RC="rc
-  Exit 8
-End
-
-Say "Found "isfrows" failing jobs in queue."
-
-Do i = 1 To isfrows
-  Say "Job: " JNAME.i " ID: " JOBID.i " Return Code: " RETCODE.i
-  
-  /* Read Spool Datasets for the Failing Job */
-  Address SDSF "ISFACT ST TOKEN('"TOKEN.i"') PARM(NP ?)"
-  
-  Do j = 1 To isfrows
-    If DSNAM.j = "SYSPRINT" | DSNAM.j = "CEEDUMP" Then Do
-      Address SDSF "ISFBROWSE ST TOKEN('"TOKEN.j"')"
-      Do k = 1 To isfbrowse.0
-        If Pos("SYSTEM COMPLETION CODE", isfbrowse.k) &gt; 0 Then
-          Say "  &gt;&gt;&gt; Root Cause: " isfbrowse.k
-      End
-    End
-  End
-End
-
-rc = isfcalls('OFF')
-Exit 0</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Invoke REXX in Batch JCL</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Run the automation script unattended in scheduled batch:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//REXXJOB  JOB (ACCT),'REXX MONITOR',CLASS=A,MSGCLASS=X
-//STEP1    EXEC PGM=IKJEFT01
-//SYSPROC  DD DSN=PROD.REXX.EXEC,DISP=SHR
-//SYSTSPRT DD SYSOUT=*
-//SYSTSIN  DD *
-  EXEC 'PROD.REXX.EXEC(SDSFMON)'
-/*</code></pre>
-        </div>
+        None
       </div>
     </section>
 

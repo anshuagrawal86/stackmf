@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Handling IMS DL/I Status Code 'GE': Navigating Unmatched Key Ranges and Boolean SSAs | StackMF</title>
-  <meta name="title" content="Handling IMS DL/I Status Code 'GE': Navigating Unmatched Key Ranges and Boolean SSAs | StackMF">
+  <title>Handling IMS DL/I Status Code 'GE': Navigating | StackMF</title>
+  <meta name="title" content="Handling IMS DL/I Status Code 'GE': Navigating | StackMF">
   <meta name="description" content="IMS DL/I status code 'GE' indicates the requested segment was not found (equivalent to SQLCODE +100). Learn how to handle 'GE' gracefully, optimize qualified Segment Search Arguments (SSAs), and navigate hierarchical paths.">
-  <meta name="keywords" content="IMS DB, DL/I, Status Code GE, SSA, Segment Not Found, COBOL, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="IMS DB, DL/I, Status Code GE, SSA, Segment Not Found, COBOL, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/ims-status-code-ge-segment-not-found.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/ims-status-code-ge-segment-not-found.html">
-  <meta property="og:title" content="Handling IMS DL/I Status Code 'GE': Navigating Unmatched Key Ranges and Boolean SSAs | StackMF">
+  <meta property="og:title" content="Handling IMS DL/I Status Code 'GE': Navigating | StackMF">
   <meta property="og:description" content="IMS DL/I status code 'GE' indicates the requested segment was not found (equivalent to SQLCODE +100). Learn how to handle 'GE' gracefully, optimize qualified Segment Search Arguments (SSAs), and navigate hierarchical paths.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Handling IMS DL/I Status Code 'GE': Navigating Unmatched Key Ranges and Boolean SSAs | StackMF">
+  <meta name="twitter:title" content="Handling IMS DL/I Status Code 'GE': Navigating | StackMF">
   <meta name="twitter:description" content="IMS DL/I status code 'GE' indicates the requested segment was not found (equivalent to SQLCODE +100). Learn how to handle 'GE' gracefully, optimize qualified Segment Search Arguments (SSAs), and navigate hierarchical paths.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "IMS DL/I status code 'GE' indicates the requested segment was not found (equivalent to SQLCODE +100). Learn how to handle 'GE' gracefully, optimize qualified Segment Search Arguments (SSAs), and navigate hierarchical paths.",
       "url": "https://stackmf.com/blog/ims-status-code-ge-segment-not-found.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/ims-status-code-ge-segment-not-found.html",
       "author": {
@@ -117,8 +117,8 @@
         "SSA",
         "Segment Not Found",
         "COBOL",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Handling IMS DL/I Status Code 'GE': Navigating Unmatched Key Ranges and Boolean SSAs?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A COBOL IMS transaction looking up an account number abends with U4038 because the developer treats status code 'GE' as an unhandled system failure rather than a standard 'record not found' business condition.</p>
+        None
       </div>
     </section>
 
@@ -372,12 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When issuing DL/I calls (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">GU</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">GHU</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">GN</code>):</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>A blank status code (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">'  '</code>) indicates success.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">Status Code 'GE'</strong> indicates DL/I searched the database according to the supplied Segment Search Argument (SSA) but found no segment meeting the qualification criteria.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>In parent-child relationships, 'GE' is also returned when reading past the last child segment under a parent.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -388,53 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Construct Qualified SSA in Working-Storage</h3>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>01  ACCOUNT-SSA.
-           05  FILLER           PIC X(08) VALUE 'ROOTSEG '.
-           05  FILLER           PIC X(01) VALUE '('.
-           05  FIELD-NAME       PIC X(08) VALUE 'ACCTNO  '.
-           05  OPERATOR         PIC X(02) VALUE '= '.
-           05  KEY-VALUE        PIC X(10) VALUE 'ACC90214  '.
-           05  FILLER           PIC X(01) VALUE ')'.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Handle 'GE' Gracefully in COBOL Logic</h3>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CALL 'CBLTDLI' USING GU
-                            CUST-PCB
-                            CUST-IO-AREA
-                            ACCOUNT-SSA.
-
-       EVALUATE PCB-STATUS-CODE
-           WHEN '  '
-               PERFORM 2000-PROCESS-ACCOUNT
-           WHEN 'GE'
-      * Record does not exist - business condition
-               MOVE 'Account Not Found' TO WS-ERROR-MSG
-               PERFORM 3000-NOT-FOUND-ROUTINE
-           WHEN OTHER
-      * True technical failure
-               PERFORM 9999-HANDLE-IMS-ABEND
-       END-EVALUATE.</code></pre>
-        </div>
+        None
       </div>
     </section>
 

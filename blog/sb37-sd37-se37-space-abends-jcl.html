@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mastering SB37, SD37, and SE37 Out-of-Space ABENDs in z/OS Sequential & PDS Datasets | StackMF</title>
-  <meta name="title" content="Mastering SB37, SD37, and SE37 Out-of-Space ABENDs in z/OS Sequential & PDS Datasets | StackMF">
+  <title>Sx37 Out-of-Space ABEND Fix: B37, D37, E37 Resolution | StackMF</title>
+  <meta name="title" content="Sx37 Out-of-Space ABEND Fix: B37, D37, E37 Resolution | StackMF">
   <meta name="description" content="Space ABENDs (SB37, SD37, SE37) crash critical overnight batch jobs when datasets exceed volume, extent, or catalog limits. Discover how to configure secondary allocations, RLSE, SMS Dataclasses, and Extended Format attributes to prevent volume exhaustion.">
-  <meta name="keywords" content="JCL, z/OS, DFSMS, Storage, SB37, SD37, SE37, IDCAMS, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="JCL, z/OS, DFSMS, Storage, SB37, SD37, SE37, IDCAMS, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/sb37-sd37-se37-space-abends-jcl.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/sb37-sd37-se37-space-abends-jcl.html">
-  <meta property="og:title" content="Mastering SB37, SD37, and SE37 Out-of-Space ABENDs in z/OS Sequential & PDS Datasets | StackMF">
+  <meta property="og:title" content="Sx37 Out-of-Space ABEND Fix: B37, D37, E37 Resolution | StackMF">
   <meta property="og:description" content="Space ABENDs (SB37, SD37, SE37) crash critical overnight batch jobs when datasets exceed volume, extent, or catalog limits. Discover how to configure secondary allocations, RLSE, SMS Dataclasses, and Extended Format attributes to prevent volume exhaustion.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mastering SB37, SD37, and SE37 Out-of-Space ABENDs in z/OS Sequential & PDS Datasets | StackMF">
+  <meta name="twitter:title" content="Sx37 Out-of-Space ABEND Fix: B37, D37, E37 Resolution | StackMF">
   <meta name="twitter:description" content="Space ABENDs (SB37, SD37, SE37) crash critical overnight batch jobs when datasets exceed volume, extent, or catalog limits. Discover how to configure secondary allocations, RLSE, SMS Dataclasses, and Extended Format attributes to prevent volume exhaustion.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Space ABENDs (SB37, SD37, SE37) crash critical overnight batch jobs when datasets exceed volume, extent, or catalog limits. Discover how to configure secondary allocations, RLSE, SMS Dataclasses, and Extended Format attributes to prevent volume exhaustion.",
       "url": "https://stackmf.com/blog/sb37-sd37-se37-space-abends-jcl.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/sb37-sd37-se37-space-abends-jcl.html",
       "author": {
@@ -119,8 +119,8 @@
         "SD37",
         "SE37",
         "IDCAMS",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -329,7 +329,7 @@
 
     <!-- Title -->
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
-      Mastering SB37, SD37, and SE37 Out-of-Space ABENDs in z/OS Sequential & PDS Datasets
+      Sx37 (B37 / D37 / E37) ABEND: Resolving Disk Dataset Out-of-Space Errors
     </h1>
 
     <!-- Author & Trust Pod -->
@@ -371,21 +371,7 @@
         Incident Symptoms: What Triggers Mastering SB37, SD37, and SE37 Out-of-Space ABENDs in z/OS Sequential & PDS Datasets?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A critical end-of-month batch consolidation fails at 02:45 AM with:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>IEC030I B37-04,IFG0554A,JOBEOM01,STEP040,SYSUT2,3420,VOL004,PROD.BILLING.MONTHLY.EXTRACT
-IEF450I JOBEOM01 STEP040 - ABEND=SB37 U0000 REASON=00000004</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Alternatively, variations such as <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">D37-04</code> (No space available on current volume to satisfy secondary allocation request) or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">E37-04</code> (Dataset already allocated maximum allowable extents: 123 for non-extended sequential or 16 for standard PDS) bring the overnight batch processing pipeline to a dead halt.</p>
+        None
       </div>
     </section>
 
@@ -396,12 +382,7 @@ IEF450I JOBEOM01 STEP040 - ABEND=SB37 U0000 REASON=00000004</code></pre>
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">IBM DFSMS manages disk space allocations in primary and secondary extents:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">SB37</strong>: End of volume reached, and no secondary allocation quantity was specified in the JCL <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SPACE</code> parameter, or the system could not mount a new volume.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">SD37</strong>: A secondary extent was requested, but the current DASD volume does not have a contiguous chunk of tracks/cylinders large enough to satisfy the minimum request, and no additional candidate volumes exist in the SMS Storage Group.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">SE37</strong>: The dataset reached the physical architectural limit of extents (16 extents on a single volume for basic PDS; 123 extents across all volumes for standard sequential datasets) or ran out of directory blocks (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">D37</code> on PDS directory).</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -412,69 +393,7 @@ IEF450I JOBEOM01 STEP040 - ABEND=SB37 U0000 REASON=00000004</code></pre>
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Optimize the JCL SPACE Allocation</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure secondary allocations and release unused space upon job completion:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//SYSUT2   DD DSN=PROD.BILLING.MONTHLY.EXTRACT,
-//            DISP=(NEW,CATLG,DELETE),
-//            SPACE=(CYL,(150,50),RLSE),
-//            UNIT=SYSDA,
-//            DCB=(RECFM=FB,LRECL=250,BLKSIZE=27750)</code></pre>
-        </div>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Primary: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">150</code> cylinders allocated immediately.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Secondary: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">50</code> cylinders allocated dynamically whenever the file expands.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RLSE</code>: Frees unwritten cylinders at <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CLOSE</code>, preventing DASD wastage.</span></li>
-</ul>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Bypass Extent Limits with SMS Extended Addressability (EA)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">For multi-gigabyte or terabyte batch files, assign an SMS Data Class configured for Extended Format:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//SYSUT2   DD DSN=PROD.BILLING.MONTHLY.EXTRACT,
-//            DISP=(NEW,CATLG,DELETE),
-//            DATACLAS=DCEARGE,
-//            STORCLAS=SCBATCH,
-//            SPACE=(CYL,(500,100),RLSE)</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Extended format datasets support up to 255 extents per volume and multi-volume spanning up to 59 volumes, completely eliminating the 123-extent barrier.</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Recovering a PDS Out of Directory Blocks (SD37 / SE37)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If a partitioned dataset (PDS) fails due to exhausted directory blocks, expand it using IDCAMS:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//STEP1    EXEC PGM=IDCAMS
-//SYSPRINT DD SYSOUT=*
-//SYSIN    DD *
-  ALTER PROD.COBOL.LOADLIB -
-        SPACE(50 20) -
-        DIRECTORY(150)
-/*</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Better yet, convert legacy PDS datasets to PDSE (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DSNTYPE=LIBRARY</code>), which features dynamic directory allocation and automatic member space reclamation without requiring periodic <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">COMPRESS</code>.</p>
+        None
       </div>
     </section>
 

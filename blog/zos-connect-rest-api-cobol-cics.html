@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Modernizing COBOL Copybooks to OpenAPI 3.0 REST APIs using IBM z/OS Connect | StackMF</title>
-  <meta name="title" content="Modernizing COBOL Copybooks to OpenAPI 3.0 REST APIs using IBM z/OS Connect | StackMF">
+  <title>Modernizing COBOL Copybooks to OpenAPI 3.0 REST | StackMF</title>
+  <meta name="title" content="Modernizing COBOL Copybooks to OpenAPI 3.0 REST | StackMF">
   <meta name="description" content="Unlock legacy core mainframe assets by exposing COBOL Commareas and CICS Channels/Containers as OpenAPI 3.0 RESTful endpoints with sub-10ms latency using IBM z/OS Connect EE. Say goodbye to brittle screen scraping and middleware gateways.">
-  <meta name="keywords" content="Modernisation, z/OS Connect, OpenAPI, REST API, COBOL, CICS, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Modernisation, z/OS Connect, OpenAPI, REST API, COBOL, CICS, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/zos-connect-rest-api-cobol-cics.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/zos-connect-rest-api-cobol-cics.html">
-  <meta property="og:title" content="Modernizing COBOL Copybooks to OpenAPI 3.0 REST APIs using IBM z/OS Connect | StackMF">
+  <meta property="og:title" content="Modernizing COBOL Copybooks to OpenAPI 3.0 REST | StackMF">
   <meta property="og:description" content="Unlock legacy core mainframe assets by exposing COBOL Commareas and CICS Channels/Containers as OpenAPI 3.0 RESTful endpoints with sub-10ms latency using IBM z/OS Connect EE. Say goodbye to brittle screen scraping and middleware gateways.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Modernizing COBOL Copybooks to OpenAPI 3.0 REST APIs using IBM z/OS Connect | StackMF">
+  <meta name="twitter:title" content="Modernizing COBOL Copybooks to OpenAPI 3.0 REST | StackMF">
   <meta name="twitter:description" content="Unlock legacy core mainframe assets by exposing COBOL Commareas and CICS Channels/Containers as OpenAPI 3.0 RESTful endpoints with sub-10ms latency using IBM z/OS Connect EE. Say goodbye to brittle screen scraping and middleware gateways.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Unlock legacy core mainframe assets by exposing COBOL Commareas and CICS Channels/Containers as OpenAPI 3.0 RESTful endpoints with sub-10ms latency using IBM z/OS Connect EE. Say goodbye to brittle screen scraping and middleware gateways.",
       "url": "https://stackmf.com/blog/zos-connect-rest-api-cobol-cics.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/zos-connect-rest-api-cobol-cics.html",
       "author": {
@@ -117,8 +117,8 @@
         "REST API",
         "COBOL",
         "CICS",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Modernizing COBOL Copybooks to OpenAPI 3.0 REST APIs using IBM z/OS Connect?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Enterprise digital channels (mobile apps, React/Node.js web portals, cloud microservices) require real-time JSON access to core banking logic residing in 30-year-old COBOL/CICS programs. Previous attempts relied on fragile 3270 screen scraping or heavyweight SOAP wrappers that broke under load and incurred immense MIPS costs.</p>
+        None
       </div>
     </section>
 
@@ -372,12 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Core mainframe transactions expect EBCDIC binary structures:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DFHCOMMAREA</code> or CICS Containers formatted with binary integers (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">COMP</code>), packed decimals (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">COMP-3</code>), and padded strings (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PIC X</code>).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Modern cloud applications communicate in UTF-8 JSON via HTTP REST.</span></li>
-</ul>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Translating between these worlds manually requires massive boilerplate code. IBM z/OS Connect Enterprise Edition acts as a lightweight, zIIP-eligible API gateway running inside the z/OS subsystem, transforming JSON payloads directly into binary CICS Commareas without modifying existing COBOL source code.</p>
+        None
       </div>
     </section>
 
@@ -388,93 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Define the COBOL Copybook Structure</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Take the existing CICS program interface copybook (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">INVOICE.CPY</code>):</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>01  INVOICE-REQUEST.
-           05  REQ-ACCOUNT-ID          PIC X(10).
-           05  REQ-ACTION-CODE         PIC X(02).
-       01  INVOICE-RESPONSE.
-           05  RESP-STATUS-CODE        PIC X(04).
-           05  RESP-CUSTOMER-NAME      PIC X(35).
-           05  RESP-BALANCE-DUE        PIC S9(7)V99 COMP-3.
-           05  RESP-DUE-DATE           PIC X(10).</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Generate OpenAPI 3.0 Mapping using z/OS Connect Designer</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Using the z/OS Connect Designer tool:</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. Import <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">INVOICE.CPY</code> as the request and response data structure.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. The tool maps:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">REQ-ACCOUNT-ID</code> -> JSON property <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">"accountId": "string"</code></span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RESP-BALANCE-DUE</code> -> JSON property <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">"balanceDue": 1250.75</code></span></li>
-</ul>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. Map HTTP verbs: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">POST /api/v1/invoices</code> routes to CICS program <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">INVP01</code>.</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Deploy the API Package to the z/OS Connect Server</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Package the project into a <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">.aar</code> (API Archive) and drop it into the server configuration:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">xml</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>&lt;!-- server.xml --&gt;
-&lt;server description="z/OS Connect Production Gateway"&gt;
-    &lt;featureManager&gt;
-        &lt;feature&gt;zosConnect:zosConnect-2.0&lt;/feature&gt;
-        &lt;feature&gt;zosConnect:cicsService-1.0&lt;/feature&gt;
-    &lt;/featureManager&gt;
-
-    &lt;zosConnect_cicsIpicConnection id="cicsConn"
-        host="127.0.0.1"
-        port="10443"
-        connectionTimeout="5s"/&gt;
-&lt;/server&gt;</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Test the Generated REST Endpoint</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">From any modern curl or Node.js client:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>curl -X POST https://api.stackmf.bank/api/v1/invoices      -H "Content-Type: application/json"      -d '{"accountId": "ACC-99214", "actionCode": "IN"}'</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Response returns within 6 milliseconds in pure JSON:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">json</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>{
-  "statusCode": "0000",
-  "customerName": "ACME CORPORATION",
-  "balanceDue": 14250.50,
-  "dueDate": "2026-10-15"
-}</code></pre>
-        </div>
+        None
       </div>
     </section>
 

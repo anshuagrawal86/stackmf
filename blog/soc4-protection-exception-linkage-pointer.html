@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Debugging ABEND S0C4 (Protection Exception) in COBOL Linkage Section & Pointers | StackMF</title>
-  <meta name="title" content="Debugging ABEND S0C4 (Protection Exception) in COBOL Linkage Section & Pointers | StackMF">
+  <title>S0C4 / SOC4 ABEND Fix: Protection Exception & Linkage Pointers | StackMF</title>
+  <meta name="title" content="S0C4 / SOC4 ABEND Fix: Protection Exception & Linkage Pointers | StackMF">
   <meta name="description" content="ABEND S0C4 (0C4) indicates a hardware storage protection violation caused by dereferencing a NULL pointer, exceeding table OCCURS subscript boundaries without bounds checking, or accessing unallocated Linkage Section items. Learn how to parse the PSW, TEA, and CEEDUMP to isolate the invalid memory address.">
-  <meta name="keywords" content="COBOL, z/OS, S0C4, Linkage Section, Pointers, CICS, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="COBOL, z/OS, S0C4, Linkage Section, Pointers, CICS, SOC4, 0C4, abend s0c4, protection exception, linkage section, addressing exception, BASSM, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/soc4-protection-exception-linkage-pointer.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/soc4-protection-exception-linkage-pointer.html">
-  <meta property="og:title" content="Debugging ABEND S0C4 (Protection Exception) in COBOL Linkage Section & Pointers | StackMF">
+  <meta property="og:title" content="S0C4 / SOC4 ABEND Fix: Protection Exception & Linkage Pointers | StackMF">
   <meta property="og:description" content="ABEND S0C4 (0C4) indicates a hardware storage protection violation caused by dereferencing a NULL pointer, exceeding table OCCURS subscript boundaries without bounds checking, or accessing unallocated Linkage Section items. Learn how to parse the PSW, TEA, and CEEDUMP to isolate the invalid memory address.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Debugging ABEND S0C4 (Protection Exception) in COBOL Linkage Section & Pointers | StackMF">
+  <meta name="twitter:title" content="S0C4 / SOC4 ABEND Fix: Protection Exception & Linkage Pointers | StackMF">
   <meta name="twitter:description" content="ABEND S0C4 (0C4) indicates a hardware storage protection violation caused by dereferencing a NULL pointer, exceeding table OCCURS subscript boundaries without bounds checking, or accessing unallocated Linkage Section items. Learn how to parse the PSW, TEA, and CEEDUMP to isolate the invalid memory address.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "ABEND S0C4 (0C4) indicates a hardware storage protection violation caused by dereferencing a NULL pointer, exceeding table OCCURS subscript boundaries without bounds checking, or accessing unallocated Linkage Section items. Learn how to parse the PSW, TEA, and CEEDUMP to isolate the invalid memory address.",
       "url": "https://stackmf.com/blog/soc4-protection-exception-linkage-pointer.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/soc4-protection-exception-linkage-pointer.html",
       "author": {
@@ -117,8 +117,15 @@
         "Linkage Section",
         "Pointers",
         "CICS",
-        "mainframe modernization",
+        "SOC4",
+        "0C4",
+        "abend s0c4",
+        "protection exception",
+        "linkage section",
+        "addressing exception",
+        "BASSM",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -319,7 +326,7 @@
 
     <!-- Title -->
     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-6">
-      Debugging ABEND S0C4 (Protection Exception) in COBOL Linkage Section & Pointers
+      S0C4 / SOC4 ABEND: Resolving Protection Exception & Linkage Pointers
     </h1>
 
     <!-- Author & Trust Pod -->
@@ -361,24 +368,7 @@
         Incident Symptoms: What Triggers Debugging ABEND S0C4 (Protection Exception) in COBOL Linkage Section & Pointers?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A core CICS online transaction or batch subprogram terminates with ABEND S0C4:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SYSTEM COMPLETION CODE=0C4  REASON CODE=00000010
-PSW AT TIME OF INTERRUPT: 078D2000 80004128  ILC 4  INTC 10
-TRANSLATION EXCEPTION ADDR (TEA): 00000000_00000004
-CEE3204S The system detected a protection exception (System Completion Code=0C4).
-         From compile unit MODSUB1 at entry point MODSUB1 at statement 312.</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The developer sees Reason Code 10 (Segment translation or page translation fault) and a Translation Exception Address (TEA) pointing near <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">00000004</code>. The transaction fails for end-users with CICS abend code <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ASRA</code>.</p>
+        None
       </div>
     </section>
 
@@ -389,10 +379,7 @@ CEE3204S The system detected a protection exception (System Completion Code=0C4)
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In z/Architecture virtual storage, each 4KB page is protected by storage keys and page table entries. An S0C4 occurs when:</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">Linkage Section Address Misalignment</strong>: A program defines items under <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LINKAGE SECTION</code> (or CICS <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">DFHCOMMAREA</code>) but the caller did not pass the argument in <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CALL 'MODSUB1' USING BY REFERENCE PARM-A</code>. COBOL assigns address zero (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">NULL</code>) to the corresponding BLL (Base Locator for Linkage) cell. Accessing any field within that structure attempts to read address <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">00000000 + offset</code>, violating page 0 protection.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Table Subscript Out-of-Bounds</strong>: Subscript or index loops run wild past the allocated <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">OCCURS</code> range (e.g., accessing item 500 in an array sized for 50), stepping across the virtual storage boundary into an unallocated or foreign key page.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. <strong class="text-white font-semibold">Storage Key Mismatch</strong>: In CICS with Transaction Isolation active, an application running in User Key (Key 9) attempts to modify CICS System Storage (Key 8).</p>
+        None
       </div>
     </section>
 
@@ -403,87 +390,7 @@ CEE3204S The system detected a protection exception (System Completion Code=0C4)
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Inspect the Translation Exception Address (TEA)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Check the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TEA</code> or the register used as base in the instruction:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>If <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TEA</code> is <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">00000000_00000000</code> through <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">00000FFF</code>, it is a <strong class="text-white font-semibold">NULL pointer dereference</strong>. A Linkage Section parameter was accessed without being passed or allocated.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>If <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TEA</code> is <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">7FFFFFFF</code> or negative, an uninitialized integer or binary counter was used as an array index.</span></li>
-</ul>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Verify Parameter Counts & Parmlists</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure the calling program passes every expected parameter by reference:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>* CALLING PROGRAM
-       CALL 'MODSUB1' USING BY REFERENCE WS-HEADER-RECORD
-                                         WS-ITEM-ARRAY
-                                         WS-RETURN-STATUS.
-
-      * CALLED PROGRAM (MODSUB1)
-       LINKAGE SECTION.
-       01  LS-HEADER-RECORD        PIC X(100).
-       01  LS-ITEM-ARRAY           PIC X(5000).
-       01  LS-RETURN-STATUS        PIC X(04).
-
-       PROCEDURE DIVISION USING LS-HEADER-RECORD
-                                LS-ITEM-ARRAY
-                                LS-RETURN-STATUS.</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">MODSUB1</code> is called dynamically and optional parameters are permitted, use <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ADDRESS OF</code> to verify pointer validity before dereferencing:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>IF ADDRESS OF LS-RETURN-STATUS NOT = NULL
-           MOVE 'OK00' TO LS-RETURN-STATUS
-       END-IF.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Check CICS EIBCALEN Before Reading DFHCOMMAREA</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In CICS, always compare <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EIBCALEN</code> to the expected commarea length:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>IF EIBCALEN &lt; LENGTH OF DFHCOMMAREA
-           EXEC CICS RETURN
-                     ABCODE('LENG')
-           END-EXEC
-       END-IF.</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Enable SSRANGE in Non-Production Compiles</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Catch subscript overflows during integration testing:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//COBSTEP EXEC PGM=IGYCRCTL,PARM='SSRANGE,OPT(0),TEST'</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SSRANGE</code> is active, the compiler emits instructions that intercept bounds breaches, producing a clear descriptive LE error message instead of an unexpected hardware S0C4.</p>
+        None
       </div>
     </section>
 

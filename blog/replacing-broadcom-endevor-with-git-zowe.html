@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Migrating from Broadcom Endevor to Git & Modern CI/CD using Zowe CLI and IBM DBB | StackMF</title>
-  <meta name="title" content="Migrating from Broadcom Endevor to Git & Modern CI/CD using Zowe CLI and IBM DBB | StackMF">
+  <title>Broadcom Endevor to Git Migration: Modern DevOps Guide | StackMF</title>
+  <meta name="title" content="Broadcom Endevor to Git Migration: Modern DevOps Guide | StackMF">
   <meta name="description" content="Eliminate escalating Broadcom Endevor licensing fees by migrating your mainframe source code inventory, components, and processors to Git repositories orchestrated with Zowe CLI, GitHub Actions, and IBM Dependency Based Build (DBB).">
-  <meta name="keywords" content="Endevor, DevOps, Broadcom Replacement, Git, Zowe CLI, IBM DBB, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Endevor, DevOps, Broadcom Replacement, Git, Zowe CLI, IBM DBB, CA Endevor, Zowe, BC1PFP00, SCM migration, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/replacing-broadcom-endevor-with-git-zowe.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/replacing-broadcom-endevor-with-git-zowe.html">
-  <meta property="og:title" content="Migrating from Broadcom Endevor to Git & Modern CI/CD using Zowe CLI and IBM DBB | StackMF">
+  <meta property="og:title" content="Broadcom Endevor to Git Migration: Modern DevOps Guide | StackMF">
   <meta property="og:description" content="Eliminate escalating Broadcom Endevor licensing fees by migrating your mainframe source code inventory, components, and processors to Git repositories orchestrated with Zowe CLI, GitHub Actions, and IBM Dependency Based Build (DBB).">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Migrating from Broadcom Endevor to Git & Modern CI/CD using Zowe CLI and IBM DBB | StackMF">
+  <meta name="twitter:title" content="Broadcom Endevor to Git Migration: Modern DevOps Guide | StackMF">
   <meta name="twitter:description" content="Eliminate escalating Broadcom Endevor licensing fees by migrating your mainframe source code inventory, components, and processors to Git repositories orchestrated with Zowe CLI, GitHub Actions, and IBM Dependency Based Build (DBB).">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Eliminate escalating Broadcom Endevor licensing fees by migrating your mainframe source code inventory, components, and processors to Git repositories orchestrated with Zowe CLI, GitHub Actions, and IBM Dependency Based Build (DBB).",
       "url": "https://stackmf.com/blog/replacing-broadcom-endevor-with-git-zowe.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/replacing-broadcom-endevor-with-git-zowe.html",
       "author": {
@@ -117,8 +117,12 @@
         "Git",
         "Zowe CLI",
         "IBM DBB",
-        "mainframe modernization",
+        "CA Endevor",
+        "Zowe",
+        "BC1PFP00",
+        "SCM migration",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +365,7 @@
         Incident Symptoms: What Triggers Migrating from Broadcom Endevor to Git & Modern CI/CD using Zowe CLI and IBM DBB?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Enterprises face 150% to 300% price increases during Broadcom Endevor contract renewals. Modern developers find Endevor's green-screen ISPF package promotion workflow archaic and siloed, while enterprise CI/CD teams cannot integrate mainframe deployments into standard GitHub Enterprise or GitLab pipelines.</p>
+        None
       </div>
     </section>
 
@@ -372,13 +376,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Broadcom Endevor manages mainframe source code in a proprietary stage-and-element lifecycle (Dev -> Test -> QA -> Prod) bound to PDS datasets.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Modern Git-native mainframe engineering replaces this closed model:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">Git</strong> becomes the single source of truth for all COBOL, Copybook, BMS, and JCL assets.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">IBM Dependency Based Build (DBB)</strong> provides intelligent dependency scanning (identifying exactly which programs must be recompiled when a copybook changes).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">Zowe CLI & GitHub Actions</strong> automate building, compiling, and deploying load modules to z/OS through REST APIs, completely deprecating Endevor.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -389,94 +387,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Extract Elements and History from Endevor</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Use Endevor's batch utility (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">BC1PNMTR</code> / <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CONWRITE</code>) to export source elements, copybooks, and historical levels to z/OS UNIX files:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//EXPORT   EXEC PGM=NDVRC1,PARM='CONWRITE'
-//SYSPRINT DD SYSOUT=*
-//OUTPUT   DD PATH='/u/migration/repo/cobol/MOD01.cbl',
-//            PATHOPTS=(OWRONLY,OCREAT,OTRUNC),
-//            PATHMODE=(SIRWXU,SIRWXG)
-//SYSIN    DD *
-  WRITE ELEMENT MOD01
-        FROM ENVIRONMENT PROD SYSTEM BILLING SUBSYSTEM CORE
-        TYPE COBOL STAGE P
-        TO DDNAME OUTPUT.
-/*</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Organize Git Repository Structure</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Structure your enterprise Git repository:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>├── cobol/
-│   ├── ACCNTREC.cbl
-│   └── INVP01.cbl
-├── copybook/
-│   ├── INVOICE.cpy
-│   └── COMMREG.cpy
-├── jcl/
-│   └── RUNINVOICE.jcl
-├── build/
-│   └── build.groovy (IBM DBB Build Script)
-└── .github/workflows/
-    └── zos-build.yml</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Automate Deployments with GitHub Actions & Zowe CLI</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">.github/workflows/zos-build.yml</code>:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">yaml</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>name: z/OS Mainframe CI/CD Pipeline
-on: [push, pull_request]
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node &amp; Zowe CLI
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Zowe CLI
-        run: npm install -g @zowe/cli
-
-      - name: Submit DBB Impact Build on z/OS
-        env:
-          ZOWE_OPT_HOST: ${{ secrets.ZOS_HOST }}
-          ZOWE_OPT_USER: ${{ secrets.ZOS_USER }}
-          ZOWE_OPT_PASSWORD: ${{ secrets.ZOS_PASS }}
-        run: |
-          zowe zos-uss issue ssh-command "groovyz /u/dbb/build.groovy -r /u/repos/stackmf"</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Developers gain instantaneous branch-based development, automated pull requests, and automated testing—all while zeroing out Broadcom software fees!</p>
+        None
       </div>
     </section>
 

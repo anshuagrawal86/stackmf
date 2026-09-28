@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Deploying Zowe Server Components on Red Hat OpenShift and Kubernetes for Hybrid Cloud | StackMF</title>
-  <meta name="title" content="Deploying Zowe Server Components on Red Hat OpenShift and Kubernetes for Hybrid Cloud | StackMF">
+  <title>Deploying Zowe Server Components on Red Hat | StackMF</title>
+  <meta name="title" content="Deploying Zowe Server Components on Red Hat | StackMF">
   <meta name="description" content="Offload compute and simplify Zowe administration by running Zowe server components (APIML, Discovery, Desktop, Caching) inside containerized Red Hat OpenShift or Kubernetes clusters while maintaining secure cross-memory connections to z/OS.">
-  <meta name="keywords" content="Zowe, Kubernetes, OpenShift, Containers, Hybrid Cloud, Modernisation, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Zowe, Kubernetes, OpenShift, Containers, Hybrid Cloud, Modernisation, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/zowe-containers-openshift-kubernetes-deployment.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/zowe-containers-openshift-kubernetes-deployment.html">
-  <meta property="og:title" content="Deploying Zowe Server Components on Red Hat OpenShift and Kubernetes for Hybrid Cloud | StackMF">
+  <meta property="og:title" content="Deploying Zowe Server Components on Red Hat | StackMF">
   <meta property="og:description" content="Offload compute and simplify Zowe administration by running Zowe server components (APIML, Discovery, Desktop, Caching) inside containerized Red Hat OpenShift or Kubernetes clusters while maintaining secure cross-memory connections to z/OS.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Deploying Zowe Server Components on Red Hat OpenShift and Kubernetes for Hybrid Cloud | StackMF">
+  <meta name="twitter:title" content="Deploying Zowe Server Components on Red Hat | StackMF">
   <meta name="twitter:description" content="Offload compute and simplify Zowe administration by running Zowe server components (APIML, Discovery, Desktop, Caching) inside containerized Red Hat OpenShift or Kubernetes clusters while maintaining secure cross-memory connections to z/OS.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Offload compute and simplify Zowe administration by running Zowe server components (APIML, Discovery, Desktop, Caching) inside containerized Red Hat OpenShift or Kubernetes clusters while maintaining secure cross-memory connections to z/OS.",
       "url": "https://stackmf.com/blog/zowe-containers-openshift-kubernetes-deployment.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/zowe-containers-openshift-kubernetes-deployment.html",
       "author": {
@@ -117,8 +117,8 @@
         "Containers",
         "Hybrid Cloud",
         "Modernisation",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Deploying Zowe Server Components on Red Hat OpenShift and Kubernetes for Hybrid Cloud?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Running all Zowe server address spaces directly on z/OS consumes valuable general-purpose engine capacity and memory, leading to concerns from system programmers regarding z/OS LPAR footprint.</p>
+        None
       </div>
     </section>
 
@@ -372,13 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">While low-level services (Cross-Memory Server) must execute on z/OS, higher-level services (Zowe API Mediation Layer, Gateway, Web Desktop, Discovery Server) are Java and Node.js microservices.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light"><strong class="text-white font-semibold">Zowe for Kubernetes/OpenShift</strong>:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Packages these services into OCI-compliant container images.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Deploys them onto commodity cloud/on-premise Kubernetes clusters.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Offloads 80%+ of Zowe's compute overhead away from billable mainframe MSU/MIPS!</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -389,75 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Deploy via Helm Chart</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Configure <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">values.yaml</code> for your Kubernetes cluster:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">yaml</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>zowe:
-  domain: zowe.cloud.stackmf.internal
-  endpoint:
-    host: zsys1.stackmf.internal
-    port: 7554
-  components:
-    gateway:
-      replicas: 2
-    discovery:
-      replicas: 2
-    cachingService:
-      storage: 5Gi</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Deploy the Helm release:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>helm install zowe-core oci://zowe-docker-release.jfrog.io/helm/zowe -f values.yaml --namespace zowe --create-namespace</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Verify Pod Health on OpenShift</h3>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">bash</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>oc get pods -n zowe</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Output:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>NAME                                READY   STATUS    RESTARTS   AGE
-zowe-api-gateway-6d849b4c-2x9la     1/1     Running   0          5m
-zowe-discovery-service-7f99b-4k2ml  1/1     Running   0          5m
-zowe-caching-service-592b8-9p11z    1/1     Running   0          5m</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Connect to z/OS Subsystems</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The containerized gateway establishes outbound mTLS connections to z/OSMF and CICS on z/OS, delivering blazing-fast API routing without consuming mainframe CPU!</p>
+        None
       </div>
     </section>
 

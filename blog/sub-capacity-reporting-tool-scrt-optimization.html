@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF</title>
-  <meta name="title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF">
+  <title>Decoding the SCRT Report: Identifying 4HRA Spikes | StackMF</title>
+  <meta name="title" content="Decoding the SCRT Report: Identifying 4HRA Spikes | StackMF">
   <meta name="description" content="IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.">
-  <meta name="keywords" content="SCRT, 4HRA, MLC, Cost Optimization, WLM, Capacity Planning, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="SCRT, 4HRA, MLC, Cost Optimization, WLM, Capacity Planning, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html">
-  <meta property="og:title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF">
+  <meta property="og:title" content="Decoding the SCRT Report: Identifying 4HRA Spikes | StackMF">
   <meta property="og:description" content="IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies | StackMF">
+  <meta name="twitter:title" content="Decoding the SCRT Report: Identifying 4HRA Spikes | StackMF">
   <meta name="twitter:description" content="IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "IBM Monthly License Charges (MLC) are dictated by your monthly Sub-Capacity Reporting Tool (SCRT) submission. Learn how to parse SCRT CSV logs, identify which LPAR and batch workload caused the peak billing hour, and implement capacity caps.",
       "url": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html",
       "author": {
@@ -117,8 +117,8 @@
         "Cost Optimization",
         "WLM",
         "Capacity Planning",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Decoding the SCRT Report: Identifying 4HRA Spikes and Sub-Capacity Pricing Anomalies?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The enterprise CIO receives an unexpected 20% spike on the monthly IBM software invoice. Nobody on the mainframe team can identify which job or business event caused the peak billing hour to jump.</p>
+        None
       </div>
     </section>
 
@@ -372,12 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">IBM bills software based on the highest simultaneous <strong class="text-white font-semibold">Rolling 4-Hour Average (4HRA)</strong> across the month:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The SCRT tool scans SMF Type 70 (CPU activity) and Type 89 (product usage) records across all LPARs in the sysplex.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>It identifies the single peak hour where combined MSU consumption was highest.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>An unconstrained batch extraction job overlapping with online transaction processing during the peak window permanently sets the monthly software bill at a higher tier!</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -388,64 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Execute and Generate the Monthly SCRT Report</h3>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//SCRTSTEP EXEC PGM=ISRSCRT
-//SYSPRINT DD SYSOUT=*
-//SMFDATA  DD DSN=PROD.SMF.MONTHLY,DISP=SHR
-//OUTPUT   DD DSN=PROD.SCRT.REPORT.CSV,DISP=(NEW,CATLG,DELETE),
-//            SPACE=(CYL,(5,1))</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Locate the Peak 4HRA Billing Hour in the Report</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Open the generated CSV report. Search for section:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>Product Max / Peak Utilization:
-Product: 5650-ZOS (z/OS V2)
-Peak MSU: 1,420
-Peak Date/Time: 2026-09-18 02:00:00 UTC
-Contributing LPARs: LPAR1 (920 MSU), LPAR2 (500 MSU)</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">This isolates the exact date and hour of the spike: <strong class="text-white font-semibold">September 18 at 02:00 UTC</strong>.</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Cross-Reference Peak Hour with SMF Type 30 Records</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Query SMF Type 30 records between 00:00 and 04:00 UTC on September 18 to list jobs consuming the highest CPU:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">sql</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SELECT JOBNAME, SUM(CPUTIME)
-FROM SMF_TYPE30_TABLE
-WHERE START_TIME BETWEEN '2026-09-18 00:00:00' AND '2026-09-18 04:00:00'
-GROUP BY JOBNAME
-ORDER BY 2 DESC;</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Offending job identified: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">UNLOAD_ALL_CUSTOMERS</code> ran concurrently with nightly database reorgs!</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Implement WLM Defined Capacity and Schedule Staggering</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. Shift <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">UNLOAD_ALL_CUSTOMERS</code> to 04:30 AM (outside the 4HRA peak window).</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. In WLM, configure Defined Capacity on <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LPAR1</code> to 850 MSUs, capping billing peaks automatically.</p>
+        None
       </div>
     </section>
 

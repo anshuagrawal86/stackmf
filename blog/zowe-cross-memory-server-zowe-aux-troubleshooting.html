@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Diagnosing Zowe Cross-Memory Server (ZWESVSRV) and Aux Server Security Exceptions | StackMF</title>
-  <meta name="title" content="Diagnosing Zowe Cross-Memory Server (ZWESVSRV) and Aux Server Security Exceptions | StackMF">
+  <title>Zowe Cross-Memory Server (ZWESVSRV) and Aux | StackMF</title>
+  <meta name="title" content="Zowe Cross-Memory Server (ZWESVSRV) and Aux | StackMF">
   <meta name="description" content="The Zowe Cross-Memory Server (ZWESVSRV) provides privileged z/OS services to unprivileged user tasks. Troubleshoot common startup abends (S0C4, S047) caused by missing APF authorization, PPT entries, and RACF FACILITY class permissions.">
-  <meta name="keywords" content="Zowe, Cross-Memory Server, ZWESVSRV, APF, RACF, Troubleshooting, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Zowe, Cross-Memory Server, ZWESVSRV, APF, RACF, Troubleshooting, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/zowe-cross-memory-server-zowe-aux-troubleshooting.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/zowe-cross-memory-server-zowe-aux-troubleshooting.html">
-  <meta property="og:title" content="Diagnosing Zowe Cross-Memory Server (ZWESVSRV) and Aux Server Security Exceptions | StackMF">
+  <meta property="og:title" content="Zowe Cross-Memory Server (ZWESVSRV) and Aux | StackMF">
   <meta property="og:description" content="The Zowe Cross-Memory Server (ZWESVSRV) provides privileged z/OS services to unprivileged user tasks. Troubleshoot common startup abends (S0C4, S047) caused by missing APF authorization, PPT entries, and RACF FACILITY class permissions.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Diagnosing Zowe Cross-Memory Server (ZWESVSRV) and Aux Server Security Exceptions | StackMF">
+  <meta name="twitter:title" content="Zowe Cross-Memory Server (ZWESVSRV) and Aux | StackMF">
   <meta name="twitter:description" content="The Zowe Cross-Memory Server (ZWESVSRV) provides privileged z/OS services to unprivileged user tasks. Troubleshoot common startup abends (S0C4, S047) caused by missing APF authorization, PPT entries, and RACF FACILITY class permissions.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "The Zowe Cross-Memory Server (ZWESVSRV) provides privileged z/OS services to unprivileged user tasks. Troubleshoot common startup abends (S0C4, S047) caused by missing APF authorization, PPT entries, and RACF FACILITY class permissions.",
       "url": "https://stackmf.com/blog/zowe-cross-memory-server-zowe-aux-troubleshooting.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/zowe-cross-memory-server-zowe-aux-troubleshooting.html",
       "author": {
@@ -117,8 +117,8 @@
         "APF",
         "RACF",
         "Troubleshooting",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,22 +361,7 @@
         Incident Symptoms: What Triggers Diagnosing Zowe Cross-Memory Server (ZWESVSRV) and Aux Server Security Exceptions?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">During z/OS IPL or Zowe startup, the Cross-Memory Server STC fails to initialize:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>ZWES0101E ZWESVSRV INITIALIZATION FAILED. RETURN CODE = 16 REASON = 00000028
-CSV019I LOAD FAILED FOR MODULE ZWESAUX, RETURN CODE = 04
-IEF450I ZWESVSRV ZWESVSRV - ABEND=S047 U0000 REASON=00000000</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Without the Cross-Memory Server active, Zowe Desktop and Zowe CLI secure data operations fail.</p>
+        None
       </div>
     </section>
 
@@ -387,12 +372,7 @@ IEF450I ZWESVSRV ZWESVSRV - ABEND=S047 U0000 REASON=00000000</code></pre>
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">ZWESVSRV requires authorized supervisor-state execution to switch address spaces and inspect memory:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">ABEND S047</strong>: An unauthorized program issued a supervisor call or privileged instruction. Occurs when the Zowe load library (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SZWEAUTH</code>) is not APF-authorized.</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">Reason 00000028</strong>: Missing RACF security profile permissions in the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FACILITY</code> class (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ZWES.IS</code>).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">Missing SCHEDxx Entry</strong>: The Program Properties Table (PPT) entry defining the STC as non-swappable and privileged is missing.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -403,80 +383,7 @@ IEF450I ZWESVSRV ZWESVSRV - ABEND=S047 U0000 REASON=00000000</code></pre>
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Add APF Authorization for Zowe Load Libraries</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In the active MVS console or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SYS1.PARMLIB(PROGxx)</code>:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SETPROG APF,ADD,DSNAME=SYS1.ZOWE.SZWEAUTH,VOLUME=VOL001</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Verify Program Properties Table (SCHEDxx)</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SYS1.PARMLIB(SCHEDxx)</code> contains:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>PPT PGMNAME(ZWESVSRV)
-    NOSWAP
-    PRIV
-    SYST</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Activate dynamically:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SET SCH=(01)</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Grant Required RACF FACILITY Permissions</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure the Zowe started task user has access:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>RDEFINE FACILITY ZWES.IS UACC(NONE)
-PERMIT ZWES.IS CLASS(FACILITY) ID(ZWESVUSR) ACCESS(READ)
-SETROPTS RACLIST(FACILITY) REFRESH</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 4. Restart the Started Task</h3>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>/S ZWESVSRV</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Verify the log confirms: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ZWES0100I ZWESVSRV INITIALIZATION COMPLETED SUCCESSFULLY</code>.</p>
+        None
       </div>
     </section>
 

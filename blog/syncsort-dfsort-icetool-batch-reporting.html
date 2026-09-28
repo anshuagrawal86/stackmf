@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Replacing Custom COBOL Extract Programs with High-Performance DFSORT / ICETOOL Control Statements | StackMF</title>
-  <meta name="title" content="Replacing Custom COBOL Extract Programs with High-Performance DFSORT / ICETOOL Control Statements | StackMF">
+  <title>Replacing Custom COBOL Extract Programs with | StackMF</title>
+  <meta name="title" content="Replacing Custom COBOL Extract Programs with | StackMF">
   <meta name="description" content="Writing full COBOL programs just to filter, reformat, and aggregate sequential files burns developer hours and CPU cycles. Learn how to use DFSORT and ICETOOL operators (SPLICE, SELECT, STATS, DISPLAY) to execute high-speed batch data manipulations directly in JCL.">
-  <meta name="keywords" content="DFSORT, ICETOOL, Batch, Performance, SyncSort, Automation, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="DFSORT, ICETOOL, Batch, Performance, SyncSort, Automation, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/syncsort-dfsort-icetool-batch-reporting.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/syncsort-dfsort-icetool-batch-reporting.html">
-  <meta property="og:title" content="Replacing Custom COBOL Extract Programs with High-Performance DFSORT / ICETOOL Control Statements | StackMF">
+  <meta property="og:title" content="Replacing Custom COBOL Extract Programs with | StackMF">
   <meta property="og:description" content="Writing full COBOL programs just to filter, reformat, and aggregate sequential files burns developer hours and CPU cycles. Learn how to use DFSORT and ICETOOL operators (SPLICE, SELECT, STATS, DISPLAY) to execute high-speed batch data manipulations directly in JCL.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Replacing Custom COBOL Extract Programs with High-Performance DFSORT / ICETOOL Control Statements | StackMF">
+  <meta name="twitter:title" content="Replacing Custom COBOL Extract Programs with | StackMF">
   <meta name="twitter:description" content="Writing full COBOL programs just to filter, reformat, and aggregate sequential files burns developer hours and CPU cycles. Learn how to use DFSORT and ICETOOL operators (SPLICE, SELECT, STATS, DISPLAY) to execute high-speed batch data manipulations directly in JCL.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Writing full COBOL programs just to filter, reformat, and aggregate sequential files burns developer hours and CPU cycles. Learn how to use DFSORT and ICETOOL operators (SPLICE, SELECT, STATS, DISPLAY) to execute high-speed batch data manipulations directly in JCL.",
       "url": "https://stackmf.com/blog/syncsort-dfsort-icetool-batch-reporting.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/syncsort-dfsort-icetool-batch-reporting.html",
       "author": {
@@ -117,8 +117,8 @@
         "Performance",
         "SyncSort",
         "Automation",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Replacing Custom COBOL Extract Programs with High-Performance DFSORT / ICETOOL Control Statements?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Developers write and compile custom 500-line COBOL programs just to filter active customer accounts from a sequential file and sum their balances, cluttering load libraries and taking weeks to promote through change control.</p>
+        None
       </div>
     </section>
 
@@ -372,7 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">IBM DFSORT and ICETOOL are hardware-accelerated, zIIP-eligible utilities optimized for sorting, filtering, and reporting at near-channel speeds without compiling new programs.</p>
+        None
       </div>
     </section>
 
@@ -383,54 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Filter, Reformat, and Slice Fields with DFSORT</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Extract records where <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">STATUS = 'ACT'</code> (Columns 1-3) and output only Account (Cols 10-19) and Balance (Cols 30-37):</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//SORTSTEP EXEC PGM=SORT
-//SYSOUT   DD SYSOUT=*
-//SORTIN   DD DSN=PROD.CUSTOMER.MASTER,DISP=SHR
-//SORTOUT  DD DSN=PROD.CUSTOMER.EXTRACT,DISP=(NEW,CATLG,DELETE),
-//            SPACE=(CYL,(10,5),RLSE)
-//SYSIN    DD *
-  INCLUDE COND=(1,3,CH,EQ,C'ACT')
-  SORT FIELDS=(10,10,CH,A)
-  OUTREC FIELDS=(10,10,30,8)
-/*</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Generate Statistical Reports with ICETOOL</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Calculate Minimum, Maximum, and Average balance without writing a line of COBOL:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//TOOLSTEP EXEC PGM=ICETOOL
-//TOOLMSG  DD SYSOUT=*
-//DFSMSG   DD SYSOUT=*
-//INFILE   DD DSN=PROD.CUSTOMER.EXTRACT,DISP=SHR
-//PRINTDD  DD SYSOUT=*
-//TOOLIN   DD *
-  STATS FROM(INFILE) ON(11,8,PD)
-  DISPLAY FROM(INFILE) LIST(PRINTDD) -
-          TITLE('MONTHLY ACCOUNT SUMMARY') -
-          HEADER('ACCOUNT') ON(1,10,CH) -
-          HEADER('BALANCE') ON(11,8,PD)
-/*</code></pre>
-        </div>
+        None
       </div>
     </section>
 

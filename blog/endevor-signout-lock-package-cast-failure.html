@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Clearing Orphaned Endevor Signout Locks and Resolving Package Cast Return Code 12 | StackMF</title>
-  <meta name="title" content="Clearing Orphaned Endevor Signout Locks and Resolving Package Cast Return Code 12 | StackMF">
+  <title>Broadcom Endevor to Git Migration: Modern DevOps Guide | StackMF</title>
+  <meta name="title" content="Broadcom Endevor to Git Migration: Modern DevOps Guide | StackMF">
   <meta name="description" content="Broadcom Endevor package cast failures (RC=12) occur when elements are signed out to other users or locked by concurrent change control. Learn how to inspect element master records, clear orphaned signouts, and cast packages cleanly.">
-  <meta name="keywords" content="Endevor, Broadcom, Signout Lock, Package Cast, DevOps, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Endevor, Broadcom, Signout Lock, Package Cast, DevOps, CA Endevor, Git, Zowe, IBM DBB, BC1PFP00, SCM migration, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/endevor-signout-lock-package-cast-failure.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/endevor-signout-lock-package-cast-failure.html">
-  <meta property="og:title" content="Clearing Orphaned Endevor Signout Locks and Resolving Package Cast Return Code 12 | StackMF">
+  <meta property="og:title" content="Broadcom Endevor to Git Migration: Modern DevOps Guide | StackMF">
   <meta property="og:description" content="Broadcom Endevor package cast failures (RC=12) occur when elements are signed out to other users or locked by concurrent change control. Learn how to inspect element master records, clear orphaned signouts, and cast packages cleanly.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Clearing Orphaned Endevor Signout Locks and Resolving Package Cast Return Code 12 | StackMF">
+  <meta name="twitter:title" content="Broadcom Endevor to Git Migration: Modern DevOps Guide | StackMF">
   <meta name="twitter:description" content="Broadcom Endevor package cast failures (RC=12) occur when elements are signed out to other users or locked by concurrent change control. Learn how to inspect element master records, clear orphaned signouts, and cast packages cleanly.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Broadcom Endevor package cast failures (RC=12) occur when elements are signed out to other users or locked by concurrent change control. Learn how to inspect element master records, clear orphaned signouts, and cast packages cleanly.",
       "url": "https://stackmf.com/blog/endevor-signout-lock-package-cast-failure.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/endevor-signout-lock-package-cast-failure.html",
       "author": {
@@ -116,8 +116,14 @@
         "Signout Lock",
         "Package Cast",
         "DevOps",
-        "mainframe modernization",
+        "CA Endevor",
+        "Git",
+        "Zowe",
+        "IBM DBB",
+        "BC1PFP00",
+        "SCM migration",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -356,21 +362,7 @@
         Incident Symptoms: What Triggers Clearing Orphaned Endevor Signout Locks and Resolving Package Cast Return Code 12?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A release engineer attempts to Cast an Endevor package for a midnight emergency release:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>C1G0204E ELEMENT MODPAY01 IN STAGE 1 IS SIGNED OUT TO USER 'DEVELOPER1'
-C1G0255E PACKAGE CAST FAILED - RETURN CODE = 12</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The engineer who locked the element is on leave, blocking the entire production deployment.</p>
+        None
       </div>
     </section>
 
@@ -381,11 +373,7 @@ C1G0255E PACKAGE CAST FAILED - RETURN CODE = 12</code></pre>
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Broadcom Endevor uses signout locks (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SIGNOUT=Y</code>):</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>When an engineer retrieves or edits an element, Endevor writes their User ID to the Master Control File (MCF).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Only the signout owner or an Endevor administrator with <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SIGNOUT OVERRIDE</code> authority can cast or promote packages containing that element.</span></li>
-</ul>
+        None
       </div>
     </section>
 
@@ -396,50 +384,7 @@ C1G0255E PACKAGE CAST FAILED - RETURN CODE = 12</code></pre>
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. View Element Signout Status in ISPF</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In Endevor:</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. Select Option <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">2</code> (Display) &rarr; Option <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">1</code> (Element).</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. Enter Environment, System, Subsystem, and Element Name (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">MODPAY01</code>).</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. Note the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SIGNOUT USER ID</code>.</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Override Signout Lock via Endevor Batch SCL</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Execute an authorized SCL batch job with <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">OVERRIDE SIGNOUT</code>:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//ENDEVOR  EXEC PGM=NDVRC1,PARM='C1BM3000'
-//SYSPRINT DD SYSOUT=*
-//BSTIPT   DD *
-  SIGNIN ELEMENT MODPAY01
-    FROM ENVIRONMENT 'DEV'
-         SYSTEM 'BILLING'
-         SUBSYSTEM 'CORE'
-         TYPE 'COBOL'
-         STAGE 1
-    OVERRIDE SIGNOUT.
-/*</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Re-Cast the Endevor Package</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Once the lock is released:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>CAST PACKAGE 'PKG20260927A'</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The package casts with <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RETURN CODE = 00</code> and proceeds to approval!</p>
+        None
       </div>
     </section>
 

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Handling ANSI/ASA Carriage Control Characters in Easytrieve to IMU Migration | StackMF</title>
-  <meta name="title" content="Handling ANSI/ASA Carriage Control Characters in Easytrieve to IMU Migration | StackMF">
+  <title>Handling ANSI/ASA Carriage Control Characters in | StackMF</title>
+  <meta name="title" content="Handling ANSI/ASA Carriage Control Characters in | StackMF">
   <meta name="description" content="Legacy mainframe reporting depends on Column 1 Carriage Control characters (ASA/ANSI: ' ', '0', '-', '1', '+'). Learn how to resolve page-eject discrepancies and printer alignment issues when migrating Easytrieve reports to COBOL using IBM Migration Utility.">
-  <meta name="keywords" content="Easytrieve, IMU, Carriage Control, ASA, Reporting, COBOL, mainframe modernization, cobol abend, z/os debugging, stackmf">
+  <meta name="keywords" content="Easytrieve, IMU, Carriage Control, ASA, Reporting, COBOL, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://stackmf.com/blog/ezt-printer-control-imu-asa-carriage-characters.html">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/ezt-printer-control-imu-asa-carriage-characters.html">
-  <meta property="og:title" content="Handling ANSI/ASA Carriage Control Characters in Easytrieve to IMU Migration | StackMF">
+  <meta property="og:title" content="Handling ANSI/ASA Carriage Control Characters in | StackMF">
   <meta property="og:description" content="Legacy mainframe reporting depends on Column 1 Carriage Control characters (ASA/ANSI: ' ', '0', '-', '1', '+'). Learn how to resolve page-eject discrepancies and printer alignment issues when migrating Easytrieve reports to COBOL using IBM Migration Utility.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Handling ANSI/ASA Carriage Control Characters in Easytrieve to IMU Migration | StackMF">
+  <meta name="twitter:title" content="Handling ANSI/ASA Carriage Control Characters in | StackMF">
   <meta name="twitter:description" content="Legacy mainframe reporting depends on Column 1 Carriage Control characters (ASA/ANSI: ' ', '0', '-', '1', '+'). Learn how to resolve page-eject discrepancies and printer alignment issues when migrating Easytrieve reports to COBOL using IBM Migration Utility.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "Legacy mainframe reporting depends on Column 1 Carriage Control characters (ASA/ANSI: ' ', '0', '-', '1', '+'). Learn how to resolve page-eject discrepancies and printer alignment issues when migrating Easytrieve reports to COBOL using IBM Migration Utility.",
       "url": "https://stackmf.com/blog/ezt-printer-control-imu-asa-carriage-characters.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-27T08:58:53+00:00",
+      "dateModified": "2026-09-28T04:30:55+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/ezt-printer-control-imu-asa-carriage-characters.html",
       "author": {
@@ -117,8 +117,8 @@
         "ASA",
         "Reporting",
         "COBOL",
-        "mainframe modernization",
         "IBM z/OS",
+        "mainframe modernization",
         "production troubleshooting",
         "stackmf"
       ],
@@ -361,7 +361,7 @@
         Incident Symptoms: What Triggers Handling ANSI/ASA Carriage Control Characters in Easytrieve to IMU Migration?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">After migrating an Easytrieve batch program to COBOL via IMU, reports sent to production laser printers or digital report archive repositories (e.g. Mobius, CA-View/Deliver) print page headers across multiple pages or suppress form-feed page skips.</p>
+        None
       </div>
     </section>
 
@@ -372,13 +372,7 @@
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Mainframe print files use either:</p>
-<ul class="space-y-3 my-4 list-none pl-0">
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">ASA/ANSI Carriage Control (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RECFM=FBA</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">VBA</code>)</strong>: Column 1 contains <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">' '</code> (Single space), <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">'0'</code> (Double space), <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">'-'</code> (Triple space), <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">'1'</code> (New page / Eject), <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">'+'</code> (Overstrike without advancing).</span></li>
-<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span><strong class="text-white font-semibold">Machine Code Carriage Control (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RECFM=FBM</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">VBM</code>)</strong>: Hex opcodes (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'09'</code>, <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">X'89'</code>).</span></li>
-</ul>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Easytrieve abstracts carriage control, emitting codes automatically.</p>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If IMU's emitted COBOL specifies <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">WRITE ... AFTER ADVANCING</code> but the output DD statement or DCB is misconfigured, column 1 shifts, causing corrupt alignment.</p>
+        None
       </div>
     </section>
 
@@ -389,56 +383,7 @@
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Ensure RECFM=FBA on Output Datasets</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In the execution JCL:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">jcl</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>//SYSPRINT DD DSN=PROD.REPORTS.BILLING,DISP=(NEW,CATLG,DELETE),
-//            SPACE=(CYL,(10,5),RLSE),
-//            DCB=(RECFM=FBA,LRECL=133,BLKSIZE=27930)</code></pre>
-        </div>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Notice <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">LRECL=133</code> (1 byte for carriage control + 132 print characters).</p>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Configure IMU Carriage Control Mode in EZPARAMS</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">In <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EZPARAMS</code>:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>PRT-CTRL=ASA
-ADVANCING=AFTER
-PAGE-EJECT=1</code></pre>
-        </div>
-<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Validate Emitted COBOL WRITE Syntax</h3>
-<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Ensure the generated COBOL uses standard advancing:</p>
-<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
-          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
-            <span class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
-              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
-            </span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
-          </div>
-          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>WRITE REPORT-RECORD FROM WS-PAGE-HEADER
-           AFTER ADVANCING PAGE.
-       WRITE REPORT-RECORD FROM WS-DETAIL-LINE
-           AFTER ADVANCING 1 LINE.</code></pre>
-        </div>
+        None
       </div>
     </section>
 
