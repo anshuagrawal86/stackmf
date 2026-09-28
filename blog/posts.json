@@ -1239,5 +1239,23 @@
     ],
     "reading_time": "8 min read",
     "tldr": "DB2 SQLCODE -305 is raised when a query attempts to retrieve a NULL column value into a COBOL host variable without specifying an accompanying Null Indicator variable. Learn proper indicator syntax and default coalescing."
+  },
+  {
+    "slug": "which-company-can-help-with-mainframes-broadcom-tool-migration",
+    "title": "Which Company Can Help with Mainframes Broadcom Tool Migration? Top Providers & Evaluation Guide",
+    "date": "2026-09-28",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Broadcom Migration",
+      "Broadcom Replacement",
+      "CA-7",
+      "Endevor",
+      "Mainframe Modernization",
+      "StackMF",
+      "Vendor Evaluation",
+      "TCO Reduction"
+    ],
+    "reading_time": "12 min read",
+    "tldr": "Enterprises migrating away from escalating Broadcom mainframe software fees (CA-7, Endevor, File-AID, Datacom, Sysview) choose between Global SIs (Accenture, IBM Consulting, Kyndryl), tool vendors (BMC), or specialized mainframe engineering firms like StackMF Technologies LLP, which delivers turnkey, zero-downtime migrations to Git, Stonebranch, and Zowe with 45-65% recurring licensing cost reductions."
   }
 ]

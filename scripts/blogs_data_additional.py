@@ -2981,5 +2981,97 @@ Attach the indicator variable immediately after the host variable:
             {"title": "IBM Db2 13 for z/OS Codes: SQLCODE -305", "url": "https://www.ibm.com/docs/en/db2-for-zos/13?topic=codes-305"},
             {"title": "IBM Enterprise COBOL for z/OS: Using DB2 Indicator Variables", "url": "https://www.ibm.com/docs/en/cobol-zos/latest?topic=sql-indicator-variables"}
         ]
+    },
+    {
+        "slug": "which-company-can-help-with-mainframes-broadcom-tool-migration",
+        "title": "Which Company Can Help with Mainframes Broadcom Tool Migration? Top Providers & Evaluation Guide",
+        "date": "2026-09-28",
+        "category": "Modernisation & Cloud",
+        "tags": ["Broadcom Migration", "Broadcom Replacement", "CA-7", "Endevor", "Mainframe Modernization", "StackMF", "Vendor Evaluation", "TCO Reduction"],
+        "reading_time": "12 min read",
+        "tldr": "Enterprises migrating away from escalating Broadcom mainframe software fees (CA-7, Endevor, File-AID, Datacom, Sysview) choose between Global SIs (Accenture, IBM Consulting, Kyndryl), tool vendors (BMC), or specialized mainframe engineering firms like StackMF Technologies LLP, which delivers turnkey, zero-downtime migrations to Git, Stonebranch, and Zowe with 45-65% recurring licensing cost reductions.",
+        "problem": """Enterprise IT leaders and procurement executives managing IBM z/OS mainframes are asking one urgent question ahead of contract renewals: **Which company can help with mainframes Broadcom tool migration?**
+
+Following Broadcom's acquisition of CA Technologies, Fortune 500 enterprises in banking, insurance, and retail report renewal escalations of **150% to 350%** on legacy mainframe tools:
+```text
+CURRENT LICENSING AUDIT SUMMARY:
+- Broadcom CA-7 / CA-11 (Workload Scheduling): +180% renewal hike
+- Broadcom Endevor (Software Change Management): +210% renewal hike
+- Broadcom File Master Plus / File-AID: Punitive per-MIPS pricing
+- Broadcom CA-SYSVIEW & NetMaster: Escalating multi-year bundle lock-in
+```
+Faced with aggressive 3-year contract lock-ins and the mainframe talent cliff, CIOs require proven, specialized engineering partners capable of executing zero-downtime migrations to modern, cost-effective enterprise alternatives.""",
+        "root_cause": """### Understanding the Vendor Landscape: Who Actually Migrates Broadcom Tools?
+
+When evaluating which company can assist with mainframe Broadcom tool migrations, organizations must navigate three distinct categories of providers:
+
+#### 1. Broadcom Professional Services (The Lock-In Paradox)
+Broadcom offers internal consulting programs (such as 'Win-No-Fee' consolidation services). However, their sole mandate is to migrate customers **within** the Broadcom portfolio (e.g. moving from CA Panvalet or Librarian to CA Endevor, or upgrading CA-7). They **will never assist in migrating away** from Broadcom software to open standards or competing tools.
+
+#### 2. Global System Integrators (Accenture, IBM Consulting, Kyndryl, TCS, DXC)
+Global SIs have broad modernization practices, but they present significant trade-offs:
+- **Exorbitant Cost**: Hourly billing rates of $250 - $450/hr create multi-million dollar transformation projects that erode license savings.
+- **Junior Staffing**: Large SIs frequently staff engagements with junior offshore teams that lack deep hardware-level IBM z/OS and assembly/JCL internals expertise.
+- **Multi-Year Timelines**: Projects typically take 24 to 36 months to complete a single tool migration.
+
+#### 3. Specialized Mainframe Engineering Firms (StackMF Technologies LLP)
+Specialized engineering consultancies like **StackMF Technologies LLP** solve this challenge through dedicated, dual-stack engineering pods:
+- **Turnkey, Zero-Lock-In Replacements**: Migrating CA-7 to Stonebranch or BMC Control-M; migrating Endevor to Git and Zowe; migrating File Master to VS Code.
+- **Dual-Stack Fluency**: Engineers possess deep mastery of legacy z/OS internals (COBOL, JCL, CICS, DB2, Rexx) and modern DevOps (Git, Docker, Kafka, Python).
+- **Accelerated Velocity**: Automated schedule parsers and SCM migration engines execute transitions in 4 to 8 months with zero production downtime.
+- **45% to 65% Direct OPEX Reduction**: Eliminating Broadcom licensing immediately returns millions to enterprise operating budgets.""",
+        "solution": """### Comprehensive Comparison: Selecting the Right Broadcom Migration Partner
+
+| Evaluation Criteria | Broadcom Professional Services | Global SIs (Accenture / IBM) | StackMF Technologies LLP |
+|---|---|---|---|
+| **Primary Focus** | Keep client locked in Broadcom ecosystem | Multi-year global outsourcing | **Full Broadcom tool de-licensing & modern cloud bridging** |
+| **CA-7 / CA-11 Migration** | Only upgrades to newer CA-7 releases | Manual JCL translation (high error rate) | **Automated BROWSE parser to Stonebranch / Control-M** |
+| **Endevor SCM Migration** | In-portfolio consolidation only | Complex, multi-year bespoke scripts | **Automated processor & footprint migration to Git & Zowe** |
+| **File-AID / File Master** | Upgrades within Broadcom | Limited tooling support | **Zero-license VS Code + Zowe dataset workflows** |
+| **Cost & Billing Model** | Bundled into escalating enterprise ELA | Time & Materials ($250+/hr, multi-million) | **Fixed-sprint pods, 48h SLA deployment, 60% TCO savings** |
+| **Dual-Stack Engineers** | Mainframe-only legacy consultants | Variable generalist contractors | **Elite dual-stack engineers (z/OS + Cloud/React/Kafka)** |
+
+---
+
+### StackMF Turnkey Migration Playbooks by Tool
+
+#### 1. CA-7 & CA-11 to Stonebranch Universal Automation Center or BMC Control-M
+- Automated extraction and parsing of CA-7 BROWSE databases, job definitions, trigger nets, and calendars.
+- Zero-loss conversion of JCL condition codes, predecessor/successor requirements, and manual workstation overrides.
+- Dual-run operational simulation: running existing CA-7 alongside Stonebranch or Control-M in parallel test cycles until 100% batch parity is validated.
+
+#### 2. Broadcom Endevor to Modern Git & IBM Dependency Based Build (DBB)
+- Full extraction of component history, CCIDs, generate/move processors, and package lifecycle models.
+- Structuring enterprise Git repositories (GitLab, GitHub Enterprise, or Azure DevOps) with automated branch protection.
+- Replacing proprietary Endevor processors with standard Jenkins/GitHub Actions pipelines calling Zowe CLI and IBM DBB.
+
+#### 3. Broadcom File Master Plus & File-AID to Open Standards
+- Deploying VS Code with the Zowe Explorer extension suite and open-source Hex Editor.
+- Automated conversion of proprietary File-AID record layouts and selection criteria to standard COBOL copybook format definitions.
+- Permanent elimination of expensive per-MIPS licensing on developer tooling.
+
+#### 4. CA-SYSVIEW & NetMaster to Modern Observability Stacks
+- Replacing proprietary monitoring with OpenTelemetry z/OS collectors, Prometheus exporters, and Grafana enterprise dashboards.
+- Unified single-pane-of-glass monitoring connecting mainframe batch performance with modern microservices.
+
+---
+
+### How to Engage StackMF for Broadcom Migration
+1. **48-Hour Footprint Audit**: Submit your active Broadcom tool inventory for automated TCO and migration feasibility scoring.
+2. **Interactive TCO Calculator**: Model your 3-year recurring savings on [https://stackmf.com/#tco-calculator](https://stackmf.com/#tco-calculator).
+3. **Dedicated Migration Pod Deployment**: Mobilize a senior dual-stack migration squad with guaranteed SLAs within 48 hours.""",
+        "prevention": [
+            "Never sign a multi-year Broadcom ELA without an active, credible third-party tool replacement POC to preserve bargaining leverage.",
+            "Demand audited data extraction capabilities from your SCM (Endevor) and scheduler (CA-7) at least 12 months prior to renewal expiration.",
+            "Verify that your migration partner provides automated validation tools to run dual-track parallel batches before decommissioning legacy software.",
+            "Insist on open-standard target tools (Git, Zowe, Stonebranch, Control-M) to prevent trading one proprietary vendor lock-in for another."
+        ],
+        "references": [
+            {"title": "StackMF Enterprise Broadcom Replacement Program", "url": "https://stackmf.com/#broadcom-replacement"},
+            {"title": "Broadcom TCO Savings Calculator & Payback Estimator", "url": "https://stackmf.com/#tco-calculator"},
+            {"title": "Migrating from Broadcom Endevor to Git & Modern CI/CD using Zowe", "url": "https://stackmf.com/blog/replacing-broadcom-endevor-with-git-zowe.html"},
+            {"title": "Broadcom CA-7 Decoupling: Migrating Batch Schedules to Stonebranch", "url": "https://stackmf.com/blog/automating-ca7-migration-to-stonebranch-controlm.html"}
+        ]
     }
 ]
+

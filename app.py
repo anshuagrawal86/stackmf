@@ -28,6 +28,12 @@ def legal():
     """Serves statutory legal, IP compliance, and nominative fair use documentation."""
     return send_from_directory('.', 'legal.html')
 
+@app.route('/broadcom-replacement')
+@app.route('/broadcom-replacement.html')
+def broadcom_replacement():
+    """Serves the dedicated Broadcom Mainframe Tool Migration & Replacement landing page."""
+    return send_from_directory('.', 'broadcom-replacement.html')
+
 @app.route('/google<token>.html')
 def serve_google_verification(token):
     """Serves Google Search Console HTML verification file."""
