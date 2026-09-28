@@ -1,7 +1,7 @@
 import os
 import json
 import datetime
-from flask import Flask, send_from_directory, request, jsonify, render_template_string
+from flask import Flask, send_from_directory, request, jsonify, render_template_string, redirect
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 
@@ -43,6 +43,12 @@ def serve_txt(filename):
 def blog_index():
     """Serves the Mainframe Engineering Knowledge Base Index."""
     return send_from_directory('blog', 'index.html')
+
+@app.route('/blog/resolving-abend-s0c7-data-exception-cobol.html')
+@app.route('/blog/resolving-abend-s0c7-data-exception-cobol')
+def legacy_soc7_redirect():
+    """301 Permanent Redirect to canonical S0C7 runbook."""
+    return redirect('/blog/soc7-data-exception-cobol-packed-decimal.html', code=301)
 
 @app.route('/blog/<path:slug>')
 def blog_post(slug):
