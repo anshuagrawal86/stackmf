@@ -90,7 +90,7 @@
       "description": "CICS ABEND AEY9 occurs when a user or surrogate identity attempts to execute a transaction or access a protected CICS resource (file, program, TS queue) without required RACF, ACF2, or Top Secret authorization. Understand ESM class definitions and command security.",
       "url": "https://stackmf.com/blog/aey9-abend-cics-security-racf.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-28T07:55:38+00:00",
+      "dateModified": "2026-09-29T04:09:47+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/aey9-abend-cics-security-racf.html",
       "author": {
@@ -285,7 +285,7 @@
           <i class="fa-solid fa-book-open text-xs"></i> All Blogs
         </a>
         <a href="/#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Developers</a>
-        <a href="/#broadcom-replacement" class="hover:text-neon-amber transition-colors">Broadcom Replacement</a>
+        <a href="/broadcom-replacement.html" class="hover:text-neon-amber transition-colors font-semibold">Broadcom Replacement</a>
         <a href="/#mainframe-modernization" class="hover:text-neon-cyan transition-colors">Modernization</a>
         <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Architect</a>
       </nav>
@@ -347,47 +347,134 @@
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-emerald opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-emerald"></span>
         </span>
-        <span>45-Word Production Resolution (Featured Snippet)</span>
+        <span>Google AI Overview & Featured Snippet Quick Answer</span>
       </div>
+      <h2 class="text-xl sm:text-2xl font-bold text-white mb-3">
+        Quick Diagnostic Summary: What Causes Fixing CICS AEY9 ABEND: Transaction & Resource Security Key Check Failures?
+      </h2>
       <p class="text-white text-base sm:text-lg leading-relaxed font-medium">
         CICS ABEND AEY9 occurs when a user or surrogate identity attempts to execute a transaction or access a protected CICS resource (file, program, TS queue) without required RACF, ACF2, or Top Secret authorization. Understand ESM class definitions and command security.
       </p>
     </div>
 
-    <!-- Section 1: The Production Incident / Problem -->
+    <!-- Section 1 -->
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
         Incident Symptoms: What Triggers Fixing CICS AEY9 ABEND: Transaction & Resource Security Key Check Failures?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        None
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Users authenticate to CICS or call a CICS REST API through z/OS Connect and receive:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DFHAC2001 11:30:14 CICS01 TRANSACTION TX99 ABENDED AEY9 IN PROGRAM ORDR01.
+          SECURITY CHECK FAILURE FOR USER APPLUSER.
+ICH408I USER(APPLUSER) GROUP(FINGRP) NAME(APP INTEGRATION)
+  CICS01.PAYROLL.MASTER CL(FCICSFMP)
+  INSUFFICIENT ACCESS AUTHORITY
+  FROM CICS01.PAYROLL.* (G)
+  ACCESS INTENT(UPDATE)  ACCESS ALLOWED(READ)</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">The transaction halts, throwing HTTP 500 to modern web front-ends or kicking terminal operators out of the system.</p>
       </div>
     </section>
 
-    <!-- Section 2: Root Cause Mechanics -->
+    <!-- Section 2 -->
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm border border-amber-500/30">2</span>
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        None
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">When CICS is configured with security enabled (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SEC=YES</code> in the System Initialization Table - SIT), CICS invokes the external security manager (IBM RACF, Broadcom ACF2, or Broadcom Top Secret) for:</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">Transaction Attachment Security (TCICSTRN)</strong>: Does <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">APPLUSER</code> have <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">READ</code> authority to execute transaction <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">TX99</code>?</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">Resource Security Checking (RESSEC / XFCT / XPCT / XJCT)</strong>: Does the transaction have permission to perform <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">UPDATE</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">READ</code> against the target VSAM file (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FCICSFMP</code>), temporary storage queue (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">JCICSJCT</code>), or program (<code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">PCICSPCT</code>)?</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">3. <strong class="text-white font-semibold">Surrogate Security</strong>: In web service or MQ triggered transactions, is the regional default user authorized to act as surrogate for the incoming authenticated user identity?</p>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If the external security manager returns RC=08 (Not Authorized), CICS immediately terminates the task with ABEND AEY9.</p>
       </div>
     </section>
 
-    <!-- Section 3: Step-by-Step Resolution -->
+    <!-- Section 3 -->
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        None
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Identify the Exact RACF Class and Profile</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Inspect the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">ICH408I</code> console syslog message:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>User ID: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">APPLUSER</code></span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Class: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FCICSFMP</code> (CICS File Control)</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Resource: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CICS01.PAYROLL.MASTER</code></span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>Required Access: <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">UPDATE</code></span></li>
+</ul>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Grant the Missing RACF Permissions</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Have the security administrator issue RACF commands:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>PERMIT CICS01.PAYROLL.MASTER CLASS(FCICSFMP) ID(FINGRP) ACCESS(UPDATE)
+SETROPTS RACLIST(FCICSFMP) REFRESH</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If using general grouping profiles, refresh the group class:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>SETROPTS RACLIST(GCICSTRN) REFRESH</code></pre>
+        </div>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 3. Handle Command Security in Application Code</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If the application needs to gracefully handle permission denials without crashing with AEY9, use the <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">NOHANDLE</code> or <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">RESP</code> option in the CICS command:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>EXEC CICS READ
+                 FILE('PAYROLL-MASTER')
+                 INTO(WS-PAYROLL-RECORD)
+                 RIDFLD(WS-EMP-ID)
+                 RESP(WS-RESP-CODE)
+                 RESP2(WS-RESP2-CODE)
+       END-EXEC.
+
+       IF WS-RESP-CODE = DFHRESP(NOTAUTH)
+           MOVE 'Security Error: Unauthorized File Access'
+             TO WS-ERROR-MSG
+           PERFORM 9900-DISPLAY-AUTH-ERROR
+       END-IF.</code></pre>
+        </div>
       </div>
     </section>
 
-    <!-- Section 4: Diagnostic Reference Matrix Table -->
+    <!-- Section 4: Specifications Matrix Table -->
     <section class="mb-12 overflow-x-auto">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-table-list text-neon-cyan"></i>
@@ -397,7 +484,7 @@
         <thead class="bg-black/50 text-slate-300 uppercase border-b border-white/10">
           <tr>
             <th class="p-3">Attribute</th>
-            <th class="p-3">Diagnostic Specification</th>
+            <th class="p-3">Specification</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-white/5 text-slate-300">
@@ -411,7 +498,7 @@
           </tr>
           <tr>
             <td class="p-3 font-bold text-neon-amber">Resolution SLA</td>
-            <td class="p-3">&lt; 15 Minutes via Verified StackMF Runbook</td>
+            <td class="p-3">< 15 Minutes via Verified StackMF Runbook</td>
           </tr>
           <tr>
             <td class="p-3 font-bold text-neon-violet">Technical Reviewer</td>
@@ -421,7 +508,7 @@
       </table>
     </section>
 
-    <!-- Section 5: Architectural Prevention & Tuning -->
+    <!-- Section 5: Prevention & Verification -->
     <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-list-check text-neon-cyan"></i>
@@ -490,7 +577,7 @@
             </h4>
           </div>
           <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
-            <span>Read Diagnostic Fix</span> &rarr;
+            <span class="group-hover:underline">Read Guide: Resolving ABEND S0C7 (Data Exception) in...</span> &rarr;
           </div>
         </a>
         
@@ -505,7 +592,7 @@
             </h4>
           </div>
           <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
-            <span>Read Diagnostic Fix</span> &rarr;
+            <span class="group-hover:underline">Read Guide: Debugging ABEND S0C4 (Protection Excepti...</span> &rarr;
           </div>
         </a>
         
@@ -520,7 +607,7 @@
             </h4>
           </div>
           <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
-            <span>Read Diagnostic Fix</span> &rarr;
+            <span class="group-hover:underline">Read Guide: Mastering SB37, SD37, and SE37 Out-of-Sp...</span> &rarr;
           </div>
         </a>
         

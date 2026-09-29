@@ -5,25 +5,25 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://stackmf.com/</loc>
-    <lastmod>2026-09-28T07:55:38+00:00</lastmod>
+    <lastmod>2026-09-29T04:09:48+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/</loc>
-    <lastmod>2026-09-28T07:55:38+00:00</lastmod>
+    <lastmod>2026-09-29T04:09:48+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://stackmf.com/broadcom-replacement.html</loc>
-    <lastmod>2026-09-28T07:55:38+00:00</lastmod>
+    <lastmod>2026-09-29T04:09:48+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://stackmf.com/legal.html</loc>
-    <lastmod>2026-09-28T07:55:38+00:00</lastmod>
+    <lastmod>2026-09-29T04:09:48+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -31,7 +31,7 @@
     <loc>https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html</loc>
     <lastmod>2026-09-27T08:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/soc4-protection-exception-linkage-pointer.html</loc>
@@ -499,6 +499,6 @@
     <loc>https://stackmf.com/blog/which-company-can-help-with-mainframes-broadcom-tool-migration.html</loc>
     <lastmod>2026-09-28T08:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.95</priority>
   </url>
 </urlset>

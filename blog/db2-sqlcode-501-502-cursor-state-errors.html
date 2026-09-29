@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Fixing DB2 SQLCODE -501 (Cursor Not Open) and | StackMF</title>
-  <meta name="title" content="Fixing DB2 SQLCODE -501 (Cursor Not Open) and | StackMF">
+  <title>Fixing DB2 SQLCODE -501 (Cursor Not Open) and SQLCODE | StackMF</title>
+  <meta name="title" content="Fixing DB2 SQLCODE -501 (Cursor Not Open) and SQLCODE | StackMF">
   <meta name="description" content="DB2 SQLCODE -501 occurs when attempting to FETCH from or CLOSE a cursor that is closed. SQLCODE -502 occurs when OPENing an already open cursor. Learn how to manage cursor states across nested subprogram calls and commit boundaries.">
   <meta name="keywords" content="DB2, SQLCODE -501, SQLCODE -502, Cursors, COBOL, Stored Procedures, IBM z/OS, mainframe modernization, production troubleshooting, stackmf">
   <meta name="author" content="Anshu - StackMF Technologies">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://stackmf.com/blog/db2-sqlcode-501-502-cursor-state-errors.html">
-  <meta property="og:title" content="Fixing DB2 SQLCODE -501 (Cursor Not Open) and | StackMF">
+  <meta property="og:title" content="Fixing DB2 SQLCODE -501 (Cursor Not Open) and SQLCODE | StackMF">
   <meta property="og:description" content="DB2 SQLCODE -501 occurs when attempting to FETCH from or CLOSE a cursor that is closed. SQLCODE -502 occurs when OPENing an already open cursor. Learn how to manage cursor states across nested subprogram calls and commit boundaries.">
   <meta property="og:site_name" content="StackMF Technologies LLP">
   <meta property="article:published_time" content="2026-09-27T08:00:00+00:00">
@@ -23,7 +23,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Fixing DB2 SQLCODE -501 (Cursor Not Open) and | StackMF">
+  <meta name="twitter:title" content="Fixing DB2 SQLCODE -501 (Cursor Not Open) and SQLCODE | StackMF">
   <meta name="twitter:description" content="DB2 SQLCODE -501 occurs when attempting to FETCH from or CLOSE a cursor that is closed. SQLCODE -502 occurs when OPENing an already open cursor. Learn how to manage cursor states across nested subprogram calls and commit boundaries.">
 
   <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/ALpXb5J8LKfeaWNX/logo-YZ9nXvEj8KiMb60r.png">
@@ -90,7 +90,7 @@
       "description": "DB2 SQLCODE -501 occurs when attempting to FETCH from or CLOSE a cursor that is closed. SQLCODE -502 occurs when OPENing an already open cursor. Learn how to manage cursor states across nested subprogram calls and commit boundaries.",
       "url": "https://stackmf.com/blog/db2-sqlcode-501-502-cursor-state-errors.html",
       "datePublished": "2026-09-27T08:00:00+00:00",
-      "dateModified": "2026-09-28T07:55:38+00:00",
+      "dateModified": "2026-09-29T04:09:48+00:00",
       "inLanguage": "en-US",
       "mainEntityOfPage": "https://stackmf.com/blog/db2-sqlcode-501-502-cursor-state-errors.html",
       "author": {
@@ -285,7 +285,7 @@
           <i class="fa-solid fa-book-open text-xs"></i> All Blogs
         </a>
         <a href="/#mainframe-developers" class="hover:text-neon-emerald transition-colors">Hire Developers</a>
-        <a href="/#broadcom-replacement" class="hover:text-neon-amber transition-colors">Broadcom Replacement</a>
+        <a href="/broadcom-replacement.html" class="hover:text-neon-amber transition-colors font-semibold">Broadcom Replacement</a>
         <a href="/#mainframe-modernization" class="hover:text-neon-cyan transition-colors">Modernization</a>
         <a href="/#contact" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-neon-emerald to-neon-cyan text-black hover:scale-105 transition-all">Book Architect</a>
       </nav>
@@ -347,47 +347,129 @@
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-emerald opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon-emerald"></span>
         </span>
-        <span>45-Word Production Resolution (Featured Snippet)</span>
+        <span>Google AI Overview & Featured Snippet Quick Answer</span>
       </div>
+      <h2 class="text-xl sm:text-2xl font-bold text-white mb-3">
+        Quick Diagnostic Summary: What Causes Fixing DB2 SQLCODE -501 (Cursor Not Open) and SQLCODE -502 (Cursor Already Open) in Nested Calls?
+      </h2>
       <p class="text-white text-base sm:text-lg leading-relaxed font-medium">
         DB2 SQLCODE -501 occurs when attempting to FETCH from or CLOSE a cursor that is closed. SQLCODE -502 occurs when OPENing an already open cursor. Learn how to manage cursor states across nested subprogram calls and commit boundaries.
       </p>
     </div>
 
-    <!-- Section 1: The Production Incident / Problem -->
+    <!-- Section 1 -->
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm border border-rose-500/30">1</span>
         Incident Symptoms: What Triggers Fixing DB2 SQLCODE -501 (Cursor Not Open) and SQLCODE -502 (Cursor Already Open) in Nested Calls?
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        None
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">A complex batch billing cycle terminates with:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNT408I SQLCODE = -501, ERROR:  THE CURSOR IDENTIFIED IN A FETCH OR CLOSE
+         STATEMENT IS NOT OPEN. CURSOR NAME = CUST_CSR</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Or in a loop:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">text</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>DSNT408I SQLCODE = -502, ERROR:  THE CURSOR IDENTIFIED IN AN OPEN STATEMENT
+         IS ALREADY OPEN. CURSOR NAME = CUST_CSR</code></pre>
+        </div>
       </div>
     </section>
 
-    <!-- Section 2: Root Cause Mechanics -->
+    <!-- Section 2 -->
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm border border-amber-500/30">2</span>
         Technical Root Cause & Architecture Mechanics
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        None
+        <p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">1. <strong class="text-white font-semibold">SQLCODE -501</strong>:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The cursor was closed automatically when an intervening <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">COMMIT</code> was issued without <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">WITH HOLD</code>.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>The cursor hit <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SQLCODE = +100</code> (End of Table) and the application issued <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">FETCH</code> again.</span></li>
+</ul>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">2. <strong class="text-white font-semibold">SQLCODE -502</strong>:</p>
+<ul class="space-y-3 my-4 list-none pl-0">
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>An application called subprogram <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">SUB1</code> multiple times without closing the cursor prior to <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">GOBACK</code>.</span></li>
+<li class="flex items-start gap-3 text-slate-300 leading-relaxed"><i class="fa-solid fa-check text-neon-emerald text-xs mt-1.5 shrink-0"></i> <span>A loop re-executed <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXEC SQL OPEN CUST_CSR END-EXEC</code> without a prior <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">CLOSE</code>.</span></li>
+</ul>
       </div>
     </section>
 
-    <!-- Section 3: Step-by-Step Resolution -->
+    <!-- Section 3 -->
     <section class="mb-12">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4 flex items-center gap-3">
         <span class="w-8 h-8 rounded-lg bg-neon-emerald/20 text-neon-emerald flex items-center justify-center text-sm border border-neon-emerald/30">3</span>
         Step-by-Step Diagnostic & Code Resolution
       </h2>
       <div class="prose prose-invert max-w-none text-slate-300">
-        None
+        <h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 1. Declare Cursors WITH HOLD Across Commits</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">If a batch program issues commits while iterating through a cursor:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>EXEC SQL
+           DECLARE CUST_CSR CURSOR WITH HOLD FOR
+           SELECT CUST_ID, BALANCE
+           FROM CUSTOMER
+           WHERE REGION = :WS-REGION
+       END-EXEC.</code></pre>
+        </div>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light"><code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">WITH HOLD</code> keeps the cursor open and maintains its position across <code class="font-mono text-neon-cyan bg-slate-900/90 px-1.5 py-0.5 rounded border border-white/10 text-xs sm:text-sm">EXEC SQL COMMIT</code> calls!</p>
+<h3 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4 flex items-center gap-2.5"><span class="text-neon-cyan">#</span> 2. Defensively Manage Cursor State in Subprograms</h3>
+<p class="text-slate-300 leading-relaxed my-4 text-base sm:text-lg font-light">Track cursor open status in Working-Storage:</p>
+<div class="my-6 rounded-xl overflow-hidden border border-white/10 bg-[#070b14] shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-white/10 font-mono text-xs text-slate-400">
+            <span class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neon-emerald/70"></span>
+              <span class="ml-2 uppercase tracking-wider text-slate-300 font-semibold">cobol</span>
+            </span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-6').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 2000)" class="text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition">Copy</button>
+          </div>
+          <pre class="p-4 text-xs sm:text-sm font-mono text-emerald-400 overflow-x-auto leading-relaxed"><code>IF WS-CSR-IS-OPEN = 'N'
+           EXEC SQL OPEN CUST_CSR END-EXEC
+           MOVE 'Y' TO WS-CSR-IS-OPEN
+       END-IF.
+
+       EXEC SQL FETCH CUST_CSR INTO :WS-CUST-ROW END-EXEC.
+
+       IF SQLCODE = 100
+           EXEC SQL CLOSE CUST_CSR END-EXEC
+           MOVE 'N' TO WS-CSR-IS-OPEN
+       END-IF.</code></pre>
+        </div>
       </div>
     </section>
 
-    <!-- Section 4: Diagnostic Reference Matrix Table -->
+    <!-- Section 4: Specifications Matrix Table -->
     <section class="mb-12 overflow-x-auto">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-table-list text-neon-cyan"></i>
@@ -397,7 +479,7 @@
         <thead class="bg-black/50 text-slate-300 uppercase border-b border-white/10">
           <tr>
             <th class="p-3">Attribute</th>
-            <th class="p-3">Diagnostic Specification</th>
+            <th class="p-3">Specification</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-white/5 text-slate-300">
@@ -411,7 +493,7 @@
           </tr>
           <tr>
             <td class="p-3 font-bold text-neon-amber">Resolution SLA</td>
-            <td class="p-3">&lt; 15 Minutes via Verified StackMF Runbook</td>
+            <td class="p-3">< 15 Minutes via Verified StackMF Runbook</td>
           </tr>
           <tr>
             <td class="p-3 font-bold text-neon-violet">Technical Reviewer</td>
@@ -421,7 +503,7 @@
       </table>
     </section>
 
-    <!-- Section 5: Architectural Prevention & Tuning -->
+    <!-- Section 5: Prevention & Verification -->
     <section class="mb-12 p-6 rounded-2xl bg-slate-900/50 border border-white/10">
       <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2.5">
         <i class="fa-solid fa-list-check text-neon-cyan"></i>
@@ -490,7 +572,7 @@
             </h4>
           </div>
           <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
-            <span>Read Diagnostic Fix</span> &rarr;
+            <span class="group-hover:underline">Read Guide: Resolving DB2 SQLCODE -911 (Reason 00C90...</span> &rarr;
           </div>
         </a>
         
@@ -505,7 +587,7 @@
             </h4>
           </div>
           <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
-            <span>Read Diagnostic Fix</span> &rarr;
+            <span class="group-hover:underline">Read Guide: DB2 z/OS Query Optimization: Converting ...</span> &rarr;
           </div>
         </a>
         
@@ -520,7 +602,7 @@
             </h4>
           </div>
           <div class="text-xs font-mono text-neon-emerald flex items-center gap-1 mt-4 pt-3 border-t border-white/5">
-            <span>Read Diagnostic Fix</span> &rarr;
+            <span class="group-hover:underline">Read Guide: How Outdated RUNSTATS Cause Catastrophic...</span> &rarr;
           </div>
         </a>
         

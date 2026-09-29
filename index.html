@@ -242,6 +242,18 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebSite",
+        "@id": "https://stackmf.com/#website",
+        "url": "https://stackmf.com/",
+        "name": "StackMF",
+        "description": "Enterprise Mainframe Engineering, Modernization & Dual-Stack Pods",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://stackmf.com/blog/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
         "@type": "Organization",
         "@id": "https://stackmf.com/#organization",
         "name": "StackMF Technologies LLP",
@@ -393,7 +405,7 @@
         [ENTERPRISE ADVISORY]
       </span>
       <span class="text-slate-200">Broadcom 2026 renewal spikes reaching 150%–300%.</span>
-      <a href="#broadcom-replacement" class="text-[#0F62FE] hover:text-[#387BFF] font-semibold transition-colors inline-flex items-center gap-1">
+      <a href="/broadcom-replacement.html" class="text-[#0F62FE] hover:text-[#387BFF] font-semibold transition-colors inline-flex items-center gap-1">
         Calculate your exposure &amp; migration path &rarr;
       </a>
     </div>
@@ -418,7 +430,7 @@
 
       <!-- Navigation Links -->
       <nav class="hidden lg:flex items-center gap-7 text-xs font-medium tracking-wide text-slate-300">
-        <a href="#broadcom-replacement" class="hover:text-white transition-colors flex items-center gap-1.5">
+        <a href="/broadcom-replacement.html" class="hover:text-white transition-colors flex items-center gap-1.5">
           <span>Broadcom Migration</span>
           <span class="px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-400 font-mono text-[10px] border border-amber-500/20 font-bold">Save 55%+</span>
         </a>
@@ -427,7 +439,7 @@
         <a href="#mainframe-developers" class="hover:text-white transition-colors">Engineers</a>
         <a href="/blog/" class="hover:text-white transition-colors flex items-center gap-1.5">
           <span>Knowledge Base</span>
-          <span class="px-1.5 py-0.2 rounded bg-[#0F62FE]/10 text-[#387BFF] font-mono text-[10px] border border-[#0F62FE]/25 font-bold">78+ Guides</span>
+          <span class="px-1.5 py-0.2 rounded bg-[#0F62FE]/10 text-[#387BFF] font-mono text-[10px] border border-[#0F62FE]/25 font-bold">79 Runbooks</span>
         </a>
         <a href="#tco-calculator" class="text-amber-400 hover:text-amber-300 font-mono transition-colors flex items-center gap-1">
           <i class="fa-solid fa-calculator text-[11px]"></i>
@@ -456,13 +468,13 @@
 
     <!-- Mobile Dropdown -->
     <div id="mobileMenu" class="hidden lg:hidden bg-[#0A0D14] border-b border-[#181E2C] px-5 py-4 space-y-3 font-medium text-xs text-slate-300">
-      <a href="#broadcom-replacement" class="block py-1.5 text-amber-400 font-semibold">Broadcom Replacement Hub</a>
+      <a href="/broadcom-replacement.html" class="block py-1.5 text-amber-400 font-semibold">Broadcom Replacement Hub</a>
       <a href="#team-builder" class="block py-1.5 hover:text-white">Interactive Pod Builder</a>
       <a href="#system-flow" class="block py-1.5 hover:text-white">Modernization Architecture</a>
       <a href="#mainframe-developers" class="block py-1.5 hover:text-white">Hire Mainframe Engineers (48h)</a>
       <a href="/blog/" class="block py-1.5 text-[#387BFF] font-semibold flex items-center justify-between">
         <span>Knowledge Base &amp; Runbooks</span>
-        <span class="px-1.5 py-0.5 rounded bg-[#0F62FE]/10 text-[10px] font-mono border border-[#0F62FE]/25">78+ Guides</span>
+        <span class="px-1.5 py-0.5 rounded bg-[#0F62FE]/10 text-[10px] font-mono border border-[#0F62FE]/25">79 Runbooks</span>
       </a>
       <a href="#tco-calculator" class="block py-1.5 text-amber-400">Broadcom TCO Calculator</a>
       <a href="#terminal-section" class="block py-1.5 font-mono text-emerald-400">z/OS Terminal Simulator</a>
@@ -1815,7 +1827,7 @@ export const useAccount = (id: string) =&gt;
           <ul class="space-y-2">
             <li><a href="#team-builder" class="hover:text-white transition-colors">Pod Builder Engine</a></li>
             <li><a href="#mainframe-developers" class="hover:text-white transition-colors">Hire Mainframe Developers</a></li>
-            <li><a href="#broadcom-replacement" class="hover:text-white transition-colors">Broadcom Replacement Hub</a></li>
+            <li><a href="/broadcom-replacement.html" class="hover:text-white transition-colors font-semibold">Broadcom Replacement Hub</a></li>
             <li><a href="#mainframe-modernization" class="hover:text-white transition-colors">Mainframe Modernization</a></li>
             <li><a href="#fullstack-bridge" class="hover:text-white transition-colors">Full-Stack Mainframe Bridge</a></li>
             <li><a href="#maintenance-ams" class="hover:text-white transition-colors">24/7 Managed Maintenance</a></li>
@@ -1825,11 +1837,11 @@ export const useAccount = (id: string) =&gt;
         <div>
           <h4 class="font-mono uppercase text-white font-bold text-xs tracking-wider mb-3 text-amber-400">Replacements</h4>
           <ul class="space-y-2">
-            <li><a href="#broadcom-replacement" class="hover:text-white transition-colors">Replace Broadcom CA-7</a></li>
-            <li><a href="#broadcom-replacement" class="hover:text-white transition-colors">Replace Broadcom Endevor</a></li>
-            <li><a href="#broadcom-replacement" class="hover:text-white transition-colors">Replace File-AID / File Master</a></li>
-            <li><a href="#broadcom-replacement" class="hover:text-white transition-colors">Replace CA-Datacom &amp; IDMS</a></li>
-            <li><a href="#tco-calculator" class="hover:text-white transition-colors">Broadcom TCO Savings Tool</a></li>
+            <li><a href="/broadcom-replacement.html" class="hover:text-white transition-colors">Replace Broadcom CA-7</a></li>
+            <li><a href="/broadcom-replacement.html" class="hover:text-white transition-colors">Replace Broadcom Endevor</a></li>
+            <li><a href="/broadcom-replacement.html" class="hover:text-white transition-colors">Replace File-AID / File Master</a></li>
+            <li><a href="/broadcom-replacement.html" class="hover:text-white transition-colors">Replace CA-Datacom &amp; IDMS</a></li>
+            <li><a href="/broadcom-replacement.html" class="text-amber-400 hover:underline font-bold">Broadcom Migration Playbooks</a></li>
           </ul>
         </div>
 
@@ -1837,6 +1849,7 @@ export const useAccount = (id: string) =&gt;
           <h4 class="font-mono uppercase text-white font-bold text-xs tracking-wider mb-3 text-emerald-400">Resources &amp; Specs</h4>
           <ul class="space-y-2 font-mono text-[11px]">
             <li><a href="/blog/" class="text-[#387BFF] hover:underline font-bold flex items-center gap-1.5"><i class="fa-solid fa-book-bookmark text-[10px]"></i> <span>/blog/ (Knowledge Base)</span></a></li>
+            <li><a href="/blog/which-company-can-help-with-mainframes-broadcom-tool-migration.html" class="text-amber-400 hover:underline font-bold flex items-center gap-1.5"><i class="fa-solid fa-file-contract text-[10px]"></i> <span>Broadcom Migration Guide</span></a></li>
             <li><a href="/llms.txt" class="hover:text-white transition-colors">/llms.txt (AI Crawlers)</a></li>
             <li><a href="/llms-full.txt" class="hover:text-white transition-colors">/llms-full.txt (Deep LLM Spec)</a></li>
             <li><a href="/sitemap.xml" class="hover:text-white transition-colors">/sitemap.xml</a></li>
