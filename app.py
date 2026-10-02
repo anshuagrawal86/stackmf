@@ -7,6 +7,18 @@ app = Flask(__name__, static_folder='.', static_url_path='')
 
 LEADS_FILE = os.path.join(os.path.dirname(__file__), 'leads.json')
 
+@app.before_request
+def enforce_canonical_domain():
+    """Consolidates domain authority by 301 redirecting www.stackmf.com to https://stackmf.com."""
+    host = request.headers.get('Host', request.host).lower()
+    if host.startswith('www.'):
+        if request.path.startswith('/google') and request.path.endswith('.html'):
+            return None
+        clean_path = request.path
+        if request.query_string:
+            clean_path += '?' + request.query_string.decode('utf-8')
+        return redirect(f"https://stackmf.com{clean_path}", code=301)
+
 @app.route('/')
 def home():
     """Serves the primary StackMF enterprise platform."""
