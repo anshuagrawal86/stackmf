@@ -22,10 +22,12 @@ def enforce_canonical_domain():
 
 import threading
 import urllib.request
+import datetime
+
+EU_COUNTRIES = {'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'}
 
 def get_country_and_increment(ip, headers):
     try:
-        # Check standard CDN/Cloud Proxy headers first
         country = headers.get('CF-IPCountry') or headers.get('X-Country-Code') or headers.get('X-Appengine-Country') or headers.get('CloudFront-Viewer-Country')
         
         if not country and ip:
@@ -41,20 +43,38 @@ def get_country_and_increment(ip, headers):
                 pass
                 
         country = country or 'Unknown'
+        country = country.upper()
+        if country in EU_COUNTRIES:
+            country = 'EU'
+            
+        now = datetime.datetime.utcnow()
+        month_key = now.strftime("%Y-%m")
         
-        hits = {"organic_hits": 0, "countries": {}}
+        hits = {"total_hits": 0, "months": {}}
         if os.path.exists(HITS_FILE):
             try:
                 with open(HITS_FILE, 'r', encoding='utf-8') as f:
-                    hits = json.load(f)
+                    old_hits = json.load(f)
+                    if "organic_hits" in old_hits and "months" not in old_hits:
+                        # Migrate old format
+                        hits["total_hits"] = old_hits.get("organic_hits", 0)
+                        hits["months"][month_key] = {
+                            "total": old_hits.get("organic_hits", 0),
+                            "countries": old_hits.get("countries", {})
+                        }
+                    else:
+                        hits = old_hits
             except Exception:
                 pass
                 
-        if "countries" not in hits:
-            hits["countries"] = {}
+        if "months" not in hits:
+            hits["months"] = {}
+        if month_key not in hits["months"]:
+            hits["months"][month_key] = {"total": 0, "countries": {}}
             
-        hits["organic_hits"] = hits.get("organic_hits", 0) + 1
-        hits["countries"][country] = hits["countries"].get(country, 0) + 1
+        hits["total_hits"] = hits.get("total_hits", 0) + 1
+        hits["months"][month_key]["total"] += 1
+        hits["months"][month_key]["countries"][country] = hits["months"][month_key]["countries"].get(country, 0) + 1
         
         with open(HITS_FILE, 'w', encoding='utf-8') as f:
             json.dump(hits, f, indent=2)
