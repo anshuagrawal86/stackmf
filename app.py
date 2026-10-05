@@ -6,6 +6,7 @@ from flask import Flask, send_from_directory, request, jsonify, render_template_
 app = Flask(__name__, static_folder='.', static_url_path='')
 
 LEADS_FILE = os.path.join(os.path.dirname(__file__), 'leads.json')
+HITS_FILE = os.path.join(os.path.dirname(__file__), 'hits.json')
 
 @app.before_request
 def enforce_canonical_domain():
@@ -19,9 +20,22 @@ def enforce_canonical_domain():
             clean_path += '?' + request.query_string.decode('utf-8')
         return redirect(f"https://stackmf.com{clean_path}", code=301)
 
+def increment_hit():
+    try:
+        hits = {"organic_hits": 0}
+        if os.path.exists(HITS_FILE):
+            with open(HITS_FILE, 'r', encoding='utf-8') as f:
+                hits = json.load(f)
+        hits["organic_hits"] += 1
+        with open(HITS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(hits, f)
+    except Exception:
+        pass
+
 @app.route('/')
 def home():
     """Serves the primary StackMF enterprise platform."""
+    increment_hit()
     return send_from_directory('.', 'index.html')
 
 @app.route('/robots.txt')
@@ -168,3 +182,15 @@ def calculate_savings():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port, debug=False)
+
+@app.route('/api/stats_hidden_1234')
+def view_stats():
+    """Hidden endpoint to view organic hits."""
+    hits = {"organic_hits": 0}
+    if os.path.exists(HITS_FILE):
+        try:
+            with open(HITS_FILE, 'r', encoding='utf-8') as f:
+                hits = json.load(f)
+        except Exception:
+            pass
+    return jsonify(hits)
