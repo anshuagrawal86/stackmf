@@ -20,17 +20,53 @@ def enforce_canonical_domain():
             clean_path += '?' + request.query_string.decode('utf-8')
         return redirect(f"https://stackmf.com{clean_path}", code=301)
 
-def increment_hit():
+import threading
+import urllib.request
+
+def get_country_and_increment(ip, headers):
     try:
-        hits = {"organic_hits": 0}
+        # Check standard CDN/Cloud Proxy headers first
+        country = headers.get('CF-IPCountry') or headers.get('X-Country-Code') or headers.get('X-Appengine-Country') or headers.get('CloudFront-Viewer-Country')
+        
+        if not country and ip:
+            ip = ip.split(',')[0].strip()
+            try:
+                url = f"http://ip-api.com/json/{ip}?fields=countryCode"
+                req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+                with urllib.request.urlopen(req, timeout=3) as response:
+                    data = json.loads(response.read().decode())
+                    if data.get('countryCode'):
+                        country = data['countryCode']
+            except Exception:
+                pass
+                
+        country = country or 'Unknown'
+        
+        hits = {"organic_hits": 0, "countries": {}}
         if os.path.exists(HITS_FILE):
-            with open(HITS_FILE, 'r', encoding='utf-8') as f:
-                hits = json.load(f)
-        hits["organic_hits"] += 1
+            try:
+                with open(HITS_FILE, 'r', encoding='utf-8') as f:
+                    hits = json.load(f)
+            except Exception:
+                pass
+                
+        if "countries" not in hits:
+            hits["countries"] = {}
+            
+        hits["organic_hits"] = hits.get("organic_hits", 0) + 1
+        hits["countries"][country] = hits["countries"].get(country, 0) + 1
+        
         with open(HITS_FILE, 'w', encoding='utf-8') as f:
-            json.dump(hits, f)
+            json.dump(hits, f, indent=2)
+            
     except Exception:
         pass
+
+def increment_hit():
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    headers_dict = dict(request.headers)
+    # Run in background thread to avoid slowing down page load
+    threading.Thread(target=get_country_and_increment, args=(ip, headers_dict)).start()
 
 @app.route('/')
 def home():
