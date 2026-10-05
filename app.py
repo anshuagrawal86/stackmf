@@ -28,6 +28,11 @@ EU_COUNTRIES = {'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE'
 
 def get_country_and_increment(ip, headers):
     try:
+        user_agent = headers.get('User-Agent', '').lower()
+        bot_keywords = ['bot', 'crawl', 'spider', 'slurp', 'yandex', 'headless', 'lighthouse', 'google', 'bing', 'ahrefs', 'semrush', 'python-requests', 'curl', 'wget']
+        if any(keyword in user_agent for keyword in bot_keywords):
+            return  # Skip counting this bot hit
+            
         country = headers.get('CF-IPCountry') or headers.get('X-Country-Code') or headers.get('X-Appengine-Country') or headers.get('CloudFront-Viewer-Country')
         
         if not country and ip:
