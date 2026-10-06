@@ -1,12 +1,51 @@
+
 import os
 import json
 import datetime
 from flask import Flask, send_from_directory, request, jsonify, render_template_string, redirect
+try:
+    from google.cloud import storage
+    storage_client = storage.Client()
+    # Use the project ID from the environment or fallback
+    project_id = os.environ.get('GOOGLE_CLOUD_PROJECT', 'serviceapartments')
+    bucket_name = f"{project_id}-stackmf-data"
+    bucket = storage_client.bucket(bucket_name)
+except Exception as e:
+    bucket = None
+    print(f"GCS Init Error: {e}")
+
+def load_json(filename):
+    if bucket:
+        try:
+            blob = bucket.blob(filename)
+            if blob.exists():
+                return json.loads(blob.download_as_text())
+        except Exception as e:
+            print(f"GCS Load Error: {e}")
+    # Local fallback
+    local_path = os.path.join(os.path.dirname(__file__), filename)
+    if os.path.exists(local_path):
+        with open(local_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return None
+
+def save_json(filename, data):
+    if bucket:
+        try:
+            blob = bucket.blob(filename)
+            blob.upload_from_string(json.dumps(data, indent=2), content_type='application/json')
+            return
+        except Exception as e:
+            print(f"GCS Save Error: {e}")
+    # Local fallback
+    local_path = os.path.join(os.path.dirname(__file__), filename)
+    with open(local_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2)
+
+LEADS_FILE = 'leads.json'
+HITS_FILE = 'hits.json'
 
 app = Flask(__name__, static_folder='.', static_url_path='')
-
-LEADS_FILE = os.path.join(os.path.dirname(__file__), 'leads.json')
-HITS_FILE = os.path.join(os.path.dirname(__file__), 'hits.json')
 
 @app.before_request
 def enforce_canonical_domain():
@@ -55,22 +94,7 @@ def get_country_and_increment(ip, headers):
         now = datetime.datetime.utcnow()
         month_key = now.strftime("%Y-%m")
         
-        hits = {"total_hits": 0, "months": {}}
-        if os.path.exists(HITS_FILE):
-            try:
-                with open(HITS_FILE, 'r', encoding='utf-8') as f:
-                    old_hits = json.load(f)
-                    if "organic_hits" in old_hits and "months" not in old_hits:
-                        # Migrate old format
-                        hits["total_hits"] = old_hits.get("organic_hits", 0)
-                        hits["months"][month_key] = {
-                            "total": old_hits.get("organic_hits", 0),
-                            "countries": old_hits.get("countries", {})
-                        }
-                    else:
-                        hits = old_hits
-            except Exception:
-                pass
+        hits = load_json(HITS_FILE) or {"total_hits": 0, "months": {}}
                 
         if "months" not in hits:
             hits["months"] = {}
@@ -81,8 +105,7 @@ def get_country_and_increment(ip, headers):
         hits["months"][month_key]["total"] += 1
         hits["months"][month_key]["countries"][country] = hits["months"][month_key]["countries"].get(country, 0) + 1
         
-        with open(HITS_FILE, 'w', encoding='utf-8') as f:
-            json.dump(hits, f, indent=2)
+        save_json(HITS_FILE, hits)
             
     except Exception:
         pass
@@ -185,18 +208,10 @@ def submit_contact():
             "ip_address": request.headers.get('X-Forwarded-For', request.remote_addr)
         }
 
-        # Persist lead entry safely
-        leads = []
-        if os.path.exists(LEADS_FILE):
-            try:
-                with open(LEADS_FILE, 'r', encoding='utf-8') as f:
-                    leads = json.load(f)
-            except Exception:
-                leads = []
-
+        # Persist lead entry safely using GCS/Local
+        leads = load_json(LEADS_FILE) or []
         leads.append(lead_entry)
-        with open(LEADS_FILE, 'w', encoding='utf-8') as f:
-            json.dump(leads, f, indent=2)
+        save_json(LEADS_FILE, leads)
 
         return jsonify({
             "success": True,

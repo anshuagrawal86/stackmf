@@ -32,8 +32,12 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Set up Cloud SDK
+- name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
+
+      - name: Ensure Storage Bucket Exists
+        run: |
+          gcloud storage buckets create gs://${{ env.PROJECT_ID }}-stackmf-data --location=${{ env.REGION }} || true
 
       - name: Deploy to Cloud Run
         id: deploy
