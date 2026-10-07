@@ -51,42 +51,28 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+import urllib.request
+import urllib.parse
+
 def send_lead_email(name, email_addr, company, service, message):
-    smtp_user = os.environ.get('SMTP_EMAIL')
-    smtp_pass = os.environ.get('SMTP_PASSWORD')
-    
-    if not smtp_user or not smtp_pass:
-        print("SMTP credentials not configured. Skipping email notification.")
-        return
+    url = 'https://api.web3forms.com/submit'
+    payload = {
+        "access_key": "c10c9d80-f30c-4553-b82f-525d9e82874f",
+        "name": name,
+        "email": email_addr,
+        "subject": f"New StackMF Lead: {name} from {company}",
+        "message": f"Service Interest: {service}\n\nMessage:\n{message}",
 
-    subject = f"New StackMF Lead: {name} from {company}"
-    body = f"""
-New Enterprise Consultation Request:
-
-Name: {name}
-Email: {email_addr}
-Company: {company}
-Service Interest: {service}
-
-Message:
-{message}
-"""
-    
-    msg = MIMEMultipart()
-    msg['From'] = smtp_user
-    msg['To'] = "contact@stackmf.com"
-    msg['Subject'] = subject
-    msg.attach(MIMEText(body, 'plain'))
-    
+        "from_name": "StackMF Website"
+    }
+    data = json.dumps(payload).encode('utf-8')
+    req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json', 'Accept': 'application/json'})
     try:
-        # Use SMTP_SSL on port 465 for better reliability on Cloud Run
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=15)
-        server.login(smtp_user, smtp_pass)
-        server.send_message(msg)
-        server.quit()
-        print("Email notification sent successfully.")
+        with urllib.request.urlopen(req, timeout=10) as response:
+            res = json.loads(response.read().decode())
+            print(f"Web3Forms response: {res}")
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        print(f"Failed to send email via Web3Forms: {e}")
 
 @app.before_request
 
