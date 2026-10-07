@@ -1,5 +1,21 @@
 [
   {
+    "slug": "rexx-interactive-ispf-table-display-utilities",
+    "title": "Designing Interactive ISPF Table Displays (TBDISPL) using REXX for Operations Tooling",
+    "date": "2026-10-07",
+    "category": "DevOps & Automation",
+    "tags": [
+      "REXX",
+      "ISPF Tables",
+      "TBDISPL",
+      "Panel Design",
+      "Automation",
+      "z/OS"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Custom operations tooling on z/OS frequently requires scrollable, selectable tables. Discover how to create dynamic ISPF panels, populate in-memory ISPF tables with REXX, and capture user line commands with TBDISPL."
+  },
+  {
     "slug": "ca-7-virtual-resource-management-vrm-contention",
     "title": "Troubleshooting CA-7 Virtual Resource Management (VRM) Enqueue Locks and Depths",
     "date": "2026-10-07",
