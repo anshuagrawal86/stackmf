@@ -2324,19 +2324,6 @@ export const useAccount = (id: string) =&gt;
       };
 
       try {
-        // Send to Web3Forms directly from the browser (bypasses Cloudflare block)
-        await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            access_key: "c10c9d80-f30c-4553-b82f-525d9e82874f",
-            name: payload.name,
-            email: payload.email,
-            subject: "New StackMF Lead: " + payload.name + " from " + payload.company,
-            message: "Service Interest: " + payload.service + "\n\nMessage:\n" + payload.message
-          })
-        }).catch(e => console.error(e));
-
         // Save to our backend (Google Cloud Storage)
         const res = await fetch('/api/contact', {
           method: 'POST',

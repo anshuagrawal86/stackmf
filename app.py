@@ -66,7 +66,14 @@ def send_lead_email(name, email_addr, company, service, message):
         "from_name": "StackMF Website"
     }
     data = json.dumps(payload).encode('utf-8')
-    req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json', 'Accept': 'application/json'})
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Origin': 'https://stackmf.com',
+        'Referer': 'https://stackmf.com/'
+    }
+    req = urllib.request.Request(url, data=data, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=10) as response:
             res = json.loads(response.read().decode())
@@ -242,7 +249,7 @@ def submit_contact():
         leads.append(lead_entry)
         save_json(LEADS_FILE, leads)
         
-
+        send_lead_email(name, email, company, service, message)
 
         return jsonify({
             "success": True,
@@ -286,18 +293,28 @@ def calculate_savings():
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port, debug=False)
-
 @app.route('/api/stats_hidden_1234')
 def view_stats():
     """Hidden endpoint to view organic hits."""
-    hits = {"organic_hits": 0}
-    if os.path.exists(HITS_FILE):
-        try:
-            with open(HITS_FILE, 'r', encoding='utf-8') as f:
-                hits = json.load(f)
-        except Exception:
-            pass
-    return jsonify(hits)
+    hits = load_json(HITS_FILE) or {"total_hits": 0, "months": {}}
+    
+    now = datetime.datetime.utcnow()
+    current_month_key = now.strftime("%Y-%m")
+    
+    if now.month == 1:
+        past_month = 12
+        past_year = now.year - 1
+    else:
+        past_month = now.month - 1
+        past_year = now.year
+    past_month_key = f"{past_year}-{past_month:02d}"
+    
+    return jsonify({
+        "total_hits": hits.get("total_hits", 0),
+        "current_month": hits.get("months", {}).get(current_month_key, {"total": 0, "countries": {}}),
+        "past_month": hits.get("months", {}).get(past_month_key, {"total": 0, "countries": {}})
+    })
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port, debug=False)
