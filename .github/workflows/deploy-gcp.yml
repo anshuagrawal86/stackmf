@@ -46,6 +46,9 @@ jobs:
           service: ${{ env.SERVICE_NAME }}
           region: ${{ env.REGION }}
           source: ./
+          env_vars: |
+            SMTP_EMAIL=${{ secrets.SMTP_EMAIL }}
+            SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
           flags: |
             --allow-unauthenticated
             --memory=512Mi
@@ -54,7 +57,7 @@ jobs:
             --concurrency=80
             --min-instances=0
             --max-instances=2
-            --set-env-vars=SMTP_EMAIL=${{ secrets.SMTP_EMAIL }},SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+            
 
       - name: Show Live Service URL
         run: |
