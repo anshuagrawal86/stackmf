@@ -242,8 +242,7 @@ def submit_contact():
         leads.append(lead_entry)
         save_json(LEADS_FILE, leads)
         
-        # Fire off email notification
-        send_lead_email(name, email, company, service, message)
+
 
         return jsonify({
             "success": True,
