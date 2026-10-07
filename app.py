@@ -258,8 +258,7 @@ def submit_contact():
         save_json(LEADS_FILE, leads)
         
         # Fire off email notification
-        import threading
-        threading.Thread(target=send_lead_email, args=(name, email, company, service, message)).start()
+        send_lead_email(name, email, company, service, message)
 
         return jsonify({
             "success": True,
