@@ -169,12 +169,20 @@ def sitemap():
     return send_from_directory('.', 'sitemap.xml', mimetype='application/xml')
 
 @app.route('/legal')
+def legal_redirect():
+    """301 redirect to canonical legal.html."""
+    return redirect('/legal.html', code=301)
+
 @app.route('/legal.html')
 def legal():
     """Serves statutory legal, IP compliance, and nominative fair use documentation."""
     return send_from_directory('.', 'legal.html')
 
 @app.route('/broadcom-replacement')
+def broadcom_replacement_redirect():
+    """301 redirect to canonical broadcom-replacement.html."""
+    return redirect('/broadcom-replacement.html', code=301)
+
 @app.route('/broadcom-replacement.html')
 def broadcom_replacement():
     """Serves the dedicated Broadcom Mainframe Tool Migration & Replacement landing page."""
@@ -204,11 +212,11 @@ def legacy_soc7_redirect():
 
 @app.route('/blog/<path:slug>')
 def blog_post(slug):
-    """Serves individual blog articles, supporting clean URLs without .html extension."""
+    """Serves individual blog articles, 301 redirecting extensionless requests to canonical .html URLs."""
     if not slug.endswith('.html'):
         candidate = f"{slug}.html"
         if os.path.exists(os.path.join(os.path.dirname(__file__), 'blog', candidate)):
-            return send_from_directory('blog', candidate)
+            return redirect(f"/blog/{candidate}", code=301)
     return send_from_directory('blog', slug)
 
 @app.route('/healthz')

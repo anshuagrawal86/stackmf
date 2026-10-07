@@ -206,11 +206,11 @@ def publish_daily_blog():
     rebuild_site_assets()
 
     # Automated Search Engine Indexing Push
-    article_url = f"https://www.stackmf.com/blog/{article_obj['slug']}.html"
+    article_url = f"https://stackmf.com/blog/{article_obj['slug']}.html"
     push_urls_to_search_engines([
         article_url,
-        "https://www.stackmf.com/blog/",
-        "https://www.stackmf.com/"
+        "https://stackmf.com/blog/",
+        "https://stackmf.com/"
     ])
 
     print(f"SUCCESS: Daily blog '{article_obj['title']}' published and queued for search indexing for {today_str}!")
@@ -226,9 +226,9 @@ def push_urls_to_search_engines(urls):
     # 1. IndexNow (Bing, Microsoft Copilot, Perplexity, Naver, Seznam) - Instant & Key-based
     try:
         indexnow_payload = {
-            'host': 'www.stackmf.com',
+            'host': 'stackmf.com',
             'key': 'stackmf2026geoindexkey',
-            'keyLocation': 'https://www.stackmf.com/stackmf2026geoindexkey.txt',
+            'keyLocation': 'https://stackmf.com/stackmf2026geoindexkey.txt',
             'urlList': urls
         }
         req_in = urllib.request.Request(
