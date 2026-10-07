@@ -254,7 +254,7 @@ def submit_contact():
 
         # Persist lead entry safely using GCS/Local
         leads = load_json(LEADS_FILE) or []
-leads.append(lead_entry)
+        leads.append(lead_entry)
         save_json(LEADS_FILE, leads)
         
         # Fire off email notification
