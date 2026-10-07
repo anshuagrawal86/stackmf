@@ -1245,8 +1245,8 @@ def update_sitemap(articles):
         xml_lines.extend([
             '  <url>',
             f'    <loc>{article_url}</loc>',
-            f'    <lastmod>{a["date"]}T08:00:00+00:00</lastmod>',
-            '    <changefreq>monthly</changefreq>',
+            f'    <lastmod>{today_iso}</lastmod>',
+            '    <changefreq>daily</changefreq>',
             f'    <priority>{priority}</priority>',
             '  </url>'
         ])

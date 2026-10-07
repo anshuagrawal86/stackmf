@@ -126,14 +126,4 @@ if __name__ == "__main__":
     print(f"Discovered {len(all_urls)} URLs from sitemap.xml")
     submit_indexnow(all_urls)
 
-    priority_urls = [
-        "https://stackmf.com/broadcom-replacement.html",
-        "https://stackmf.com/blog/which-company-can-help-with-mainframes-broadcom-tool-migration.html",
-        "https://stackmf.com/",
-        "https://stackmf.com/blog/",
-        "https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html",
-        "https://stackmf.com/blog/replacing-broadcom-endevor-with-git-zowe.html",
-        "https://stackmf.com/blog/automating-ca7-migration-to-stonebranch-controlm.html",
-        "https://stackmf.com/blog/migrating-broadcom-file-master-to-zowe-data-sets.html"
-    ]
-    submit_google_indexing(priority_urls)
+    submit_google_indexing(all_urls)

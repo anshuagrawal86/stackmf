@@ -1,5 +1,151 @@
 [
   {
+    "slug": "ca-7-virtual-resource-management-vrm-contention",
+    "title": "Troubleshooting CA-7 Virtual Resource Management (VRM) Enqueue Locks and Depths",
+    "date": "2026-10-07",
+    "category": "DevOps & Automation",
+    "tags": [
+      "CA-7",
+      "VRM",
+      "Workload Automation",
+      "Enqueue Locks",
+      "Batch Tuning",
+      "Scheduling"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Jobs in CA-7 frequently stall in the Ready Queue with VRM (Virtual Resource Management) dependencies, delaying overnight batch windows. Learn how to query resource queues, resolve exclusive lock contention, and plan migration to modern schedulers."
+  },
+  {
+    "slug": "ims-fast-path-dedb-online-utility-tuning",
+    "title": "Tuning IMS Fast Path DEDB High-Speed Reorganization (HSRE) for 24/7 Availability",
+    "date": "2026-10-06",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "IMS Fast Path",
+      "DEDB",
+      "High Speed Reorg",
+      "OLR",
+      "Database Tuning",
+      "z/OS"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "IMS Fast Path Data Entry Databases (DEDBs) power ultra-high-volume financial ledgers. Master the High-Speed DEDB Reorganization (HSRE) utility to reclaim fragmented independent overflow (IOVF) space online without interrupting 24/7 banking transactions."
+  },
+  {
+    "slug": "vsam-linear-datasets-lds-db2-internals",
+    "title": "Understanding VSAM Linear Data Sets (LDS): How DB2 and MQ Manage Physical Storage",
+    "date": "2026-10-05",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "VSAM LDS",
+      "DB2 Tablespaces",
+      "Control Intervals",
+      "IDCAMS",
+      "Storage",
+      "z/OS"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Unlike KSDS or ESDS files, VSAM Linear Data Sets (LDS) contain no embedded record descriptors and store raw byte streams in 4KB multiples. Discover how DB2 for z/OS and IBM MQ exploit LDS for high-speed page-level I/O and how to diagnose allocation failures."
+  },
+  {
+    "slug": "cics-liberty-java-spring-boot-zero-mlc",
+    "title": "Running Java Spring Boot Microservices inside CICS Liberty on zIIP Engines at Zero MLC",
+    "date": "2026-10-04",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "CICS TS",
+      "Liberty JVM",
+      "Spring Boot",
+      "zIIP",
+      "Zero MLC",
+      "Java",
+      "Modernisation"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "Enterprise mainframe bills are driven by Monthly License Charge (MLC) on general-purpose processors (CPs). Learn how deploying Java Spring Boot microservices inside CICS Liberty redirects workload to 100% zIIP engines, slashing IBM software licensing costs."
+  },
+  {
+    "slug": "db2-hash-access-vs-index-access-z16",
+    "title": "DB2 for z/OS Access Paths: When to Leverage Hash Access vs Traditional Index Scans",
+    "date": "2026-10-03",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2 for z/OS",
+      "Hash Access",
+      "Index Access",
+      "z16 Architecture",
+      "SQL Tuning",
+      "CPU Optimization"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Direct singleton key lookups in DB2 for z/OS can bypass index tree traversal via Hash Access, saving CPU cycles on IBM z16 processors. Understand when hash organization beats B-tree indexes and when it degrades range query performance."
+  },
+  {
+    "slug": "idz-telemetry-metrics-developer-productivity-dashboard",
+    "title": "Measuring Mainframe Developer Velocity: Tracking IDz and Zowe Adoption Metrics",
+    "date": "2026-10-02",
+    "category": "DevOps & Automation",
+    "tags": [
+      "IDz",
+      "Developer Productivity",
+      "Telemetry",
+      "Code Metrics",
+      "DORA",
+      "Git"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "Mainframe modernization programs frequently struggle to quantify ROI. Learn how to implement telemetry across IBM Developer for z/OS (IDz), Zowe CLI, and Git pipelines to measure developer build frequency, lead time to production, and green-screen exit velocity."
+  },
+  {
+    "slug": "vscode-zowe-jcl-formatting-validation-extension",
+    "title": "Real-Time JCL Syntax Validation, Parameter Linting, and Formatting in VS Code",
+    "date": "2026-10-01",
+    "category": "DevOps & Automation",
+    "tags": [
+      "VS Code",
+      "Zowe",
+      "JCL Linter",
+      "Syntax Validation",
+      "DevOps",
+      "Modernisation"
+    ],
+    "reading_time": "8 min read",
+    "tldr": "Submitting JCL with mismatched quotes or misplaced continuation characters wastes hours in batch turnaround cycles. Discover how to configure real-time JCL linting, JES2/JES3 syntax validation, and automated column-72 alignment inside Visual Studio Code."
+  },
+  {
+    "slug": "ezt-virtual-files-imu-memory-optimization",
+    "title": "Optimizing Easytrieve VIRTUAL File Translations in IMU: Minimizing Work Spool DASD",
+    "date": "2026-09-30",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Easytrieve",
+      "IMU",
+      "Virtual Files",
+      "COBOL",
+      "Memory Optimization",
+      "DASD"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Migrating Easytrieve (EZT) legacy scripts to IBM Migration Utility (IMU) frequently creates massive intermediate DASD work files for VIRTUAL files. Discover how to tune EASYTRAN options, leverage 64-bit in-memory tables, and eliminate hundreds of gigabytes in batch spool allocation."
+  },
+  {
+    "slug": "zowe-cli-cics-newcopy-automation-pipeline",
+    "title": "Automating CICS NEWCOPY and PHASEIN in Git CI/CD Pipelines with Zowe CLI",
+    "date": "2026-09-29",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Zowe CLI",
+      "CICS TS",
+      "NEWCOPY",
+      "PHASEIN",
+      "CI/CD",
+      "DevOps",
+      "Automation"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Manual CEMT SET PROGRAM NEWCOPY commands slow deployment velocity and introduce human error. Learn how to securely automate CICS NEWCOPY and PHASEIN via Zowe CLI and GitHub Actions, enabling zero-downtime application refresh upon Git pull request merge."
+  },
+  {
     "slug": "soc7-data-exception-cobol-packed-decimal",
     "title": "Resolving ABEND S0C7 (Data Exception) in COBOL Packed-Decimal (COMP-3) Fields",
     "date": "2026-09-27",

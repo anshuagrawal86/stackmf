@@ -86,6 +86,36 @@
       "category": "DevOps & Automation",
       "tech": ["ChangeMan ZMF", "Reverse Delta", "Baseline Recovery", "Audit Trail"],
       "title": "Recovering Corrupted Mainframe Modules using ChangeMan ZMF Reverse Delta Histories"
+    },
+    {
+      "slug": "cics-threadsafe-open-transaction-environment-ote",
+      "category": "CICS & VSAM Architecture",
+      "tech": ["CICS TS", "Threadsafe", "OTE", "TCB Switching"],
+      "title": "CICS Threadsafe Programming & OTE: Eliminating QR TCB Bottlenecks and Task Switching"
+    },
+    {
+      "slug": "db2-bufferpool-tuning-getpage-hit-ratio",
+      "category": "DB2 SQL & Performance",
+      "tech": ["DB2", "Buffer Pools", "Hit Ratio", "Getpage", "I/O Tuning"],
+      "title": "Tuning DB2 Buffer Pools (BP0-BP49): Achieving 98%+ Hit Ratios and Reducing Sync Read I/O"
+    },
+    {
+      "slug": "racf-digital-certificate-expiry-automation",
+      "category": "DevOps & Automation",
+      "tech": ["RACF", "Digital Certificates", "Key Rings", "TLS/SSL"],
+      "title": "Automating RACF Digital Certificate Renewal and Key Ring Bindings for z/OS HTTPS"
+    },
+    {
+      "slug": "mq-channel-status-retrying-resolution",
+      "category": "ABENDS & Diagnostics",
+      "tech": ["IBM MQ", "MQ for z/OS", "Channels", "RETRYING", "Heartbeat"],
+      "title": "Diagnosing IBM MQ Channel State RETRYING and TCP/IP Heartbeat Timeouts on z/OS"
+    },
+    {
+      "slug": "stonebranch-agent-deployment-zos-automation",
+      "category": "Modernisation & Cloud",
+      "tech": ["Stonebranch", "UAC", "CA-7", "Workload Automation", "z/OS Agent"],
+      "title": "Deploying Stonebranch Universal Automation Center Agents on z/OS to Replace CA-7"
     }
   ]
 }
