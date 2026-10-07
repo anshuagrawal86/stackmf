@@ -79,9 +79,8 @@ Message:
     msg.attach(MIMEText(body, 'plain'))
     
     try:
-        # Assuming Gmail / Google Workspace
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
+        # Use SMTP_SSL on port 465 for better reliability on Cloud Run
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=15)
         server.login(smtp_user, smtp_pass)
         server.send_message(msg)
         server.quit()
