@@ -47,6 +47,50 @@ HITS_FILE = 'hits.json'
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+def send_lead_email(name, email_addr, company, service, message):
+    smtp_user = os.environ.get('SMTP_EMAIL')
+    smtp_pass = os.environ.get('SMTP_PASSWORD')
+    
+    if not smtp_user or not smtp_pass:
+        print("SMTP credentials not configured. Skipping email notification.")
+        return
+
+    subject = f"New StackMF Lead: {name} from {company}"
+    body = f"""
+New Enterprise Consultation Request:
+
+Name: {name}
+Email: {email_addr}
+Company: {company}
+Service Interest: {service}
+
+Message:
+{message}
+"""
+    
+    msg = MIMEMultipart()
+    msg['From'] = smtp_user
+    msg['To'] = "contact@stackmf.com"
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+    
+    try:
+        # Assuming Gmail / Google Workspace
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(smtp_user, smtp_pass)
+        server.send_message(msg)
+        server.quit()
+        print("Email notification sent successfully.")
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+
+@app.before_request
+
 @app.before_request
 def enforce_canonical_domain():
     """Consolidates domain authority by 301 redirecting www.stackmf.com to https://stackmf.com."""
@@ -210,8 +254,12 @@ def submit_contact():
 
         # Persist lead entry safely using GCS/Local
         leads = load_json(LEADS_FILE) or []
-        leads.append(lead_entry)
+leads.append(lead_entry)
         save_json(LEADS_FILE, leads)
+        
+        # Fire off email notification
+        import threading
+        threading.Thread(target=send_lead_email, args=(name, email, company, service, message)).start()
 
         return jsonify({
             "success": True,

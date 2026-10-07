@@ -54,6 +54,7 @@ jobs:
             --concurrency=80
             --min-instances=0
             --max-instances=2
+            --set-env-vars=SMTP_EMAIL=${{ secrets.SMTP_EMAIL }},SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
 
       - name: Show Live Service URL
         run: |
