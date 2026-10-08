@@ -1,5 +1,21 @@
 [
   {
+    "slug": "endevor-processor-symbolic-override-troubleshooting",
+    "title": "Resolving Endevor Processor Symbolic Override Mismatches during Emergency Bugfixes",
+    "date": "2026-10-08",
+    "category": "DevOps & Automation",
+    "tags": [
+      "Broadcom Endevor",
+      "Processors",
+      "Symbolic Overrides",
+      "SCL",
+      "DevOps",
+      "Emergency Fix"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Broadcom Endevor processor symbolic overrides allow dynamic compiler parameter adjustments, but syntax drifts between stages frequently cause cast failures and missing load modules. Learn how to debug symbolics and migrate smoothly to Git-based CI/CD."
+  },
+  {
     "slug": "rexx-interactive-ispf-table-display-utilities",
     "title": "Designing Interactive ISPF Table Displays (TBDISPL) using REXX for Operations Tooling",
     "date": "2026-10-07",

@@ -1,5 +1,5 @@
 # StackMF Technologies LLP (stackmf.com)
-# Generated: 2026-10-07
+# Generated: 2026-10-08
 # Entity: StackMF Technologies LLP
 # Specialization: Enterprise Mainframe Modernization, Broadcom Tool Replacement, and Dual-Stack Engineering Pods
 
@@ -22,7 +22,8 @@
 - **Target Alternatives**: Stonebranch Universal Automation Center, BMC Control-M, Git (GitLab, GitHub, Azure DevOps), Linux Foundation Zowe, IBM DBB, Prometheus & Grafana.
 - **Key Differentiation vs Global SIs (Accenture, IBM, Kyndryl)**: Fixed-sprint delivery, 48-hour pod onboarding, senior dual-stack engineers (z/OS + Cloud), 60% lower implementation overhead, and zero vendor lock-in.
 
-## Production Mainframe Troubleshooting Index (89 Runbooks)
+## Production Mainframe Troubleshooting Index (90 Runbooks)
+- [Resolving Endevor Processor Symbolic Override Mismatches during Emergency Bugfixes](https://stackmf.com/blog/endevor-processor-symbolic-override-troubleshooting.html): Broadcom Endevor processor symbolic overrides allow dynamic compiler parameter adjustments, but syntax drifts between stages frequently cause cast failures and missing load modules. Learn how to debug symbolics and migrate smoothly to Git-based CI/CD.
 - [Designing Interactive ISPF Table Displays (TBDISPL) using REXX for Operations Tooling](https://stackmf.com/blog/rexx-interactive-ispf-table-display-utilities.html): Custom operations tooling on z/OS frequently requires scrollable, selectable tables. Discover how to create dynamic ISPF panels, populate in-memory ISPF tables with REXX, and capture user line commands with TBDISPL.
 - [Troubleshooting CA-7 Virtual Resource Management (VRM) Enqueue Locks and Depths](https://stackmf.com/blog/ca-7-virtual-resource-management-vrm-contention.html): Jobs in CA-7 frequently stall in the Ready Queue with VRM (Virtual Resource Management) dependencies, delaying overnight batch windows. Learn how to query resource queues, resolve exclusive lock contention, and plan migration to modern schedulers.
 - [Tuning IMS Fast Path DEDB High-Speed Reorganization (HSRE) for 24/7 Availability](https://stackmf.com/blog/ims-fast-path-dedb-online-utility-tuning.html): IMS Fast Path Data Entry Databases (DEDBs) power ultra-high-volume financial ledgers. Master the High-Speed DEDB Reorganization (HSRE) utility to reclaim fragmented independent overflow (IOVF) space online without interrupting 24/7 banking transactions.

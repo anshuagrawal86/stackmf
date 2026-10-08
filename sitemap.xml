@@ -5,559 +5,565 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://stackmf.com/</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://stackmf.com/broadcom-replacement.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://stackmf.com/legal.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://stackmf.com/blog/endevor-processor-symbolic-override-troubleshooting.html</loc>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://stackmf.com/blog/rexx-interactive-ispf-table-display-utilities.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ca-7-virtual-resource-management-vrm-contention.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ims-fast-path-dedb-online-utility-tuning.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vsam-linear-datasets-lds-db2-internals.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/cics-liberty-java-spring-boot-zero-mlc.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-hash-access-vs-index-access-z16.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/idz-telemetry-metrics-developer-productivity-dashboard.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vscode-zowe-jcl-formatting-validation-extension.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ezt-virtual-files-imu-memory-optimization.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-cli-cics-newcopy-automation-pipeline.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/soc7-data-exception-cobol-packed-decimal.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/soc4-protection-exception-linkage-pointer.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/sb37-sd37-se37-space-abends-jcl.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/s0c1-operation-exception-cics-load.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/asra-abend-cics-debugging-cedf.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/aey9-abend-cics-security-racf.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/u4038-le-runtime-abend-troubleshooting.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/u0778-u0777-ims-dc-deadlock-resolution.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-sqlcode-911-904-resource-unavailable-deadlocks.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-stage-1-vs-stage-2-predicates-tuning.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-runstats-index-clustering-optimizer.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-lock-escalation-isolation-levels.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-stored-procedure-cobol-wlm-tuning.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vsam-file-status-92-93-dynamic-allocation.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vsam-ci-ca-splits-reorg-idcams.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vsam-rls-record-level-sharing-sysplex.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zos-connect-rest-api-cobol-cics.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/mainframe-kafka-event-streaming-cdc.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/cobol-java-interoperability-zos.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/replacing-broadcom-endevor-with-git-zowe.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/automating-ca7-migration-to-stonebranch-controlm.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/rexx-automation-ispf-tso-utilities.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/telon-screen-generator-to-cics-bms-migration.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/serena-changeman-zmf-promotion-freeze-troubleshooting.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/optimizing-4hra-wlm-batch-compression.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ezt-to-imu-automated-migration-guide.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ezt-file-status-abends-in-imu-conversion.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ezt-report-layout-pagination-imu-tuning.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ezt-macro-substitution-imu-native-migration.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vscode-zowe-explorer-setup-enterprise-sso.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-cli-batch-jcl-submission-automation.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-cli-vsam-dataset-management-scripts.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vscode-zowe-cobol-language-server-lsp.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-api-mediation-layer-onboarding-services.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-cross-memory-server-zowe-aux-troubleshooting.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ibm-developer-for-zos-idz-remote-debugging.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/idz-workspace-project-synchronization-git.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/idz-code-review-ruleset-customization.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-explorer-ftp-vs-zftp-performance-tuning.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-chat-mattermost-slack-ops-integration.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/migrating-broadcom-file-master-to-zowe-data-sets.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-zosmf-rest-api-certificate-errors.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ezt-match-file-processing-imu-refactoring.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vscode-debugger-for-mainframe-setup.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-python-sdk-zos-automation-pipelines.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/idz-carma-repository-ram-integration.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ezt-printer-control-imu-asa-carriage-characters.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-cli-secure-credential-store-plugin.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vscode-mainframe-extension-pack-productivity.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/zowe-containers-openshift-kubernetes-deployment.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/s0c9-fixed-point-divide-exception-cobol.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/s806-load-module-not-found-steplib-debugging.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/s322-s222-cpu-time-limit-batch-abends.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/s878-s80a-out-of-virtual-storage-abends.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/cics-aeyh-abend-db2-connection-failure.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-sqlcode-803-duplicate-key-violation.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-sqlcode-818-timestamp-consistency-token.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-sqlcode-501-502-cursor-state-errors.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/cics-aica-excessive-loop-dispatcher-tuning.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vsam-file-status-35-missing-dataset-jcl.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/vsam-alternate-index-aix-upgrade-degradation.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ims-status-code-ai-open-error-troubleshooting.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ims-status-code-ge-segment-not-found.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/telon-batch-driver-to-cobol-modernization.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ca7-dataset-trigger-missed-event-resolution.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/ca7-late-and-unstarted-job-troubleshooting.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/endevor-signout-lock-package-cast-failure.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/changeman-zmf-component-recompile-drift.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/rexx-stem-variable-memory-leak-cleanup.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/rexx-parsing-smf-records-system-auditing.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/cobol-json-generate-json-parse-zowe-apis.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-multi-row-fetch-insert-batch-tuning.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/syncsort-dfsort-icetool-batch-reporting.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/cics-channels-containers-replacing-commarea.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/sub-capacity-reporting-tool-scrt-optimization.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/cics-storage-violation-aica-runaway-task.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/db2-rebind-stability-package-plan-switching.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/cobol-null-indicators-db2-host-variables.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://stackmf.com/blog/which-company-can-help-with-mainframes-broadcom-tool-migration.html</loc>
-    <lastmod>2026-10-07T12:45:05+00:00</lastmod>
+    <lastmod>2026-10-08T12:54:19+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
