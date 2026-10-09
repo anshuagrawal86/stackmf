@@ -1,5 +1,21 @@
 [
   {
+    "slug": "changeman-zmf-baseline-reverse-delta-recovery",
+    "title": "Recovering Corrupted Mainframe Modules using ChangeMan ZMF Reverse Delta Histories",
+    "date": "2026-10-09",
+    "category": "DevOps & Automation",
+    "tags": [
+      "ChangeMan ZMF",
+      "Reverse Delta",
+      "Baseline Recovery",
+      "Audit Trail",
+      "CMN",
+      "Source Control"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "When an unauthorized change or erroneous deployment corrupts a production COBOL baseline, Rocket ChangeMan ZMF reverse deltas provide a forensic recovery path. Learn how to reconstruct historical source revisions and protect baseline integrity."
+  },
+  {
     "slug": "endevor-processor-symbolic-override-troubleshooting",
     "title": "Resolving Endevor Processor Symbolic Override Mismatches during Emergency Bugfixes",
     "date": "2026-10-08",
