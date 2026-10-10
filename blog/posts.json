@@ -1,5 +1,21 @@
 [
   {
+    "slug": "cics-threadsafe-open-transaction-environment-ote",
+    "title": "CICS Threadsafe Programming & OTE: Eliminating QR TCB Bottlenecks and Task Switching",
+    "date": "2026-10-10",
+    "category": "CICS & VSAM Architecture",
+    "tags": [
+      "CICS TS",
+      "Threadsafe",
+      "OTE",
+      "TCB Switching",
+      "QR TCB",
+      "Open Transaction Environment"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Transactions bound to the single Quasi-Reentrant (QR) TCB cause throughput plateaus in high-volume CICS regions. Master CICS Open Transaction Environment (OTE), threadsafe COBOL coding standards, and CONCURRENCY(REQUIRED) to execute across concurrent L8/L9 TCBs on multi-core IBM Z processors."
+  },
+  {
     "slug": "changeman-zmf-baseline-reverse-delta-recovery",
     "title": "Recovering Corrupted Mainframe Modules using ChangeMan ZMF Reverse Delta Histories",
     "date": "2026-10-09",

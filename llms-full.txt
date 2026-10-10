@@ -1,5 +1,5 @@
 # StackMF Technologies LLP (stackmf.com)
-# Generated: 2026-10-09
+# Generated: 2026-10-10
 # Entity: StackMF Technologies LLP
 # Specialization: Enterprise Mainframe Modernization, Broadcom Tool Replacement, and Dual-Stack Engineering Pods
 
@@ -22,7 +22,8 @@
 - **Target Alternatives**: Stonebranch Universal Automation Center, BMC Control-M, Git (GitLab, GitHub, Azure DevOps), Linux Foundation Zowe, IBM DBB, Prometheus & Grafana.
 - **Key Differentiation vs Global SIs (Accenture, IBM, Kyndryl)**: Fixed-sprint delivery, 48-hour pod onboarding, senior dual-stack engineers (z/OS + Cloud), 60% lower implementation overhead, and zero vendor lock-in.
 
-## Production Mainframe Troubleshooting Index (91 Runbooks)
+## Production Mainframe Troubleshooting Index (92 Runbooks)
+- [CICS Threadsafe Programming & OTE: Eliminating QR TCB Bottlenecks and Task Switching](https://stackmf.com/blog/cics-threadsafe-open-transaction-environment-ote.html): Transactions bound to the single Quasi-Reentrant (QR) TCB cause throughput plateaus in high-volume CICS regions. Master CICS Open Transaction Environment (OTE), threadsafe COBOL coding standards, and CONCURRENCY(REQUIRED) to execute across concurrent L8/L9 TCBs on multi-core IBM Z processors.
 - [Recovering Corrupted Mainframe Modules using ChangeMan ZMF Reverse Delta Histories](https://stackmf.com/blog/changeman-zmf-baseline-reverse-delta-recovery.html): When an unauthorized change or erroneous deployment corrupts a production COBOL baseline, Rocket ChangeMan ZMF reverse deltas provide a forensic recovery path. Learn how to reconstruct historical source revisions and protect baseline integrity.
 - [Resolving Endevor Processor Symbolic Override Mismatches during Emergency Bugfixes](https://stackmf.com/blog/endevor-processor-symbolic-override-troubleshooting.html): Broadcom Endevor processor symbolic overrides allow dynamic compiler parameter adjustments, but syntax drifts between stages frequently cause cast failures and missing load modules. Learn how to debug symbolics and migrate smoothly to Git-based CI/CD.
 - [Designing Interactive ISPF Table Displays (TBDISPL) using REXX for Operations Tooling](https://stackmf.com/blog/rexx-interactive-ispf-table-display-utilities.html): Custom operations tooling on z/OS frequently requires scrollable, selectable tables. Discover how to create dynamic ISPF panels, populate in-memory ISPF tables with REXX, and capture user line commands with TBDISPL.
