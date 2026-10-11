@@ -1,5 +1,22 @@
 [
   {
+    "slug": "db2-bufferpool-tuning-getpage-hit-ratio",
+    "title": "Tuning DB2 Buffer Pools (BP0-BP49): Achieving 98%+ Hit Ratios and Reducing Sync Read I/O",
+    "date": "2026-10-11",
+    "category": "DB2 SQL & Performance",
+    "tags": [
+      "DB2",
+      "Buffer Pools",
+      "Hit Ratio",
+      "Getpage",
+      "I/O Tuning",
+      "BP0",
+      "z/OS Storage"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "Synchronous DASD reads are the leading cause of transactional latency in DB2 for z/OS. Learn how to calculate buffer pool hit ratios, configure VPSIZE, and tune sequential steal thresholds (VPSEQT) to keep active indexes in memory."
+  },
+  {
     "slug": "cics-threadsafe-open-transaction-environment-ote",
     "title": "CICS Threadsafe Programming & OTE: Eliminating QR TCB Bottlenecks and Task Switching",
     "date": "2026-10-10",
