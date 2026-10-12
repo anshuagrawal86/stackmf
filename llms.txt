@@ -1,5 +1,5 @@
 # StackMF Technologies LLP (stackmf.com)
-# Generated: 2026-10-11
+# Generated: 2026-10-12
 # Entity: StackMF Technologies LLP
 # Specialization: Enterprise Mainframe Modernization, Broadcom Tool Replacement, and Dual-Stack Engineering Pods
 
@@ -22,7 +22,8 @@
 - **Target Alternatives**: Stonebranch Universal Automation Center, BMC Control-M, Git (GitLab, GitHub, Azure DevOps), Linux Foundation Zowe, IBM DBB, Prometheus & Grafana.
 - **Key Differentiation vs Global SIs (Accenture, IBM, Kyndryl)**: Fixed-sprint delivery, 48-hour pod onboarding, senior dual-stack engineers (z/OS + Cloud), 60% lower implementation overhead, and zero vendor lock-in.
 
-## Production Mainframe Troubleshooting Index (93 Runbooks)
+## Production Mainframe Troubleshooting Index (94 Runbooks)
+- [Automating RACF Digital Certificate Renewal and Key Ring Bindings for z/OS HTTPS](https://stackmf.com/blog/racf-digital-certificate-expiry-automation.html): Expired RACF digital certificates bring down z/OSMF REST APIs, Zowe gateways, and CICS web services without warning. Discover how to identify expiring certificates with RACDCERT, automate certificate renewals, and refresh key rings without cycling started tasks.
 - [Tuning DB2 Buffer Pools (BP0-BP49): Achieving 98%+ Hit Ratios and Reducing Sync Read I/O](https://stackmf.com/blog/db2-bufferpool-tuning-getpage-hit-ratio.html): Synchronous DASD reads are the leading cause of transactional latency in DB2 for z/OS. Learn how to calculate buffer pool hit ratios, configure VPSIZE, and tune sequential steal thresholds (VPSEQT) to keep active indexes in memory.
 - [CICS Threadsafe Programming & OTE: Eliminating QR TCB Bottlenecks and Task Switching](https://stackmf.com/blog/cics-threadsafe-open-transaction-environment-ote.html): Transactions bound to the single Quasi-Reentrant (QR) TCB cause throughput plateaus in high-volume CICS regions. Master CICS Open Transaction Environment (OTE), threadsafe COBOL coding standards, and CONCURRENCY(REQUIRED) to execute across concurrent L8/L9 TCBs on multi-core IBM Z processors.
 - [Recovering Corrupted Mainframe Modules using ChangeMan ZMF Reverse Delta Histories](https://stackmf.com/blog/changeman-zmf-baseline-reverse-delta-recovery.html): When an unauthorized change or erroneous deployment corrupts a production COBOL baseline, Rocket ChangeMan ZMF reverse deltas provide a forensic recovery path. Learn how to reconstruct historical source revisions and protect baseline integrity.

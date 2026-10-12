@@ -1,5 +1,21 @@
 [
   {
+    "slug": "racf-digital-certificate-expiry-automation",
+    "title": "Automating RACF Digital Certificate Renewal and Key Ring Bindings for z/OS HTTPS",
+    "date": "2026-10-12",
+    "category": "DevOps & Automation",
+    "tags": [
+      "RACF",
+      "Digital Certificates",
+      "Key Rings",
+      "z/OS Security",
+      "TLS/SSL",
+      "Automation"
+    ],
+    "reading_time": "10 min read",
+    "tldr": "Expired RACF digital certificates bring down z/OSMF REST APIs, Zowe gateways, and CICS web services without warning. Discover how to identify expiring certificates with RACDCERT, automate certificate renewals, and refresh key rings without cycling started tasks."
+  },
+  {
     "slug": "db2-bufferpool-tuning-getpage-hit-ratio",
     "title": "Tuning DB2 Buffer Pools (BP0-BP49): Achieving 98%+ Hit Ratios and Reducing Sync Read I/O",
     "date": "2026-10-11",
