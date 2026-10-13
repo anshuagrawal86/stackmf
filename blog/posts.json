@@ -1,5 +1,21 @@
 [
   {
+    "slug": "mq-channel-status-retrying-resolution",
+    "title": "Diagnosing IBM MQ Channel State RETRYING and TCP/IP Heartbeat Timeouts on z/OS",
+    "date": "2026-10-13",
+    "category": "ABENDS & Diagnostics",
+    "tags": [
+      "IBM MQ",
+      "MQ for z/OS",
+      "Channels",
+      "RETRYING",
+      "Heartbeat",
+      "TCP/IP Contention"
+    ],
+    "reading_time": "9 min read",
+    "tldr": "IBM MQ Sender and Cluster-Sender channels frequently get stuck in RETRYING state following network drops or firewall idle timeouts. Learn how to diagnose CSQX messages, tune HBINT and DISCINT, and automate channel recovery."
+  },
+  {
     "slug": "racf-digital-certificate-expiry-automation",
     "title": "Automating RACF Digital Certificate Renewal and Key Ring Bindings for z/OS HTTPS",
     "date": "2026-10-12",
