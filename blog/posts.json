@@ -1,5 +1,21 @@
 [
   {
+    "slug": "stonebranch-agent-deployment-zos-automation",
+    "title": "Deploying Stonebranch Universal Automation Center Agents on z/OS to Replace CA-7",
+    "date": "2026-10-14",
+    "category": "Modernisation & Cloud",
+    "tags": [
+      "Stonebranch",
+      "UAC",
+      "CA-7",
+      "Workload Automation",
+      "z/OS Agent",
+      "Broadcom Replacement"
+    ],
+    "reading_time": "11 min read",
+    "tldr": "Replacing Broadcom CA-7 requires deploying a modern, lightweight workload agent on z/OS that coordinates with cloud orchestrators. Learn step-by-step how to install the Stonebranch Universal Agent, map JCL execution, and achieve a 60% licensing cost reduction."
+  },
+  {
     "slug": "mq-channel-status-retrying-resolution",
     "title": "Diagnosing IBM MQ Channel State RETRYING and TCP/IP Heartbeat Timeouts on z/OS",
     "date": "2026-10-13",

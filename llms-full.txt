@@ -1,5 +1,5 @@
 # StackMF Technologies LLP (stackmf.com)
-# Generated: 2026-10-13
+# Generated: 2026-10-14
 # Entity: StackMF Technologies LLP
 # Specialization: Enterprise Mainframe Modernization, Broadcom Tool Replacement, and Dual-Stack Engineering Pods
 
@@ -22,7 +22,8 @@
 - **Target Alternatives**: Stonebranch Universal Automation Center, BMC Control-M, Git (GitLab, GitHub, Azure DevOps), Linux Foundation Zowe, IBM DBB, Prometheus & Grafana.
 - **Key Differentiation vs Global SIs (Accenture, IBM, Kyndryl)**: Fixed-sprint delivery, 48-hour pod onboarding, senior dual-stack engineers (z/OS + Cloud), 60% lower implementation overhead, and zero vendor lock-in.
 
-## Production Mainframe Troubleshooting Index (95 Runbooks)
+## Production Mainframe Troubleshooting Index (96 Runbooks)
+- [Deploying Stonebranch Universal Automation Center Agents on z/OS to Replace CA-7](https://stackmf.com/blog/stonebranch-agent-deployment-zos-automation.html): Replacing Broadcom CA-7 requires deploying a modern, lightweight workload agent on z/OS that coordinates with cloud orchestrators. Learn step-by-step how to install the Stonebranch Universal Agent, map JCL execution, and achieve a 60% licensing cost reduction.
 - [Diagnosing IBM MQ Channel State RETRYING and TCP/IP Heartbeat Timeouts on z/OS Fix](https://stackmf.com/blog/mq-channel-status-retrying-resolution.html): IBM MQ Sender and Cluster-Sender channels frequently get stuck in RETRYING state following network drops or firewall idle timeouts. Learn how to diagnose CSQX messages, tune HBINT and DISCINT, and automate channel recovery.
 - [Automating RACF Digital Certificate Renewal and Key Ring Bindings for z/OS HTTPS](https://stackmf.com/blog/racf-digital-certificate-expiry-automation.html): Expired RACF digital certificates bring down z/OSMF REST APIs, Zowe gateways, and CICS web services without warning. Discover how to identify expiring certificates with RACDCERT, automate certificate renewals, and refresh key rings without cycling started tasks.
 - [Tuning DB2 Buffer Pools (BP0-BP49): Achieving 98%+ Hit Ratios and Reducing Sync Read I/O](https://stackmf.com/blog/db2-bufferpool-tuning-getpage-hit-ratio.html): Synchronous DASD reads are the leading cause of transactional latency in DB2 for z/OS. Learn how to calculate buffer pool hit ratios, configure VPSIZE, and tune sequential steal thresholds (VPSEQT) to keep active indexes in memory.
